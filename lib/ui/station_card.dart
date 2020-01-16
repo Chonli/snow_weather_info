@@ -23,7 +23,7 @@ class StationCard extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => DetailStationPage(
-                  _station.id,
+                  _station,
                 ),
               ));
         },
