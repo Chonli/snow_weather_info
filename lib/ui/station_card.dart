@@ -17,13 +17,15 @@ class StationCard extends StatelessWidget {
       elevation: 5.0,
       child: ListTile(
         title: Text(_station.name),
-        subtitle: Text('${_station.altitude}m ${_station.position}'),
+        subtitle: Text('${_station.altitude}m \n${_station.position}'),
         onTap: () {
-          MaterialPageRoute(
-            builder: (context) => DetailStationPage(
-              _station.id,
-            ),
-          );
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DetailStationPage(
+                  _station.id,
+                ),
+              ));
         },
       ),
     );

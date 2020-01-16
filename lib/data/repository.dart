@@ -5,8 +5,9 @@ import 'package:http/http.dart' as http;
 //https://donneespubliques.meteofrance.fr/donnees_libres/Txt/Nivo/nivo.20200114.csv
 
 class Repository {
-  Future<List<Station>> getStations() async {
-    List<Station> list;
+  List<Station> list;
+
+  Future<bool> initData() async {
     final response = await http.get(
         'https://donneespubliques.meteofrance.fr/donnees_libres/Txt/Nivo/postesNivo.json');
 
@@ -18,10 +19,13 @@ class Repository {
       list = rest
           .map<Station>((json) => Station.fromJson(json["properties"]))
           .toList();
-      print(list);
     } else {
-      throw Exception('Failed to load post');
+      return false;
     }
+    return true;
+  }
+
+  List<Station> getStations() {
     return list;
   }
 }
