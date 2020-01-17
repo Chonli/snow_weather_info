@@ -1,6 +1,6 @@
-import 'dart:collection';
 import 'dart:convert';
 import 'package:csv/csv.dart';
+import 'package:intl/intl.dart';
 import 'package:snow_weather_info/model/data_station.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:http/http.dart' as http;
@@ -21,18 +21,23 @@ class Repository {
   }
 
   Future<void> _initStationData() async {
-    var nowStr = DateTime.now();
-    var response = await http.get(
-        'https://donneespubliques.meteofrance.fr/donnees_libres/Txt/Nivo/nivo.20200114.csv');
+    var nowStr = DateFormat('yyyyMMdd')
+        .format(DateTime.now().subtract(Duration(days: 1)));
+    var url =
+        'https://donneespubliques.meteofrance.fr/donnees_libres/Txt/Nivo/nivo.$nowStr.csv';
+    print(url);
+    var response = await http.get(url);
 
     if (response.statusCode == 200) {
-      var cvsResult =
-          const CsvToListConverter().convert(response.body, fieldDelimiter: ';', eol:'\n', shouldParseNumbers: false);
+      var cvsResult = const CsvToListConverter().convert(response.body,
+          fieldDelimiter: ';', eol: '\n', shouldParseNumbers: false);
+
       if (cvsResult.length > 1) {
         cvsResult.removeAt(0);
         listDataStation = cvsResult.map<DataStation>((line) {
           return DataStation.fromList(line);
         }).toList();
+        print("get data OK");
       } else {
         throw Exception('Failed to parse data of stations');
       }
@@ -61,6 +66,10 @@ class Repository {
   }
 
   DataStation getDataOfStation(String id) {
-    return listDataStation.firstWhere((d) => d.id == id);
+    try {
+      return listDataStation.firstWhere((d) => d.id == id);
+    } catch (_) {
+      return null;
+    }
   }
 }

@@ -17,13 +17,24 @@ class DetailStationPage extends StatelessWidget {
         appBar: AppBar(
           title: Text(_station.name),
         ),
-        body: Center(child: data == null ?
-        Text('Pas de donnée pour cette station météo') :
-        Column(
-          children: <Widget>[
-            Text("Hauteur de neige : ${data.snowHeight}m"),
-            Text("Vent moyen : ${data.speedWind}m/s")
-          ],
-        )));
+        body: data == null
+            ? Center(child: Text('Pas de donnée pour cette station météo'))
+            : _pageBody(data));
+  }
+
+  Widget _pageBody(DataStation data) {
+    return Center(
+        child: Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text("Temperature : ${data.temperature}°C"),
+        Text("Temperature Min 24h : ${data.temperatureMin24}°C"),
+        Text("Temperature Max 24h : ${data.temperatureMax24}°C"),
+        Text("Hauteur de neige : ${data.snowHeight}m"),
+        Text("Hauteur de neige fraiches : ${data.snowNewHeight}m"),
+        Text("Vent moyen : ${data.speedWind}m/s")
+      ],
+    ));
   }
 }

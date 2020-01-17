@@ -1,25 +1,43 @@
 class DataStation {
   String _id;
   DateTime _date;
+  double _temperature;
+  double _temperatureMin24;
+  double _temperatureMax24;
   double _speedWind;
   double _snowHeight;
-
-  DataStation(this._id, this._date, this._speedWind, this._snowHeight);
+  double _snowNewHeight;
 
   String get id => _id;
   DateTime get date => _date;
+  double get temperature => _temperature;
+  double get temperatureMin24 => _temperatureMin24;
+  double get temperatureMax24 => _temperatureMax24;
   double get speedWind => _speedWind;
   double get snowHeight => _snowHeight;
+  double get snowNewHeight => _snowNewHeight;
 
   DataStation.fromList(List<dynamic> data) {
     _id = data[0];
-    _speedWind = double.parse(data[4]);
-    _snowHeight = data[22] != 'mq' ? double.parse(data[22]) : 0.0;
+    _temperature = double.parse(data[5]) - 273.15;
+    //_temperatureMin24 = double.parse(data[19]) - 273.15;
+    //_temperatureMax24 = double.parse(data[21]) - 273.15;
+    _speedWind = _getDoubleValue(data[4], 0.0);
+    _snowHeight = _getDoubleValue(data[22], 0.0);
+    _snowNewHeight = _getDoubleValue(data[23], 0.0);
+  }
+
+  double _getDoubleValue(double data, double defaultVal) {
+    return double.parse(_getValue(data, defaultVal));
+  }
+
+  dynamic _getValue(dynamic data, dynamic defaultVal) {
+    return data != 'mq' ? data : defaultVal;
   }
 
   @override
   String toString() {
-    return '$_id : $_speedWind m/s, $_snowHeight m';
+    return '$_id : $_temperature °C $_speedWind m/s, $_snowHeight m';
   }
 }
 /*0 = "numer_sta"
