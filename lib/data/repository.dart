@@ -17,6 +17,7 @@ class Repository {
       try {
         await Future.wait([_initStation(), _initStationData()]);
         _isInitialise = true;
+        _updateHasData();
       } catch (e) {
         print("init error : " + e.toString());
       }
@@ -26,7 +27,7 @@ class Repository {
 
   Future<void> _initStationData() async {
     var nowStr = DateFormat('yyyyMMdd')
-        .format(DateTime.now().subtract(Duration(days: 1)));
+        .format(DateTime.now().subtract(Duration(days: 1, hours: 9)));
     var url =
         'https://donneespubliques.meteofrance.fr/donnees_libres/Txt/Nivo/nivo.$nowStr.csv';
     print(url);
@@ -62,6 +63,15 @@ class Repository {
           .toList();
     } else {
       throw Exception('Failed to load station');
+    }
+  }
+
+  void _updateHasData() {
+    for (var station in _listStation) {
+      try {
+        _listDataStation.firstWhere((d) => d.id == station.id);
+        station.hasData = true;
+      } catch (_) {}
     }
   }
 

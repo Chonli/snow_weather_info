@@ -32,22 +32,26 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Repository repository = Provider.of<Repository>(context);
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(title),
-        ),
-        body: FutureBuilder(
-            future: repository.initData(),
-            builder: (context, snapshot) {
-              if (snapshot.hasError)
-                return Center(
-                    child: Text('Initialisation erreur: ${snapshot.error}'));
-              switch (snapshot.connectionState) {
-                case ConnectionState.waiting:
-                  return Center(child: CircularProgressIndicator());
-                default:
-                  return HomePage();
-              }
-            }));
+    return FutureBuilder(
+        future: repository.initData(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError)
+            return Scaffold(
+                appBar: AppBar(
+                  title: Text(title),
+                ),
+                body: Center(
+                    child: Text('Initialisation erreur: ${snapshot.error}')));
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+              return Scaffold(
+                  appBar: AppBar(
+                    title: Text(title),
+                  ),
+                  body: Center(child: CircularProgressIndicator()));
+            default:
+              return HomePage(title: title);
+          }
+        });
   }
 }

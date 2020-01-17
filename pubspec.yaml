@@ -28,6 +28,7 @@ dependencies:
   latlong: ^0.6.1
   csv: ^4.0.3
   intl: ^0.16.1
+  flutter_map: any
 
 dev_dependencies:
   flutter_test:
