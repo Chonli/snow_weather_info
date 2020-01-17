@@ -4,7 +4,9 @@ class DataStation {
   double _temperature;
   double _temperatureMin24;
   double _temperatureMax24;
+  double _temperatureSnow;
   double _speedWind;
+  double _directionWind;
   double _snowHeight;
   double _snowNewHeight;
 
@@ -13,26 +15,28 @@ class DataStation {
   double get temperature => _temperature;
   double get temperatureMin24 => _temperatureMin24;
   double get temperatureMax24 => _temperatureMax24;
+  double get temperatureSnow => _temperatureSnow;
   double get speedWind => _speedWind;
+  double get directionWind => _directionWind;
   double get snowHeight => _snowHeight;
   double get snowNewHeight => _snowNewHeight;
 
   DataStation.fromList(List<dynamic> data) {
     _id = data[0];
-    _temperature = double.parse(data[5]) - 273.15;
-    //_temperatureMin24 = double.parse(data[19]) - 273.15;
-    //_temperatureMax24 = double.parse(data[21]) - 273.15;
+    _date =
+        DateTime.parse(data[1].substring(0, 8) + "T" + data[1].substring(8));
+    _temperature = _getDoubleValue(data[5], 0.0) - 273.15;
+    _temperatureMin24 = _getDoubleValue(data[19], 0.0) - 273.15;
+    _temperatureMax24 = _getDoubleValue(data[21], 0.0) - 273.15;
+    _temperatureSnow = _getDoubleValue(data[28], 0.0) - 273.15;
     _speedWind = _getDoubleValue(data[4], 0.0);
+    _directionWind = _getDoubleValue(data[5], 0.0);
     _snowHeight = _getDoubleValue(data[22], 0.0);
     _snowNewHeight = _getDoubleValue(data[23], 0.0);
   }
 
-  double _getDoubleValue(double data, double defaultVal) {
-    return double.parse(_getValue(data, defaultVal));
-  }
-
-  dynamic _getValue(dynamic data, dynamic defaultVal) {
-    return data != 'mq' ? data : defaultVal;
+  double _getDoubleValue(dynamic data, double defaultVal) {
+    return data != 'mq' ? double.parse(data) : defaultVal;
   }
 
   @override

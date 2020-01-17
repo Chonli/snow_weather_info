@@ -8,16 +8,20 @@ import 'package:http/http.dart' as http;
 //
 
 class Repository {
-  List<Station> listStation;
-  List<DataStation> listDataStation;
+  bool _isInitialise = false;
+  List<Station> _listStation;
+  List<DataStation> _listDataStation;
 
   Future<bool> initData() async {
-    try {
-      await Future.wait([_initStation(), _initStationData()]);
-      return true;
-    } catch (e) {
-      return false;
+    if (!_isInitialise) {
+      try {
+        await Future.wait([_initStation(), _initStationData()]);
+        _isInitialise = true;
+      } catch (e) {
+        print("init error : " + e.toString());
+      }
     }
+    return _isInitialise;
   }
 
   Future<void> _initStationData() async {
@@ -34,7 +38,7 @@ class Repository {
 
       if (cvsResult.length > 1) {
         cvsResult.removeAt(0);
-        listDataStation = cvsResult.map<DataStation>((line) {
+        _listDataStation = cvsResult.map<DataStation>((line) {
           return DataStation.fromList(line);
         }).toList();
         print("get data OK");
@@ -53,7 +57,7 @@ class Repository {
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
       var rest = data["features"] as List;
-      listStation = rest
+      _listStation = rest
           .map<Station>((json) => Station.fromJson(json["properties"]))
           .toList();
     } else {
@@ -62,12 +66,12 @@ class Repository {
   }
 
   List<Station> getStations() {
-    return listStation;
+    return _listStation;
   }
 
   DataStation getDataOfStation(String id) {
     try {
-      return listDataStation.firstWhere((d) => d.id == id);
+      return _listDataStation.firstWhere((d) => d.id == id);
     } catch (_) {
       return null;
     }
