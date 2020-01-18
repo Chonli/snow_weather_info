@@ -6,6 +6,8 @@ import 'package:snow_weather_info/data/repository.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/ui/station_card.dart';
 
+import 'detail_station_page.dart';
+
 class HomePage extends StatefulWidget {
   final String title;
   const HomePage({Key key, this.title}) : super(key: key);
@@ -83,9 +85,17 @@ class _HomePageState extends State<HomePage> {
           width: 80.0,
           height: 80.0,
           point: st.position,
-          builder: (ctx) => Icon(
-                Icons.place,
+          builder: (ctx) => IconButton(
+                icon: Icon(Icons.place),
                 color: st.hasData ? Colors.black : Colors.grey,
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailStationPage(
+                      st,
+                    ),
+                  ),
+                ),
               )));
     }
   }

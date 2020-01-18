@@ -27,15 +27,13 @@ class StationCard extends StatelessWidget {
           '${_station.altitude}m \n${_station.position}',
           style: _textStyle,
         ),
-        onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => DetailStationPage(
-                  _station,
-                ),
-              ));
-        },
+        onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DetailStationPage(
+                _station,
+              ),
+            )),
       ),
     );
   }
