@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 import 'package:csv/csv.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +11,7 @@ import 'package:http/http.dart' as http;
 class Repository {
   bool _isInitialise = false;
   List<Station> _listStation;
-  List<DataStation> _listDataStation;
+  HashMap<String, List<DataStation>> _hashDataStation;
 
   Future<bool> initData() async {
     if (!_isInitialise) {
@@ -26,28 +27,29 @@ class Repository {
   }
 
   Future<void> _initStationData() async {
-    var nowStr = DateFormat('yyyyMMdd')
-        .format(DateTime.now().subtract(Duration(days: 1, hours: 9)));
-    var url =
-        'https://donneespubliques.meteofrance.fr/donnees_libres/Txt/Nivo/nivo.$nowStr.csv';
-    print(url);
-    var response = await http.get(url);
+    _hashDataStation = HashMap();
+    for (int i = 0; i < 7; ++i) {
+      var nowStr = DateFormat('yyyyMMdd')
+          .format(DateTime.now().subtract(Duration(days: i)));
+      var url =
+          'https://donneespubliques.meteofrance.fr/donnees_libres/Txt/Nivo/nivo.$nowStr.csv';
+      print(url);
+      var response = await http.get(url);
 
-    if (response.statusCode == 200) {
-      var cvsResult = const CsvToListConverter().convert(response.body,
-          fieldDelimiter: ';', eol: '\n', shouldParseNumbers: false);
+      if (response.statusCode == 200) {
+        var cvsResult = const CsvToListConverter().convert(response.body,
+            fieldDelimiter: ';', eol: '\n', shouldParseNumbers: false);
 
-      if (cvsResult.length > 1) {
-        cvsResult.removeAt(0);
-        _listDataStation = cvsResult.map<DataStation>((line) {
-          return DataStation.fromList(line);
-        }).toList();
-        print("get data OK");
-      } else {
-        throw Exception('Failed to parse data of stations');
+        if (cvsResult.length > 1) {
+          if (cvsResult[0].length > 2) {
+            cvsResult.removeAt(0);
+            _hashDataStation[nowStr] = cvsResult.map<DataStation>((line) {
+              return DataStation.fromList(line);
+            }).toList();
+            print("get data OK");
+          }
+        }
       }
-    } else {
-      throw Exception('Failed to load data of station');
     }
   }
 
@@ -68,10 +70,12 @@ class Repository {
 
   void _updateHasData() {
     for (var station in _listStation) {
-      try {
-        _listDataStation.firstWhere((d) => d.id == station.id);
-        station.hasData = true;
-      } catch (_) {}
+      _hashDataStation.forEach((date, listData) {
+        try {
+          listData.firstWhere((d) => d.id == station.id);
+          station.hasData = true;
+        } catch (_) {}
+      });
     }
   }
 
@@ -79,11 +83,16 @@ class Repository {
     return _listStation;
   }
 
-  DataStation getDataOfStation(String id) {
-    try {
-      return _listDataStation.firstWhere((d) => d.id == id);
-    } catch (_) {
-      return null;
-    }
+  HashMap<DateTime, DataStation> getDataOfStation(String id) {
+    HashMap<DateTime, DataStation> ret;
+    _hashDataStation.forEach((date, listData) {
+      try {
+        var data = listData.firstWhere((d) => d.id == id);
+        if (ret == null) ret = HashMap<DateTime, DataStation>();
+        ret[data.date] = data;
+      } catch (_) {}
+    });
+
+    return ret;
   }
 }
