@@ -1,4 +1,6 @@
 class DataStation {
+  static const double kelvin = 273.15;
+
   String _id;
   DateTime _date;
   double _temperature;
@@ -10,6 +12,15 @@ class DataStation {
   double _snowHeight;
   double _snowNewHeight;
 
+  bool _hasTemperature;
+  bool _hasTemperatureMin24;
+  bool _hasTemperatureMax24;
+  bool _hasTemperatureSnow;
+  bool _hasSpeedWind;
+  bool _hasDirectionWind;
+  bool _hasSnowHeight;
+  bool _hasSnowNewHeight;
+
   String get id => _id;
   DateTime get date => _date;
   double get temperature => _temperature;
@@ -20,23 +31,61 @@ class DataStation {
   double get directionWind => _directionWind;
   double get snowHeight => _snowHeight;
   double get snowNewHeight => _snowNewHeight;
+  bool get hasTemperature => _hasTemperature;
+  bool get hasTemperatureMin24 => _hasTemperatureMin24;
+  bool get hasTemperatureMax24 => _hasTemperatureMax24;
+  bool get hasTemperatureSnow => _hasTemperatureSnow;
+  bool get hasSpeedWind => _hasSpeedWind;
+  bool get hasDirectionWind => _hasDirectionWind;
+  bool get hasSnowHeight => _hasSnowHeight;
+  bool get hasSnowNewHeight => _hasSnowNewHeight;
 
   DataStation.fromList(List<dynamic> data) {
     _id = data[0];
     _date =
         DateTime.parse(data[1].substring(0, 8) + "T" + data[1].substring(8));
-    _temperature = _getDoubleValue(data[5], 0.0) - 273.15;
-    _temperatureMin24 = _getDoubleValue(data[19], 0.0) - 273.15;
-    _temperatureMax24 = _getDoubleValue(data[21], 0.0) - 273.15;
-    _temperatureSnow = _getDoubleValue(data[28], 0.0) - 273.15;
-    _speedWind = _getDoubleValue(data[4], 0.0);
-    _directionWind = _getDoubleValue(data[5], 0.0);
-    _snowHeight = _getDoubleValue(data[22], 0.0);
-    _snowNewHeight = _getDoubleValue(data[23], 0.0);
+    _hasTemperature = _hasDoubleValue(data[5]);
+    if (_hasTemperature) {
+      _temperature = _getDoubleValue(data[5]) - kelvin;
+    }
+    _hasTemperatureMin24 = _hasDoubleValue(data[19]);
+    if (_hasTemperatureMin24) {
+      _temperatureMin24 = _getDoubleValue(data[19]) - kelvin;
+    }
+    _hasTemperatureMax24 = _hasDoubleValue(data[21]);
+    if (_hasTemperatureMax24) {
+      _temperatureMax24 = _getDoubleValue(data[21]) - kelvin;
+    }
+    _hasTemperatureSnow = _hasDoubleValue(data[28]);
+    if (_hasTemperatureSnow) {
+      _temperatureSnow = _getDoubleValue(data[28]) - kelvin;
+    }
+    _hasSpeedWind = _hasDoubleValue(data[4]);
+    if (_hasSpeedWind) {
+      _speedWind = _getDoubleValue(data[4]);
+    }
+    _hasDirectionWind = _hasDoubleValue(data[3]);
+    if (_hasDirectionWind) {
+      _directionWind = _getDoubleValue(data[3]);
+    }
+    _hasSnowHeight = _hasDoubleValue(data[22]);
+    if (_hasSnowHeight) {
+      _snowHeight = _getDoubleValue(data[22]);
+    }
+    _hasSnowNewHeight = _hasDoubleValue(data[23]);
+    if (_hasSnowNewHeight) {
+      _snowNewHeight = _getDoubleValue(data[23]);
+    }
   }
 
-  double _getDoubleValue(dynamic data, double defaultVal) {
-    return data != 'mq' ? double.parse(data) : defaultVal;
+  double _getDoubleValue(dynamic data) {
+    return double.parse(data);
+  }
+
+  bool _hasDoubleValue(dynamic data) {
+    return data != 'mq'
+        ? (double.tryParse(data) != null ? true : false)
+        : false;
   }
 
   @override
@@ -44,7 +93,8 @@ class DataStation {
     return '$_id : $_temperature °C $_speedWind m/s, $_snowHeight m';
   }
 }
-/*0 = "numer_sta"
+/*
+0 = "numer_sta"
 1 = "date"
 2 = "haut_sta"
 3 = "dd"

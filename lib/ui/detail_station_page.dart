@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:snow_weather_info/data/repository.dart';
@@ -25,19 +23,20 @@ class _DetailStationPageState extends State<DetailStationPage> {
     var data = repository.getDataOfStation(widget._station.id);
     return Scaffold(
         appBar: AppBar(
-          title: Text(widget._station.name +
-              " (" +
-              widget._station.altitude.toString() +
-              "m)"),
+          title: Text(
+            widget._station.name +
+                " (" +
+                widget._station.altitude.toString() +
+                "m)",
+          ),
         ),
         body: data == null
             ? Center(child: Text('Pas de donnée pour cette station météo'))
             : _pageBody(data));
   }
 
-  Widget _pageBody(HashMap<DateTime, DataStation> data) {
-    var listDate = data.keys.toList();
-    bool isMoreOne = listDate.length > 1;
+  Widget _pageBody(List<DataStation> data) {
+    bool isMoreOne = data.length > 1;
 
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,12 +59,12 @@ class _DetailStationPageState extends State<DetailStationPage> {
                       },
                     )
                   : Container(),
-              Text(listDate[selectedIndex].toString()),
+              Text(data[selectedIndex].date.toString()),
               isMoreOne
                   ? IconButton(
                       icon: Icon(Icons.arrow_forward),
                       onPressed: () {
-                        if (selectedIndex < listDate.length - 1) {
+                        if (selectedIndex < data.length - 1) {
                           setState(() {
                             selectedIndex++;
                           });
@@ -75,8 +74,7 @@ class _DetailStationPageState extends State<DetailStationPage> {
                   : Container(),
             ],
           ),
-          Expanded(
-              child: BodyDetailStation(data.values.toList()[selectedIndex])),
+          Expanded(child: BodyDetailStation(data[selectedIndex])),
           Text("Informations créées à partir de données de Météo-France"),
         ]);
   }

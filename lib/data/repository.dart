@@ -43,9 +43,17 @@ class Repository {
         if (cvsResult.length > 1) {
           if (cvsResult[0].length > 2) {
             cvsResult.removeAt(0);
-            _hashDataStation[nowStr] = cvsResult.map<DataStation>((line) {
+            var listData = cvsResult.map<DataStation>((line) {
               return DataStation.fromList(line);
             }).toList();
+
+            listData.forEach((d) {
+              if (!_hashDataStation.containsKey(d.id)) {
+                _hashDataStation[d.id] = List<DataStation>();
+              }
+              _hashDataStation[d.id].add(d);
+            });
+
             print("get data OK");
           }
         }
@@ -70,12 +78,7 @@ class Repository {
 
   void _updateHasData() {
     for (var station in _listStation) {
-      _hashDataStation.forEach((date, listData) {
-        try {
-          listData.firstWhere((d) => d.id == station.id);
-          station.hasData = true;
-        } catch (_) {}
-      });
+      station.hasData = _hashDataStation.containsKey(station.id);
     }
   }
 
@@ -83,16 +86,7 @@ class Repository {
     return _listStation;
   }
 
-  HashMap<DateTime, DataStation> getDataOfStation(String id) {
-    HashMap<DateTime, DataStation> ret;
-    _hashDataStation.forEach((date, listData) {
-      try {
-        var data = listData.firstWhere((d) => d.id == id);
-        if (ret == null) ret = HashMap<DateTime, DataStation>();
-        ret[data.date] = data;
-      } catch (_) {}
-    });
-
-    return ret;
+  List<DataStation> getDataOfStation(String id) {
+    return _hashDataStation[id];
   }
 }

@@ -10,17 +10,34 @@ class BodyDetailStation extends StatelessWidget {
     return Center(
       child: Column(
         children: <Widget>[
-          Text("Temperature : ${_data.temperature.toStringAsFixed(1)}°C"),
-          Text(
-              "Temperature Min 24h : ${_data.temperatureMin24.toStringAsFixed(1)}°C"),
-          Text(
-              "Temperature Max 24h : ${_data.temperatureMax24.toStringAsFixed(1)}°C"),
-          Text("Hauteur de neige : ${_data.snowHeight}m"),
-          Text("Hauteur de neige fraiches : ${_data.snowNewHeight}m"),
-          Text(
-              "Température de surface de la neige: ${_data.temperatureSnow.toStringAsFixed(1)}°C"),
-          Text("Direction vent moyen : ${_data.directionWind}°"),
-          Text("Vent moyen : ${_data.speedWind}m/s"),
+          _data.hasTemperature
+              ? Text("Temperature : ${_data.temperature.toStringAsFixed(1)}°C")
+              : Container(),
+          _data.hasTemperatureMin24
+              ? Text(
+                  "Temperature Min 24h : ${_data.temperatureMin24.toStringAsFixed(1)}°C")
+              : Container(),
+          _data.hasTemperatureMax24
+              ? Text(
+                  "Temperature Max 24h : ${_data.temperatureMax24.toStringAsFixed(1)}°C")
+              : Container(),
+          _data.hasSnowHeight
+              ? Text("Hauteur de neige : ${_data.snowHeight * 100}cm")
+              : Container(),
+          _data.hasSnowNewHeight
+              ? Text(
+                  "Hauteur de neige fraiches : ${_data.snowNewHeight * 100}cm")
+              : Container(),
+          _data.hasTemperatureSnow
+              ? Text(
+                  "Température de surface de la neige: ${_data.temperatureSnow.toStringAsFixed(1)}°C")
+              : Container(),
+          _data.hasDirectionWind
+              ? Text("Direction vent moyen : ${_data.directionWind}°")
+              : Container(),
+          _data.hasSpeedWind
+              ? Text("Vent moyen : ${_data.speedWind}m/s")
+              : Container(),
         ],
       ),
     );
