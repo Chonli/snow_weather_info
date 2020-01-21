@@ -9,6 +9,7 @@ class DataStationWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           _data.hasTemperature
               ? Text("Temperature : ${_data.temperature.toStringAsFixed(1)}°C")

@@ -22,7 +22,7 @@ class DataStationChart extends StatelessWidget {
           tsdatatemperature.add(TimeSeriesData(d.date, d.temperature));
         }
         if (d.hasSnowNewHeight) {
-          tsdatanewsnow.add(TimeSeriesData(d.date, d.snowNewHeight));
+          tsdatanewsnow.add(TimeSeriesData(d.date, d.snowNewHeight * 100));
         }
       }
     } else {
@@ -38,7 +38,7 @@ class DataStationChart extends StatelessWidget {
         domainFn: (TimeSeriesData data, _) => data.time,
         measureFn: (TimeSeriesData data, _) => data.data,
         data: tsdatasnow,
-      ),
+      ), //..setAttribute(charts.measureAxisIdKey, 'axis snow'),
       charts.Series<TimeSeriesData, DateTime>(
         id: 'SnowNewHeight',
         displayName: "Neige fraîche",
@@ -47,6 +47,7 @@ class DataStationChart extends StatelessWidget {
         measureFn: (TimeSeriesData data, _) => data.data,
         data: tsdatanewsnow,
       )..setAttribute(charts.rendererIdKey, 'customBar'),
+      //..setAttribute(charts.measureAxisIdKey, 'axis snow'),
       charts.Series<TimeSeriesData, DateTime>(
         id: 'Temperature',
         displayName: "Temperature",
@@ -54,7 +55,7 @@ class DataStationChart extends StatelessWidget {
         domainFn: (TimeSeriesData data, _) => data.time,
         measureFn: (TimeSeriesData data, _) => data.data,
         data: tsdatatemperature,
-      ),
+      ), //..setAttribute(charts.measureAxisIdKey, 'axis temperature'),
     ];
 
     return charts.TimeSeriesChart(
@@ -64,10 +65,21 @@ class DataStationChart extends StatelessWidget {
       behaviors: [
         charts.SeriesLegend(position: charts.BehaviorPosition.bottom),
       ],
+      layoutConfig: charts.LayoutConfig(
+          leftMarginSpec: charts.MarginSpec.fixedPixel(30),
+          topMarginSpec: charts.MarginSpec.fixedPixel(10),
+          rightMarginSpec: charts.MarginSpec.fixedPixel(10),
+          bottomMarginSpec: charts.MarginSpec.fixedPixel(10)),
+      disjointMeasureAxes: LinkedHashMap<String, charts.NumericAxisSpec>.from({
+        'axis snow': charts.NumericAxisSpec(),
+        'axis temperature': charts.NumericAxisSpec(),
+      }),
       customSeriesRenderers: [
-        new charts.BarRendererConfig(
+        charts.BarRendererConfig(
             // ID used to link series to this renderer.
-            customRendererId: 'customBar')
+            customRendererId: 'customBar',
+            cornerStrategy: const charts.ConstCornerStrategy(30),
+            fillPattern: charts.FillPatternType.forwardHatch)
       ],
     );
   }

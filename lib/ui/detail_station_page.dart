@@ -76,7 +76,10 @@ class _DetailStationPageState extends State<DetailStationPage> {
             ],
           ),
           Expanded(child: DataStationWidget(data[selectedIndex])),
-          Expanded(child: DataStationChart(data)),
+          Expanded(
+            child: DataStationChart(data),
+            flex: 2,
+          ),
           Text("Informations créées à partir de données de Météo-France"),
         ]);
   }
