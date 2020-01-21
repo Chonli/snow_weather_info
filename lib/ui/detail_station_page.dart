@@ -3,7 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:snow_weather_info/data/repository.dart';
 import 'package:snow_weather_info/model/data_station.dart';
 import 'package:snow_weather_info/model/station.dart';
-import 'package:snow_weather_info/ui/body_detail_station.dart';
+import 'package:snow_weather_info/ui/data_station_chart.dart';
+import 'package:snow_weather_info/ui/data_station_widget.dart';
 
 class DetailStationPage extends StatefulWidget {
   final Station _station;
@@ -74,7 +75,8 @@ class _DetailStationPageState extends State<DetailStationPage> {
                   : Container(),
             ],
           ),
-          Expanded(child: BodyDetailStation(data[selectedIndex])),
+          Expanded(child: DataStationWidget(data[selectedIndex])),
+          Expanded(child: DataStationChart(data)),
           Text("Informations créées à partir de données de Météo-France"),
         ]);
   }

@@ -29,6 +29,8 @@ dependencies:
   csv: ^4.0.3
   intl: ^0.16.1
   flutter_map: any
+  charts_flutter: ^0.8.1
+
 
 dev_dependencies:
   flutter_test:

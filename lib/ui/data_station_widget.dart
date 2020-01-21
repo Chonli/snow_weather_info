@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:snow_weather_info/model/data_station.dart';
 
-class BodyDetailStation extends StatelessWidget {
+class DataStationWidget extends StatelessWidget {
   final DataStation _data;
-  const BodyDetailStation(this._data);
+  const DataStationWidget(this._data);
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +22,12 @@ class BodyDetailStation extends StatelessWidget {
                   "Temperature Max 24h : ${_data.temperatureMax24.toStringAsFixed(1)}°C")
               : Container(),
           _data.hasSnowHeight
-              ? Text("Hauteur de neige : ${_data.snowHeight * 100}cm")
+              ? Text(
+                  "Hauteur de neige : ${(_data.snowHeight * 100).toStringAsFixed(1)}cm")
               : Container(),
           _data.hasSnowNewHeight
               ? Text(
-                  "Hauteur de neige fraiches : ${_data.snowNewHeight * 100}cm")
+                  "Hauteur de neige fraiches : ${(_data.snowNewHeight * 100).toStringAsFixed(1)}cm")
               : Container(),
           _data.hasTemperatureSnow
               ? Text(

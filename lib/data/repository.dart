@@ -59,6 +59,9 @@ class Repository {
         }
       }
     }
+    //sort list data by date
+    _hashDataStation.values
+        .forEach((l) => l.sort((a, b) => b.date.compareTo(a.date)));
   }
 
   Future<void> _initStation() async {
@@ -71,6 +74,7 @@ class Repository {
       _listStation = rest
           .map<Station>((json) => Station.fromJson(json["properties"]))
           .toList();
+      _listStation.sort((a, b) => a.name.compareTo(b.name));
     } else {
       throw Exception('Failed to load station');
     }
