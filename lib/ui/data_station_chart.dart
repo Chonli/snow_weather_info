@@ -10,6 +10,7 @@ class DataStationChart extends StatelessWidget {
   Widget build(BuildContext context) {
     List<TimeSeriesData> tsdatasnow = [];
     List<TimeSeriesData> tsdatanewsnow = [];
+    List<TimeSeriesData> tsdatasnowtemperature = [];
     List<TimeSeriesDataTemp> tsdatatemperature = [];
     if (_data != null) {
       for (var d in _data) {
@@ -23,6 +24,9 @@ class DataStationChart extends StatelessWidget {
             d.hasTemperatureMin24 ? d.temperatureMin24 : d.temperature,
             d.hasTemperatureMax24 ? d.temperatureMax24 : d.temperature,
           ));
+        }
+        if (d.hasTemperatureSnow) {
+          tsdatasnowtemperature.add(TimeSeriesData(d.date, d.temperatureSnow));
         }
         if (d.hasSnowNewHeight) {
           tsdatanewsnow.add(TimeSeriesData(d.date, d.snowNewHeight * 100));
@@ -56,12 +60,20 @@ class DataStationChart extends StatelessWidget {
       charts.Series<TimeSeriesDataTemp, DateTime>(
         id: 'Temperature',
         displayName: "Temperature",
-        colorFn: (_, __) => charts.MaterialPalette.deepOrange.shadeDefault,
+        colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
         domainFn: (TimeSeriesDataTemp data, _) => data.time,
         measureFn: (TimeSeriesDataTemp data, _) => data.temp,
         measureLowerBoundFn: (TimeSeriesDataTemp data, _) => data.tempMin,
         measureUpperBoundFn: (TimeSeriesDataTemp data, _) => data.tempMax,
         data: tsdatatemperature,
+      ),
+      charts.Series<TimeSeriesData, DateTime>(
+        id: 'Temperature Snow',
+        displayName: "Temperature Neige",
+        colorFn: (_, __) => charts.MaterialPalette.pink.shadeDefault,
+        domainFn: (TimeSeriesData data, _) => data.time,
+        measureFn: (TimeSeriesData data, _) => data.data,
+        data: tsdatasnowtemperature,
       ),
     ];
 
