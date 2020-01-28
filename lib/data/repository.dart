@@ -2,6 +2,7 @@ import 'dart:collection';
 import 'dart:convert';
 import 'package:csv/csv.dart';
 import 'package:intl/intl.dart';
+import 'package:snow_weather_info/data/database_helper.dart';
 import 'package:snow_weather_info/model/data_station.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:http/http.dart' as http;
@@ -65,18 +66,23 @@ class Repository {
   }
 
   Future<void> _initStation() async {
-    final response = await http.get(
-        'https://donneespubliques.meteofrance.fr/donnees_libres/Txt/Nivo/postesNivo.json');
+    _listStation = await DatabaseHelper.instance.getAllStation();
+    if (_listStation.length == 0) {
+      final response = await http.get(
+          'https://donneespubliques.meteofrance.fr/donnees_libres/Txt/Nivo/postesNivo.json');
 
-    if (response.statusCode == 200) {
-      var data = json.decode(response.body);
-      var rest = data["features"] as List;
-      _listStation = rest
-          .map<Station>((json) => Station.fromJson(json["properties"]))
-          .toList();
-      _listStation.sort((a, b) => a.name.compareTo(b.name));
-    } else {
-      throw Exception('Failed to load station');
+      if (response.statusCode == 200) {
+        var data = json.decode(response.body);
+        var rest = data["features"] as List;
+        _listStation = rest
+            .map<Station>((json) => Station.fromJson(json["properties"]))
+            .toList();
+        _listStation.sort((a, b) => a.name.compareTo(b.name));
+        _listStation.forEach(
+            (s) async => await DatabaseHelper.instance.insertStation(s));
+      } else {
+        throw Exception('Failed to load station');
+      }
     }
   }
 

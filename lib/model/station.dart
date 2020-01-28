@@ -1,4 +1,5 @@
 import 'package:latlong/latlong.dart';
+import 'package:snow_weather_info/data/database_helper.dart';
 
 class Station {
   //"Latitude": "46.341167", "Longitude": "6.708167", "ID": "07454", "Altitude": "1535", "Nom": "Bernex"
@@ -23,6 +24,24 @@ class Station {
     _position =
         LatLng(double.parse(json['Latitude']), double.parse(json['Longitude']));
     _altitude = int.parse(json['Altitude']);
+  }
+
+  Station.fromMap(Map<String, dynamic> map) {
+    _id = map[columnId];
+    _name = map[columnName];
+    _position = LatLng(
+        double.parse(map[columnLatitude]), double.parse(map[columnLongitude]));
+    _altitude = int.parse(map[columnAltitude]);
+  }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      columnId: _id,
+      columnName: _name,
+      columnLatitude: _position.latitude,
+      columnLongitude: _position.longitude,
+      columnAltitude: _altitude
+    };
   }
 
   @override
