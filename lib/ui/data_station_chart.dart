@@ -59,7 +59,7 @@ class DataStationChart extends StatelessWidget {
     var seriesTemperature = [
       charts.Series<TimeSeriesDataTemp, DateTime>(
         id: 'Temperature',
-        displayName: "Temperature",
+        displayName: "Température",
         colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
         domainFn: (TimeSeriesDataTemp data, _) => data.time,
         measureFn: (TimeSeriesDataTemp data, _) => data.temp,
@@ -69,7 +69,7 @@ class DataStationChart extends StatelessWidget {
       ),
       charts.Series<TimeSeriesData, DateTime>(
         id: 'Temperature Snow',
-        displayName: "Temperature Neige",
+        displayName: "Température Neige",
         colorFn: (_, __) => charts.MaterialPalette.pink.shadeDefault,
         domainFn: (TimeSeriesData data, _) => data.time,
         measureFn: (TimeSeriesData data, _) => data.data,
@@ -88,13 +88,24 @@ class DataStationChart extends StatelessWidget {
             animate: true,
             animationDuration: Duration(milliseconds: 800),
             behaviors: [
-              charts.SeriesLegend(position: charts.BehaviorPosition.bottom),
+              charts.SeriesLegend(
+                position: charts.BehaviorPosition.bottom,
+                showMeasures: true,
+                horizontalFirst: false,
+                measureFormatter: (num value) {
+                  return value == null ? '-' : '${value.toStringAsFixed(1)}cm';
+                },
+              ),
             ],
             layoutConfig: charts.LayoutConfig(
                 leftMarginSpec: charts.MarginSpec.fixedPixel(30),
                 topMarginSpec: charts.MarginSpec.fixedPixel(10),
                 rightMarginSpec: charts.MarginSpec.fixedPixel(10),
                 bottomMarginSpec: charts.MarginSpec.fixedPixel(10)),
+            domainAxis: charts.DateTimeAxisSpec(
+                tickFormatterSpec: charts.AutoDateTimeTickFormatterSpec(
+                    day: charts.TimeFormatterSpec(
+                        format: 'd', transitionFormat: 'dd/MM'))),
             customSeriesRenderers: [
               charts.BarRendererConfig(
                   // ID used to link series to this renderer.
@@ -113,13 +124,24 @@ class DataStationChart extends StatelessWidget {
             animate: true,
             animationDuration: Duration(milliseconds: 800),
             behaviors: [
-              charts.SeriesLegend(position: charts.BehaviorPosition.bottom),
+              charts.SeriesLegend(
+                position: charts.BehaviorPosition.bottom,
+                showMeasures: true,
+                horizontalFirst: false,
+                measureFormatter: (num value) {
+                  return value == null ? '-' : '${value.toStringAsFixed(1)}°C';
+                },
+              ),
             ],
             layoutConfig: charts.LayoutConfig(
                 leftMarginSpec: charts.MarginSpec.fixedPixel(30),
                 topMarginSpec: charts.MarginSpec.fixedPixel(10),
                 rightMarginSpec: charts.MarginSpec.fixedPixel(10),
                 bottomMarginSpec: charts.MarginSpec.fixedPixel(10)),
+            domainAxis: charts.DateTimeAxisSpec(
+                tickFormatterSpec: charts.AutoDateTimeTickFormatterSpec(
+                    day: charts.TimeFormatterSpec(
+                        format: 'd', transitionFormat: 'dd/MM'))),
           ),
         ),
       ],
