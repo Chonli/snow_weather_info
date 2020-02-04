@@ -3,7 +3,7 @@ import 'package:snow_weather_info/data/database_helper.dart';
 
 class Station {
   //"Latitude": "46.341167", "Longitude": "6.708167", "ID": "07454", "Altitude": "1535", "Nom": "Bernex"
-  String _id;
+  int _id;
   String _name;
   LatLng _position;
   int _altitude;
@@ -11,7 +11,7 @@ class Station {
 
   Station(this._id, this._name, this._position, this._altitude);
 
-  String get id => _id;
+  int get id => _id;
   String get name => _name;
   LatLng get position => _position;
   int get altitude => _altitude;
@@ -19,7 +19,7 @@ class Station {
   set hasData(bool value) => _hasData = value;
 
   Station.fromJson(Map<String, dynamic> json) {
-    _id = json['ID'];
+    _id = int.parse(json['ID']);
     _name = json['Nom'];
     _position =
         LatLng(double.parse(json['Latitude']), double.parse(json['Longitude']));
@@ -30,8 +30,8 @@ class Station {
     _id = map[columnId];
     _name = map[columnName];
     _position = LatLng(
-        double.parse(map[columnLatitude]), double.parse(map[columnLongitude]));
-    _altitude = int.parse(map[columnAltitude]);
+        map[columnLatitude], map[columnLongitude]);
+    _altitude = map[columnAltitude];
   }
 
   Map<String, dynamic> toMap() {

@@ -56,6 +56,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _listBody(List<Station> list) {
+    if (list == null) return Container();
     return ListView.builder(
       itemCount: list.length,
       itemBuilder: (context, index) => StationCard(list[index]),
@@ -63,6 +64,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _mapBody(List<Station> list) {
+    if (list == null) return Container();
+
     return FlutterMap(
       mapController: _mapController,
       options: MapOptions(
@@ -82,6 +85,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _initMakerList(List<Station> list) {
+    if (list == null) return;
+
     for (var st in list) {
       _listStationMarker.add(Marker(
           width: 80.0,

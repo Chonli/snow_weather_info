@@ -1,7 +1,9 @@
+import 'package:snow_weather_info/data/database_helper.dart';
+
 class DataStation {
   static const double kelvin = 273.15;
 
-  String _id;
+  int _id;
   DateTime _date;
   double _temperature;
   double _temperatureMin24;
@@ -21,7 +23,7 @@ class DataStation {
   bool _hasSnowHeight;
   bool _hasSnowNewHeight;
 
-  String get id => _id;
+  int get id => _id;
   DateTime get date => _date;
   double get temperature => _temperature;
   double get temperatureMin24 => _temperatureMin24;
@@ -41,7 +43,7 @@ class DataStation {
   bool get hasSnowNewHeight => _hasSnowNewHeight;
 
   DataStation.fromList(List<dynamic> data) {
-    _id = data[0];
+    _id = int.parse(data[0]);
     _date =
         DateTime.parse(data[1].substring(0, 8) + "T" + data[1].substring(8));
     _hasTemperature = _hasDoubleValue(data[5]);
@@ -76,6 +78,21 @@ class DataStation {
     if (_hasSnowNewHeight) {
       _snowNewHeight = _getDoubleValue(data[23]);
     }
+  }
+
+  DataStation.fromMap(Map<String, dynamic> map) {
+    _id = map[columnIdStation];
+    _date = DateTime.parse(map[columnDate]);
+    _temperature = map[columnTemperature];
+    _hasTemperature = _temperature != null;
+  }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      columnIdStation: _id,
+      columnDate: _date.toIso8601String(),
+      columnTemperature: _hasTemperature ? _temperature : null
+    };
   }
 
   double _getDoubleValue(dynamic data) {
