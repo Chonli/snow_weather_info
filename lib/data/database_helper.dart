@@ -45,7 +45,7 @@ class DatabaseHelper {
   Future _onCreate(Database db, int version) async {
     await db.execute('''
               CREATE TABLE $tableStationData (
-                $columnId INTEGER PRIMARY KEY,
+                $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
                 $columnIdStation INTEGER,
                 $columnDate DATETIME NOT NULL,
                 $columnTemperature DOUBLE,
@@ -81,8 +81,25 @@ class DatabaseHelper {
     return id;
   }
 
+  Future<List<DataStation>> getDataStation(int idStation) async {
+    var ret = List<DataStation>();
+    Database db = await database;
+    List<Map> maps = await db.query(
+      tableStationData,
+      columns: [columnIdStation, columnDate, columnTemperature],
+      where: '$columnIdStation = ?',
+      whereArgs: [idStation],
+    );
+    if (maps.length > 0) {
+      for (var stationDataMap in maps) {
+        ret.add(DataStation.fromMap(stationDataMap));
+      }
+    }
+    return ret;
+  }
+
   Future<List<Station>> getAllStation() async {
-    List<Station> ret = List<Station>();
+    var ret = List<Station>();
     Database db = await database;
     List<Map> maps = await db.query(
       tableStation,
