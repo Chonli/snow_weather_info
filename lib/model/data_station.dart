@@ -85,13 +85,34 @@ class DataStation {
     _date = DateTime.parse(map[columnDate]);
     _temperature = map[columnTemperature];
     _hasTemperature = _temperature != null;
+    _temperatureMin24 = map[columnTemperatureMin24];
+    _hasTemperatureMin24 = _temperatureMin24 != null;
+    _temperatureMax24 = map[columnTemperatureMax24];
+    _hasTemperatureMax24 = _temperatureMax24 != null;
+    _temperatureSnow = map[columnTemperatureSnow];
+    _hasTemperatureSnow = _temperatureSnow != null;
+    _snowHeight = map[columnSnowHeight];
+    _hasSnowHeight = _snowHeight != null;
+    _snowNewHeight = map[columnSnowNewHeight];
+    _hasSnowNewHeight = _snowNewHeight != null;
+    _speedWind = map[columnSpeedWind];
+    _hasSpeedWind = _speedWind != null;
+    _directionWind = map[columnDirectionWind];
+    _hasDirectionWind = _directionWind != null;
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       columnIdStation: _id,
       columnDate: _date.toIso8601String(),
-      columnTemperature: _hasTemperature ? _temperature : null
+      columnTemperature: _hasTemperature ? _temperature : null,
+      columnTemperatureMin24: _hasTemperatureMin24 ? _temperatureMin24 : null,
+      columnTemperatureMax24: _hasTemperatureMax24 ? _temperatureMax24 : null,
+      columnTemperatureSnow: _hasTemperatureSnow ? _temperatureSnow : null,
+      columnSpeedWind: _hasSpeedWind ? _speedWind : null,
+      columnDirectionWind: _hasDirectionWind ? _directionWind : null,
+      columnSnowHeight: _hasSnowHeight ? _snowHeight : null,
+      columnSnowNewHeight: _hasSnowNewHeight ? _snowNewHeight : null
     };
   }
 

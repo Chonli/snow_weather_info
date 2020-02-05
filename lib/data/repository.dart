@@ -8,8 +8,8 @@ import 'package:snow_weather_info/model/data_station.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:http/http.dart' as http;
 
-final String _lastDataPrefs = "lastDataPrefs";
-final String _stationDataPrefs = "stationDataPrefs";
+final String _lastStationPrefs = "lastStationPrefs";
+final String _lastStationDataPrefs = "lastStationDataPrefs";
 
 class Repository {
   SharedPreferences _prefs;
@@ -20,34 +20,36 @@ class Repository {
   Future<bool> initData() async {
     if (!_isInitialise) {
       _prefs = await SharedPreferences.getInstance();
-      //try {
+      try {
         await Future.wait([_initStation(), _downloadStationData()]);
         await _finalizeStationData();
         _isInitialise = true;
-      //} catch (e) {
-      //  print("init error : " + e.toString());
-      //}
+      } catch (e) {
+        print("init error : " + e.toString());
+      }
     }
     return _isInitialise;
   }
 
   Future<void> _finalizeStationData() async {
     _hashDataStation = HashMap();
-    _listStation.forEach((s) async {
+    for (var s in _listStation) {
       var listOfData = await DatabaseHelper.instance.getDataStation(s.id);
       _hashDataStation[s.id] = listOfData;
-    });
+      s.hasData = listOfData.length > 0 ? true : false;
+    }
 
     _hashDataStation.values
         .forEach((l) => l.sort((a, b) => b.date.compareTo(a.date)));
 
-    _listStation.forEach((s) => s.hasData = _hashDataStation.containsKey(s.id));
+    //TODO clean old data
   }
 
   Future<void> _downloadStationData() async {
     DateTime lastDataDowload;
     var lastDateData =
-        DateTime.parse(_prefs.getString(_stationDataPrefs) ?? "19700101");
+        DateTime.parse(_prefs.getString(_lastStationDataPrefs) ?? "19700101");
+    print("last data ${lastDateData.toString()}");
     for (int i = 7; i >= 0; --i) {
       var dateTime = DateTime.now().subtract(Duration(days: i));
 
@@ -82,14 +84,14 @@ class Repository {
     }
 
     if (lastDataDowload != null) {
-      _prefs.setString(_lastDataPrefs, lastDataDowload.toString());
+      _prefs.setString(_lastStationDataPrefs, lastDataDowload.toString());
     }
   }
 
   Future<void> _initStation() async {
     var stationUpdateDate = DateTime.parse(
-            _prefs.getString(_lastDataPrefs) ?? DateTime.now().toString());
-        _listStation = await DatabaseHelper.instance.getAllStation();
+        _prefs.getString(_lastStationPrefs) ?? DateTime.now().toString());
+    _listStation = await DatabaseHelper.instance.getAllStation();
     if (_listStation.length == 0 ||
         stationUpdateDate.difference(DateTime.now()) > Duration(days: 90)) {
       final response = await http.get(
@@ -103,17 +105,18 @@ class Repository {
           var st = json["properties"];
           if (st['ID'] != '') _listStation.add(Station.fromJson(st));
         }
-        _listStation.sort((a, b) => a.name.compareTo(b.name));
+
         _listStation.forEach(
             (s) async => await DatabaseHelper.instance.insertStation(s));
 
-        _prefs.setString(_lastDataPrefs, DateTime.now().toString());
+        _prefs.setString(_lastStationPrefs, DateTime.now().toString());
 
         print("donwload station ok");
       } else {
         throw Exception('Failed to load station');
       }
     }
+    _listStation.sort((a, b) => a.name.compareTo(b.name));
   }
 
   List<Station> getStations() {

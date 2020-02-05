@@ -7,7 +7,7 @@ class Station {
   String _name;
   LatLng _position;
   int _altitude;
-  bool _hasData = false;
+  bool hasData = false;
 
   Station(this._id, this._name, this._position, this._altitude);
 
@@ -15,8 +15,6 @@ class Station {
   String get name => _name;
   LatLng get position => _position;
   int get altitude => _altitude;
-  bool get hasData => _hasData;
-  set hasData(bool value) => _hasData = value;
 
   Station.fromJson(Map<String, dynamic> json) {
     _id = int.parse(json['ID']);
@@ -29,8 +27,7 @@ class Station {
   Station.fromMap(Map<String, dynamic> map) {
     _id = map[columnId];
     _name = map[columnName];
-    _position = LatLng(
-        map[columnLatitude], map[columnLongitude]);
+    _position = LatLng(map[columnLatitude], map[columnLongitude]);
     _altitude = map[columnAltitude];
   }
 
