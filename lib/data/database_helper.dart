@@ -71,7 +71,16 @@ class DatabaseHelper {
 
   Future<int> insertStation(Station station) async {
     Database db = await database;
-    int id = await db.insert(tableStation, station.toMap());
+    int id = 0;
+    List<Map> maps = await db.query(
+      tableStation,
+      columns: [columnId],
+      where: '$columnIdStation = ?',
+      whereArgs: [station.id],
+    );
+    if (maps.length == 0) {
+      id = await db.insert(tableStation, station.toMap());
+    }
     return id;
   }
 
@@ -137,5 +146,12 @@ class DatabaseHelper {
       }
     }
     return ret;
+  }
+
+  Future cleanOldData(int day) async {
+    Database db = await database;
+    await db.delete(tableStationData, where: "$columnDate < ?", whereArgs: [
+      DateTime.now().subtract(Duration(days: day)).toIso8601String()
+    ]);
   }
 }

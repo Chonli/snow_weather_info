@@ -42,7 +42,7 @@ class Repository {
     _hashDataStation.values
         .forEach((l) => l.sort((a, b) => b.date.compareTo(a.date)));
 
-    //TODO clean old data
+    await DatabaseHelper.instance.cleanOldData(7);
   }
 
   Future<void> _downloadStationData() async {
