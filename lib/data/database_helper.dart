@@ -75,7 +75,7 @@ class DatabaseHelper {
     List<Map> maps = await db.query(
       tableStation,
       columns: [columnId],
-      where: '$columnIdStation = ?',
+      where: '$columnId = ?',
       whereArgs: [station.id],
     );
     if (maps.length == 0) {

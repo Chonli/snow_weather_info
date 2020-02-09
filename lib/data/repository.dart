@@ -46,7 +46,7 @@ class Repository {
   }
 
   Future<void> _downloadStationData() async {
-    DateTime lastDataDowload;
+    DateTime lastDataDownload;
     var lastDateData =
         DateTime.parse(_prefs.getString(_lastStationDataPrefs) ?? "19700101");
     print("last data ${lastDateData.toString()}");
@@ -75,7 +75,7 @@ class Repository {
                 await DatabaseHelper.instance.insertStationData(d);
               });
 
-              lastDataDowload = dateTime;
+              lastDataDownload = dateTime;
               print("get data OK");
             }
           }
@@ -83,8 +83,8 @@ class Repository {
       }
     }
 
-    if (lastDataDowload != null) {
-      _prefs.setString(_lastStationDataPrefs, lastDataDowload.toString());
+    if (lastDataDownload != null) {
+      _prefs.setString(_lastStationDataPrefs, lastDataDownload.toString());
     }
   }
 
