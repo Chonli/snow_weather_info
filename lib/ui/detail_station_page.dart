@@ -32,7 +32,7 @@ class _DetailStationPageState extends State<DetailStationPage> {
                 "m)",
           ),
         ),
-        body: data == null
+        body: data == null || data.length == 0
             ? Center(child: Text('Pas de donnée pour cette station météo'))
             : _pageBody(data));
   }

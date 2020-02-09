@@ -30,7 +30,9 @@ dependencies:
   intl: ^0.16.1
   flutter_map: any
   charts_flutter: ^0.8.1
-
+  sqflite: ^1.2.0
+  shared_preferences: ^0.5.6+1
+  flutter_stetho: ^0.5.2
 
 dev_dependencies:
   flutter_test:
