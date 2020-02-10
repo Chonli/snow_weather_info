@@ -8,6 +8,7 @@ class Station {
   LatLng _position;
   int _altitude;
   bool hasData = false;
+  double lastSnowHeight = 0;
 
   Station(this._id, this._name, this._position, this._altitude);
 

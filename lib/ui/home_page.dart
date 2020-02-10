@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
@@ -5,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:snow_weather_info/data/repository.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/ui/station_card.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'detail_station_page.dart';
 
@@ -66,20 +68,71 @@ class _HomePageState extends State<HomePage> {
   Widget _mapBody(List<Station> list) {
     if (list == null) return Container();
 
-    return FlutterMap(
-      mapController: _mapController,
-      options: MapOptions(
-        center: LatLng(45.05, 6.3),
-        zoom: 10.0,
-      ),
-      layers: [
-        TileLayerOptions(
-          urlTemplate: "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
-          subdomains: ["a", "b", "c"],
+    return Stack(
+      children: [
+        FlutterMap(
+          mapController: _mapController,
+          options: MapOptions(
+            center: LatLng(45.05, 6.3),
+            zoom: 10.0,
+          ),
+          layers: [
+            TileLayerOptions(
+              urlTemplate: "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
+              subdomains: ["a", "b", "c"],
+            ),
+            MarkerLayerOptions(
+              markers: _listStationMarker,
+            ),
+          ],
         ),
-        MarkerLayerOptions(
-          markers: _listStationMarker,
+        Positioned(
+          bottom: 0,
+          right: 0,
+          child: Container(
+            color: Colors.white,
+            child: RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'donnée carte: © ',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  TextSpan(
+                    text: 'OpenStreetMap',
+                    style: TextStyle(color: Colors.blue),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () async {
+                        await launch('https://www.openstreetmap.org/copyright');
+                      },
+                  ),
+                  TextSpan(
+                    text: 'contributors\nstyle carte: ©',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  TextSpan(
+                    text: ' opentopomap.org',
+                    style: TextStyle(color: Colors.blue),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        launch('https://opentopomap.org');
+                      },
+                  ),
+                  TextSpan(
+                    text: ' (CC-BY-SA)',
+                    style: TextStyle(color: Colors.blue),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        launch(
+                            'https://creativecommons.org/licenses/by-sa/3.0/');
+                      },
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
+        Text("  SRTM | map style: ©  (CC-BY-SA)")
       ],
     );
   }

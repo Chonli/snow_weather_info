@@ -37,10 +37,11 @@ class Repository {
       var listOfData = await DatabaseHelper.instance.getDataStation(s.id);
       _hashDataStation[s.id] = listOfData;
       s.hasData = listOfData.length > 0 ? true : false;
+      if (s.hasData) {
+        s.lastSnowHeight =
+            listOfData.firstWhere((d) => d.hasSnowHeight).snowHeight;
+      }
     }
-
-    _hashDataStation.values
-        .forEach((l) => l.sort((a, b) => b.date.compareTo(a.date)));
 
     await DatabaseHelper.instance.cleanOldData(7);
   }
