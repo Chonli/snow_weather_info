@@ -38,8 +38,9 @@ class Repository {
       _hashDataStation[s.id] = listOfData;
       s.hasData = listOfData.length > 0 ? true : false;
       if (s.hasData) {
-        s.lastSnowHeight =
-            listOfData.firstWhere((d) => d.hasSnowHeight).snowHeight;
+        s.lastSnowHeight = listOfData
+            .firstWhere((d) => d.hasSnowHeight, orElse: () => DataStation())
+            .snowHeight;
       }
     }
 

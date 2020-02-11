@@ -107,7 +107,7 @@ class _HomePageState extends State<HomePage> {
                       },
                   ),
                   TextSpan(
-                    text: 'contributors\nstyle carte: ©',
+                    text: ' contributors\nstyle carte: ©',
                     style: TextStyle(color: Colors.black),
                   ),
                   TextSpan(
@@ -139,24 +139,41 @@ class _HomePageState extends State<HomePage> {
 
   void _initMakerList(List<Station> list) {
     if (list == null) return;
-
     for (var st in list) {
-      _listStationMarker.add(Marker(
-          width: 80.0,
-          height: 80.0,
+      _listStationMarker.add(
+        Marker(
+          width: 90.0,
+          height: 50.0,
           point: st.position,
-          builder: (ctx) => IconButton(
-                icon: Icon(Icons.place),
-                color: st.hasData ? Colors.black : Colors.grey,
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DetailStationPage(
-                      st,
+          builder: (ctx) => Stack(
+            children: <Widget>[
+              Positioned(
+                left: 40.0,
+                bottom: 0.0,
+                child: st.hasData
+                    ? Text("${(st.lastSnowHeight * 100).toStringAsFixed(0)}cm")
+                    : Container(),
+              ),
+              Positioned(
+                right: 0.0,
+                bottom: 2.0,
+                child: IconButton(
+                  icon: Icon(Icons.place),
+                  color: st.hasData ? Colors.black : Colors.grey,
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DetailStationPage(
+                        st,
+                      ),
                     ),
                   ),
                 ),
-              )));
+              ),
+            ],
+          ),
+        ),
+      );
     }
   }
 }

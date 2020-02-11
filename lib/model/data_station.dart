@@ -42,6 +42,8 @@ class DataStation {
   bool get hasSnowHeight => _hasSnowHeight;
   bool get hasSnowNewHeight => _hasSnowNewHeight;
 
+  DataStation();
+
   DataStation.fromList(List<dynamic> data) {
     _id = int.parse(data[0]);
     _date =
