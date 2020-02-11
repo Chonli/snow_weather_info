@@ -35,6 +35,7 @@ dependencies:
   shared_preferences: ^0.5.6+1
   flutter_stetho: ^0.5.2
   url_launcher: ^5.4.1
+  location: ^2.3.5
 
 dev_dependencies:
   flutter_test:

@@ -1,14 +1,13 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
+import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 import 'package:snow_weather_info/data/repository.dart';
 import 'package:snow_weather_info/model/station.dart';
+import 'package:snow_weather_info/ui/map_licence_widget.dart';
 import 'package:snow_weather_info/ui/station_card.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-import 'detail_station_page.dart';
+import 'package:snow_weather_info/ui/detail_station_page.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
@@ -19,14 +18,35 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  MapController _mapController;
-  List<Marker> _listStationMarker;
+  final MapController _mapController = MapController();
+  final List<Marker> _listStationMarker = List<Marker>();
+  final Location _location = Location();
+  LocationData _currentLocation;
+  final double _zoom = 10.0;
 
   @override
   void initState() {
+    _initLocation();
     super.initState();
-    _mapController = MapController();
-    _listStationMarker = List<Marker>();
+  }
+
+  _initLocation() async {
+    var hasPermission = await _location.hasPermission();
+    if (!hasPermission) {
+      hasPermission = await _location.requestPermission();
+    }
+
+    if (hasPermission) {
+      _getLocation();
+    }
+  }
+
+  _getLocation() async {
+    _currentLocation = await _location.getLocation();
+    setState(() {
+      _mapController.move(
+          LatLng(_currentLocation.latitude, _currentLocation.longitude), _zoom);
+    });
   }
 
   @override
@@ -74,7 +94,7 @@ class _HomePageState extends State<HomePage> {
           mapController: _mapController,
           options: MapOptions(
             center: LatLng(45.05, 6.3),
-            zoom: 10.0,
+            zoom: _zoom,
           ),
           layers: [
             TileLayerOptions(
@@ -89,50 +109,15 @@ class _HomePageState extends State<HomePage> {
         Positioned(
           bottom: 0,
           right: 0,
-          child: Container(
-            color: Colors.white,
-            child: RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text: 'donnée carte: © ',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  TextSpan(
-                    text: 'OpenStreetMap',
-                    style: TextStyle(color: Colors.blue),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () async {
-                        await launch('https://www.openstreetmap.org/copyright');
-                      },
-                  ),
-                  TextSpan(
-                    text: ' contributors\nstyle carte: ©',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  TextSpan(
-                    text: ' opentopomap.org',
-                    style: TextStyle(color: Colors.blue),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        launch('https://opentopomap.org');
-                      },
-                  ),
-                  TextSpan(
-                    text: ' (CC-BY-SA)',
-                    style: TextStyle(color: Colors.blue),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        launch(
-                            'https://creativecommons.org/licenses/by-sa/3.0/');
-                      },
-                  ),
-                ],
-              ),
-            ),
-          ),
+          child: MapLicenceWidget(),
         ),
-        Text("  SRTM | map style: ©  (CC-BY-SA)")
+        Positioned(
+          top: 5,
+          right: 5,
+          child: IconButton(
+              icon: Icon(Icons.my_location),
+              onPressed: () async => await _getLocation()),
+        ),
       ],
     );
   }
