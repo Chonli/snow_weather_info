@@ -21,12 +21,20 @@ class _HomePageState extends State<HomePage> {
   final MapController _mapController = MapController();
   final List<Marker> _listStationMarker = List<Marker>();
   final Location _location = Location();
-  LocationData _currentLocation;
+  LatLng _currentLocation;
   final double _zoom = 10.0;
 
   @override
   void initState() {
     _initLocation();
+    _mapController.onReady.then((result) {
+      if (_currentLocation != null) {
+        _mapController.move(
+            LatLng(_currentLocation.latitude, _currentLocation.longitude),
+            _zoom);
+      }
+      print("controller ready");
+    });
     super.initState();
   }
 
@@ -42,11 +50,24 @@ class _HomePageState extends State<HomePage> {
   }
 
   _getLocation() async {
-    _currentLocation = await _location.getLocation();
+    var loc = await _location.getLocation();
+    _currentLocation = LatLng(loc.latitude, loc.longitude);
+
     setState(() {
-      _mapController.move(
-          LatLng(_currentLocation.latitude, _currentLocation.longitude), _zoom);
+      _listStationMarker.add(Marker(
+          width: 50.0,
+          height: 50.0,
+          point: _currentLocation,
+          builder: (ctx) => Icon(
+                Icons.person_pin_circle,
+                color: Colors.blueAccent,
+              )));
+
+      if (_mapController.ready) {
+        _mapController.move(_currentLocation, _zoom);
+      }
     });
+    print("location found");
   }
 
   @override
@@ -114,9 +135,14 @@ class _HomePageState extends State<HomePage> {
         Positioned(
           top: 5,
           right: 5,
-          child: IconButton(
-              icon: Icon(Icons.my_location),
-              onPressed: () async => await _getLocation()),
+          child: Container(
+            height: 40,
+            width: 40,
+            color: Colors.grey.shade400,
+            child: IconButton(
+                icon: Icon(Icons.my_location),
+                onPressed: () async => await _getLocation()),
+          ),
         ),
       ],
     );
