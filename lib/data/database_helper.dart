@@ -118,6 +118,7 @@ class DatabaseHelper {
       ],
       where: '$columnIdStation = ?',
       whereArgs: [idStation],
+      orderBy: columnDate + " DESC",
     );
     if (maps.length > 0) {
       for (var stationDataMap in maps) {

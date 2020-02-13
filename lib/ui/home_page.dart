@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
+import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 import 'package:snow_weather_info/data/repository.dart';
 import 'package:snow_weather_info/model/station.dart';
+import 'package:snow_weather_info/ui/map_licence_widget.dart';
 import 'package:snow_weather_info/ui/station_card.dart';
-
-import 'detail_station_page.dart';
+import 'package:snow_weather_info/ui/detail_station_page.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
@@ -17,14 +18,56 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  MapController _mapController;
-  List<Marker> _listStationMarker;
+  final MapController _mapController = MapController();
+  final List<Marker> _listStationMarker = List<Marker>();
+  final Location _location = Location();
+  LatLng _currentLocation;
+  final double _zoom = 10.0;
 
   @override
   void initState() {
+    _initLocation();
+    _mapController.onReady.then((result) {
+      if (_currentLocation != null) {
+        _mapController.move(
+            LatLng(_currentLocation.latitude, _currentLocation.longitude),
+            _zoom);
+      }
+      print("controller ready");
+    });
     super.initState();
-    _mapController = MapController();
-    _listStationMarker = List<Marker>();
+  }
+
+  _initLocation() async {
+    var hasPermission = await _location.hasPermission();
+    if (!hasPermission) {
+      hasPermission = await _location.requestPermission();
+    }
+
+    if (hasPermission) {
+      _getLocation();
+    }
+  }
+
+  _getLocation() async {
+    var loc = await _location.getLocation();
+    _currentLocation = LatLng(loc.latitude, loc.longitude);
+
+    setState(() {
+      _listStationMarker.add(Marker(
+          width: 50.0,
+          height: 50.0,
+          point: _currentLocation,
+          builder: (ctx) => Icon(
+                Icons.person_pin_circle,
+                color: Colors.blueAccent,
+              )));
+
+      if (_mapController.ready) {
+        _mapController.move(_currentLocation, _zoom);
+      }
+    });
+    print("location found");
   }
 
   @override
@@ -66,19 +109,40 @@ class _HomePageState extends State<HomePage> {
   Widget _mapBody(List<Station> list) {
     if (list == null) return Container();
 
-    return FlutterMap(
-      mapController: _mapController,
-      options: MapOptions(
-        center: LatLng(45.05, 6.3),
-        zoom: 10.0,
-      ),
-      layers: [
-        TileLayerOptions(
-          urlTemplate: "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
-          subdomains: ["a", "b", "c"],
+    return Stack(
+      children: [
+        FlutterMap(
+          mapController: _mapController,
+          options: MapOptions(
+            center: LatLng(45.05, 6.3),
+            zoom: _zoom,
+          ),
+          layers: [
+            TileLayerOptions(
+              urlTemplate: "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
+              subdomains: ["a", "b", "c"],
+            ),
+            MarkerLayerOptions(
+              markers: _listStationMarker,
+            ),
+          ],
         ),
-        MarkerLayerOptions(
-          markers: _listStationMarker,
+        Positioned(
+          bottom: 0,
+          right: 0,
+          child: MapLicenceWidget(),
+        ),
+        Positioned(
+          top: 5,
+          right: 5,
+          child: Container(
+            height: 40,
+            width: 40,
+            color: Colors.grey.shade400,
+            child: IconButton(
+                icon: Icon(Icons.my_location),
+                onPressed: () async => await _getLocation()),
+          ),
         ),
       ],
     );
@@ -86,24 +150,41 @@ class _HomePageState extends State<HomePage> {
 
   void _initMakerList(List<Station> list) {
     if (list == null) return;
-
     for (var st in list) {
-      _listStationMarker.add(Marker(
-          width: 80.0,
-          height: 80.0,
+      _listStationMarker.add(
+        Marker(
+          width: 90.0,
+          height: 50.0,
           point: st.position,
-          builder: (ctx) => IconButton(
-                icon: Icon(Icons.place),
-                color: st.hasData ? Colors.black : Colors.grey,
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DetailStationPage(
-                      st,
+          builder: (ctx) => Stack(
+            children: <Widget>[
+              Positioned(
+                left: 40.0,
+                bottom: 0.0,
+                child: st.hasData
+                    ? Text("${(st.lastSnowHeight * 100).toStringAsFixed(0)}cm")
+                    : Container(),
+              ),
+              Positioned(
+                right: 0.0,
+                bottom: 2.0,
+                child: IconButton(
+                  icon: Icon(Icons.place),
+                  color: st.hasData ? Colors.black : Colors.grey,
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DetailStationPage(
+                        st,
+                      ),
                     ),
                   ),
                 ),
-              )));
+              ),
+            ],
+          ),
+        ),
+      );
     }
   }
 }

@@ -25,12 +25,14 @@ class _DetailStationPageState extends State<DetailStationPage> {
     var data = repository.getDataOfStation(widget._station.id);
     return Scaffold(
         appBar: AppBar(
-          title: Text(
-            widget._station.name +
-                " (" +
-                widget._station.altitude.toString() +
-                "m)",
-          ),
+          title: Column(children: [
+            Text(
+              widget._station.name,
+            ),
+            Text(
+              " (" + widget._station.altitude.toString() + "m)",
+            ),
+          ]),
         ),
         body: data == null || data.length == 0
             ? Center(child: Text('Pas de donnée pour cette station météo'))
