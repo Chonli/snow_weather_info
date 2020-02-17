@@ -1,39 +1,65 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_stetho/flutter_stetho.dart';
+import 'package:provider/provider.dart';
+import 'package:snow_weather_info/data/repository.dart';
+import 'package:snow_weather_info/ui/home_page.dart';
 
-void main() => runApp(MyApp());
+import 'data/repository.dart';
+
+void main() {
+  bool inDebugMode = false;
+  assert(inDebugMode = true);
+  if (inDebugMode) {
+    Stetho.initialize();
+  }
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Info Station Météo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Info Station Météo'),
-    );
+    return MultiProvider(
+        providers: [
+          Provider<Repository>(create: (_) => Repository()),
+        ],
+        child: MaterialApp(
+          title: 'Info Station Météo',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: MyHomePage(title: 'Info Station Météo'),
+        ));
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends StatelessWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(),
-      ),
-    );
+    Repository repository = Provider.of<Repository>(context);
+    return FutureBuilder(
+        future: repository.initData(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError)
+            return Scaffold(
+                appBar: AppBar(
+                  title: Text(title),
+                ),
+                body: Center(
+                    child: Text('Initialisation erreur: ${snapshot.error}')));
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+              return Scaffold(
+                  appBar: AppBar(
+                    title: Text(title),
+                  ),
+                  body: Center(child: CircularProgressIndicator()));
+            default:
+              return HomePage(title: title);
+          }
+        });
   }
 }
