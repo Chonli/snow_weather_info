@@ -16,6 +16,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  final String _title = 'Info Neige';
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -23,11 +25,11 @@ class MyApp extends StatelessWidget {
           Provider<Repository>(create: (_) => Repository()),
         ],
         child: MaterialApp(
-          title: 'Info Station Météo',
+          title: _title,
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: MyHomePage(title: 'Info Station Météo'),
+          home: MyHomePage(title: _title),
         ));
   }
 }
