@@ -33,7 +33,6 @@ class _HomePageState extends State<HomePage> {
             LatLng(_currentLocation.latitude, _currentLocation.longitude),
             _zoom);
       }
-      print("controller ready");
     });
     super.initState();
   }
@@ -67,7 +66,6 @@ class _HomePageState extends State<HomePage> {
         _mapController.move(_currentLocation, _zoom);
       }
     });
-    print("location found");
   }
 
   @override
@@ -76,6 +74,7 @@ class _HomePageState extends State<HomePage> {
     var list = repository.getStations();
     _initMakerList(list);
     return DefaultTabController(
+      key: PageStorageKey("tab_key"),
       length: 2,
       child: Scaffold(
         appBar: AppBar(
@@ -101,6 +100,7 @@ class _HomePageState extends State<HomePage> {
   Widget _listBody(List<Station> list) {
     if (list == null) return Container();
     return ListView.builder(
+      key: PageStorageKey("station_list_key"),
       itemCount: list.length,
       itemBuilder: (context, index) => StationCard(list[index]),
     );
@@ -135,13 +135,16 @@ class _HomePageState extends State<HomePage> {
         Positioned(
           top: 5,
           right: 5,
-          child: Container(
-            height: 40,
-            width: 40,
-            color: Colors.grey.shade400,
-            child: IconButton(
-                icon: Icon(Icons.my_location),
-                onPressed: () async => await _getLocation()),
+          child: Opacity(
+            opacity: 0.7,
+            child: Container(
+              height: 40,
+              width: 40,
+              color: Colors.grey.shade200,
+              child: IconButton(
+                  icon: Icon(Icons.my_location),
+                  onPressed: () async => await _getLocation()),
+            ),
           ),
         ),
       ],
