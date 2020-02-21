@@ -98,7 +98,7 @@ class Repository {
         _prefs.getString(_lastStationPrefs) ?? DateTime.now().toString());
     _listStation = await DatabaseHelper.instance.getAllStation();
     if (_listStation.length == 0 ||
-        stationUpdateDate.difference(DateTime.now()) > Duration(days: 90)) {
+        stationUpdateDate.difference(DateTime.now()) > Duration(days: 15)) {
       final response = await http.get(
           'https://donneespubliques.meteofrance.fr/donnees_libres/Txt/Nivo/postesNivo.json');
 

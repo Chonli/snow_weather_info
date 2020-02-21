@@ -21,51 +21,41 @@ class _HomePageState extends State<HomePage> {
   final MapController _mapController = MapController();
   final List<Marker> _listStationMarker = List<Marker>();
   final Location _location = Location();
-  LatLng _currentLocation;
   final double _zoom = 10.0;
 
   @override
   void initState() {
-    _initLocation();
+    print(_listStationMarker.length);
     _mapController.onReady.then((result) {
-      if (_currentLocation != null) {
-        _mapController.move(
-            LatLng(_currentLocation.latitude, _currentLocation.longitude),
-            _zoom);
-      }
+      _getLocation();
     });
+
     super.initState();
   }
 
-  _initLocation() async {
+  _getLocation() async {
     var hasPermission = await _location.hasPermission();
     if (!hasPermission) {
       hasPermission = await _location.requestPermission();
     }
 
     if (hasPermission) {
-      _getLocation();
+      var loc = await _location.getLocation();
+      var currentLocation = LatLng(loc.latitude, loc.longitude);
+
+      setState(() {
+        _listStationMarker.add(Marker(
+            width: 50.0,
+            height: 50.0,
+            point: currentLocation,
+            builder: (ctx) => Icon(
+                  Icons.person_pin_circle,
+                  color: Colors.blueAccent,
+                )));
+
+        _mapController.move(currentLocation, _zoom);
+      });
     }
-  }
-
-  _getLocation() async {
-    var loc = await _location.getLocation();
-    _currentLocation = LatLng(loc.latitude, loc.longitude);
-
-    setState(() {
-      _listStationMarker.add(Marker(
-          width: 50.0,
-          height: 50.0,
-          point: _currentLocation,
-          builder: (ctx) => Icon(
-                Icons.person_pin_circle,
-                color: Colors.blueAccent,
-              )));
-
-      if (_mapController.ready) {
-        _mapController.move(_currentLocation, _zoom);
-      }
-    });
   }
 
   @override
@@ -74,7 +64,6 @@ class _HomePageState extends State<HomePage> {
     var list = repository.getStations();
     _initMakerList(list);
     return DefaultTabController(
-      key: PageStorageKey("tab_key"),
       length: 2,
       child: Scaffold(
         appBar: AppBar(

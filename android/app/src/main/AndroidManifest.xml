@@ -10,7 +10,7 @@
 
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="Info Neige"
+        android:label="@string/app_name"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"

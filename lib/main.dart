@@ -4,8 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:snow_weather_info/data/repository.dart';
 import 'package:snow_weather_info/ui/home_page.dart';
 
-import 'data/repository.dart';
-
 void main() {
   bool inDebugMode = false;
   assert(inDebugMode = true);
