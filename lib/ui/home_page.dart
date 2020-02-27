@@ -18,10 +18,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  TextEditingController _editingController = TextEditingController();
   final MapController _mapController = MapController();
   final List<Marker> _listStationMarker = List<Marker>();
   final Location _location = Location();
   final double _zoom = 10.0;
+  List<Station> _listStation;
+  Repository _repository;
 
   @override
   void initState() {
@@ -60,9 +63,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final Repository repository = Provider.of<Repository>(context);
-    var list = repository.getStations();
-    _initMakerList(list);
+    _repository = Provider.of<Repository>(context);
+    _listStation = _repository.getStations();
+    _initMakerList(_listStation);
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -78,20 +81,62 @@ class _HomePageState extends State<HomePage> {
         body: TabBarView(
           physics: NeverScrollableScrollPhysics(),
           children: [
-            _listBody(list),
-            _mapBody(list),
+            _listBody(_listStation),
+            _mapBody(_listStation),
           ],
         ),
       ),
     );
   }
 
+  void _filterSearchResults(String query) {
+    var dummySearchList = _repository.getStations();
+    if (query.isNotEmpty) {
+      List<Station> dummyListData = List<Station>();
+      dummySearchList.forEach((item) {
+        if (item.name.contains(query)) {
+          dummyListData.add(item);
+        }
+      });
+      setState(() {
+        _listStation.clear();
+        _listStation.addAll(dummyListData);
+      });
+    } else {
+      setState(() {
+        _listStation.clear();
+        _listStation.addAll(dummySearchList);
+      });
+    }
+  }
+
   Widget _listBody(List<Station> list) {
     if (list == null) return Container();
-    return ListView.builder(
-      key: PageStorageKey("station_list_key"),
-      itemCount: list.length,
-      itemBuilder: (context, index) => StationCard(list[index]),
+    return Container(
+      child: Column(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              onChanged: (value) {
+                _filterSearchResults(value);
+              },
+              controller: _editingController,
+              decoration: InputDecoration(
+                  labelText: "Recherche",
+                  hintText: "Recherche",
+                  prefixIcon: Icon(Icons.search),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(25.0)))),
+            ),
+          ),
+          ListView.builder(
+            key: PageStorageKey("station_list_key"),
+            itemCount: list.length,
+            itemBuilder: (context, index) => StationCard(list[index]),
+          ),
+        ],
+      ),
     );
   }
 
