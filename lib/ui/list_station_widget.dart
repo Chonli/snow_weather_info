@@ -13,14 +13,20 @@ class ListStationWidget extends StatefulWidget {
 
 class _ListStationWidgetState extends State<ListStationWidget> {
   TextEditingController _editingController = TextEditingController();
-  List<Station> _listStation;
+  List<AbstractStation> _listStation = List<AbstractStation>();
   Repository _repository;
 
   void _filterSearchResults(String query) {
-    var dummySearchList = _repository.stations;
+    var dummySearchStationList = _repository.stations;
+    var dummySearchNivoseList = _repository.nivoses;
     if (query.isNotEmpty) {
-      List<Station> dummyListData = List<Station>();
-      dummySearchList.forEach((item) {
+      List<AbstractStation> dummyListData = List<AbstractStation>();
+      dummySearchStationList.forEach((item) {
+        if (item.name.toLowerCase().contains(query.toLowerCase())) {
+          dummyListData.add(item);
+        }
+      });
+      dummySearchNivoseList.forEach((item) {
         if (item.name.toLowerCase().contains(query.toLowerCase())) {
           dummyListData.add(item);
         }
@@ -32,7 +38,8 @@ class _ListStationWidgetState extends State<ListStationWidget> {
     } else {
       setState(() {
         _listStation.clear();
-        _listStation.addAll(dummySearchList);
+        _listStation.addAll(dummySearchStationList);
+        _listStation.addAll(dummySearchNivoseList);
       });
     }
   }
@@ -40,8 +47,10 @@ class _ListStationWidgetState extends State<ListStationWidget> {
   @override
   Widget build(BuildContext context) {
     _repository = Provider.of<Repository>(context);
-    _listStation = _repository.stations;
-    if (_listStation == null) return Container();
+    _listStation.addAll(_repository.nivoses);
+    _listStation.addAll(_repository.stations);
+
+    _listStation.sort((a, b) => a.name.compareTo(b.name));
     return Column(
       children: <Widget>[
         Padding(

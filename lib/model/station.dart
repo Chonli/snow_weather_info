@@ -1,35 +1,51 @@
 import 'package:latlong/latlong.dart';
 import 'package:snow_weather_info/data/database_helper.dart';
 
-class Station {
-  //"Latitude": "46.341167", "Longitude": "6.708167", "ID": "07454", "Altitude": "1535", "Nom": "Bernex"
-  int _id;
+abstract class AbstractStation {
   String _name;
   LatLng _position;
   int _altitude;
-  bool hasData = false;
-  double lastSnowHeight = 0;
 
-  Station(this._id, this._name, this._position, this._altitude);
-
-  int get id => _id;
   String get name => _name;
   LatLng get position => _position;
   int get altitude => _altitude;
 
-  Station.fromJson(Map<String, dynamic> json) {
+  AbstractStation(this._name, this._position, this._altitude);
+
+  @override
+  String toString() {
+    return "$_name: $altitude m (${_position.toString()})";
+  }
+}
+
+class Station extends AbstractStation {
+  //"Latitude": "46.341167", "Longitude": "6.708167", "ID": "07454", "Altitude": "1535", "Nom": "Bernex"
+  int _id;
+
+  bool hasData = false;
+  double lastSnowHeight = 0;
+
+  Station(this._id, String name, LatLng position, int altitude)
+      : super(name, position, altitude);
+
+  int get id => _id;
+
+  Station.fromJson(Map<String, dynamic> json)
+      : super(
+          json['Nom'],
+          LatLng(
+              double.parse(json['Latitude']), double.parse(json['Longitude'])),
+          int.parse(json['Altitude']),
+        ) {
     _id = int.parse(json['ID']);
-    _name = json['Nom'];
-    _position =
-        LatLng(double.parse(json['Latitude']), double.parse(json['Longitude']));
-    _altitude = int.parse(json['Altitude']);
   }
 
-  Station.fromMap(Map<String, dynamic> map) {
+  Station.fromMap(Map<String, dynamic> map)
+      : super(
+            map[columnName],
+            LatLng(map[columnLatitude], map[columnLongitude]),
+            map[columnAltitude]) {
     _id = map[columnId];
-    _name = map[columnName];
-    _position = LatLng(map[columnLatitude], map[columnLongitude]);
-    _altitude = map[columnAltitude];
   }
 
   Map<String, dynamic> toMap() {
@@ -46,4 +62,15 @@ class Station {
   String toString() {
     return '$_id - $_name : $_altitude m, $_position';
   }
+}
+
+class Nivose extends AbstractStation {
+  String _codeMF;
+  String urlWeek;
+  String urlSeason;
+
+  String get codeMF => _codeMF;
+
+  Nivose(String name, LatLng position, int altitude, this._codeMF)
+      : super(name, position, altitude);
 }

@@ -1,13 +1,14 @@
 import 'dart:collection';
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:csv/csv.dart';
 import 'package:intl/intl.dart';
+import 'package:latlong/latlong.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:snow_weather_info/data/database_helper.dart';
 import 'package:snow_weather_info/model/avalanche_bulletin.dart';
 import 'package:snow_weather_info/model/data_station.dart';
 import 'package:snow_weather_info/model/station.dart';
-import 'package:http/http.dart' as http;
 
 final String _lastStationPrefs = "lastStationPrefs";
 final String _lastStationDataPrefs = "lastStationDataPrefs";
@@ -16,15 +17,20 @@ class Repository {
   SharedPreferences _prefs;
   bool _isInitialise = false;
   List<Station> _listStation;
+  List<Nivose> _listNivose;
   HashMap<int, List<DataStation>> _hashDataStation;
   List<AvalancheBulletin> _listAvalancheBulletin;
 
   Future<bool> initData() async {
     if (!_isInitialise) {
       _initAvalancheBulletin();
+      _initNivose();
       _prefs = await SharedPreferences.getInstance();
       try {
-        await Future.wait([_initStation(), _downloadStationData()]);
+        await Future.wait([
+          _initStation(),
+          _downloadStationData(),
+        ]);
         await _finalizeStationData();
         _isInitialise = true;
       } catch (e) {
@@ -124,7 +130,6 @@ class Repository {
         throw Exception('Failed to load station');
       }
     }
-    _listStation.sort((a, b) => a.name.compareTo(b.name));
   }
 
   _initAvalancheBulletin() {
@@ -187,6 +192,12 @@ class Repository {
 
   List<Station> get stations => _listStation.toList();
 
+  List<Nivose> get nivoses => _listNivose.toList();
+
+  List<DataStation> getDataOfStation(int id) {
+    return _hashDataStation[id];
+  }
+
   List<AvalancheBulletin> getAvalancheBulletin(Mountain mountain) {
     return _listAvalancheBulletin
       ..where((f) => f.mountain == mountain).toList();
@@ -196,7 +207,110 @@ class Repository {
     return _listAvalancheBulletin.toList();
   }
 
-  List<DataStation> getDataOfStation(int id) {
-    return _hashDataStation[id];
+  _initNivose() {
+    _listNivose = List<Nivose>()
+      //alpes nord
+      ..add(Nivose("Aiguilles rouges", LatLng(0.0, 0.0), 2330, 'ZONE_AIGRG'))
+      ..add(Nivose("Bellecote", LatLng(0.0, 0.0), 3000, 'ZONE_BELLE'))
+      ..add(Nivose("Le Chevril", LatLng(0.0, 0.0), 2560, 'ZONE_CHEVR'))
+      ..add(Nivose("Bonneval", LatLng(0.0, 0.0), 2720, 'ZONE_BONNE'))
+      ..add(Nivose("Les rochilles", LatLng(0.0, 0.0), 2450, 'ZONE_ROCHI'))
+      ..add(Nivose("Allant", LatLng(0.0, 0.0), 1630, 'ZONE_ALLAN'))
+      ..add(Nivose("Grande Parei", LatLng(0.0, 0.0), 2240, 'ZONE_GRPAR'))
+      ..add(Nivose("Col de Porte", LatLng(0.0, 0.0), 1325, 'ZONE_PORTE'))
+      //..add(Nivose("St Hilaire", LatLng(0.0, 0.0), 1234, 'ZONE_MEIJE'))
+      ..add(Nivose("Aigleton", LatLng(0.0, 0.0), 2240, 'ZONE_AIGLE'))
+      ..add(Nivose("Le Gua", LatLng(0.0, 0.0), 1600, 'ZONE_LEGUA'))
+      ..add(Nivose("Les Ecrins", LatLng(0.0, 0.0), 2940, 'ZONE_ECRIN'))
+      ..add(Nivose("La Meije", LatLng(0.0, 0.0), 3100, 'ZONE_MEIJE'))
+      ..add(Nivose("Galibier", LatLng(0.0, 0.0), 2559, 'ZONE_GALIB'))
+      //alpes sud
+      ..add(Nivose("Orcières", LatLng(0.0, 0.0), 2294, 'ZONE_ORCIE'))
+      ..add(Nivose("Col Agnel", LatLng(0.0, 0.0), 2630, 'ZONE_AGNEL'))
+      ..add(Nivose("Restefond", LatLng(0.0, 0.0), 2550, 'ZONE_RESTE'))
+      ..add(Nivose("Millefonts", LatLng(0.0, 0.0), 2430, 'ZONE_MILLE'))
+      ..add(Nivose("Parpaillon", LatLng(0.0, 0.0), 2545, 'ZONE_PARPA'))
+      //corse
+      ..add(Nivose("Sponde", LatLng(0.0, 0.0), 1980, 'ZONE_SPOND'))
+      ..add(Nivose("Maniccia", LatLng(0.0, 0.0), 2360, 'ZONE_MANIC'))
+      //pyrennée
+      ..add(Nivose("Maupas", LatLng(0.0, 0.0), 2430, 'ZONE_MAUPA'))
+      ..add(Nivose("Port d`'Aula", LatLng(0.0, 0.0), 2140, 'ZONE_PAULA'))
+      ..add(Nivose("Canigou", LatLng(0.0, 0.0), 2150, 'ZONE_CANIG'))
+      ..add(Nivose("Hospitalet", LatLng(0.0, 0.0), 2293, 'ZONE_HOSPI'))
+      ..add(Nivose("Puigmal", LatLng(0.0, 0.0), 2467, 'ZONE_PUIGN'))
+      ..add(Nivose("Soum Couy", LatLng(0.0, 0.0), 2150, 'ZONE_SOUMC'))
+      ..add(Nivose("Lac d'ardiden", LatLng(0.0, 0.0), 2445, 'ZONE_LARDI'))
+      ..add(Nivose("Aiguillettes", LatLng(0.0, 0.0), 2120, 'ZONE_AIGTE'));
   }
+
+  Nivose getNivose(String codeMF) {
+    return _listNivose.firstWhere((n) => n.codeMF == codeMF);
+  }
+
+  Future<String> updateUrlNivo(String codeMF) async {
+    var nivose = getNivose(codeMF);
+    print(nivose.toString());
+    var needTry = 4;
+    while (needTry > 0) {
+      try {
+        final response = await http.get(
+            'https://www.meteofrance.com/mf3-rpc-portlet/rest/relevemontagne/releve/$codeMF/type/imgnivose7j');
+        if (response.statusCode == 200) {
+          nivose.urlWeek =
+              'http://www.meteofrance.com/integration/sim-portail' +
+                  response.body.replaceAll(RegExp('"'), '');
+          needTry = 0;
+        } else {
+          print("error url : ${response.statusCode}");
+          needTry = needTry - 1;
+          await new Future.delayed(const Duration(milliseconds: 500));
+        }
+      } catch (ex) {
+        print(ex.toString());
+        needTry = needTry - 1;
+        await new Future.delayed(const Duration(milliseconds: 500));
+      }
+    }
+
+    print(nivose.urlWeek);
+    return nivose.urlWeek;
+  }
+
+// » Pyrénées
+// Maupas (s)  ZONE_MAUPA
+// Port d`'Aula (s) ZONE_PAULA
+// Canigou (s)  ZONE_CANIG
+// Hospitalet (s)  ZONE_HOSPI
+// Puigmal (s)  ZONE_PUIGN
+// Soum Couy (s)  ZONE_SOUMC
+// Lac d'ardiden (s) ZONE_LARDI
+// Aiguillettes (s)  ZONE_AIGTE
+
+//   Alpes du Nord
+// Aiguilles rouges  ZONE_AIGRG
+// Bellecote   ZONE_BELLE
+// Le Chevril  ZONE_CHEVR
+// Bonneval (s)  ZONE_BONNE
+// Les rochilles (s)  ZONE_ROCHI
+// Allant (s)  ZONE_ALLAN
+// Grande Parei (s)  ZONE_GRPAR
+// Col de Porte (s)  ZONE_PORTE
+// St Hilaire (s)
+// Aigleton (s)  ZONE_AIGLE
+// Le Gua (s)  ZONE_LEGUA
+// Les Ecrins (s)  ZONE_ECRIN
+// La Meije (s)  ZONE_MEIJE
+// Galibier   ZONE_GALIB
+
+// » Alpes du Sud
+// Orcières (s)  ZONE_ORCIE
+// Col Agnel (s)  ZONE_AGNEL
+// Restefond (s)  ZONE_RESTE
+// Millefonts (s)  ZONE_MILLE
+// Parpaillon (s)  ZONE_PARPA
+
+// » Corse
+// Sponde (s)  ZONE_SPOND
+// Maniccia (s)  ZONE_MANIC
 }

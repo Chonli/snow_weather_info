@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/ui/detail_station_page.dart';
+import 'package:snow_weather_info/ui/nivose_page.dart';
 
 class StationCard extends StatelessWidget {
-  final Station _station;
+  final AbstractStation _station;
 
   StationCard(this._station);
 
   @override
   Widget build(BuildContext context) {
-    Color _color = _station.hasData ? Colors.black : Colors.grey;
-    FontStyle _font = _station.hasData ? FontStyle.normal : FontStyle.italic;
-    var _textStyle = TextStyle(color: _color, fontStyle: _font);
+    TextStyle _textStyle =
+        TextStyle(color: Colors.blue.shade900, fontStyle: FontStyle.normal);
+    if (_station is Station) {
+      final st = _station as Station;
+      Color _color = st.hasData ? Colors.black : Colors.grey;
+      FontStyle _font = st.hasData ? FontStyle.normal : FontStyle.italic;
+      _textStyle = TextStyle(color: _color, fontStyle: _font);
+    }
     return Card(
       margin: EdgeInsets.all(8.0),
       shape: RoundedRectangleBorder(
@@ -28,12 +34,19 @@ class StationCard extends StatelessWidget {
           style: _textStyle,
         ),
         onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => DetailStationPage(
-                _station,
-              ),
-            )),
+          context,
+          MaterialPageRoute(builder: (context) {
+            if (_station is Station) {
+              return DetailStationPage(
+                (_station as Station),
+              );
+            } else {
+              return NivosePage(
+                (_station as Nivose),
+              );
+            }
+          }),
+        ),
       ),
     );
   }
