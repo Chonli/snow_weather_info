@@ -58,7 +58,7 @@ class MyHomePage extends StatelessWidget {
                   ),
                   body: Center(child: CircularProgressIndicator()));
             default:
-              return HomePage(title: title);
+              return HomePage(title: title, repository: repository,);
           }
         });
   }

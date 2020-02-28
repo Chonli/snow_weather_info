@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 import 'package:location/location.dart';
-import 'package:provider/provider.dart';
 import 'package:snow_weather_info/data/repository.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/ui/map_licence_widget.dart';
@@ -11,7 +10,8 @@ import 'package:snow_weather_info/ui/detail_station_page.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
-  const HomePage({Key key, this.title}) : super(key: key);
+  final Repository repository;
+  const HomePage({Key key, this.title, this.repository}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -24,7 +24,8 @@ class _HomePageState extends State<HomePage> {
   final Location _location = Location();
   final double _zoom = 10.0;
   List<Station> _listStation;
-  Repository _repository;
+
+  Repository get repository => widget.repository;
 
   @override
   void initState() {
@@ -32,6 +33,7 @@ class _HomePageState extends State<HomePage> {
     _mapController.onReady.then((result) {
       _getLocation();
     });
+    _listStation = repository.stations;
 
     super.initState();
   }
@@ -63,8 +65,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    _repository = Provider.of<Repository>(context);
-    _listStation = _repository.getStations();
     _initMakerList(_listStation);
     return DefaultTabController(
       length: 2,
@@ -90,11 +90,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _filterSearchResults(String query) {
-    var dummySearchList = _repository.getStations();
+    var dummySearchList = repository.stations;
     if (query.isNotEmpty) {
       List<Station> dummyListData = List<Station>();
       dummySearchList.forEach((item) {
-        if (item.name.contains(query)) {
+        if (item.name.toLowerCase().contains(query.toLowerCase())) {
           dummyListData.add(item);
         }
       });
@@ -112,31 +112,33 @@ class _HomePageState extends State<HomePage> {
 
   Widget _listBody(List<Station> list) {
     if (list == null) return Container();
-    return Container(
-      child: Column(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              onChanged: (value) {
-                _filterSearchResults(value);
-              },
-              controller: _editingController,
-              decoration: InputDecoration(
-                  labelText: "Recherche",
-                  hintText: "Recherche",
-                  prefixIcon: Icon(Icons.search),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(25.0)))),
-            ),
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextField(
+            onChanged: (value) {
+              _filterSearchResults(value);
+            },
+            controller: _editingController,
+            decoration: InputDecoration(
+                labelText: "Recherche",
+                hintText: "Recherche",
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(25.0)))),
           ),
-          ListView.builder(
+        ),
+        Expanded(
+          child: ListView.builder(
             key: PageStorageKey("station_list_key"),
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
             itemCount: list.length,
             itemBuilder: (context, index) => StationCard(list[index]),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

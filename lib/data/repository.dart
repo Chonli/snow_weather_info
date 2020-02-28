@@ -124,9 +124,7 @@ class Repository {
     _listStation.sort((a, b) => a.name.compareTo(b.name));
   }
 
-  List<Station> getStations() {
-    return _listStation;
-  }
+  List<Station> get stations => _listStation.toList();
 
   List<DataStation> getDataOfStation(int id) {
     return _hashDataStation[id];
