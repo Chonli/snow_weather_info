@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 import 'package:location/location.dart';
-import 'package:provider/provider.dart';
 import 'package:snow_weather_info/data/repository.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/ui/map_licence_widget.dart';
@@ -11,17 +10,22 @@ import 'package:snow_weather_info/ui/detail_station_page.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
-  const HomePage({Key key, this.title}) : super(key: key);
+  final Repository repository;
+  const HomePage({Key key, this.title, this.repository}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  TextEditingController _editingController = TextEditingController();
   final MapController _mapController = MapController();
   final List<Marker> _listStationMarker = List<Marker>();
   final Location _location = Location();
   final double _zoom = 10.0;
+  List<Station> _listStation;
+
+  Repository get repository => widget.repository;
 
   @override
   void initState() {
@@ -29,6 +33,7 @@ class _HomePageState extends State<HomePage> {
     _mapController.onReady.then((result) {
       _getLocation();
     });
+    _listStation = repository.stations;
 
     super.initState();
   }
@@ -60,9 +65,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final Repository repository = Provider.of<Repository>(context);
-    var list = repository.getStations();
-    _initMakerList(list);
+    _initMakerList(_listStation);
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -78,20 +81,64 @@ class _HomePageState extends State<HomePage> {
         body: TabBarView(
           physics: NeverScrollableScrollPhysics(),
           children: [
-            _listBody(list),
-            _mapBody(list),
+            _listBody(_listStation),
+            _mapBody(_listStation),
           ],
         ),
       ),
     );
   }
 
+  void _filterSearchResults(String query) {
+    var dummySearchList = repository.stations;
+    if (query.isNotEmpty) {
+      List<Station> dummyListData = List<Station>();
+      dummySearchList.forEach((item) {
+        if (item.name.toLowerCase().contains(query.toLowerCase())) {
+          dummyListData.add(item);
+        }
+      });
+      setState(() {
+        _listStation.clear();
+        _listStation.addAll(dummyListData);
+      });
+    } else {
+      setState(() {
+        _listStation.clear();
+        _listStation.addAll(dummySearchList);
+      });
+    }
+  }
+
   Widget _listBody(List<Station> list) {
     if (list == null) return Container();
-    return ListView.builder(
-      key: PageStorageKey("station_list_key"),
-      itemCount: list.length,
-      itemBuilder: (context, index) => StationCard(list[index]),
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextField(
+            onChanged: (value) {
+              _filterSearchResults(value);
+            },
+            controller: _editingController,
+            decoration: InputDecoration(
+                labelText: "Recherche",
+                hintText: "Recherche",
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(25.0)))),
+          ),
+        ),
+        Expanded(
+          child: ListView.builder(
+            key: PageStorageKey("station_list_key"),
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            itemCount: list.length,
+            itemBuilder: (context, index) => StationCard(list[index]),
+          ),
+        ),
+      ],
     );
   }
 
