@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:snow_weather_info/data/repository.dart';
 import 'package:snow_weather_info/ui/avalanche_massif_page.dart';
 import 'package:snow_weather_info/ui/list_station_widget.dart';
 import 'package:snow_weather_info/ui/map_widget.dart';
@@ -12,7 +10,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Repository repository = Provider.of<Repository>(context);
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -40,7 +37,7 @@ class HomePage extends StatelessWidget {
           physics: NeverScrollableScrollPhysics(),
           children: [
             ListStationWidget(),
-            MapWidget(repository),
+            MapWidget(),
           ],
         ),
       ),

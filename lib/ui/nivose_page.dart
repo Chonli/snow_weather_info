@@ -28,7 +28,6 @@ class NivosePage extends StatelessWidget {
                   if (snapshot.hasError || !snapshot.hasData) {
                     return Text('Erreur de chargement');
                   } else {
-                    print("url data: ${snapshot.data}");
                     return CachedNetworkImage(
                       imageUrl: snapshot.data,
                       placeholder: (context, url) =>

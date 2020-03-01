@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 import 'package:location/location.dart';
+import 'package:provider/provider.dart';
 import 'package:snow_weather_info/data/repository.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/ui/detail_station_page.dart';
 import 'package:snow_weather_info/ui/map_licence_widget.dart';
+import 'package:snow_weather_info/ui/nivose_page.dart';
 
 class MapWidget extends StatefulWidget {
-  final Repository repository;
-  const MapWidget(this.repository);
+  const MapWidget();
 
   @override
   _MapWidgetState createState() => _MapWidgetState();
@@ -22,14 +23,11 @@ class _MapWidgetState extends State<MapWidget> {
   final double _zoom = 10.0;
   List<Station> _listStation;
 
-  Repository get repository => widget.repository;
-
   @override
   void initState() {
     _mapController.onReady.then((result) {
       _getLocation();
     });
-    _listStation = repository.stations;
     super.initState();
   }
 
@@ -58,9 +56,21 @@ class _MapWidgetState extends State<MapWidget> {
     }
   }
 
-  void _initMakerList(List<Station> list) {
-    if (list == null) return;
+  void _initMakerList() {
+    Repository repository = Provider.of<Repository>(context);
+    List<AbstractStation> list = List<AbstractStation>();
+    list.addAll(repository.stations);
+    list.addAll(repository.nivoses);
     for (var st in list) {
+      bool hasData = false;
+      Color color = Colors.blue.shade900;
+      double lastSnowHeight = 0.0;
+      if (st is Station) {
+        hasData = st.hasData;
+        color = hasData ? Colors.black : Colors.grey;
+        lastSnowHeight = st.lastSnowHeight;
+      }
+
       _listStationMarker.add(
         Marker(
           width: 90.0,
@@ -71,8 +81,8 @@ class _MapWidgetState extends State<MapWidget> {
               Positioned(
                 left: 40.0,
                 bottom: 0.0,
-                child: st.hasData
-                    ? Text("${(st.lastSnowHeight * 100).toStringAsFixed(0)}cm")
+                child: hasData
+                    ? Text("${(lastSnowHeight * 100).toStringAsFixed(0)}cm")
                     : Container(),
               ),
               Positioned(
@@ -80,14 +90,20 @@ class _MapWidgetState extends State<MapWidget> {
                 bottom: 2.0,
                 child: IconButton(
                   icon: Icon(Icons.place),
-                  color: st.hasData ? Colors.black : Colors.grey,
+                  color: color,
                   onPressed: () => Navigator.push(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => DetailStationPage(
-                        st,
-                      ),
-                    ),
+                    MaterialPageRoute(builder: (context) {
+                      if (st is Station) {
+                        return DetailStationPage(
+                          st,
+                        );
+                      } else {
+                        return NivosePage(
+                          st as Nivose,
+                        );
+                      }
+                    }),
                   ),
                 ),
               ),
@@ -100,9 +116,7 @@ class _MapWidgetState extends State<MapWidget> {
 
   @override
   Widget build(BuildContext context) {
-    _initMakerList(_listStation);
-
-    if (_listStation == null) return Container();
+    _initMakerList();
 
     return Stack(
       children: [

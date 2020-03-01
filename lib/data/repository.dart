@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -210,38 +211,46 @@ class Repository {
   _initNivose() {
     _listNivose = List<Nivose>()
       //alpes nord
-      ..add(Nivose("Aiguilles rouges", LatLng(0.0, 0.0), 2330, 'ZONE_AIGRG'))
-      ..add(Nivose("Bellecote", LatLng(0.0, 0.0), 3000, 'ZONE_BELLE'))
-      ..add(Nivose("Le Chevril", LatLng(0.0, 0.0), 2560, 'ZONE_CHEVR'))
-      ..add(Nivose("Bonneval", LatLng(0.0, 0.0), 2720, 'ZONE_BONNE'))
-      ..add(Nivose("Les rochilles", LatLng(0.0, 0.0), 2450, 'ZONE_ROCHI'))
-      ..add(Nivose("Allant", LatLng(0.0, 0.0), 1630, 'ZONE_ALLAN'))
-      ..add(Nivose("Grande Parei", LatLng(0.0, 0.0), 2240, 'ZONE_GRPAR'))
-      ..add(Nivose("Col de Porte", LatLng(0.0, 0.0), 1325, 'ZONE_PORTE'))
-      //..add(Nivose("St Hilaire", LatLng(0.0, 0.0), 1234, 'ZONE_MEIJE'))
-      ..add(Nivose("Aigleton", LatLng(0.0, 0.0), 2240, 'ZONE_AIGLE'))
-      ..add(Nivose("Le Gua", LatLng(0.0, 0.0), 1600, 'ZONE_LEGUA'))
-      ..add(Nivose("Les Ecrins", LatLng(0.0, 0.0), 2940, 'ZONE_ECRIN'))
-      ..add(Nivose("La Meije", LatLng(0.0, 0.0), 3100, 'ZONE_MEIJE'))
-      ..add(Nivose("Galibier", LatLng(0.0, 0.0), 2559, 'ZONE_GALIB'))
+      ..add(Nivose(
+          "Aiguilles rouges", LatLng(45.986125, 6.895937), 2330, 'ZONE_AIGRG'))
+      ..add(Nivose("Bellecote", LatLng(45.48881, 6.77163), 3000, 'ZONE_BELLE'))
+      ..add(Nivose("Le Chevril", LatLng(45.50179, 6.95604), 2560, 'ZONE_CHEVR'))
+      ..add(Nivose("Bonneval", LatLng(45.35175, 7.05132), 2720, 'ZONE_BONNE'))
+      ..add(Nivose(
+          "Les rochilles", LatLng(45.08467, 6.47127), 2450, 'ZONE_ROCHI'))
+      ..add(Nivose("Allant", LatLng(45.66345, 6.21195), 1630, 'ZONE_ALLAN'))
+      ..add(
+          Nivose("Grande Parei", LatLng(45.61463, 6.64750), 2240, 'ZONE_GRPAR'))
+      ..add(Nivose(
+          "Col de Porte", LatLng(45.2952742, 5.7651929), 1325, 'ZONE_PORTE'))
+      ..add(Nivose("St Hilaire", LatLng(45.31449, 5.86462), 1700, 'ZONE_STHIL'))
+      ..add(
+          Nivose("Aigleton", LatLng(45.2311598, 6.0381140), 2240, 'ZONE_AIGLE'))
+      ..add(Nivose("Le Gua", LatLng(45.01517, 5.58951), 1600, 'ZONE_LEGUA'))
+      ..add(Nivose("Les Ecrins", LatLng(44.93681, 6.34602), 2940, 'ZONE_ECRIN'))
+      ..add(Nivose("La Meije", LatLng(45.01255, 6.26485), 3100, 'ZONE_MEIJE'))
+      ..add(Nivose("Galibier", LatLng(45.05733, 6.37739), 2559, 'ZONE_GALIB'))
       //alpes sud
-      ..add(Nivose("Orcières", LatLng(0.0, 0.0), 2294, 'ZONE_ORCIE'))
-      ..add(Nivose("Col Agnel", LatLng(0.0, 0.0), 2630, 'ZONE_AGNEL'))
-      ..add(Nivose("Restefond", LatLng(0.0, 0.0), 2550, 'ZONE_RESTE'))
-      ..add(Nivose("Millefonts", LatLng(0.0, 0.0), 2430, 'ZONE_MILLE'))
-      ..add(Nivose("Parpaillon", LatLng(0.0, 0.0), 2545, 'ZONE_PARPA'))
+      ..add(Nivose("Orcières", LatLng(44.71857, 6.33378), 2294, 'ZONE_ORCIE'))
+      ..add(Nivose("Col Agnel", LatLng(44.68873, 6.97625), 2630, 'ZONE_AGNEL'))
+      ..add(Nivose("Restefond", LatLng(44.34205, 6.79871), 2550, 'ZONE_RESTE'))
+      ..add(Nivose("Millefonts", LatLng(44.11819, 7.19226), 2430, 'ZONE_MILLE'))
+      ..add(Nivose("Parpaillon", LatLng(44.49522, 6.63650), 2545, 'ZONE_PARPA'))
       //corse
-      ..add(Nivose("Sponde", LatLng(0.0, 0.0), 1980, 'ZONE_SPOND'))
-      ..add(Nivose("Maniccia", LatLng(0.0, 0.0), 2360, 'ZONE_MANIC'))
+      ..add(Nivose("Sponde", LatLng(42.32448, 8.88478), 1980, 'ZONE_SPOND'))
+      ..add(Nivose("Maniccia", LatLng(42.20837, 9.04888), 2360, 'ZONE_MANIC'))
       //pyrennée
-      ..add(Nivose("Maupas", LatLng(0.0, 0.0), 2430, 'ZONE_MAUPA'))
-      ..add(Nivose("Port d`'Aula", LatLng(0.0, 0.0), 2140, 'ZONE_PAULA'))
-      ..add(Nivose("Canigou", LatLng(0.0, 0.0), 2150, 'ZONE_CANIG'))
-      ..add(Nivose("Hospitalet", LatLng(0.0, 0.0), 2293, 'ZONE_HOSPI'))
-      ..add(Nivose("Puigmal", LatLng(0.0, 0.0), 2467, 'ZONE_PUIGN'))
-      ..add(Nivose("Soum Couy", LatLng(0.0, 0.0), 2150, 'ZONE_SOUMC'))
-      ..add(Nivose("Lac d'ardiden", LatLng(0.0, 0.0), 2445, 'ZONE_LARDI'))
-      ..add(Nivose("Aiguillettes", LatLng(0.0, 0.0), 2120, 'ZONE_AIGTE'));
+      ..add(Nivose("Maupas", LatLng(42.71428, 0.54995), 2430, 'ZONE_MAUPA'))
+      ..add(
+          Nivose("Port d`'Aula", LatLng(42.76993, 1.11493), 2140, 'ZONE_PAULA'))
+      ..add(Nivose("Canigou", LatLng(42.53322, 2.46096), 2150, 'ZONE_CANIG'))
+      ..add(Nivose("Hospitalet", LatLng(42.57778, 1.81140), 2293, 'ZONE_HOSPI'))
+      ..add(Nivose("Puigmal", LatLng(42.38318, 2.09143), 2467, 'ZONE_PUIGN'))
+      ..add(Nivose("Soum Couy", LatLng(42.96157, -0.71995), 2150, 'ZONE_SOUMC'))
+      ..add(Nivose(
+          "Lac d'ardiden", LatLng(42.84828, -0.06471), 2445, 'ZONE_LARDI'))
+      ..add(Nivose(
+          "Aiguillettes", LatLng(42.74692, 0.18128), 2120, 'ZONE_AIGTE'));
   }
 
   Nivose getNivose(String codeMF) {
@@ -251,25 +260,20 @@ class Repository {
   Future<String> updateUrlNivo(String codeMF) async {
     var nivose = getNivose(codeMF);
     print(nivose.toString());
-    var needTry = 4;
-    while (needTry > 0) {
+    if (nivose.urlWeek == null) {
       try {
         final response = await http.get(
-            'https://www.meteofrance.com/mf3-rpc-portlet/rest/relevemontagne/releve/$codeMF/type/imgnivose7j');
+            'http://www.meteofrance.com/mf3-rpc-portlet/rest/relevemontagne/releve/$codeMF/type/imgnivose7j');
+
         if (response.statusCode == 200) {
           nivose.urlWeek =
               'http://www.meteofrance.com/integration/sim-portail' +
                   response.body.replaceAll(RegExp('"'), '');
-          needTry = 0;
         } else {
           print("error url : ${response.statusCode}");
-          needTry = needTry - 1;
-          await new Future.delayed(const Duration(milliseconds: 500));
         }
       } catch (ex) {
         print(ex.toString());
-        needTry = needTry - 1;
-        await new Future.delayed(const Duration(milliseconds: 500));
       }
     }
 
