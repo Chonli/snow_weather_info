@@ -21,6 +21,7 @@ class _MapWidgetState extends State<MapWidget> {
   final List<Marker> _listStationMarker = List<Marker>();
   final Location _location = Location();
   final double _zoom = 10.0;
+  bool onlyOne = true;
 
   @override
   void initState() {
@@ -56,60 +57,63 @@ class _MapWidgetState extends State<MapWidget> {
   }
 
   void _initMakerList() {
-    Repository repository = Provider.of<Repository>(context);
-    List<AbstractStation> list = List<AbstractStation>();
-    list.addAll(repository.stations);
-    list.addAll(repository.nivoses);
-    for (var st in list) {
-      bool hasData = false;
-      Color color = Colors.blue.shade900;
-      double lastSnowHeight = 0.0;
-      if (st is Station) {
-        hasData = st.hasData;
-        color = hasData ? Colors.black : Colors.grey;
-        lastSnowHeight = st.lastSnowHeight;
-      }
+    if (onlyOne) {
+      onlyOne = false;
+      Repository repository = Provider.of<Repository>(context);
+      List<AbstractStation> list = List<AbstractStation>();
+      list.addAll(repository.stations);
+      list.addAll(repository.nivoses);
+      for (var st in list) {
+        bool hasData = false;
+        Color color = Colors.blue.shade900;
+        double lastSnowHeight = 0.0;
+        if (st is Station) {
+          hasData = st.hasData;
+          color = hasData ? Colors.black : Colors.grey;
+          lastSnowHeight = st.lastSnowHeight;
+        }
 
-      _listStationMarker.add(
-        Marker(
-          width: 90.0,
-          height: 50.0,
-          point: st.position,
-          builder: (ctx) => Stack(
-            children: <Widget>[
-              Positioned(
-                left: 40.0,
-                bottom: 0.0,
-                child: hasData
-                    ? Text("${(lastSnowHeight * 100).toStringAsFixed(0)}cm")
-                    : Container(),
-              ),
-              Positioned(
-                right: 0.0,
-                bottom: 2.0,
-                child: IconButton(
-                  icon: Icon(Icons.place),
-                  color: color,
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) {
-                      if (st is Station) {
-                        return DetailStationPage(
-                          st,
-                        );
-                      } else {
-                        return NivosePage(
-                          st as Nivose,
-                        );
-                      }
-                    }),
+        _listStationMarker.add(
+          Marker(
+            width: 90.0,
+            height: 50.0,
+            point: st.position,
+            builder: (ctx) => Stack(
+              children: <Widget>[
+                Positioned(
+                  left: 40.0,
+                  bottom: 0.0,
+                  child: hasData
+                      ? Text("${(lastSnowHeight * 100).toStringAsFixed(0)}cm")
+                      : Container(),
+                ),
+                Positioned(
+                  right: 0.0,
+                  bottom: 2.0,
+                  child: IconButton(
+                    icon: Icon(Icons.place),
+                    color: color,
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) {
+                        if (st is Station) {
+                          return DetailStationPage(
+                            st,
+                          );
+                        } else {
+                          return NivosePage(
+                            st as Nivose,
+                          );
+                        }
+                      }),
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      );
+        );
+      }
     }
   }
 

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:snow_weather_info/data/repository.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/ui/station_card.dart';
 
 class ListStationWidget extends StatefulWidget {
-  const ListStationWidget();
+  final Repository _repository;
+  const ListStationWidget(this._repository);
 
   @override
   _ListStationWidgetState createState() => _ListStationWidgetState();
@@ -14,7 +14,15 @@ class ListStationWidget extends StatefulWidget {
 class _ListStationWidgetState extends State<ListStationWidget> {
   TextEditingController _editingController = TextEditingController();
   List<AbstractStation> _listStation = List<AbstractStation>();
-  Repository _repository;
+  Repository get _repository => widget._repository;
+
+  @override
+  void initState() {
+    _listStation.addAll(_repository.nivoses);
+    _listStation.addAll(_repository.stations);
+    _listStation.sort((a, b) => a.name.compareTo(b.name));
+    super.initState();
+  }
 
   void _filterSearchResults(String query) {
     var dummySearchStationList = _repository.stations;
@@ -34,23 +42,20 @@ class _ListStationWidgetState extends State<ListStationWidget> {
       setState(() {
         _listStation.clear();
         _listStation.addAll(dummyListData);
+        _listStation.sort((a, b) => a.name.compareTo(b.name));
       });
     } else {
       setState(() {
         _listStation.clear();
         _listStation.addAll(dummySearchStationList);
         _listStation.addAll(dummySearchNivoseList);
+        _listStation.sort((a, b) => a.name.compareTo(b.name));
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    _repository = Provider.of<Repository>(context);
-    _listStation.addAll(_repository.nivoses);
-    _listStation.addAll(_repository.stations);
-
-    _listStation.sort((a, b) => a.name.compareTo(b.name));
     return Column(
       children: <Widget>[
         Padding(
