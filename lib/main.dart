@@ -1,17 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_stetho/flutter_stetho.dart';
 import 'package:provider/provider.dart';
 import 'package:snow_weather_info/data/repository.dart';
 import 'package:snow_weather_info/ui/home_page.dart';
 
-import 'data/repository.dart';
-
 void main() {
-  bool inDebugMode = false;
-  assert(inDebugMode = true);
-  if (inDebugMode) {
-    Stetho.initialize();
-  }
   runApp(MyApp());
 }
 
@@ -60,7 +52,9 @@ class MyHomePage extends StatelessWidget {
                   ),
                   body: Center(child: CircularProgressIndicator()));
             default:
-              return HomePage(title: title);
+              return HomePage(
+                title: title,
+              );
           }
         });
   }
