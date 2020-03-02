@@ -70,7 +70,7 @@ class _ListStationWidgetState extends State<ListStationWidget> {
                 hintText: "Recherche",
                 prefixIcon: Icon(Icons.search),
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(25.0)))),
+                    borderRadius: BorderRadius.all(Radius.circular(20.0)))),
           ),
         ),
         Expanded(

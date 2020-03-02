@@ -17,12 +17,19 @@ class AvalancheMassifPage extends StatelessWidget {
       body: ListView.builder(
         itemCount: list.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(list[index].massifName),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => AvalancheBulletinPage(list[index]),
+          return Card(
+            margin: EdgeInsets.all(8.0),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            elevation: 5.0,
+            child: ListTile(
+              title: Text(list[index].massifName),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AvalancheBulletinPage(list[index]),
+                ),
               ),
             ),
           );
