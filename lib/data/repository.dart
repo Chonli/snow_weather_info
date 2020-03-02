@@ -260,10 +260,10 @@ class Repository {
     return _listNivose.firstWhere((n) => n.codeMF == codeMF);
   }
 
-  Future<String> updateUrlNivo(String codeMF) async {
+  Future<Nivose> updateUrlNivo(String codeMF) async {
     var nivose = getNivose(codeMF);
     print(nivose.toString());
-    if (nivose.urlWeek == null) {
+    if (nivose.urlWeek == null || nivose.urlSeason == null) {
       try {
         final response = await http.get(
             'http://www.meteofrance.com/mf3-rpc-portlet/rest/relevemontagne/releve/$codeMF/type/imgnivose7j');
@@ -275,12 +275,23 @@ class Repository {
         } else {
           print("error url : ${response.statusCode}");
         }
+
+        final responseSai = await http.get(
+            'http://www.meteofrance.com/mf3-rpc-portlet/rest/relevemontagne/releve/$codeMF/type/imgnivosesai');
+
+        if (responseSai.statusCode == 200) {
+          nivose.urlSeason =
+              'http://www.meteofrance.com/integration/sim-portail' +
+                  responseSai.body.replaceAll(RegExp('"'), '');
+        } else {
+          print("error url : ${responseSai.statusCode}");
+        }
       } catch (ex) {
         print(ex.toString());
       }
     }
 
-    print(nivose.urlWeek);
-    return nivose.urlWeek;
+    print('${nivose.urlWeek} \n${nivose.urlSeason}');
+    return nivose;
   }
 }
