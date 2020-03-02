@@ -21,7 +21,6 @@ class _MapWidgetState extends State<MapWidget> {
   final List<Marker> _listStationMarker = List<Marker>();
   final Location _location = Location();
   final double _zoom = 10.0;
-  List<Station> _listStation;
 
   @override
   void initState() {

@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:csv/csv.dart';
 import 'package:intl/intl.dart';
 import 'package:latlong/latlong.dart';
+import 'package:package_info/package_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:snow_weather_info/data/database_helper.dart';
 import 'package:snow_weather_info/model/avalanche_bulletin.dart';
@@ -21,9 +22,11 @@ class Repository {
   List<Nivose> _listNivose;
   HashMap<int, List<DataStation>> _hashDataStation;
   List<AvalancheBulletin> _listAvalancheBulletin;
+  PackageInfo packageInfo;
 
   Future<bool> initData() async {
     if (!_isInitialise) {
+      packageInfo = await PackageInfo.fromPlatform();
       _initAvalancheBulletin();
       _initNivose();
       _prefs = await SharedPreferences.getInstance();
@@ -191,23 +194,6 @@ class Repository {
       ..add(AvalancheBulletin("Cerdagne-Canigou", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP74.pdf", Mountain.pyrennee));
   }
 
-  List<Station> get stations => _listStation.toList();
-
-  List<Nivose> get nivoses => _listNivose.toList();
-
-  List<DataStation> getDataOfStation(int id) {
-    return _hashDataStation[id];
-  }
-
-  List<AvalancheBulletin> getAvalancheBulletin(Mountain mountain) {
-    return _listAvalancheBulletin
-      ..where((f) => f.mountain == mountain).toList();
-  }
-
-  List<AvalancheBulletin> getAllAvalancheBulletin() {
-    return _listAvalancheBulletin.toList();
-  }
-
   _initNivose() {
     _listNivose = List<Nivose>()
       //alpes nord
@@ -253,6 +239,23 @@ class Repository {
           "Aiguillettes", LatLng(42.74692, 0.18128), 2120, 'ZONE_AIGTE'));
   }
 
+  List<Station> get stations => _listStation.toList();
+
+  List<Nivose> get nivoses => _listNivose.toList();
+
+  List<DataStation> getDataOfStation(int id) {
+    return _hashDataStation[id];
+  }
+
+  List<AvalancheBulletin> getAvalancheBulletin(Mountain mountain) {
+    return _listAvalancheBulletin
+      ..where((f) => f.mountain == mountain).toList();
+  }
+
+  List<AvalancheBulletin> getAllAvalancheBulletin() {
+    return _listAvalancheBulletin.toList();
+  }
+
   Nivose getNivose(String codeMF) {
     return _listNivose.firstWhere((n) => n.codeMF == codeMF);
   }
@@ -280,41 +283,4 @@ class Repository {
     print(nivose.urlWeek);
     return nivose.urlWeek;
   }
-
-// » Pyrénées
-// Maupas (s)  ZONE_MAUPA
-// Port d`'Aula (s) ZONE_PAULA
-// Canigou (s)  ZONE_CANIG
-// Hospitalet (s)  ZONE_HOSPI
-// Puigmal (s)  ZONE_PUIGN
-// Soum Couy (s)  ZONE_SOUMC
-// Lac d'ardiden (s) ZONE_LARDI
-// Aiguillettes (s)  ZONE_AIGTE
-
-//   Alpes du Nord
-// Aiguilles rouges  ZONE_AIGRG
-// Bellecote   ZONE_BELLE
-// Le Chevril  ZONE_CHEVR
-// Bonneval (s)  ZONE_BONNE
-// Les rochilles (s)  ZONE_ROCHI
-// Allant (s)  ZONE_ALLAN
-// Grande Parei (s)  ZONE_GRPAR
-// Col de Porte (s)  ZONE_PORTE
-// St Hilaire (s)
-// Aigleton (s)  ZONE_AIGLE
-// Le Gua (s)  ZONE_LEGUA
-// Les Ecrins (s)  ZONE_ECRIN
-// La Meije (s)  ZONE_MEIJE
-// Galibier   ZONE_GALIB
-
-// » Alpes du Sud
-// Orcières (s)  ZONE_ORCIE
-// Col Agnel (s)  ZONE_AGNEL
-// Restefond (s)  ZONE_RESTE
-// Millefonts (s)  ZONE_MILLE
-// Parpaillon (s)  ZONE_PARPA
-
-// » Corse
-// Sponde (s)  ZONE_SPOND
-// Maniccia (s)  ZONE_MANIC
 }
