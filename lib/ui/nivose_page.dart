@@ -20,7 +20,7 @@ class NivosePage extends StatelessWidget {
       body: Center(
         child: FutureBuilder(
             future: repository.updateUrlNivo(nivose.codeMF),
-            builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+            builder: (BuildContext context, AsyncSnapshot<Nivose> snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.waiting:
                   return CircularProgressIndicator();
@@ -28,12 +28,31 @@ class NivosePage extends StatelessWidget {
                   if (snapshot.hasError || !snapshot.hasData) {
                     return Text('Erreur de chargement');
                   } else {
-                    return CachedNetworkImage(
-                      imageUrl: snapshot.data,
-                      placeholder: (context, url) =>
-                          CircularProgressIndicator(),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
-                      cacheManager: DefaultCacheManager(),
+                    final nivo = snapshot.data;
+                    return Container(
+                      margin: EdgeInsets.all(10),
+                      child: ListView(
+                        children: [
+                          CachedNetworkImage(
+                            imageUrl: nivo.urlWeek != null ? nivo.urlWeek : "",
+                            placeholder: (context, url) =>
+                                CircularProgressIndicator(),
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
+                            cacheManager: DefaultCacheManager(),
+                          ),
+                          Padding(padding: EdgeInsets.all(5)),
+                          CachedNetworkImage(
+                            imageUrl:
+                                nivo.urlSeason != null ? nivo.urlSeason : "",
+                            placeholder: (context, url) =>
+                                CircularProgressIndicator(),
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
+                            cacheManager: DefaultCacheManager(),
+                          ),
+                        ],
+                      ),
                     );
                   }
               }

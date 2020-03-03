@@ -44,7 +44,7 @@ android {
 
     defaultConfig {
         applicationId "com.chonli.snow_weather_info"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -63,6 +63,9 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.release
+            zipAlignEnabled true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug{
             applicationIdSuffix '.debug'
