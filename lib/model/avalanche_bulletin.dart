@@ -6,4 +6,4 @@ class AvalancheBulletin {
   AvalancheBulletin(this.massifName, this.url, this.mountain);
 }
 
-enum Mountain { alpe, corse, pyrennee }
+enum Mountain { all, alpes_nord, alpes_sud, corse, pyrennee }

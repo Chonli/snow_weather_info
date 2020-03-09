@@ -141,44 +141,44 @@ class Repository {
       ..add(AvalancheBulletin(
           "Chablais",
           "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP01.pdf",
-          Mountain.alpe))
+          Mountain.alpes_nord))
       ..add(AvalancheBulletin(
           "Aravis",
           "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP02.pdf",
-          Mountain.alpe))
+          Mountain.alpes_nord))
       ..add(AvalancheBulletin(
           "Mont-Blanc",
           "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP03.pdf",
-          Mountain.alpe))
+          Mountain.alpes_nord))
       ..add(AvalancheBulletin(
           "Bauges",
           "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP04.pdf",
-          Mountain.alpe))
+          Mountain.alpes_nord))
       ..add(AvalancheBulletin(
           "Beaufortain",
           "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP05.pdf",
-          Mountain.alpe))
+          Mountain.alpes_nord))
       ..add(AvalancheBulletin(
           "Haute-Tarentaise",
           "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP06.pdf",
-          Mountain.alpe))
-      ..add(AvalancheBulletin("Chartreuse", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP07.pdf", Mountain.alpe))
-      ..add(AvalancheBulletin("Belledonne", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP08.pdf", Mountain.alpe))
-      ..add(AvalancheBulletin("Maurienne", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP09.pdf", Mountain.alpe))
-      ..add(AvalancheBulletin("Vanoise", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP10.pdf", Mountain.alpe))
-      ..add(AvalancheBulletin("Haute-Maurienne", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP11.pdf", Mountain.alpe))
-      ..add(AvalancheBulletin("Grandes-Rousses", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP12.pdf", Mountain.alpe))
-      ..add(AvalancheBulletin("Thabor", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP13.pdf", Mountain.alpe))
-      ..add(AvalancheBulletin("Vercors", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP14.pdf", Mountain.alpe))
-      ..add(AvalancheBulletin("Oisans", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP15.pdf", Mountain.alpe))
-      ..add(AvalancheBulletin("Pelvoux", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP16.pdf", Mountain.alpe))
-      ..add(AvalancheBulletin("Queyras", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP17.pdf", Mountain.alpe))
-      ..add(AvalancheBulletin("Devoluy", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP18.pdf", Mountain.alpe))
-      ..add(AvalancheBulletin("Champsaur", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP19.pdf", Mountain.alpe))
-      ..add(AvalancheBulletin("Embrunnais-Parpaillon", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP20.pdf", Mountain.alpe))
-      ..add(AvalancheBulletin("Ubaye", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP21.pdf", Mountain.alpe))
-      ..add(AvalancheBulletin("Haut-Var-Haut-Verdon", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP22.pdf", Mountain.alpe))
-      ..add(AvalancheBulletin("Mercantour", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP23.pdf", Mountain.alpe))
+          Mountain.alpes_nord))
+      ..add(AvalancheBulletin("Chartreuse", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP07.pdf", Mountain.alpes_nord))
+      ..add(AvalancheBulletin("Belledonne", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP08.pdf", Mountain.alpes_nord))
+      ..add(AvalancheBulletin("Maurienne", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP09.pdf", Mountain.alpes_nord))
+      ..add(AvalancheBulletin("Vanoise", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP10.pdf", Mountain.alpes_nord))
+      ..add(AvalancheBulletin("Haute-Maurienne", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP11.pdf", Mountain.alpes_nord))
+      ..add(AvalancheBulletin("Grandes-Rousses", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP12.pdf", Mountain.alpes_nord))
+      ..add(AvalancheBulletin("Thabor", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP13.pdf", Mountain.alpes_nord))
+      ..add(AvalancheBulletin("Vercors", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP14.pdf", Mountain.alpes_nord))
+      ..add(AvalancheBulletin("Oisans", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP15.pdf", Mountain.alpes_nord))
+      ..add(AvalancheBulletin("Pelvoux", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP16.pdf", Mountain.alpes_sud))
+      ..add(AvalancheBulletin("Queyras", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP17.pdf", Mountain.alpes_sud))
+      ..add(AvalancheBulletin("Devoluy", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP18.pdf", Mountain.alpes_sud))
+      ..add(AvalancheBulletin("Champsaur", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP19.pdf", Mountain.alpes_sud))
+      ..add(AvalancheBulletin("Embrunnais-Parpaillon", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP20.pdf", Mountain.alpes_sud))
+      ..add(AvalancheBulletin("Ubaye", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP21.pdf", Mountain.alpes_sud))
+      ..add(AvalancheBulletin("Haut-Var-Haut-Verdon", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP22.pdf", Mountain.alpes_sud))
+      ..add(AvalancheBulletin("Mercantour", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP23.pdf", Mountain.alpes_sud))
       ..add(AvalancheBulletin("Cinto-Rotondo", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP40.pdf", Mountain.corse))
       ..add(AvalancheBulletin("Renoso", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP41.pdf", Mountain.corse))
       ..add(AvalancheBulletin("Pays-Basque", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP64.pdf", Mountain.pyrennee))
@@ -248,8 +248,7 @@ class Repository {
   }
 
   List<AvalancheBulletin> getAvalancheBulletin(Mountain mountain) {
-    return _listAvalancheBulletin
-      ..where((f) => f.mountain == mountain).toList();
+    return _listAvalancheBulletin.where((f) => f.mountain == mountain).toList();
   }
 
   List<AvalancheBulletin> getAllAvalancheBulletin() {

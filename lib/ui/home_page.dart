@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:snow_weather_info/data/repository.dart';
-import 'package:snow_weather_info/ui/avalanche_massif_page.dart';
+import 'package:snow_weather_info/ui/avalanche_massif_list_page.dart';
 import 'package:snow_weather_info/ui/list_station_widget.dart';
 import 'package:snow_weather_info/ui/map_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -29,7 +29,7 @@ class HomePage extends StatelessWidget {
                   case 0:
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (BuildContext context) =>
-                            AvalancheMassifPage()));
+                            AvalancheMassifListPage()));
                     break;
                   case 1:
                     _openAboutDialog(context, _repository);

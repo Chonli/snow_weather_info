@@ -39,6 +39,7 @@ dependencies:
   flutter_cache_manager: ^1.1.3
   package_info: ^0.4.0+14
   pdf_render: ^0.57.2
+  chips_choice: ^1.1.0
 
 dev_dependencies:
   flutter_test:
