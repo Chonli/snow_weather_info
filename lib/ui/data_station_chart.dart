@@ -78,6 +78,8 @@ class DataStationChart extends StatelessWidget {
     ];
 
     return ListView(
+      primary: false,
+      shrinkWrap: true,
       children: [
         ConstrainedBox(
           constraints: BoxConstraints(

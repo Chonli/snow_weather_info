@@ -5,7 +5,7 @@ import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 import 'package:snow_weather_info/data/repository.dart';
 import 'package:snow_weather_info/model/station.dart';
-import 'package:snow_weather_info/ui/detail_station_page.dart';
+import 'package:snow_weather_info/ui/data_station_page.dart';
 import 'package:snow_weather_info/ui/map_licence_widget.dart';
 import 'package:snow_weather_info/ui/nivose_page.dart';
 
@@ -97,7 +97,7 @@ class _MapWidgetState extends State<MapWidget> {
                       context,
                       MaterialPageRoute(builder: (context) {
                         if (st is Station) {
-                          return DetailStationPage(
+                          return DataStationPage(
                             st,
                           );
                         } else {

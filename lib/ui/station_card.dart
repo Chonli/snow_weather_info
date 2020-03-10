@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:snow_weather_info/model/station.dart';
-import 'package:snow_weather_info/ui/detail_station_page.dart';
+import 'package:snow_weather_info/ui/data_station_page.dart';
 import 'package:snow_weather_info/ui/nivose_page.dart';
 
 class StationCard extends StatelessWidget {
@@ -37,7 +37,7 @@ class StationCard extends StatelessWidget {
           context,
           MaterialPageRoute(builder: (context) {
             if (_station is Station) {
-              return DetailStationPage(
+              return DataStationPage(
                 (_station as Station),
               );
             } else {

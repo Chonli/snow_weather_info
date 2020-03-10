@@ -40,6 +40,7 @@ dependencies:
   package_info: ^0.4.0+14
   native_pdf_view: ^2.2.0
   chips_choice: ^1.1.0
+  carousel_slider: ^1.4.1
 
 dev_dependencies:
   flutter_test:
