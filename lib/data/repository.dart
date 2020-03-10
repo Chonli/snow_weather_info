@@ -195,7 +195,8 @@ class Repository {
       ..add(AvalancheBulletin("Andorre", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP71.pdf", Mountain.pyrennee))
       ..add(AvalancheBulletin("Orlu-St-Barthelemy", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP72.pdf", Mountain.pyrennee))
       ..add(AvalancheBulletin("Capcir-Puymorens", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP73.pdf", Mountain.pyrennee))
-      ..add(AvalancheBulletin("Cerdagne-Canigou", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP74.pdf", Mountain.pyrennee));
+      ..add(AvalancheBulletin("Cerdagne-Canigou", "http://www.meteofrance.com/integration/sim-portail/generated/integration/img/produits/pdf/bulletins_bra/OPP74.pdf", Mountain.pyrennee))
+      ..sort((a, b) => a.massifName.compareTo(b.massifName));
   }
 
   _initNivose() {
