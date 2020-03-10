@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong/latlong.dart';
-import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 import 'package:snow_weather_info/data/repository.dart';
 import 'package:snow_weather_info/model/station.dart';
@@ -10,7 +8,8 @@ import 'package:snow_weather_info/ui/map_licence_widget.dart';
 import 'package:snow_weather_info/ui/nivose_page.dart';
 
 class MapWidget extends StatefulWidget {
-  const MapWidget();
+  final Repository repository;
+  MapWidget(this.repository);
 
   @override
   _MapWidgetState createState() => _MapWidgetState();
@@ -19,41 +18,35 @@ class MapWidget extends StatefulWidget {
 class _MapWidgetState extends State<MapWidget> {
   final MapController _mapController = MapController();
   final List<Marker> _listStationMarker = List<Marker>();
-  final Location _location = Location();
+  Repository get repository => widget.repository;
+
   final double _zoom = 10.0;
   bool onlyOne = true;
 
   @override
   void initState() {
-    _mapController.onReady.then((result) {
-      _getLocation();
+    _mapController.onReady.then((result) async {
+      var isFristLaunch = repository.currentUserLoc == null;
+      var hasPosition = await repository.updateLocation();
+
+      if (hasPosition && repository.currentUserLoc != null) {
+        setState(() {
+          _listStationMarker.add(Marker(
+              width: 50.0,
+              height: 50.0,
+              point: repository.currentUserLoc,
+              builder: (ctx) => Icon(
+                    Icons.person_pin_circle,
+                    color: Colors.blueAccent,
+                  )));
+          if (isFristLaunch) {
+            repository.currentMapLoc = repository.currentUserLoc;
+            _mapController.move(repository.currentMapLoc, _zoom);
+          }
+        });
+      }
     });
     super.initState();
-  }
-
-  _getLocation() async {
-    var hasPermission = await _location.hasPermission();
-    if (!hasPermission) {
-      hasPermission = await _location.requestPermission();
-    }
-
-    if (hasPermission) {
-      var loc = await _location.getLocation();
-      var currentLocation = LatLng(loc.latitude, loc.longitude);
-
-      setState(() {
-        _listStationMarker.add(Marker(
-            width: 50.0,
-            height: 50.0,
-            point: currentLocation,
-            builder: (ctx) => Icon(
-                  Icons.person_pin_circle,
-                  color: Colors.blueAccent,
-                )));
-
-        _mapController.move(currentLocation, _zoom);
-      });
-    }
   }
 
   void _initMakerList() {
@@ -126,7 +119,7 @@ class _MapWidgetState extends State<MapWidget> {
         FlutterMap(
           mapController: _mapController,
           options: MapOptions(
-            center: LatLng(45.05, 6.3),
+            center: repository.currentMapLoc,
             zoom: _zoom,
           ),
           layers: [
@@ -154,8 +147,18 @@ class _MapWidgetState extends State<MapWidget> {
               width: 40,
               color: Colors.grey.shade200,
               child: IconButton(
-                  icon: Icon(Icons.my_location),
-                  onPressed: () async => await _getLocation()),
+                icon: Icon(Icons.my_location),
+                onPressed: () async {
+                  var hasPosition = await repository.updateLocation();
+
+                  if (hasPosition && repository.currentUserLoc != null) {
+                    repository.currentMapLoc = repository.currentUserLoc;
+                    setState(() {
+                      _mapController.move(repository.currentMapLoc, _zoom);
+                    });
+                  }
+                },
+              ),
             ),
           ),
         ),

@@ -8,9 +8,9 @@ import 'package:snow_weather_info/ui/data_station_chart.dart';
 import 'package:snow_weather_info/ui/data_station_widget.dart';
 
 class DataStationPage extends StatefulWidget {
-  final Station _station;
+  final Station station;
 
-  DataStationPage(this._station);
+  DataStationPage(this.station);
 
   @override
   _DataStationPageState createState() => _DataStationPageState();
@@ -18,19 +18,21 @@ class DataStationPage extends StatefulWidget {
 
 class _DataStationPageState extends State<DataStationPage> {
   int _current = 0;
+  Station get station => widget.station;
 
   @override
   Widget build(BuildContext context) {
     Repository repository = Provider.of<Repository>(context);
-    final data = repository.getDataOfStation(widget._station.id);
+    repository.currentMapLoc = station.position;
+    final data = repository.getDataOfStation(station.id);
     return Scaffold(
         appBar: AppBar(
           title: Column(children: [
             Text(
-              widget._station.name,
+              station.name,
             ),
             Text(
-              " (" + widget._station.altitude.toString() + "m)",
+              " (" + station.altitude.toString() + "m)",
             ),
           ]),
         ),
@@ -42,7 +44,7 @@ class _DataStationPageState extends State<DataStationPage> {
   Widget _pageBody(final List<DataStation> data) {
     final dataSlider = CarouselSlider(
       items: data.map((d) => DataStationWidget(d)).toList(),
-      height: 200,
+      height: 220,
       initialPage: 0,
       viewportFraction: 1.0,
       enableInfiniteScroll: false,

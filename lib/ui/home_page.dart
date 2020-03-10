@@ -65,7 +65,7 @@ class HomePage extends StatelessWidget {
           physics: NeverScrollableScrollPhysics(),
           children: [
             ListStationWidget(_repository),
-            MapWidget(),
+            MapWidget(_repository),
           ],
         ),
       ),

@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:csv/csv.dart';
 import 'package:intl/intl.dart';
 import 'package:latlong/latlong.dart';
+import 'package:location/location.dart';
 import 'package:package_info/package_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:snow_weather_info/data/database_helper.dart';
@@ -23,6 +24,9 @@ class Repository {
   HashMap<int, List<DataStation>> _hashDataStation;
   List<AvalancheBulletin> _listAvalancheBulletin;
   PackageInfo packageInfo;
+  final Location _location = Location();
+  LatLng currentMapLoc = LatLng(45.05, 6.3);
+  LatLng currentUserLoc;
 
   Future<bool> initData() async {
     if (!_isInitialise) {
@@ -292,5 +296,18 @@ class Repository {
 
     print('${nivose.urlWeek} \n${nivose.urlSeason}');
     return nivose;
+  }
+
+  Future<bool> updateLocation() async {
+    var hasPermission = await _location.hasPermission();
+    if (!hasPermission) {
+      hasPermission = await _location.requestPermission();
+    }
+    if (hasPermission) {
+      var loc = await _location.getLocation();
+      currentUserLoc = LatLng(loc.latitude, loc.longitude);
+    }
+
+    return hasPermission;
   }
 }

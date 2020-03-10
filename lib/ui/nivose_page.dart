@@ -12,7 +12,7 @@ class NivosePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Repository repository = Provider.of<Repository>(context);
-
+    repository.currentMapLoc = nivose.position;
     return Scaffold(
       appBar: AppBar(
         title: Text(nivose.name),
