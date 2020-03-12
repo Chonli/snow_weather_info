@@ -28,7 +28,6 @@ class _HomePageState extends State<HomePage>
     _tabController.addListener(() {
       repository.currentIndexTab = _tabController.index;
     });
-    print("init");
   }
 
   @override

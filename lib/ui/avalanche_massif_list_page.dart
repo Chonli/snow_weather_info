@@ -1,4 +1,3 @@
-import 'package:chips_choice/chips_choice.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:snow_weather_info/data/repository.dart';
@@ -15,6 +14,13 @@ class AvalancheMassifListPage extends StatefulWidget {
 
 class _AvalancheMassifListPageState extends State<AvalancheMassifListPage> {
   List<Mountain> _mountainSelectList = [Mountain.all];
+  final Map<Mountain, String> _constMountainList = {
+    Mountain.all: "Tous",
+    Mountain.alpes_nord: "Alpes du Nord",
+    Mountain.alpes_sud: "Alpes du Sud",
+    Mountain.corse: "Corse",
+    Mountain.pyrennee: "Pyrennée",
+  };
 
   bool _isVisible(Mountain type) {
     if (_mountainSelectList.contains(Mountain.all)) {
@@ -23,6 +29,41 @@ class _AvalancheMassifListPageState extends State<AvalancheMassifListPage> {
       return true;
     } else {
       return false;
+    }
+  }
+
+  Iterable<Widget> get mountainWidgets sync* {
+    for (var mountain in _constMountainList.entries) {
+      yield Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: ChoiceChip(
+          avatar: Visibility(
+            visible: _mountainSelectList.contains(mountain.key),
+            child: Icon(Icons.check),
+          ),
+          label: Text("${mountain.value}"),
+          selected: _mountainSelectList.contains(mountain.key),
+          onSelected: (bool selected) {
+            setState(() {
+              if (selected) {
+                if (mountain.key == Mountain.all ||
+                    _mountainSelectList.length == 3) {
+                  _mountainSelectList.clear();
+                  _mountainSelectList.add(Mountain.all);
+                } else {
+                  _mountainSelectList.add(mountain.key);
+                }
+                if (_mountainSelectList.length > 1 &&
+                    _mountainSelectList.contains(Mountain.all)) {
+                  _mountainSelectList.remove(Mountain.all);
+                }
+              } else {
+                _mountainSelectList.remove(mountain.key);
+              }
+            });
+          },
+        ),
+      );
     }
   }
 
@@ -39,35 +80,8 @@ class _AvalancheMassifListPageState extends State<AvalancheMassifListPage> {
       ),
       body: Column(
         children: [
-          ChipsChoice<Mountain>.multiple(
-            isWrapped: true,
-            value: _mountainSelectList,
-            options: <ChipsChoiceOption<Mountain>>[
-              ChipsChoiceOption<Mountain>(value: Mountain.all, label: 'Tous'),
-              ChipsChoiceOption<Mountain>(
-                  value: Mountain.alpes_nord, label: "Alpes du Nord"),
-              ChipsChoiceOption<Mountain>(
-                  value: Mountain.alpes_sud, label: "Alpes du Sud"),
-              ChipsChoiceOption<Mountain>(
-                  value: Mountain.corse, label: "Corse"),
-              ChipsChoiceOption<Mountain>(
-                  value: Mountain.pyrennee, label: "Pyrennée"),
-            ],
-            onChanged: (val) => setState(() {
-              if ((val.contains(Mountain.all) &&
-                      !_mountainSelectList.contains(Mountain.all)) ||
-                  val.length == Mountain.values.length - 1) {
-                //all is selected
-                _mountainSelectList.clear();
-                _mountainSelectList.add(Mountain.all);
-              } else if (val.length > 1 && val.contains(Mountain.all)) {
-                //all is deselected
-                val.remove(Mountain.all);
-                _mountainSelectList = val;
-              } else {
-                _mountainSelectList = val;
-              }
-            }),
+          Wrap(
+            children: mountainWidgets.toList(),
           ),
           Expanded(
             child: ListView(
