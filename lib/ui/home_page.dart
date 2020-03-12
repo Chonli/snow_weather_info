@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:snow_weather_info/data/repository.dart';
 import 'package:snow_weather_info/ui/avalanche_massif_list_page.dart';
 import 'package:snow_weather_info/ui/list_station_widget.dart';

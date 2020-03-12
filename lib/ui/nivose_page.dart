@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:provider/provider.dart';
+import 'package:share/share.dart';
 import 'package:snow_weather_info/data/repository.dart';
 import 'package:snow_weather_info/model/station.dart';
 
@@ -16,6 +17,12 @@ class NivosePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(nivose.name),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.share),
+              onPressed: () => Share.share(
+                  "Nivose ${nivose.name}\ndonnée semaine: ${nivose.urlWeek}\ndonnée saison: ${nivose.urlSeason}\n"))
+        ],
       ),
       body: Center(
         child: FutureBuilder(

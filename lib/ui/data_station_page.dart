@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:share/share.dart';
 import 'package:snow_weather_info/data/repository.dart';
 import 'package:snow_weather_info/model/data_station.dart';
 import 'package:snow_weather_info/model/station.dart';
@@ -20,6 +22,23 @@ class _DataStationPageState extends State<DataStationPage> {
   int _current = 0;
   Station get station => widget.station;
 
+  String _formatDataToString(Station station, DataStation data) {
+    var ret =
+        "Station ${station.name} (${station.altitude}m) au ${DateFormat('dd-MM-yyyy à kk:mm').format(data.date)}\n";
+    if (data.hasTemperature) {
+      ret += "Température: ${data.temperature.toStringAsFixed(1)}°C\n";
+    }
+    if (data.hasSnowHeight) {
+      ret +=
+          "Hauteur de neige: ${(data.snowHeight * 100).toStringAsFixed(1)}cm\n";
+    }
+    if (data.hasSnowNewHeight) {
+      ret +=
+          "Hauteur de neige fraiches: ${(data.snowNewHeight * 100).toStringAsFixed(1)}cm\n";
+    }
+    return ret;
+  }
+
   @override
   Widget build(BuildContext context) {
     Repository repository = Provider.of<Repository>(context);
@@ -27,14 +46,28 @@ class _DataStationPageState extends State<DataStationPage> {
     final data = repository.getDataOfStation(station.id);
     return Scaffold(
         appBar: AppBar(
-          title: Column(children: [
-            Text(
-              station.name,
+          title: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                station.name,
+              ),
+              Text(
+                " (${station.altitude}m)",
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            Visibility(
+              visible: (data != null && data.length != 0),
+              child: IconButton(
+                icon: Icon(Icons.share),
+                onPressed: () =>
+                    Share.share(_formatDataToString(station, data[_current])),
+              ),
             ),
-            Text(
-              " (" + station.altitude.toString() + "m)",
-            ),
-          ]),
+          ],
         ),
         body: data == null || data.length == 0
             ? Center(child: Text('Pas de donnée pour cette station météo'))
