@@ -7,19 +7,15 @@ import 'package:intl/intl.dart';
 import 'package:latlong/latlong.dart';
 import 'package:location/location.dart';
 import 'package:package_info/package_info.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:snow_weather_info/data/database_helper.dart';
+import 'package:snow_weather_info/data/preferences.dart';
 import 'package:snow_weather_info/model/avalanche_bulletin.dart';
 import 'package:snow_weather_info/model/data_station.dart';
 import 'package:snow_weather_info/model/station.dart';
-
 import 'constant_data_list.dart';
 
-final String _lastStationPrefs = "lastStationPrefs";
-final String _lastStationDataPrefs = "lastStationDataPrefs";
-
 class Repository {
-  SharedPreferences _prefs;
+  Preferences preferences = Preferences();
   bool _isInitialise = false;
   List<Station> _listStation;
   List<Nivose> _listNivose;
@@ -101,10 +97,11 @@ class Repository {
 
   Future<bool> initData() async {
     if (!_isInitialise) {
+      await preferences.init();
       packageInfo = await PackageInfo.fromPlatform();
       _initAvalancheBulletin();
       _initNivose();
-      _prefs = await SharedPreferences.getInstance();
+
       try {
         await Future.wait([
           _initStation(),
@@ -140,8 +137,7 @@ class Repository {
 
   Future<void> _downloadStationData() async {
     DateTime lastDataDownload;
-    var lastDateData =
-        DateTime.parse(_prefs.getString(_lastStationDataPrefs) ?? "19700101");
+    var lastDateData = preferences.lastStationDataDate;
     print("last data ${lastDateData.toString()}");
     for (int i = 7; i >= 0; --i) {
       var dateTime = DateTime.now().subtract(Duration(days: i));
@@ -177,13 +173,12 @@ class Repository {
     }
 
     if (lastDataDownload != null) {
-      _prefs.setString(_lastStationDataPrefs, lastDataDownload.toString());
+      preferences.setLastStationDataDate(lastDataDownload);
     }
   }
 
   Future<void> _initStation() async {
-    var stationUpdateDate = DateTime.parse(
-        _prefs.getString(_lastStationPrefs) ?? DateTime.now().toString());
+    var stationUpdateDate = preferences.lastStationDate;
     _listStation = await DatabaseHelper.instance.getAllStation();
     if (_listStation.length == 0 ||
         stationUpdateDate.difference(DateTime.now()) > Duration(days: 15)) {
@@ -202,7 +197,7 @@ class Repository {
         _listStation.forEach(
             (s) async => await DatabaseHelper.instance.insertStation(s));
 
-        _prefs.setString(_lastStationPrefs, DateTime.now().toString());
+        preferences.setLastStationDate(DateTime.now());
 
         print("donwload station ok");
       } else {

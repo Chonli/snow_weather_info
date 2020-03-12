@@ -40,7 +40,7 @@ class _AvalancheMassifListPageState extends State<AvalancheMassifListPage> {
       body: Column(
         children: [
           ChipsChoice<Mountain>.multiple(
-            isWrapped: false,
+            isWrapped: true,
             value: _mountainSelectList,
             options: <ChipsChoiceOption<Mountain>>[
               ChipsChoiceOption<Mountain>(value: Mountain.all, label: 'Tous'),
@@ -54,8 +54,9 @@ class _AvalancheMassifListPageState extends State<AvalancheMassifListPage> {
                   value: Mountain.pyrennee, label: "Pyrennée"),
             ],
             onChanged: (val) => setState(() {
-              if (val.contains(Mountain.all) &&
-                  !_mountainSelectList.contains(Mountain.all)) {
+              if ((val.contains(Mountain.all) &&
+                      !_mountainSelectList.contains(Mountain.all)) ||
+                  val.length == Mountain.values.length - 1) {
                 //all is selected
                 _mountainSelectList.clear();
                 _mountainSelectList.add(Mountain.all);

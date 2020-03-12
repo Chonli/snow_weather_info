@@ -100,38 +100,30 @@ class _HomePageState extends State<HomePage>
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          contentPadding: const EdgeInsets.all(6.0),
-          title: Text("A propos..."),
-          content: Container(
-            margin: EdgeInsets.all(10),
-            child: RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text:
-                        'Version: ${repository.packageInfo.version}+${repository.packageInfo.buildNumber}\n\n',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  TextSpan(
-                    text: 'Lien vers le projet',
-                    style: TextStyle(color: Colors.blue),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () async {
-                        await launch(
-                            'https://github.com/Chonli/snow_weather_info');
-                      },
-                  ),
-                ],
-              ),
-            ),
+        return AboutDialog(
+          applicationName: "Info Neige",
+          applicationVersion:
+              "version: ${repository.packageInfo.version}+${repository.packageInfo.buildNumber}",
+          applicationIcon: Image.asset(
+            "assets/icon/icon.png",
+            width: 42,
+            height: 42,
           ),
-          actions: [
-            FlatButton(
-              child: Text('Close'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+          applicationLegalese: "MIT",
+          children: <Widget>[
+            Padding(padding: EdgeInsets.all(5)),
+            Text(
+              'Développeur: Chonli',
+              style: TextStyle(color: Colors.black),
+            ),
+            Padding(padding: EdgeInsets.all(5)),
+            InkWell(
+              child: new Text(
+                'Lien vers le projet',
+                style: TextStyle(color: Colors.blue),
+              ),
+              onTap: () async =>
+                  await launch('https://github.com/Chonli/snow_weather_info'),
             ),
           ],
         );
