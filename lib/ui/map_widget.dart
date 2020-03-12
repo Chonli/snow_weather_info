@@ -37,7 +37,7 @@ class _MapWidgetState extends State<MapWidget> {
               point: repository.currentUserLoc,
               builder: (ctx) => Icon(
                     Icons.person_pin_circle,
-                    color: Colors.blueAccent,
+                    color: Theme.of(context).primaryColor,
                   )));
           if (isFristLaunch) {
             repository.currentMapLoc = repository.currentUserLoc;
@@ -58,11 +58,11 @@ class _MapWidgetState extends State<MapWidget> {
       list.addAll(repository.nivoses);
       for (var st in list) {
         bool hasData = false;
-        Color color = Colors.blue.shade900;
+        Color color = Theme.of(context).primaryColor;
         double lastSnowHeight = 0.0;
         if (st is Station) {
           hasData = st.hasData;
-          color = hasData ? Colors.black : Colors.grey;
+          color = hasData ? Colors.black : Theme.of(context).disabledColor;
           lastSnowHeight = st.lastSnowHeight;
         }
 
@@ -74,11 +74,14 @@ class _MapWidgetState extends State<MapWidget> {
             builder: (ctx) => Stack(
               children: <Widget>[
                 Positioned(
-                  left: 40.0,
+                  left: 42.0,
                   bottom: 0.0,
-                  child: hasData
-                      ? Text("${(lastSnowHeight * 100).toStringAsFixed(0)}cm")
-                      : Container(),
+                  child: Visibility(
+                      visible: hasData,
+                      child: Text(
+                        "${(lastSnowHeight * 100).toStringAsFixed(0)}cm",
+                        style: TextStyle(color: Colors.black),
+                      )),
                 ),
                 Positioned(
                   right: 0.0,
@@ -145,7 +148,7 @@ class _MapWidgetState extends State<MapWidget> {
             child: Container(
               height: 40,
               width: 40,
-              color: Colors.grey.shade200,
+              color: Theme.of(context).backgroundColor,
               child: IconButton(
                 icon: Icon(Icons.my_location),
                 onPressed: () async {

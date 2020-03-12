@@ -10,11 +10,18 @@ class StationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle _textStyle =
-        TextStyle(color: Colors.blue.shade900, fontStyle: FontStyle.normal);
+    TextStyle _textStyle = TextStyle(
+        color: Theme.of(context).textTheme.body2.color,
+        fontStyle: FontStyle.normal);
+    var snowHeigth = "";
     if (_station is Station) {
       final st = _station as Station;
-      Color _color = st.hasData ? Colors.black : Colors.grey;
+      snowHeigth = st.hasData
+          ? " ${(st.lastSnowHeight * 100).toStringAsFixed(0)}cm"
+          : "";
+      Color _color = st.hasData
+          ? Theme.of(context).textTheme.body1.color
+          : Theme.of(context).disabledColor;
       FontStyle _font = st.hasData ? FontStyle.normal : FontStyle.italic;
       _textStyle = TextStyle(color: _color, fontStyle: _font);
     }
@@ -29,8 +36,14 @@ class StationCard extends StatelessWidget {
           _station.name,
           style: _textStyle,
         ),
+        isThreeLine: true,
+        trailing: Visibility(
+            visible: snowHeigth.isNotEmpty,
+            child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [Icon(Icons.ac_unit), Text(snowHeigth)])),
         subtitle: Text(
-          '${_station.altitude}m \n${_station.position}',
+          '${_station.altitude}m \nLatLng(${_station.position.latitude},${_station.position.longitude})',
           style: _textStyle,
         ),
         onTap: () => Navigator.push(

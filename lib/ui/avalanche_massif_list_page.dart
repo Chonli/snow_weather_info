@@ -95,10 +95,11 @@ class _AvalancheMassifListPageState extends State<AvalancheMassifListPage> {
       child: Container(
         margin: EdgeInsets.all(8.0),
         padding: EdgeInsets.all(8.0),
-        color: Colors.blue,
+        color: Theme.of(context).primaryColor,
         child: Text(
           title,
-          style: TextStyle(color: Colors.white, fontSize: 25),
+          style: TextStyle(
+              color: Theme.of(context).textTheme.title.color, fontSize: 25),
         ),
       ),
     );

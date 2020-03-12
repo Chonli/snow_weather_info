@@ -114,13 +114,14 @@ class _HomePageState extends State<HomePage>
             Padding(padding: EdgeInsets.all(5)),
             Text(
               'Développeur: Chonli',
-              style: TextStyle(color: Colors.black),
+              style: TextStyle(color: Theme.of(context).textTheme.body1.color),
             ),
             Padding(padding: EdgeInsets.all(5)),
             InkWell(
               child: new Text(
                 'Lien vers le projet',
-                style: TextStyle(color: Colors.blue),
+                style:
+                    TextStyle(color: Theme.of(context).textTheme.body2.color),
               ),
               onTap: () async =>
                   await launch('https://github.com/Chonli/snow_weather_info'),

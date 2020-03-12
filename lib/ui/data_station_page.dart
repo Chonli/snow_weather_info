@@ -92,60 +92,65 @@ class _DataStationPageState extends State<DataStationPage> {
       scrollDirection: Axis.horizontal,
       scrollPhysics: BouncingScrollPhysics(),
     );
-    return Column(children: <Widget>[
-      Expanded(
-        child: ListView(
-          primary: true,
-          shrinkWrap: true,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                IconButton(
-                  onPressed: () => dataSlider.previousPage(
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.linear),
-                  icon: Icon(Icons.arrow_back_ios),
-                  padding: EdgeInsets.all(0.0),
-                ),
-                Expanded(child: dataSlider),
-                IconButton(
-                  onPressed: () => dataSlider.nextPage(
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.linear),
-                  icon: Icon(Icons.arrow_forward_ios),
-                  padding: EdgeInsets.all(0.0),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List<Widget>.generate(
-                data.length,
-                (i) => Container(
-                  width: 8.0,
-                  height: 8.0,
-                  margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: _current == i
-                          ? Color.fromRGBO(0, 0, 255, 0.9)
-                          : Color.fromRGBO(0, 0, 255, 0.4)),
+    return Container(
+      color: Theme.of(context).backgroundColor,
+      child: Column(children: <Widget>[
+        Expanded(
+          child: ListView(
+            primary: true,
+            shrinkWrap: true,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  IconButton(
+                    onPressed: () => dataSlider.previousPage(
+                        duration: Duration(milliseconds: 300),
+                        curve: Curves.linear),
+                    icon: Icon(Icons.arrow_back_ios),
+                    padding: EdgeInsets.all(0.0),
+                  ),
+                  Expanded(child: dataSlider),
+                  IconButton(
+                    onPressed: () => dataSlider.nextPage(
+                        duration: Duration(milliseconds: 300),
+                        curve: Curves.linear),
+                    icon: Icon(Icons.arrow_forward_ios),
+                    padding: EdgeInsets.all(0.0),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List<Widget>.generate(
+                  data.length,
+                  (i) => Container(
+                    width: 8.0,
+                    height: 8.0,
+                    margin:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: _current == i
+                            ? Theme.of(context).primaryColor.withOpacity(0.9)
+                            : Theme.of(context).primaryColor.withOpacity(0.4)),
+                  ),
                 ),
               ),
-            ),
-            DataStationChart(data),
-          ],
+              DataStationChart(data),
+            ],
+          ),
         ),
-      ),
-      Container(
-        color: Colors.blue,
-        child: Text(
-          'Informations créées à partir de données de Météo-France',
-          style: TextStyle(color: Colors.white, fontSize: 14),
+        Container(
+          color: Theme.of(context).primaryColor,
+          child: Text(
+            'Informations créées à partir de données de Météo-France',
+            style: TextStyle(
+                color: Theme.of(context).textTheme.title.color, fontSize: 14),
+          ),
         ),
-      ),
-    ]);
+      ]),
+    );
   }
 }
