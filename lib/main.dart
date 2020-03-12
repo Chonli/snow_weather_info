@@ -54,6 +54,7 @@ class MyHomePage extends StatelessWidget {
             default:
               return HomePage(
                 title: title,
+                repository: repository,
               );
           }
         });
