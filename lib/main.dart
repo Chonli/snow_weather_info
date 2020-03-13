@@ -75,10 +75,25 @@ class MyHomePage extends StatelessWidget {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
               return Scaffold(
-                  appBar: AppBar(
-                    title: Text(title),
+                backgroundColor: Colors.white,
+                body: Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Image.asset(
+                        "assets/icon/icon.png",
+                        fit: BoxFit.contain,
+                        height: 128,
+                        width: 128,
+                      ),
+                      Padding(padding: EdgeInsets.all(20)),
+                      CircularProgressIndicator(),
+                    ],
                   ),
-                  body: Center(child: CircularProgressIndicator()));
+                ),
+              );
             default:
               return HomePage(
                 title: title,
