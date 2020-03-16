@@ -44,6 +44,7 @@ class _DataStationPageState extends State<DataStationPage> {
     Repository repository = Provider.of<Repository>(context);
     repository.currentMapLoc = station.position;
     final data = repository.getDataOfStation(station.id);
+    var isFavorite = repository.isFavorite(station);
     return Scaffold(
         appBar: AppBar(
           title: Column(
@@ -59,6 +60,17 @@ class _DataStationPageState extends State<DataStationPage> {
             ],
           ),
           actions: <Widget>[
+            IconButton(
+                icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
+                onPressed: () {
+                  setState(() {
+                    if (isFavorite) {
+                      repository.removeFavoriteStation(station);
+                    } else {
+                      repository.addFavoriteStation(station);
+                    }
+                  });
+                }),
             Visibility(
               visible: (data != null && data.length != 0),
               child: IconButton(

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:snow_weather_info/data/repository.dart';
 import 'package:snow_weather_info/model/avalanche_bulletin.dart';
 import 'package:snow_weather_info/ui/avalanche_bulletin_page.dart';
+import 'package:sticky_headers/sticky_headers.dart';
 
 class AvalancheMassifListPage extends StatefulWidget {
   const AvalancheMassifListPage({Key key}) : super(key: key);
@@ -69,11 +70,6 @@ class _AvalancheMassifListPageState extends State<AvalancheMassifListPage> {
 
   @override
   Widget build(BuildContext context) {
-    Repository repository = Provider.of<Repository>(context);
-    final listAlpesNord = repository.getAvalancheBulletin(Mountain.alpes_nord);
-    final listAlpesSud = repository.getAvalancheBulletin(Mountain.alpes_sud);
-    final listCorse = repository.getAvalancheBulletin(Mountain.corse);
-    final listPyrennee = repository.getAvalancheBulletin(Mountain.pyrennee);
     return Scaffold(
       appBar: AppBar(
         title: Text("Bulletins Avalanche"),
@@ -87,14 +83,10 @@ class _AvalancheMassifListPageState extends State<AvalancheMassifListPage> {
             child: ListView(
               primary: true,
               children: [
-                _cardHeader("Alpes du Nord", Mountain.alpes_nord),
-                _listMassif(listAlpesNord, Mountain.alpes_nord),
-                _cardHeader("Alpes du Sud", Mountain.alpes_sud),
-                _listMassif(listAlpesSud, Mountain.alpes_sud),
-                _cardHeader("Corse", Mountain.corse),
-                _listMassif(listCorse, Mountain.corse),
-                _cardHeader("Pyrénnée", Mountain.pyrennee),
-                _listMassif(listPyrennee, Mountain.pyrennee),
+                _listMassif("Alpes du Nord", Mountain.alpes_nord),
+                _listMassif("Alpes du Sud", Mountain.alpes_sud),
+                _listMassif("Corse", Mountain.corse),
+                _listMassif("Pyrénnée", Mountain.pyrennee),
               ],
             ),
           ),
@@ -103,32 +95,31 @@ class _AvalancheMassifListPageState extends State<AvalancheMassifListPage> {
     );
   }
 
-  Widget _cardHeader(String title, Mountain type) {
-    return Visibility(
-      visible: _isVisible(type),
-      child: Container(
-        margin: EdgeInsets.all(8.0),
-        padding: EdgeInsets.all(8.0),
-        color: Theme.of(context).primaryColor,
-        child: Text(
-          title,
-          style: TextStyle(
-              color: Theme.of(context).textTheme.title.color, fontSize: 25),
-        ),
-      ),
-    );
-  }
+  Widget _listMassif(String title, Mountain type) {
+    Repository repository = Provider.of<Repository>(context);
+    final list = repository.getAvalancheBulletin(type);
 
-  Widget _listMassif(List<AvalancheBulletin> list, type) {
     return Visibility(
       visible: _isVisible(type),
-      child: ListView.builder(
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        itemCount: list.length,
-        itemBuilder: (context, index) {
-          return _CardMassif(list[index]);
-        },
+      child: StickyHeader(
+        header: Container(
+          padding: EdgeInsets.all(12.0),
+          alignment: Alignment.centerLeft,
+          color: Theme.of(context).primaryColor,
+          child: Text(
+            title,
+            style: TextStyle(
+                color: Theme.of(context).textTheme.title.color, fontSize: 25),
+          ),
+        ),
+        content: ListView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: list.length,
+          itemBuilder: (context, index) {
+            return _CardMassif(list[index]);
+          },
+        ),
       ),
     );
   }
