@@ -15,12 +15,14 @@ class ListStationWidget extends StatefulWidget {
 class _ListStationWidgetState extends State<ListStationWidget> {
   TextEditingController _editingController = TextEditingController();
   List<AbstractStation> _listStation = List<AbstractStation>();
+  List<AbstractStation> _listFavoriteStation = List<AbstractStation>();
   Repository get _repository => widget._repository;
 
   @override
   void initState() {
     _listStation.addAll(_repository.nivoses);
     _listStation.addAll(_repository.stations);
+    _listFavoriteStation.addAll(_repository.favoritesStations);
     _listStation.sort((a, b) => a.name.compareTo(b.name));
     super.initState();
   }
@@ -28,6 +30,9 @@ class _ListStationWidgetState extends State<ListStationWidget> {
   void _filterSearchResults(String query) {
     var dummySearchStationList = _repository.stations;
     var dummySearchNivoseList = _repository.nivoses;
+    var dummySearchFavoriteList = _repository.favoritesStations;
+    _listStation.clear();
+    _listFavoriteStation.clear();
     if (query.isNotEmpty) {
       List<AbstractStation> dummyListData = List<AbstractStation>();
       dummySearchStationList.forEach((item) {
@@ -41,15 +46,16 @@ class _ListStationWidgetState extends State<ListStationWidget> {
         }
       });
       setState(() {
-        _listStation.clear();
         _listStation.addAll(dummyListData);
+        _listFavoriteStation.addAll(dummySearchFavoriteList.where(
+            (item) => item.name.toLowerCase().contains(query.toLowerCase())));
         _listStation.sort((a, b) => a.name.compareTo(b.name));
       });
     } else {
       setState(() {
-        _listStation.clear();
         _listStation.addAll(dummySearchStationList);
         _listStation.addAll(dummySearchNivoseList);
+        _listFavoriteStation.addAll(dummySearchFavoriteList);
         _listStation.sort((a, b) => a.name.compareTo(b.name));
       });
     }
@@ -96,6 +102,15 @@ class _ListStationWidgetState extends State<ListStationWidget> {
             )
           ],
         ),
+        AlphabetScrollListHeader(
+            widgetList: _listStation
+                .where((s) => _repository.isFavorite(s))
+                .map((s) => StationCard(s))
+                .toList(),
+            icon: Icon(Icons.star),
+            indexedHeaderHeight: (index) {
+              return 106;
+            }),
       ],
     );
   }

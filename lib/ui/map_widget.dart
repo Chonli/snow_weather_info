@@ -16,7 +16,7 @@ class MapWidget extends StatefulWidget {
 }
 
 class _MapWidgetState extends State<MapWidget> {
-  final MapController _mapController = MapController();
+  MapController _mapController;
   final List<Marker> _listStationMarker = List<Marker>();
   Repository get repository => widget.repository;
 
@@ -25,6 +25,7 @@ class _MapWidgetState extends State<MapWidget> {
 
   @override
   void initState() {
+    _mapController = MapController();
     _mapController.onReady.then((result) async {
       var isFristLaunch = repository.currentUserLoc == null;
       var hasPosition = await repository.updateLocation();
@@ -47,6 +48,12 @@ class _MapWidgetState extends State<MapWidget> {
       }
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _mapController = null;
+    super.dispose();
   }
 
   void _initMakerList() {

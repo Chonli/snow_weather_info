@@ -15,10 +15,11 @@ import 'package:snow_weather_info/model/station.dart';
 import 'constant_data_list.dart';
 
 class Repository {
-  Preferences preferences = Preferences();
+  Preferences _preferences = Preferences();
   bool _isInitialise = false;
   List<Station> _listStation;
   List<Nivose> _listNivose;
+  List<AbstractStation> _listFavoritesStation;
   HashMap<int, List<DataStation>> _hashDataStation;
   List<AvalancheBulletin> _listAvalancheBulletin;
   PackageInfo packageInfo;
@@ -30,6 +31,8 @@ class Repository {
   List<Station> get stations => _listStation.toList();
 
   List<Nivose> get nivoses => _listNivose.toList();
+
+  List<AbstractStation> get favoritesStations => _listFavoritesStation.toList();
 
   List<DataStation> getDataOfStation(int id) {
     return _hashDataStation[id];
@@ -97,7 +100,7 @@ class Repository {
 
   Future<bool> initData() async {
     if (!_isInitialise) {
-      await preferences.init();
+      await _preferences.init();
       packageInfo = await PackageInfo.fromPlatform();
       _initAvalancheBulletin();
       _initNivose();
@@ -108,6 +111,7 @@ class Repository {
           _downloadStationData(),
         ]);
         await _finalizeStationData();
+        await _initFavorites();
         _isInitialise = true;
       } catch (e) {
         print("init error : " + e.toString());
@@ -118,6 +122,8 @@ class Repository {
 
   Future<void> _finalizeStationData() async {
     _hashDataStation = HashMap();
+    await DatabaseHelper.instance.cleanOldData(7);
+
     for (var s in _listStation) {
       var listOfData = await DatabaseHelper.instance.getDataStation(s.id);
       _hashDataStation[s.id] = listOfData;
@@ -131,13 +137,51 @@ class Repository {
         s.lastSnowHeight = 0.0;
       }
     }
+  }
 
-    await DatabaseHelper.instance.cleanOldData(7);
+  Future<void> _initFavorites() async {
+    final listFav = _preferences.favoritesStations;
+    _listFavoritesStation = List();
+    _listStation.forEach((s) {
+      if (listFav.contains(s.id.toString())) {
+        _listFavoritesStation.add(s);
+      }
+    });
+    _listNivose.forEach((s) {
+      if (listFav.contains(s.codeMF)) {
+        _listFavoritesStation.add(s);
+      }
+    });
+  }
+
+  bool isFavorite(AbstractStation station) {
+    return _listFavoritesStation.contains(station);
+  }
+
+  void addFavoriteStation(AbstractStation station) {
+    _listFavoritesStation.add(station);
+    _updateFavoriteStation();
+  }
+
+  void removeFavoriteStation(AbstractStation station) {
+    _listFavoritesStation.remove(station);
+    _updateFavoriteStation();
+  }
+
+  void _updateFavoriteStation() {
+    _preferences.updateFavoritesStations(_listFavoritesStation.map<String>((s) {
+      if (s is Station) {
+        return s.id.toString();
+      } else if (s is Nivose) {
+        return s.codeMF;
+      }
+      return "";
+    }).toList());
   }
 
   Future<void> _downloadStationData() async {
     DateTime lastDataDownload;
-    var lastDateData = preferences.lastStationDataDate;
+    var lastDateData = _preferences.lastStationDataDate;
     print("last data ${lastDateData.toString()}");
     for (int i = 7; i >= 0; --i) {
       var dateTime = DateTime.now().subtract(Duration(days: i));
@@ -173,12 +217,12 @@ class Repository {
     }
 
     if (lastDataDownload != null) {
-      preferences.setLastStationDataDate(lastDataDownload);
+      _preferences.setLastStationDataDate(lastDataDownload);
     }
   }
 
   Future<void> _initStation() async {
-    var stationUpdateDate = preferences.lastStationDate;
+    var stationUpdateDate = _preferences.lastStationDate;
     _listStation = await DatabaseHelper.instance.getAllStation();
     if (_listStation.length == 0 ||
         stationUpdateDate.difference(DateTime.now()) > Duration(days: 15)) {
@@ -197,7 +241,7 @@ class Repository {
         _listStation.forEach(
             (s) async => await DatabaseHelper.instance.insertStation(s));
 
-        preferences.setLastStationDate(DateTime.now());
+        _preferences.setLastStationDate(DateTime.now());
 
         print("donwload station ok");
       } else {
