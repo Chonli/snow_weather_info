@@ -1,3 +1,4 @@
+import 'package:alphabet_list_scroll_view/alphabet_list_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:snow_weather_info/data/repository.dart';
 import 'package:snow_weather_info/model/station.dart';
@@ -56,33 +57,46 @@ class _ListStationWidgetState extends State<ListStationWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextField(
-            onChanged: (value) {
-              _filterSearchResults(value);
-            },
-            controller: _editingController,
-            decoration: InputDecoration(
-                labelText: "Recherche",
-                hintText: "Recherche",
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20.0)))),
-          ),
-        ),
-        Expanded(
-          child: ListView.builder(
-            key: PageStorageKey("station_list_key"),
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            itemCount: _listStation.length,
-            itemBuilder: (context, index) => StationCard(_listStation[index]),
-          ),
-        ),
-      ],
+    // return Column(
+    //   children: <Widget>[
+    //     Padding(
+    //       padding: const EdgeInsets.all(8.0),
+    //       child: TextField(
+    //         onChanged: (value) {
+    //           _filterSearchResults(value);
+    //         },
+    //         controller: _editingController,
+    //         decoration: InputDecoration(
+    //             labelText: "Recherche",
+    //             hintText: "Recherche",
+    //             prefixIcon: Icon(Icons.search),
+    //             border: OutlineInputBorder(
+    //                 borderRadius: BorderRadius.all(Radius.circular(20.0)))),
+    //       ),
+    //     ),
+    return AlphabetListScrollView(
+      strList: _listStation.map((d) => d.name).toList(),
+      highlightTextStyle: TextStyle(
+        color: Theme.of(context).primaryColor,
+      ),
+      showPreview: true,
+      itemBuilder: (context, index) {
+        return StationCard(_listStation[index]);
+      },
+      indexedHeight: (i) {
+        return 120;
+      },
     );
+    // Expanded(
+    //   child: ListView.builder(
+    //     key: PageStorageKey("station_list_key"),
+    //     shrinkWrap: true,
+    //     scrollDirection: Axis.vertical,
+    //     itemCount: _listStation.length,
+    //     itemBuilder: (context, index) => StationCard(_listStation[index]),
+    //   ),
+    // ),
+    //   ],
+    // );
   }
 }

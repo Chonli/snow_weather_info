@@ -41,6 +41,8 @@ dependencies:
   native_pdf_view: ^2.2.0
   carousel_slider: ^1.4.1
   share: ^0.6.3+6
+  sticky_headers: ^0.1.8+1
+  alphabet_list_scroll_view: ^1.0.6
 
 dev_dependencies:
   flutter_test:
