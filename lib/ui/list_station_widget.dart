@@ -57,23 +57,6 @@ class _ListStationWidgetState extends State<ListStationWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // return Column(
-    //   children: <Widget>[
-    //     Padding(
-    //       padding: const EdgeInsets.all(8.0),
-    //       child: TextField(
-    //         onChanged: (value) {
-    //           _filterSearchResults(value);
-    //         },
-    //         controller: _editingController,
-    //         decoration: InputDecoration(
-    //             labelText: "Recherche",
-    //             hintText: "Recherche",
-    //             prefixIcon: Icon(Icons.search),
-    //             border: OutlineInputBorder(
-    //                 borderRadius: BorderRadius.all(Radius.circular(20.0)))),
-    //       ),
-    //     ),
     return AlphabetListScrollView(
       strList: _listStation.map((d) => d.name).toList(),
       highlightTextStyle: TextStyle(
@@ -84,19 +67,36 @@ class _ListStationWidgetState extends State<ListStationWidget> {
         return StationCard(_listStation[index]);
       },
       indexedHeight: (i) {
-        return 120;
+        return 106;
       },
+      headerWidgetList: <AlphabetScrollListHeader>[
+        AlphabetScrollListHeader(
+          icon: Icon(Icons.search),
+          indexedHeaderHeight: (index) => 86,
+          widgetList: [
+            Padding(
+              padding: EdgeInsets.only(
+                  left: 8.0, bottom: 8.0, top: 16.0, right: 64.0),
+              child: TextField(
+                onChanged: (value) {
+                  _filterSearchResults(value);
+                },
+                controller: _editingController,
+                decoration: InputDecoration(
+                  labelText: "Recherche",
+                  hintText: "Recherche",
+                  prefixIcon: Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20.0),
+                    ),
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
+      ],
     );
-    // Expanded(
-    //   child: ListView.builder(
-    //     key: PageStorageKey("station_list_key"),
-    //     shrinkWrap: true,
-    //     scrollDirection: Axis.vertical,
-    //     itemCount: _listStation.length,
-    //     itemBuilder: (context, index) => StationCard(_listStation[index]),
-    //   ),
-    // ),
-    //   ],
-    // );
   }
 }
