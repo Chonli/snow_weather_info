@@ -62,7 +62,7 @@ class _MapWidgetState extends State<MapWidget> {
         double lastSnowHeight = 0.0;
         if (st is Station) {
           hasData = st.hasData;
-          color = hasData ? Colors.black : Theme.of(context).disabledColor;
+          color = hasData ? Colors.black : Colors.grey;
           lastSnowHeight = st.lastSnowHeight;
         }
 
