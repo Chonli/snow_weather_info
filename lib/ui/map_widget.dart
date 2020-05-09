@@ -16,7 +16,7 @@ class MapWidget extends StatefulWidget {
 }
 
 class _MapWidgetState extends State<MapWidget> {
-  final MapController _mapController = MapController();
+  MapController _mapController;
   final List<Marker> _listStationMarker = List<Marker>();
   Repository get repository => widget.repository;
 
@@ -25,6 +25,7 @@ class _MapWidgetState extends State<MapWidget> {
 
   @override
   void initState() {
+    _mapController = MapController();
     _mapController.onReady.then((result) async {
       var isFristLaunch = repository.currentUserLoc == null;
       var hasPosition = await repository.updateLocation();
@@ -37,7 +38,7 @@ class _MapWidgetState extends State<MapWidget> {
               point: repository.currentUserLoc,
               builder: (ctx) => Icon(
                     Icons.person_pin_circle,
-                    color: Colors.blueAccent,
+                    color: Theme.of(context).primaryColor,
                   )));
           if (isFristLaunch) {
             repository.currentMapLoc = repository.currentUserLoc;
@@ -49,6 +50,12 @@ class _MapWidgetState extends State<MapWidget> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    _mapController = null;
+    super.dispose();
+  }
+
   void _initMakerList() {
     if (onlyOne) {
       onlyOne = false;
@@ -58,7 +65,7 @@ class _MapWidgetState extends State<MapWidget> {
       list.addAll(repository.nivoses);
       for (var st in list) {
         bool hasData = false;
-        Color color = Colors.blue.shade900;
+        Color color = Theme.of(context).primaryColor;
         double lastSnowHeight = 0.0;
         if (st is Station) {
           hasData = st.hasData;
@@ -74,11 +81,14 @@ class _MapWidgetState extends State<MapWidget> {
             builder: (ctx) => Stack(
               children: <Widget>[
                 Positioned(
-                  left: 40.0,
+                  left: 42.0,
                   bottom: 0.0,
-                  child: hasData
-                      ? Text("${(lastSnowHeight * 100).toStringAsFixed(0)}cm")
-                      : Container(),
+                  child: Visibility(
+                      visible: hasData,
+                      child: Text(
+                        "${(lastSnowHeight * 100).toStringAsFixed(0)}cm",
+                        style: TextStyle(color: Colors.black),
+                      )),
                 ),
                 Positioned(
                   right: 0.0,
@@ -145,7 +155,7 @@ class _MapWidgetState extends State<MapWidget> {
             child: Container(
               height: 40,
               width: 40,
-              color: Colors.grey.shade200,
+              color: Theme.of(context).backgroundColor,
               child: IconButton(
                 icon: Icon(Icons.my_location),
                 onPressed: () async {

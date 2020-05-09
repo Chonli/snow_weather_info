@@ -19,14 +19,14 @@ class DataStationWidget extends StatelessWidget {
           ),
           _data.hasTemperature
               ? _lineCard(
-                  "Temperature :", " ${_data.temperature.toStringAsFixed(1)}°C")
+                  "Température :", " ${_data.temperature.toStringAsFixed(1)}°C")
               : Container(),
           _data.hasTemperatureMin24
-              ? _lineCard("Temperature Min 24h :",
+              ? _lineCard("Température Min 24h :",
                   " ${_data.temperatureMin24.toStringAsFixed(1)}°C")
               : Container(),
           _data.hasTemperatureMax24
-              ? _lineCard("Temperature Max 24h :",
+              ? _lineCard("Température Max 24h :",
                   " ${_data.temperatureMax24.toStringAsFixed(1)}°C")
               : Container(),
           _data.hasTemperatureSnow

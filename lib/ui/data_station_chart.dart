@@ -81,7 +81,7 @@ class DataStationChart extends StatelessWidget {
       primary: false,
       shrinkWrap: true,
       children: [
-        ConstrainedBox(
+        Container(
           constraints: BoxConstraints(
             maxHeight: 300,
           ),
@@ -117,7 +117,7 @@ class DataStationChart extends StatelessWidget {
             ],
           ),
         ),
-        ConstrainedBox(
+        Container(
           constraints: BoxConstraints(
             maxHeight: 300,
           ),

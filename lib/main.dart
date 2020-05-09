@@ -19,8 +19,36 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           title: _title,
           theme: ThemeData(
-            primarySwatch: Colors.blue,
+            brightness: Brightness.light,
+            fontFamily: 'Helvetica',
+            primaryColor: Colors.blueAccent,
+            accentColor: Colors.blueAccent,
+            backgroundColor: Colors.white,
+            disabledColor: Colors.grey,
+            textTheme: TextTheme(
+              title: TextStyle(color: Colors.white),
+              body1: TextStyle(color: Colors.black),
+              body2: TextStyle(color: Colors.blue),
+              subhead: TextStyle(color: Colors.black),
+              subtitle: TextStyle(color: Colors.black),
+            ),
           ),
+          darkTheme: ThemeData(
+            brightness: Brightness.dark,
+            fontFamily: 'Helvetica',
+            primaryColor: Colors.blueAccent.shade400,
+            accentColor: Colors.blueAccent.shade400,
+            backgroundColor: Colors.grey.shade800,
+            disabledColor: Colors.grey.shade900,
+            textTheme: TextTheme(
+              title: TextStyle(color: Colors.white),
+              body1: TextStyle(color: Colors.white70),
+              body2: TextStyle(color: Colors.blue.shade300),
+              subhead: TextStyle(color: Colors.white),
+              subtitle: TextStyle(color: Colors.white),
+            ),
+          ),
+          themeMode: ThemeMode.system,
           home: MyHomePage(title: _title),
         ));
   }
@@ -47,13 +75,29 @@ class MyHomePage extends StatelessWidget {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
               return Scaffold(
-                  appBar: AppBar(
-                    title: Text(title),
+                backgroundColor: Colors.white,
+                body: Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Image.asset(
+                        "assets/icon/icon.png",
+                        fit: BoxFit.contain,
+                        height: 128,
+                        width: 128,
+                      ),
+                      Padding(padding: EdgeInsets.all(20)),
+                      CircularProgressIndicator(),
+                    ],
                   ),
-                  body: Center(child: CircularProgressIndicator()));
+                ),
+              );
             default:
               return HomePage(
                 title: title,
+                repository: repository,
               );
           }
         });

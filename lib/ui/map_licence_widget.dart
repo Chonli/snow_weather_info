@@ -9,17 +9,19 @@ class MapLicenceWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Container(
-        color: Colors.white,
+        color: Theme.of(context).backgroundColor,
         child: RichText(
           text: TextSpan(
             children: [
               TextSpan(
                 text: 'donnée carte: © ',
-                style: TextStyle(color: Colors.black),
+                style:
+                    TextStyle(color: Theme.of(context).textTheme.body1.color),
               ),
               TextSpan(
                 text: 'OpenStreetMap',
-                style: TextStyle(color: Colors.blue),
+                style:
+                    TextStyle(color: Theme.of(context).textTheme.body2.color),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () async {
                     await launch('https://www.openstreetmap.org/copyright');
@@ -27,11 +29,13 @@ class MapLicenceWidget extends StatelessWidget {
               ),
               TextSpan(
                 text: ' contributors\nstyle carte: ©',
-                style: TextStyle(color: Colors.black),
+                style:
+                    TextStyle(color: Theme.of(context).textTheme.body1.color),
               ),
               TextSpan(
                 text: ' opentopomap.org',
-                style: TextStyle(color: Colors.blue),
+                style:
+                    TextStyle(color: Theme.of(context).textTheme.body2.color),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
                     launch('https://opentopomap.org');
@@ -39,7 +43,8 @@ class MapLicenceWidget extends StatelessWidget {
               ),
               TextSpan(
                 text: ' (CC-BY-SA)',
-                style: TextStyle(color: Colors.blue),
+                style:
+                    TextStyle(color: Theme.of(context).textTheme.body2.color),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
                     launch('https://creativecommons.org/licenses/by-sa/3.0/');
