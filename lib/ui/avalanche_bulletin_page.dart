@@ -9,13 +9,13 @@ class AvalancheBulletinPage extends StatelessWidget {
   final AvalancheBulletin bulletin;
   const AvalancheBulletinPage(this.bulletin);
 
-  Future<PDFDocument> _loadBulletin() async {
+  Future<PdfDocument> _loadBulletin() async {
     //download file
     try {
       final response = await http.get(bulletin.url);
 
       // Write the file
-      return PDFDocument.openData(response.bodyBytes);
+      return PdfDocument.openData(response.bodyBytes);
     } catch (e) {
       return null;
     }
@@ -23,6 +23,8 @@ class AvalancheBulletinPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _pdfController = PdfController(document: _loadBulletin());
+
     return Scaffold(
       appBar: AppBar(
         title: Text(bulletin.massifName),
@@ -34,25 +36,15 @@ class AvalancheBulletinPage extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: FutureBuilder<PDFDocument>(
-          future: _loadBulletin(),
-          builder: (BuildContext context, AsyncSnapshot<PDFDocument> snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.waiting:
-                return CircularProgressIndicator();
-              default:
-                if (snapshot.hasError || !snapshot.hasData) {
-                  return Text('Erreur de chargement');
-                } else {
-                  try {
-                    return PDFView(document: snapshot.data);
-                  } catch (e) {
-                    return Text('Erreur de chargement');
-                  }
-                }
-            }
-          },
-        ),
+        child: _pdfController.document != null
+            ? InteractiveViewer(
+                child: PdfView(
+                  controller: _pdfController,
+                  documentLoader: Center(child: CircularProgressIndicator()),
+                  errorBuilder: (error) => Text('Erreur de chargement'),
+                ),
+              )
+            : Text('Pas de bulletin disponible'),
       ),
     );
   }

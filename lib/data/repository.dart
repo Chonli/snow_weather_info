@@ -86,16 +86,16 @@ class Repository {
   }
 
   Future<bool> updateLocation() async {
-    var hasPermission = await _location.hasPermission();
-    if (!hasPermission) {
+    PermissionStatus hasPermission = await _location.hasPermission();
+    if (hasPermission == PermissionStatus.granted) {
       hasPermission = await _location.requestPermission();
     }
-    if (hasPermission) {
+    if (hasPermission == PermissionStatus.granted) {
       var loc = await _location.getLocation();
       currentUserLoc = LatLng(loc.latitude, loc.longitude);
     }
 
-    return hasPermission;
+    return hasPermission == PermissionStatus.granted;
   }
 
   Future<bool> initData() async {
