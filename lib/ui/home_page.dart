@@ -57,13 +57,14 @@ class _HomePageState extends State<HomePage>
               }
             },
             itemBuilder: (BuildContext context) => <PopupMenuItem<int>>[
-              PopupMenuItem(
-                value: 0,
-                child: ListTile(
-                  leading: Icon(Icons.ac_unit),
-                  title: Text('Bulletin Avalanche'),
-                ),
-              ),
+              // TODO Fixme Adresse BREA plus valide
+              // PopupMenuItem(
+              //   value: 0,
+              //   child: ListTile(
+              //     leading: Icon(Icons.ac_unit),
+              //     title: Text('Bulletin Avalanche'),
+              //   ),
+              // ),
               PopupMenuItem(
                 value: 1,
                 child: ListTile(

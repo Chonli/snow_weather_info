@@ -42,46 +42,29 @@ class _NivosePageState extends State<NivosePage> {
         ],
       ),
       body: Center(
-        child: FutureBuilder(
-            future: repository.updateUrlNivo(widget.nivose.codeMF),
-            builder: (BuildContext context, AsyncSnapshot<Nivose> snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.waiting:
-                  return CircularProgressIndicator();
-                default:
-                  if (snapshot.hasError || !snapshot.hasData) {
-                    return Text('Erreur de chargement');
-                  } else {
-                    final nivo = snapshot.data;
-                    return Container(
-                      margin: EdgeInsets.all(10),
-                      child: ListView(
-                        children: [
-                          CachedNetworkImage(
-                            imageUrl: nivo.urlWeek != null ? nivo.urlWeek : "",
-                            placeholder: (context, url) =>
-                                CircularProgressIndicator(),
-                            errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
-                            cacheManager: DefaultCacheManager(),
-                          ),
-                          Padding(padding: EdgeInsets.all(5)),
-                          CachedNetworkImage(
-                            imageUrl:
-                                nivo.urlSeason != null ? nivo.urlSeason : "",
-                            placeholder: (context, url) =>
-                                CircularProgressIndicator(),
-                            errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
-                            cacheManager: DefaultCacheManager(),
-                          ),
-                        ],
-                      ),
-                    );
-                  }
-              }
-            }),
-      ),
+          child: Container(
+        margin: EdgeInsets.all(10),
+        child: ListView(
+          children: [
+            CachedNetworkImage(
+              imageUrl:
+                  widget.nivose.urlWeek != null ? widget.nivose.urlWeek : "",
+              placeholder: (context, url) => CircularProgressIndicator(),
+              errorWidget: (context, url, error) => Icon(Icons.error),
+              cacheManager: DefaultCacheManager(),
+            ),
+            Padding(padding: EdgeInsets.all(5)),
+            CachedNetworkImage(
+              imageUrl: widget.nivose.urlSeason != null
+                  ? widget.nivose.urlSeason
+                  : "",
+              placeholder: (context, url) => CircularProgressIndicator(),
+              errorWidget: (context, url, error) => Icon(Icons.error),
+              cacheManager: DefaultCacheManager(),
+            ),
+          ],
+        ),
+      )),
     );
   }
 }

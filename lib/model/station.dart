@@ -65,12 +65,12 @@ class Station extends AbstractStation {
 }
 
 class Nivose extends AbstractStation {
-  String _codeMF;
-  String urlWeek;
-  String urlSeason;
+  final String codeMF;
+  final _urlBase =
+      'https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/';
+  String get urlWeek => '$_urlBase${codeMF}S.gif';
+  String get urlSeason => '$_urlBase$codeMF.gif';
 
-  String get codeMF => _codeMF;
-
-  Nivose(String name, LatLng position, int altitude, this._codeMF)
+  Nivose(String name, LatLng position, int altitude, this.codeMF)
       : super(name, position, altitude);
 }
