@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:snow_weather_info/data/repository.dart';
 import 'package:snow_weather_info/model/station.dart';
+import 'package:snow_weather_info/utils/image_cache_manager.dart';
 
 class NivosePage extends StatefulWidget {
   final Nivose nivose;
@@ -42,29 +43,33 @@ class _NivosePageState extends State<NivosePage> {
         ],
       ),
       body: Center(
-          child: Container(
-        margin: EdgeInsets.all(10),
-        child: ListView(
-          children: [
-            CachedNetworkImage(
-              imageUrl:
-                  widget.nivose.urlWeek != null ? widget.nivose.urlWeek : "",
-              placeholder: (context, url) => CircularProgressIndicator(),
-              errorWidget: (context, url, error) => Icon(Icons.error),
-              cacheManager: DefaultCacheManager(),
-            ),
-            Padding(padding: EdgeInsets.all(5)),
-            CachedNetworkImage(
-              imageUrl: widget.nivose.urlSeason != null
-                  ? widget.nivose.urlSeason
-                  : "",
-              placeholder: (context, url) => CircularProgressIndicator(),
-              errorWidget: (context, url, error) => Icon(Icons.error),
-              cacheManager: DefaultCacheManager(),
-            ),
-          ],
+        child: Container(
+          margin: EdgeInsets.all(10),
+          child: ListView(
+            children: [
+              if (widget.nivose.urlWeek != null)
+                Image.network(
+                  widget.nivose.urlWeek,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Center(child: CircularProgressIndicator());
+                  },
+                ),
+              SizedBox(height: 5),
+              if (widget.nivose.urlSeason != null)
+                Image.network(
+                  widget.nivose.urlSeason,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Center(child: CircularProgressIndicator());
+                  },
+                ),
+            ],
+          ),
         ),
-      )),
+      ),
     );
   }
 }

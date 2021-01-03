@@ -100,7 +100,7 @@ class DatabaseHelper {
   }
 
   Future<List<DataStation>> getDataStation(int idStation) async {
-    var ret = List<DataStation>();
+    final ret = List<DataStation>();
     Database db = await database;
     List<Map> maps = await db.query(
       tableStationData,
