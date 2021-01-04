@@ -50,52 +50,17 @@ class Repository {
     return _listNivose.firstWhere((n) => n.codeMF == codeMF);
   }
 
-  Future<Nivose> updateUrlNivo(String codeMF) async {
-    var nivose = getNivose(codeMF);
-    print(nivose.toString());
-    if (nivose.urlWeek == null || nivose.urlSeason == null) {
-      try {
-        final response = await http.get(
-            'http://www.meteofrance.com/mf3-rpc-portlet/rest/relevemontagne/releve/$codeMF/type/imgnivose7j');
-
-        if (response.statusCode == 200) {
-          nivose.urlWeek =
-              'http://www.meteofrance.com/integration/sim-portail' +
-                  response.body.replaceAll(RegExp('"'), '');
-        } else {
-          print("error url : ${response.statusCode}");
-        }
-
-        final responseSai = await http.get(
-            'http://www.meteofrance.com/mf3-rpc-portlet/rest/relevemontagne/releve/$codeMF/type/imgnivosesai');
-
-        if (responseSai.statusCode == 200) {
-          nivose.urlSeason =
-              'http://www.meteofrance.com/integration/sim-portail' +
-                  responseSai.body.replaceAll(RegExp('"'), '');
-        } else {
-          print("error url : ${responseSai.statusCode}");
-        }
-      } catch (ex) {
-        print(ex.toString());
-      }
-    }
-
-    print('${nivose.urlWeek} \n${nivose.urlSeason}');
-    return nivose;
-  }
-
   Future<bool> updateLocation() async {
-    var hasPermission = await _location.hasPermission();
-    if (!hasPermission) {
+    PermissionStatus hasPermission = await _location.hasPermission();
+    if (hasPermission == PermissionStatus.granted) {
       hasPermission = await _location.requestPermission();
     }
-    if (hasPermission) {
+    if (hasPermission == PermissionStatus.granted) {
       var loc = await _location.getLocation();
       currentUserLoc = LatLng(loc.latitude, loc.longitude);
     }
 
-    return hasPermission;
+    return hasPermission == PermissionStatus.granted;
   }
 
   Future<bool> initData() async {
