@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:snow_weather_info/data/repository.dart';
 import 'package:snow_weather_info/model/station.dart';
-import 'package:snow_weather_info/utils/image_cache_manager.dart';
 
 class NivosePage extends StatefulWidget {
   final Nivose nivose;
