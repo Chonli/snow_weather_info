@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:provider/provider.dart';
-import 'package:snow_weather_info/data/repository.dart';
+import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/ui/data_station_page.dart';
 import 'package:snow_weather_info/ui/map_licence_widget.dart';
 import 'package:snow_weather_info/ui/nivose_page.dart';
 
 class MapWidget extends StatefulWidget {
-  final Repository repository;
-  MapWidget(this.repository);
+  MapWidget();
 
   @override
   _MapWidgetState createState() => _MapWidgetState();
@@ -18,36 +17,39 @@ class MapWidget extends StatefulWidget {
 class _MapWidgetState extends State<MapWidget> {
   MapController _mapController;
   final List<Marker> _listStationMarker = List<Marker>();
-  Repository get repository => widget.repository;
 
   final double _zoom = 10.0;
   bool onlyOne = true;
 
   @override
   void initState() {
+    super.initState();
     _mapController = MapController();
     _mapController.onReady.then((result) async {
-      var isFristLaunch = repository.currentUserLoc == null;
-      var hasPosition = await repository.updateLocation();
+      final notifier = context.read<DataNotifier>();
+      var isFristLaunch = notifier.currentUserLoc == null;
+      var hasPosition = await notifier.updateLocation();
 
-      if (hasPosition && repository.currentUserLoc != null) {
+      if (hasPosition && notifier.currentUserLoc != null) {
         setState(() {
-          _listStationMarker.add(Marker(
+          _listStationMarker.add(
+            Marker(
               width: 50.0,
               height: 50.0,
-              point: repository.currentUserLoc,
+              point: notifier.currentUserLoc,
               builder: (ctx) => Icon(
-                    Icons.person_pin_circle,
-                    color: Theme.of(context).primaryColor,
-                  )));
+                Icons.person_pin_circle,
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
+          );
           if (isFristLaunch) {
-            repository.currentMapLoc = repository.currentUserLoc;
-            _mapController.move(repository.currentMapLoc, _zoom);
+            notifier.currentMapLoc = notifier.currentUserLoc;
+            _mapController.move(notifier.currentMapLoc, _zoom);
           }
         });
       }
     });
-    super.initState();
   }
 
   @override
@@ -56,13 +58,12 @@ class _MapWidgetState extends State<MapWidget> {
     super.dispose();
   }
 
-  void _initMakerList() {
+  void _initMakerList(DataNotifier notifier) {
     if (onlyOne) {
       onlyOne = false;
-      Repository repository = Provider.of<Repository>(context);
       List<AbstractStation> list = List<AbstractStation>();
-      list.addAll(repository.stations);
-      list.addAll(repository.nivoses);
+      list.addAll(notifier.stations);
+      list.addAll(notifier.nivoses);
       for (var st in list) {
         bool hasData = false;
         Color color = Theme.of(context).primaryColor;
@@ -122,14 +123,15 @@ class _MapWidgetState extends State<MapWidget> {
 
   @override
   Widget build(BuildContext context) {
-    _initMakerList();
+    final notifier = context.watch<DataNotifier>();
+    _initMakerList(notifier);
 
     return Stack(
       children: [
         FlutterMap(
           mapController: _mapController,
           options: MapOptions(
-            center: repository.currentMapLoc,
+            center: notifier.currentMapLoc,
             zoom: _zoom,
           ),
           layers: [
@@ -159,12 +161,12 @@ class _MapWidgetState extends State<MapWidget> {
               child: IconButton(
                 icon: Icon(Icons.my_location),
                 onPressed: () async {
-                  var hasPosition = await repository.updateLocation();
+                  var hasPosition = await notifier.updateLocation();
 
-                  if (hasPosition && repository.currentUserLoc != null) {
-                    repository.currentMapLoc = repository.currentUserLoc;
+                  if (hasPosition && notifier.currentUserLoc != null) {
+                    notifier.currentMapLoc = notifier.currentUserLoc;
                     setState(() {
-                      _mapController.move(repository.currentMapLoc, _zoom);
+                      _mapController.move(notifier.currentMapLoc, _zoom);
                     });
                   }
                 },

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:csv/csv.dart';
 import 'package:intl/intl.dart';
@@ -14,45 +15,76 @@ import 'package:snow_weather_info/model/data_station.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'constant_data_list.dart';
 
-class Repository {
+class DataNotifier extends ChangeNotifier {
   Preferences _preferences = Preferences();
   bool _isInitialise = false;
-  List<Station> _listStation;
-  List<Nivose> _listNivose;
-  List<AbstractStation> _listFavoritesStation;
-  HashMap<int, List<DataStation>> _hashDataStation;
-  List<AvalancheBulletin> _listAvalancheBulletin;
+  HashMap<int, List<DataStation>> _mapDataStation;
+  List<AvalancheBulletin> _avalancheBulletins;
   PackageInfo packageInfo;
   final Location _location = Location();
   LatLng currentMapLoc = LatLng(45.05, 6.3);
   LatLng currentUserLoc;
   int currentIndexTab = 0;
 
-  List<Station> get stations => _listStation.toList();
+  bool get loading => _loading;
+  bool _loading = false;
+  @protected
+  set loading(bool value) {
+    if (_loading != value) {
+      _loading = value;
+      notifyListeners();
+    }
+  }
 
-  List<Nivose> get nivoses => _listNivose.toList();
+  List<Station> get stations => _stations.toList();
+  List<Station> _stations;
+  @protected
+  set stations(List<Station> value) {
+    if (_stations != value) {
+      _stations = value;
+      notifyListeners();
+    }
+  }
 
-  List<AbstractStation> get favoritesStations => _listFavoritesStation.toList();
+  List<Nivose> get nivoses => _nivoses.toList();
+  List<Nivose> _nivoses;
+  @protected
+  set nivoses(List<Nivose> value) {
+    if (_nivoses != value) {
+      _nivoses = value;
+      notifyListeners();
+    }
+  }
+
+  List<AbstractStation> get favoritesStations => _favoritesStations.toList();
+  List<AbstractStation> _favoritesStations;
+  @protected
+  set favoritesStations(List<Nivose> value) {
+    if (_favoritesStations != value) {
+      _favoritesStations = value;
+      notifyListeners();
+    }
+  }
 
   List<DataStation> getDataOfStation(int id) {
-    return _hashDataStation[id];
+    return _mapDataStation[id];
   }
 
   List<AvalancheBulletin> getAvalancheBulletin(Mountain mountain) {
-    return _listAvalancheBulletin.where((f) => f.mountain == mountain).toList();
+    return _avalancheBulletins.where((f) => f.mountain == mountain).toList();
   }
 
   List<AvalancheBulletin> getAllAvalancheBulletin() {
-    return _listAvalancheBulletin.toList();
+    return _avalancheBulletins.toList();
   }
 
   Nivose getNivose(String codeMF) {
-    return _listNivose.firstWhere((n) => n.codeMF == codeMF);
+    return _nivoses.firstWhere((n) => n.codeMF == codeMF);
   }
 
   Future<bool> updateLocation() async {
     PermissionStatus hasPermission = await _location.hasPermission();
-    if (hasPermission == PermissionStatus.granted) {
+    if (hasPermission != PermissionStatus.granted) {
       hasPermission = await _location.requestPermission();
     }
     if (hasPermission == PermissionStatus.granted) {
@@ -65,6 +97,7 @@ class Repository {
 
   Future<bool> initData() async {
     if (!_isInitialise) {
+      loading = true;
       await _preferences.init();
       packageInfo = await PackageInfo.fromPlatform();
       _initAvalancheBulletin();
@@ -80,18 +113,21 @@ class Repository {
         _isInitialise = true;
       } catch (e) {
         print("init error : " + e.toString());
+      } finally {
+        loading = false;
       }
     }
+
     return _isInitialise;
   }
 
   Future<void> _finalizeStationData() async {
-    _hashDataStation = HashMap();
+    _mapDataStation = HashMap();
     await DatabaseHelper.instance.cleanOldData(7);
 
-    for (var s in _listStation) {
+    for (var s in _stations) {
       var listOfData = await DatabaseHelper.instance.getDataStation(s.id);
-      _hashDataStation[s.id] = listOfData;
+      _mapDataStation[s.id] = listOfData;
       s.hasData = listOfData.length > 0 ? true : false;
       if (s.hasData) {
         var dataSt =
@@ -106,35 +142,35 @@ class Repository {
 
   Future<void> _initFavorites() async {
     final listFav = _preferences.favoritesStations;
-    _listFavoritesStation = List();
-    _listStation.forEach((s) {
+    _favoritesStations = List();
+    _stations.forEach((s) {
       if (listFav.contains(s.id.toString())) {
-        _listFavoritesStation.add(s);
+        _favoritesStations.add(s);
       }
     });
-    _listNivose.forEach((s) {
+    _nivoses.forEach((s) {
       if (listFav.contains(s.codeMF)) {
-        _listFavoritesStation.add(s);
+        _favoritesStations.add(s);
       }
     });
   }
 
   bool isFavorite(AbstractStation station) {
-    return _listFavoritesStation.contains(station);
+    return _favoritesStations.contains(station);
   }
 
   void addFavoriteStation(AbstractStation station) {
-    _listFavoritesStation.add(station);
+    _favoritesStations.add(station);
     _updateFavoriteStation();
   }
 
   void removeFavoriteStation(AbstractStation station) {
-    _listFavoritesStation.remove(station);
+    _favoritesStations.remove(station);
     _updateFavoriteStation();
   }
 
   void _updateFavoriteStation() {
-    _preferences.updateFavoritesStations(_listFavoritesStation.map<String>((s) {
+    _preferences.updateFavoritesStations(_favoritesStations.map<String>((s) {
       if (s is Station) {
         return s.id.toString();
       } else if (s is Nivose) {
@@ -188,8 +224,8 @@ class Repository {
 
   Future<void> _initStation() async {
     var stationUpdateDate = _preferences.lastStationDate;
-    _listStation = await DatabaseHelper.instance.getAllStation();
-    if (_listStation.length == 0 ||
+    _stations = await DatabaseHelper.instance.getAllStation();
+    if (_stations.length == 0 ||
         stationUpdateDate.difference(DateTime.now()) > Duration(days: 15)) {
       final response = await http.get(
           'https://donneespubliques.meteofrance.fr/donnees_libres/Txt/Nivo/postesNivo.json');
@@ -200,10 +236,10 @@ class Repository {
 
         for (var json in rest) {
           var st = json["properties"];
-          if (st['ID'] != '') _listStation.add(Station.fromJson(st));
+          if (st['ID'] != '') _stations.add(Station.fromJson(st));
         }
 
-        _listStation.forEach(
+        _stations.forEach(
             (s) async => await DatabaseHelper.instance.insertStation(s));
 
         _preferences.setLastStationDate(DateTime.now());
@@ -216,11 +252,11 @@ class Repository {
   }
 
   _initAvalancheBulletin() {
-    _listAvalancheBulletin = ConstantDatalist.listAvalancheBulletin
+    _avalancheBulletins = ConstantDatalist.listAvalancheBulletin
       ..sort((a, b) => a.massifName.compareTo(b.massifName));
   }
 
   _initNivose() {
-    _listNivose = ConstantDatalist.listNivose;
+    _nivoses = ConstantDatalist.listNivose;
   }
 }

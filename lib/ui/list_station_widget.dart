@@ -1,12 +1,12 @@
 import 'package:alphabet_list_scroll_view/alphabet_list_scroll_view.dart';
 import 'package:flutter/material.dart';
-import 'package:snow_weather_info/data/repository.dart';
+import 'package:provider/provider.dart';
+import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/ui/station_card.dart';
 
 class ListStationWidget extends StatefulWidget {
-  final Repository _repository;
-  const ListStationWidget(this._repository);
+  const ListStationWidget();
 
   @override
   _ListStationWidgetState createState() => _ListStationWidgetState();
@@ -16,21 +16,22 @@ class _ListStationWidgetState extends State<ListStationWidget> {
   TextEditingController _editingController = TextEditingController();
   List<AbstractStation> _listStation = List<AbstractStation>();
   List<AbstractStation> _listFavoriteStation = List<AbstractStation>();
-  Repository get _repository => widget._repository;
 
   @override
   void initState() {
-    _listStation.addAll(_repository.nivoses);
-    _listStation.addAll(_repository.stations);
-    _listFavoriteStation.addAll(_repository.favoritesStations);
-    _listStation.sort((a, b) => a.name.compareTo(b.name));
     super.initState();
+    final notifier = context.read<DataNotifier>();
+    _listStation.addAll(notifier.nivoses);
+    _listStation.addAll(notifier.stations);
+    _listFavoriteStation.addAll(notifier.favoritesStations);
+    _listStation.sort((a, b) => a.name.compareTo(b.name));
   }
 
-  void _filterSearchResults(String query) {
-    var dummySearchStationList = _repository.stations;
-    var dummySearchNivoseList = _repository.nivoses;
-    var dummySearchFavoriteList = _repository.favoritesStations;
+  void _filterSearchResults(BuildContext context, String query) {
+    final notifier = context.read<DataNotifier>();
+    var dummySearchStationList = notifier.stations;
+    var dummySearchNivoseList = notifier.nivoses;
+    var dummySearchFavoriteList = notifier.favoritesStations;
     _listStation.clear();
     _listFavoriteStation.clear();
     if (query.isNotEmpty) {
@@ -63,6 +64,7 @@ class _ListStationWidgetState extends State<ListStationWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final notifier = context.watch<DataNotifier>();
     return AlphabetListScrollView(
       strList: _listStation.map((d) => d.name).toList(),
       highlightTextStyle: TextStyle(
@@ -85,7 +87,7 @@ class _ListStationWidgetState extends State<ListStationWidget> {
                   left: 8.0, bottom: 8.0, top: 16.0, right: 64.0),
               child: TextField(
                 onChanged: (value) {
-                  _filterSearchResults(value);
+                  _filterSearchResults(context, value);
                 },
                 controller: _editingController,
                 decoration: InputDecoration(
@@ -104,7 +106,7 @@ class _ListStationWidgetState extends State<ListStationWidget> {
         ),
         AlphabetScrollListHeader(
             widgetList: _listStation
-                .where((s) => _repository.isFavorite(s))
+                .where((s) => notifier.isFavorite(s))
                 .map((s) => StationCard(s))
                 .toList(),
             icon: Icon(Icons.star),

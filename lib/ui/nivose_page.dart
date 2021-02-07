@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
-import 'package:snow_weather_info/data/repository.dart';
+import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/model/station.dart';
 
 class NivosePage extends StatefulWidget {
@@ -15,7 +15,7 @@ class NivosePage extends StatefulWidget {
 class _NivosePageState extends State<NivosePage> {
   @override
   Widget build(BuildContext context) {
-    Repository repository = Provider.of<Repository>(context);
+    final repository = context.watch<DataNotifier>();
     repository.currentMapLoc = widget.nivose.position;
     var isFavorite = repository.isFavorite(widget.nivose);
     return Scaffold(

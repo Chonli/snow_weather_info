@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
-import 'package:snow_weather_info/data/repository.dart';
+import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/model/data_station.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/ui/data_station_chart.dart';
@@ -41,7 +41,7 @@ class _DataStationPageState extends State<DataStationPage> {
 
   @override
   Widget build(BuildContext context) {
-    Repository repository = Provider.of<Repository>(context);
+    final repository = context.watch<DataNotifier>();
     repository.currentMapLoc = station.position;
     final data = repository.getDataOfStation(station.id);
     var isFavorite = repository.isFavorite(station);

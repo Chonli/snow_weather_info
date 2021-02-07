@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:snow_weather_info/data/repository.dart';
+import 'package:snow_weather_info/data/data_api.dart';
+import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/ui/home_page.dart';
 
 void main() {
@@ -14,7 +15,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          Provider<Repository>(create: (_) => Repository()),
+          Provider<DataAPI>(create: (_) => DataAPI()),
+          ChangeNotifierProxyProvider0<DataNotifier>(
+            create: (_) => DataNotifier(),
+            update: (_, old) => old..initData(),
+          ),
         ],
         child: MaterialApp(
           title: _title,
@@ -61,45 +66,28 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Repository repository = Provider.of<Repository>(context);
-    return FutureBuilder(
-        future: repository.initData(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError)
-            return Scaffold(
-                appBar: AppBar(
-                  title: Text(title),
-                ),
-                body: Center(
-                    child: Text('Initialisation erreur: ${snapshot.error}')));
-          switch (snapshot.connectionState) {
-            case ConnectionState.waiting:
-              return Scaffold(
-                backgroundColor: Colors.white,
-                body: Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Image.asset(
-                        "assets/icon/icon.png",
-                        fit: BoxFit.contain,
-                        height: 128,
-                        width: 128,
-                      ),
-                      Padding(padding: EdgeInsets.all(20)),
-                      CircularProgressIndicator(),
-                    ],
+    final loading = context.select<DataNotifier, bool>((n) => n.loading);
+    return loading
+        ? Scaffold(
+            backgroundColor: Colors.white,
+            body: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Image.asset(
+                    "assets/icon/icon.png",
+                    fit: BoxFit.contain,
+                    height: 128,
+                    width: 128,
                   ),
-                ),
-              );
-            default:
-              return HomePage(
-                title: title,
-                repository: repository,
-              );
-          }
-        });
+                  Padding(padding: EdgeInsets.all(20)),
+                  CircularProgressIndicator(),
+                ],
+              ),
+            ),
+          )
+        : HomePage(title: title);
   }
 }

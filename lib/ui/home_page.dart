@@ -1,15 +1,16 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:snow_weather_info/data/repository.dart';
+import 'package:package_info/package_info.dart';
+import 'package:provider/provider.dart';
+import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/ui/avalanche_massif_list_page.dart';
 import 'package:snow_weather_info/ui/list_station_widget.dart';
 import 'package:snow_weather_info/ui/map_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({Key key, this.title}) : super(key: key);
   final String title;
-  final Repository repository;
-  const HomePage({Key key, this.title, this.repository}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -18,15 +19,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
-  Repository get repository => widget.repository;
 
   @override
   void initState() {
     super.initState();
+    final notifier = context.read<DataNotifier>();
     _tabController = TabController(
-        vsync: this, length: 2, initialIndex: repository.currentIndexTab);
+        vsync: this, length: 2, initialIndex: notifier.currentIndexTab);
     _tabController.addListener(() {
-      repository.currentIndexTab = _tabController.index;
+      notifier.currentIndexTab = _tabController.index;
     });
   }
 
@@ -89,21 +90,22 @@ class _HomePageState extends State<HomePage>
         controller: _tabController,
         physics: NeverScrollableScrollPhysics(),
         children: [
-          ListStationWidget(repository),
-          MapWidget(repository),
+          ListStationWidget(),
+          MapWidget(),
         ],
       ),
     );
   }
 
   void _openAboutDialog(BuildContext context) {
+    final packageInfo = context.read<DataNotifier>().packageInfo;
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AboutDialog(
           applicationName: "Info Neige",
           applicationVersion:
-              "version: ${repository.packageInfo.version}+${repository.packageInfo.buildNumber}",
+              "version: ${packageInfo.version}+${packageInfo.buildNumber}",
           applicationIcon: Image.asset(
             "assets/icon/icon.png",
             width: 42,

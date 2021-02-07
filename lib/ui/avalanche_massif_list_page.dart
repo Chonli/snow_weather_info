@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:snow_weather_info/data/repository.dart';
+import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/model/avalanche_bulletin.dart';
 import 'package:snow_weather_info/ui/avalanche_bulletin_page.dart';
 import 'package:sticky_headers/sticky_headers.dart';
@@ -96,7 +96,7 @@ class _AvalancheMassifListPageState extends State<AvalancheMassifListPage> {
   }
 
   Widget _listMassif(String title, Mountain type) {
-    Repository repository = Provider.of<Repository>(context);
+    final repository = context.watch<DataNotifier>();
     final list = repository.getAvalancheBulletin(type);
 
     return Visibility(
@@ -109,7 +109,8 @@ class _AvalancheMassifListPageState extends State<AvalancheMassifListPage> {
           child: Text(
             title,
             style: TextStyle(
-                color: Theme.of(context).textTheme.title.color, fontSize: 25),
+                color: Theme.of(context).textTheme.headline6.color,
+                fontSize: 25),
           ),
         ),
         content: ListView.builder(
