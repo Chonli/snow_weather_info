@@ -159,7 +159,8 @@ class _DataStationPageState extends State<DataStationPage> {
           child: Text(
             'Informations créées à partir de données de Météo-France',
             style: TextStyle(
-                color: Theme.of(context).textTheme.title.color, fontSize: 14),
+                color: Theme.of(context).textTheme.headline6.color,
+                fontSize: 14),
           ),
         ),
       ]),

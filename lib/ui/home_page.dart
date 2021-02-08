@@ -1,8 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
+import 'package:snow_weather_info/ui/avalanche_list_widget.dart';
 import 'package:snow_weather_info/ui/avalanche_massif_list_page.dart';
 import 'package:snow_weather_info/ui/list_station_widget.dart';
 import 'package:snow_weather_info/ui/map_widget.dart';
@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage>
     super.initState();
     final notifier = context.read<DataNotifier>();
     _tabController = TabController(
-        vsync: this, length: 2, initialIndex: notifier.currentIndexTab);
+        vsync: this, length: 3, initialIndex: notifier.currentIndexTab);
     _tabController.addListener(() {
       notifier.currentIndexTab = _tabController.index;
     });
@@ -80,8 +80,9 @@ class _HomePageState extends State<HomePage>
           key: PageStorageKey("tab_key"),
           controller: _tabController,
           tabs: [
-            Tab(text: "Liste", icon: Icon(Icons.list)),
+            Tab(text: "Stations", icon: Icon(Icons.list)),
             Tab(text: "Carte", icon: Icon(Icons.map)),
+            Tab(text: "Avalanches", icon: Icon(Icons.rss_feed)),
           ],
         ),
       ),
@@ -92,6 +93,7 @@ class _HomePageState extends State<HomePage>
         children: [
           ListStationWidget(),
           MapWidget(),
+          AvalancheListWidget(),
         ],
       ),
     );
@@ -116,14 +118,15 @@ class _HomePageState extends State<HomePage>
             Padding(padding: EdgeInsets.all(5)),
             Text(
               'Développeur: Chonli',
-              style: TextStyle(color: Theme.of(context).textTheme.body1.color),
+              style:
+                  TextStyle(color: Theme.of(context).textTheme.bodyText2.color),
             ),
             Padding(padding: EdgeInsets.all(5)),
             InkWell(
               child: new Text(
                 'Lien vers le projet',
-                style:
-                    TextStyle(color: Theme.of(context).textTheme.body2.color),
+                style: TextStyle(
+                    color: Theme.of(context).textTheme.bodyText1.color),
               ),
               onTap: () async =>
                   await launch('https://github.com/Chonli/snow_weather_info'),

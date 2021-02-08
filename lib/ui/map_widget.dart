@@ -24,30 +24,32 @@ class _MapWidgetState extends State<MapWidget> {
   @override
   void initState() {
     super.initState();
+    final notifier = context.read<DataNotifier>();
     _mapController = MapController();
-    _mapController.onReady.then((result) async {
-      final notifier = context.read<DataNotifier>();
-      var isFristLaunch = notifier.currentUserLoc == null;
-      var hasPosition = await notifier.updateLocation();
+    _mapController.onReady.then((_) async {
+      if (_mapController != null) {
+        var isFristLaunch = notifier.currentUserLoc == null;
+        var hasPosition = await notifier.updateLocation();
 
-      if (hasPosition && notifier.currentUserLoc != null) {
-        setState(() {
-          _listStationMarker.add(
-            Marker(
-              width: 50.0,
-              height: 50.0,
-              point: notifier.currentUserLoc,
-              builder: (ctx) => Icon(
-                Icons.person_pin_circle,
-                color: Theme.of(context).primaryColor,
+        if (hasPosition && notifier.currentUserLoc != null) {
+          setState(() {
+            _listStationMarker.add(
+              Marker(
+                width: 50.0,
+                height: 50.0,
+                point: notifier.currentUserLoc,
+                builder: (ctx) => Icon(
+                  Icons.person_pin_circle,
+                  color: Theme.of(context).primaryColor,
+                ),
               ),
-            ),
-          );
-          if (isFristLaunch) {
-            notifier.currentMapLoc = notifier.currentUserLoc;
-            _mapController.move(notifier.currentMapLoc, _zoom);
-          }
-        });
+            );
+            if (isFristLaunch) {
+              notifier.currentMapLoc = notifier.currentUserLoc;
+              _mapController.move(notifier.currentMapLoc, _zoom);
+            }
+          });
+        }
       }
     });
   }

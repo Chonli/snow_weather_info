@@ -10,8 +10,8 @@ class StationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle _textStyle = TextStyle(
-        color: Theme.of(context).textTheme.body2.color,
+    var _textStyle = TextStyle(
+        color: Theme.of(context).textTheme.bodyText1.color,
         fontStyle: FontStyle.normal);
     var snowHeigth = "";
     if (_station is Station) {
@@ -20,7 +20,7 @@ class StationCard extends StatelessWidget {
           ? " ${(st.lastSnowHeight * 100).toStringAsFixed(0)}cm"
           : "";
       Color _color = st.hasData
-          ? Theme.of(context).textTheme.body1.color
+          ? Theme.of(context).textTheme.bodyText2.color
           : Theme.of(context).disabledColor;
       FontStyle _font = st.hasData ? FontStyle.normal : FontStyle.italic;
       _textStyle = TextStyle(color: _color, fontStyle: _font);

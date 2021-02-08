@@ -43,6 +43,7 @@ dependencies:
   share: ^0.6.4+5
   sticky_headers: ^0.1.8+1
   alphabet_list_scroll_view: ^1.0.6
+  webfeed: ^0.6.0
 
 dev_dependencies:
   flutter_test:

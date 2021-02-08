@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:native_pdf_view/native_pdf_view.dart';
 import 'package:share/share.dart';
 import 'package:snow_weather_info/model/avalanche_bulletin.dart';
-import 'package:http/http.dart' as http;
 
 class AvalancheBulletinPage extends StatelessWidget {
   final AvalancheBulletin bulletin;

@@ -8,15 +8,20 @@ import 'package:intl/intl.dart';
 import 'package:latlong/latlong.dart';
 import 'package:location/location.dart';
 import 'package:package_info/package_info.dart';
-import 'package:snow_weather_info/data/database_helper.dart';
+import 'package:snow_weather_info/data/sources/avalanche_api.dart';
+import 'package:snow_weather_info/data/sources/data_api.dart';
+import 'package:snow_weather_info/data/sources/database_helper.dart';
 import 'package:snow_weather_info/data/preferences.dart';
 import 'package:snow_weather_info/model/avalanche_bulletin.dart';
 import 'package:snow_weather_info/model/data_station.dart';
 import 'package:snow_weather_info/model/station.dart';
+import 'package:webfeed/domain/atom_feed.dart';
 import 'constant_data_list.dart';
 
 class DataNotifier extends ChangeNotifier {
   Preferences _preferences = Preferences();
+  AvalancheAPI avalancheAPI;
+  DataAPI dataAPI;
   bool _isInitialise = false;
   HashMap<int, List<DataStation>> _mapDataStation;
   List<AvalancheBulletin> _avalancheBulletins;
@@ -66,6 +71,16 @@ class DataNotifier extends ChangeNotifier {
     }
   }
 
+  AtomFeed get avalancheFeed => _avalancheFeed;
+  AtomFeed _avalancheFeed;
+  @protected
+  set avalancheFeed(AtomFeed value) {
+    if (_avalancheFeed != value) {
+      _avalancheFeed = value;
+      notifyListeners();
+    }
+  }
+
   List<DataStation> getDataOfStation(int id) {
     return _mapDataStation[id];
   }
@@ -108,6 +123,7 @@ class DataNotifier extends ChangeNotifier {
           _initStation(),
           _downloadStationData(),
         ]);
+        avalancheFeed = await avalancheAPI.getAvalanche();
         await _finalizeStationData();
         await _initFavorites();
         _isInitialise = true;

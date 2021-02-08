@@ -1,4 +1,4 @@
-import 'package:snow_weather_info/data/database_helper.dart';
+import 'package:snow_weather_info/data/sources/database_helper.dart';
 
 class DataStation {
   static const double kelvin = 273.15;

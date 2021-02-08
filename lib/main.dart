@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:snow_weather_info/data/data_api.dart';
+import 'package:snow_weather_info/data/sources/avalanche_api.dart';
+import 'package:snow_weather_info/data/sources/data_api.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/ui/home_page.dart';
 
@@ -15,10 +16,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
+          Provider<AvalancheAPI>(create: (_) => AvalancheAPI()),
           Provider<DataAPI>(create: (_) => DataAPI()),
-          ChangeNotifierProxyProvider0<DataNotifier>(
+          ChangeNotifierProxyProvider2<AvalancheAPI, DataAPI, DataNotifier>(
             create: (_) => DataNotifier(),
-            update: (_, old) => old..initData(),
+            update: (_, avalancheAPI, dataAPI, old) => old
+              ..avalancheAPI = avalancheAPI
+              ..dataAPI = dataAPI
+              ..initData(),
           ),
         ],
         child: MaterialApp(

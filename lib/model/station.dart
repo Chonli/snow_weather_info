@@ -1,5 +1,5 @@
 import 'package:latlong/latlong.dart';
-import 'package:snow_weather_info/data/database_helper.dart';
+import 'package:snow_weather_info/data/sources/database_helper.dart';
 
 abstract class AbstractStation {
   String _name;
