@@ -3,31 +3,30 @@ import 'package:snow_weather_info/model/station.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as p;
 
-final String tableStation = 'station';
-final String tableStationData = 'stationData';
-final String columnId = 'id';
-final String columnName = 'name';
-final String columnLatitude = 'latitude';
-final String columnLongitude = 'longitude';
-final String columnAltitude = 'altitude';
-final String columnDate = 'date';
-final String columnIdStation = 'idStation';
-final String columnTemperature = 'temperature';
-final String columnTemperatureMin24 = 'temperatureMin';
-final String columnTemperatureMax24 = 'temperatureMax';
-final String columnTemperatureSnow = 'temperatureSnow';
-final String columnSpeedWind = 'speedWind';
-final String columnDirectionWind = 'directionWind';
-final String columnSnowHeight = 'snowHeight';
-final String columnSnowNewHeight = 'snowNewHeight';
+const tableStation = 'station';
+const tableStationData = 'stationData';
+const columnId = 'id';
+const columnName = 'name';
+const columnLatitude = 'latitude';
+const columnLongitude = 'longitude';
+const columnAltitude = 'altitude';
+const columnDate = 'date';
+const columnIdStation = 'idStation';
+const columnTemperature = 'temperature';
+const columnTemperatureMin24 = 'temperatureMin';
+const columnTemperatureMax24 = 'temperatureMax';
+const columnTemperatureSnow = 'temperatureSnow';
+const columnSpeedWind = 'speedWind';
+const columnDirectionWind = 'directionWind';
+const columnSnowHeight = 'snowHeight';
+const columnSnowNewHeight = 'snowNewHeight';
 
 class DatabaseHelper {
-  static final _databaseName = "database.db";
-  static final _databaseVersion = 1;
-  static Database _database;
-
   DatabaseHelper._privateConstructor();
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
+  static const _databaseName = 'database.db';
+  static const _databaseVersion = 1;
+  static Database _database;
 
   Future<Database> get database async {
     if (_database != null) return _database;
@@ -35,11 +34,10 @@ class DatabaseHelper {
     return _database;
   }
 
-  _initDatabase() async {
-    String pathFolder = await getDatabasesPath();
-    String path = p.join(pathFolder, _databaseName);
-    return await openDatabase(path,
-        version: _databaseVersion, onCreate: _onCreate);
+  Future<Database> _initDatabase() async {
+    final pathFolder = await getDatabasesPath();
+    final path = p.join(pathFolder, _databaseName);
+    return openDatabase(path, version: _databaseVersion, onCreate: _onCreate);
   }
 
   Future _onCreate(Database db, int version) async {
@@ -72,37 +70,37 @@ class DatabaseHelper {
   Future<int> insertStation(Station station) async {
     Database db = await database;
     int id = 0;
-    List<Map> maps = await db.query(
+    final maps = await db.query(
       tableStation,
       columns: [columnId],
       where: '$columnId = ?',
-      whereArgs: [station.id],
+      whereArgs: <dynamic>[station.id],
     );
-    if (maps.length == 0) {
+    if (maps.isEmpty) {
       id = await db.insert(tableStation, station.toMap());
     }
     return id;
   }
 
   Future<int> insertStationData(DataStation stationData) async {
-    Database db = await database;
+    final db = await database;
     int id = 0;
-    List<Map> maps = await db.query(
+    final maps = await db.query(
       tableStationData,
       columns: [columnIdStation, columnDate],
       where: '$columnIdStation = ? AND $columnDate = ?',
-      whereArgs: [stationData.id, stationData.date.toIso8601String()],
+      whereArgs: <dynamic>[stationData.id, stationData.date.toIso8601String()],
     );
-    if (maps.length == 0) {
+    if (maps.isEmpty) {
       id = await db.insert(tableStationData, stationData.toMap());
     }
     return id;
   }
 
   Future<List<DataStation>> getDataStation(int idStation) async {
-    final ret = List<DataStation>();
-    Database db = await database;
-    List<Map> maps = await db.query(
+    final ret = <DataStation>[];
+    final db = await database;
+    final maps = await db.query(
       tableStationData,
       columns: [
         columnIdStation,
@@ -117,11 +115,11 @@ class DatabaseHelper {
         columnSnowNewHeight
       ],
       where: '$columnIdStation = ?',
-      whereArgs: [idStation],
-      orderBy: columnDate + " DESC",
+      whereArgs: <dynamic>[idStation],
+      orderBy: '$columnDate DESC',
     );
-    if (maps.length > 0) {
-      for (var stationDataMap in maps) {
+    if (maps.isNotEmpty) {
+      for (final stationDataMap in maps) {
         ret.add(DataStation.fromMap(stationDataMap));
       }
     }
@@ -129,9 +127,9 @@ class DatabaseHelper {
   }
 
   Future<List<Station>> getAllStation() async {
-    var ret = List<Station>();
-    Database db = await database;
-    List<Map> maps = await db.query(
+    final ret = <Station>[];
+    final Database db = await database;
+    final List<Map> maps = await db.query(
       tableStation,
       columns: [
         columnId,
@@ -141,9 +139,9 @@ class DatabaseHelper {
         columnAltitude
       ],
     );
-    if (maps.length > 0) {
-      for (var stationMap in maps) {
-        ret.add(Station.fromMap(stationMap));
+    if (maps.isNotEmpty) {
+      for (final stationMap in maps) {
+        ret.add(Station.fromMap(stationMap as Map<String, dynamic>));
       }
     }
     return ret;
@@ -151,8 +149,12 @@ class DatabaseHelper {
 
   Future cleanOldData(int day) async {
     Database db = await database;
-    await db.delete(tableStationData, where: "$columnDate < ?", whereArgs: [
-      DateTime.now().subtract(Duration(days: day)).toIso8601String()
-    ]);
+    await db.delete(
+      tableStationData,
+      where: '$columnDate < ?',
+      whereArgs: <dynamic>[
+        DateTime.now().subtract(Duration(days: day)).toIso8601String()
+      ],
+    );
   }
 }

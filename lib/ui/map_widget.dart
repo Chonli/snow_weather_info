@@ -8,7 +8,9 @@ import 'package:snow_weather_info/ui/map_licence_widget.dart';
 import 'package:snow_weather_info/ui/nivose_page.dart';
 
 class MapWidget extends StatefulWidget {
-  MapWidget();
+  const MapWidget({
+    Key key,
+  }) : super(key: key);
 
   @override
   _MapWidgetState createState() => _MapWidgetState();
@@ -16,9 +18,9 @@ class MapWidget extends StatefulWidget {
 
 class _MapWidgetState extends State<MapWidget> {
   MapController _mapController;
-  final List<Marker> _listStationMarker = List<Marker>();
+  final _listStationMarker = <Marker>[];
 
-  final double _zoom = 10.0;
+  final double _zoom = 10;
   bool onlyOne = true;
 
   @override
@@ -28,15 +30,15 @@ class _MapWidgetState extends State<MapWidget> {
     _mapController = MapController();
     _mapController.onReady.then((_) async {
       if (_mapController != null) {
-        var isFristLaunch = notifier.currentUserLoc == null;
-        var hasPosition = await notifier.updateLocation();
+        final isFristLaunch = notifier.currentUserLoc == null;
+        final hasPosition = await notifier.updateLocation();
 
         if (hasPosition && notifier.currentUserLoc != null) {
           setState(() {
             _listStationMarker.add(
               Marker(
-                width: 50.0,
-                height: 50.0,
+                width: 50,
+                height: 50,
                 point: notifier.currentUserLoc,
                 builder: (ctx) => Icon(
                   Icons.person_pin_circle,
@@ -63,13 +65,13 @@ class _MapWidgetState extends State<MapWidget> {
   void _initMakerList(DataNotifier notifier) {
     if (onlyOne) {
       onlyOne = false;
-      List<AbstractStation> list = List<AbstractStation>();
+      final list = <AbstractStation>[];
       list.addAll(notifier.stations);
       list.addAll(notifier.nivoses);
-      for (var st in list) {
+      for (final st in list) {
         bool hasData = false;
         Color color = Theme.of(context).primaryColor;
-        double lastSnowHeight = 0.0;
+        double lastSnowHeight = 0;
         if (st is Station) {
           hasData = st.hasData;
           color = hasData ? Colors.black : Colors.grey;
@@ -78,8 +80,8 @@ class _MapWidgetState extends State<MapWidget> {
 
         _listStationMarker.add(
           Marker(
-            width: 90.0,
-            height: 50.0,
+            width: 90,
+            height: 50,
             point: st.position,
             builder: (ctx) => Stack(
               children: <Widget>[
@@ -89,29 +91,23 @@ class _MapWidgetState extends State<MapWidget> {
                   child: Visibility(
                       visible: hasData,
                       child: Text(
-                        "${(lastSnowHeight * 100).toStringAsFixed(0)}cm",
-                        style: TextStyle(color: Colors.black),
+                        '${(lastSnowHeight * 100).toStringAsFixed(0)}cm',
+                        style: const TextStyle(color: Colors.black),
                       )),
                 ),
                 Positioned(
-                  right: 0.0,
-                  bottom: 2.0,
+                  right: 0,
+                  bottom: 2,
                   child: IconButton(
-                    icon: Icon(Icons.place),
+                    icon: const Icon(Icons.place),
                     color: color,
                     onPressed: () => Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) {
-                        if (st is Station) {
-                          return DataStationPage(
-                            st,
-                          );
-                        } else {
-                          return NivosePage(
-                            st as Nivose,
-                          );
-                        }
-                      }),
+                      MaterialPageRoute<Widget>(
+                        builder: (context) => st is Station
+                            ? DataStationPage(st)
+                            : NivosePage(st as Nivose),
+                      ),
                     ),
                   ),
                 ),
@@ -138,15 +134,15 @@ class _MapWidgetState extends State<MapWidget> {
           ),
           layers: [
             TileLayerOptions(
-              urlTemplate: "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
-              subdomains: ["a", "b", "c"],
+              urlTemplate: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
+              subdomains: ['a', 'b', 'c'],
             ),
             MarkerLayerOptions(
               markers: _listStationMarker,
             ),
           ],
         ),
-        Positioned(
+        const Positioned(
           bottom: 0,
           right: 0,
           child: MapLicenceWidget(),
@@ -161,9 +157,9 @@ class _MapWidgetState extends State<MapWidget> {
               width: 40,
               color: Theme.of(context).backgroundColor,
               child: IconButton(
-                icon: Icon(Icons.my_location),
+                icon: const Icon(Icons.my_location),
                 onPressed: () async {
-                  var hasPosition = await notifier.updateLocation();
+                  final hasPosition = await notifier.updateLocation();
 
                   if (hasPosition && notifier.currentUserLoc != null) {
                     notifier.currentMapLoc = notifier.currentUserLoc;

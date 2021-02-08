@@ -142,7 +142,7 @@ class _CardMassif extends StatelessWidget {
         title: Text(avalancheBulletin.massifName),
         onTap: () => Navigator.push(
           context,
-          MaterialPageRoute(
+          MaterialPageRoute<Widget>(
             builder: (context) => AvalancheBulletinPage(avalancheBulletin),
           ),
         ),

@@ -16,36 +16,39 @@ class AvalancheListWidget extends StatelessWidget {
       color: Theme.of(context).textTheme.bodyText2.color,
       fontStyle: FontStyle.normal,
     );
-    return feed != null || feed.items.length == 0
+    return feed != null || feed.items.isNotEmpty
         ? ListView.builder(
             itemCount: feed.items.length,
             itemBuilder: (context, index) {
               final item = feed.items[index];
               final link = item.links.first;
-              final title = item.title.replaceFirst("Avalanche le", "");
+              final title = item.title.replaceFirst('Avalanche le', '');
               return Card(
-                margin: EdgeInsets.all(
-                  8.0,
+                margin: const EdgeInsets.all(
+                  8,
                 ),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0),
+                  borderRadius: BorderRadius.circular(20),
                 ),
-                elevation: 5.0,
+                elevation: 5,
                 child: ListTile(
                   title: Text(
                     title,
                     style: titleStyle,
                   ),
-                  trailing:
-                      link != null ? Icon(Icons.navigate_next) : SizedBox(),
-                  onTap: () {
-                    //TODO: move to url
+                  trailing: link != null
+                      ? const Icon(Icons.navigate_next)
+                      : const SizedBox(),
+                  onTap: () async {
+                    if (link != null && await url.canLaunch(link.href)) {
+                      url.launch(link.href);
+                    }
                   },
                 ),
               );
             },
           )
-        : Center(
+        : const Center(
             child: Text("Pas de donnée d'avalanche récentes"),
           );
   }

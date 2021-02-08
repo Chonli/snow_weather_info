@@ -13,9 +13,9 @@ class ListStationWidget extends StatefulWidget {
 }
 
 class _ListStationWidgetState extends State<ListStationWidget> {
-  TextEditingController _editingController = TextEditingController();
-  List<AbstractStation> _listStation = List<AbstractStation>();
-  List<AbstractStation> _listFavoriteStation = List<AbstractStation>();
+  final _editingController = TextEditingController();
+  final _listStation = <AbstractStation>[];
+  final _listFavoriteStation = <AbstractStation>[];
 
   @override
   void initState() {
@@ -29,13 +29,13 @@ class _ListStationWidgetState extends State<ListStationWidget> {
 
   void _filterSearchResults(BuildContext context, String query) {
     final notifier = context.read<DataNotifier>();
-    var dummySearchStationList = notifier.stations;
-    var dummySearchNivoseList = notifier.nivoses;
-    var dummySearchFavoriteList = notifier.favoritesStations;
+    final dummySearchStationList = notifier.stations;
+    final dummySearchNivoseList = notifier.nivoses;
+    final dummySearchFavoriteList = notifier.favoritesStations;
     _listStation.clear();
     _listFavoriteStation.clear();
     if (query.isNotEmpty) {
-      List<AbstractStation> dummyListData = List<AbstractStation>();
+      final dummyListData = <AbstractStation>[];
       dummySearchStationList.forEach((item) {
         if (item.name.toLowerCase().contains(query.toLowerCase())) {
           dummyListData.add(item);
@@ -72,31 +72,35 @@ class _ListStationWidgetState extends State<ListStationWidget> {
       ),
       showPreview: true,
       itemBuilder: (context, index) {
-        return StationCard(_listStation[index]);
+        return StationCard(station: _listStation[index]);
       },
       indexedHeight: (i) {
         return 106;
       },
       headerWidgetList: <AlphabetScrollListHeader>[
         AlphabetScrollListHeader(
-          icon: Icon(Icons.search),
+          icon: const Icon(Icons.search),
           indexedHeaderHeight: (index) => 86,
           widgetList: [
             Padding(
-              padding: EdgeInsets.only(
-                  left: 8.0, bottom: 8.0, top: 16.0, right: 64.0),
+              padding: const EdgeInsets.only(
+                left: 8,
+                bottom: 8,
+                top: 16,
+                right: 64,
+              ),
               child: TextField(
                 onChanged: (value) {
                   _filterSearchResults(context, value);
                 },
                 controller: _editingController,
-                decoration: InputDecoration(
-                  labelText: "Recherche",
-                  hintText: "Recherche",
+                decoration: const InputDecoration(
+                  labelText: 'Recherche',
+                  hintText: 'Recherche',
                   prefixIcon: Icon(Icons.search),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(
-                      Radius.circular(20.0),
+                      Radius.circular(20),
                     ),
                   ),
                 ),
@@ -105,14 +109,15 @@ class _ListStationWidgetState extends State<ListStationWidget> {
           ],
         ),
         AlphabetScrollListHeader(
-            widgetList: _listStation
-                .where((s) => notifier.isFavorite(s))
-                .map((s) => StationCard(s))
-                .toList(),
-            icon: Icon(Icons.star),
-            indexedHeaderHeight: (index) {
-              return 106;
-            }),
+          widgetList: _listStation
+              .where((s) => notifier.isFavorite(s))
+              .map((s) => StationCard(station: s))
+              .toList(),
+          icon: const Icon(Icons.star),
+          indexedHeaderHeight: (index) {
+            return 106;
+          },
+        ),
       ],
     );
   }

@@ -44,13 +44,16 @@ class _HomePageState extends State<HomePage>
         title: Text(widget.title),
         actions: <Widget>[
           PopupMenuButton<int>(
-            offset: Offset(0, 40),
+            offset: const Offset(0, 40),
             onSelected: (int value) async {
               switch (value) {
                 case 0:
-                  Navigator.of(context).push(MaterialPageRoute(
+                  Navigator.of(context).push(
+                    MaterialPageRoute<Widget>(
                       builder: (BuildContext context) =>
-                          AvalancheMassifListPage()));
+                          const AvalancheMassifListPage(),
+                    ),
+                  );
                   break;
                 case 1:
                   _openAboutDialog(context);
@@ -66,7 +69,7 @@ class _HomePageState extends State<HomePage>
               //     title: Text('Bulletin Avalanche'),
               //   ),
               // ),
-              PopupMenuItem(
+              const PopupMenuItem(
                 value: 1,
                 child: ListTile(
                   leading: Icon(Icons.info_outline),
@@ -77,23 +80,23 @@ class _HomePageState extends State<HomePage>
           ),
         ],
         bottom: TabBar(
-          key: PageStorageKey("tab_key"),
+          key: const PageStorageKey('tab_key'),
           controller: _tabController,
           tabs: [
-            Tab(text: "Stations", icon: Icon(Icons.list)),
-            Tab(text: "Carte", icon: Icon(Icons.map)),
-            Tab(text: "Avalanches", icon: Icon(Icons.rss_feed)),
+            const Tab(text: 'Stations', icon: Icon(Icons.list)),
+            const Tab(text: 'Carte', icon: Icon(Icons.map)),
+            const Tab(text: 'Avalanches', icon: Icon(Icons.rss_feed)),
           ],
         ),
       ),
       body: TabBarView(
-        key: PageStorageKey("tab_key"),
+        key: const PageStorageKey("tab_key"),
         controller: _tabController,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         children: [
-          ListStationWidget(),
+          const ListStationWidget(),
           MapWidget(),
-          AvalancheListWidget(),
+          const AvalancheListWidget(),
         ],
       ),
     );
@@ -101,21 +104,21 @@ class _HomePageState extends State<HomePage>
 
   void _openAboutDialog(BuildContext context) {
     final packageInfo = context.read<DataNotifier>().packageInfo;
-    showDialog(
+    showDialog<AboutDialog>(
       context: context,
       builder: (BuildContext context) {
         return AboutDialog(
-          applicationName: "Info Neige",
+          applicationName: 'Info Neige',
           applicationVersion:
-              "version: ${packageInfo.version}+${packageInfo.buildNumber}",
+              'version: ${packageInfo.version}+${packageInfo.buildNumber}',
           applicationIcon: Image.asset(
-            "assets/icon/icon.png",
+            'assets/icon/icon.png',
             width: 42,
             height: 42,
           ),
-          applicationLegalese: "MIT",
+          applicationLegalese: 'MIT',
           children: <Widget>[
-            Padding(padding: EdgeInsets.all(5)),
+            const Padding(padding: EdgeInsets.all(5)),
             Text(
               'Développeur: Chonli',
               style:
@@ -123,13 +126,13 @@ class _HomePageState extends State<HomePage>
             ),
             Padding(padding: EdgeInsets.all(5)),
             InkWell(
-              child: new Text(
+              child: Text(
                 'Lien vers le projet',
                 style: TextStyle(
                     color: Theme.of(context).textTheme.bodyText1.color),
               ),
-              onTap: () async =>
-                  await launch('https://github.com/Chonli/snow_weather_info'),
+              onTap: () =>
+                  launch('https://github.com/Chonli/snow_weather_info'),
             ),
           ],
         );
