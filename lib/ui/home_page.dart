@@ -6,7 +6,7 @@ import 'package:snow_weather_info/ui/avalanche_list_widget.dart';
 import 'package:snow_weather_info/ui/avalanche_massif_list_page.dart';
 import 'package:snow_weather_info/ui/list_station_widget.dart';
 import 'package:snow_weather_info/ui/map_widget.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher.dart' as url;
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key, this.title}) : super(key: key);
@@ -58,6 +58,9 @@ class _HomePageState extends State<HomePage>
                 case 1:
                   _openAboutDialog(context);
                   break;
+                case 2:
+                  _openBREAPage(context);
+                  break;
               }
             },
             itemBuilder: (BuildContext context) => <PopupMenuItem<int>>[
@@ -69,6 +72,13 @@ class _HomePageState extends State<HomePage>
               //     title: Text('Bulletin Avalanche'),
               //   ),
               // ),
+              const PopupMenuItem(
+                value: 2,
+                child: ListTile(
+                  leading: Icon(Icons.ac_unit),
+                  title: Text('Lien BREA'),
+                ),
+              ),
               const PopupMenuItem(
                 value: 1,
                 child: ListTile(
@@ -90,16 +100,20 @@ class _HomePageState extends State<HomePage>
         ),
       ),
       body: TabBarView(
-        key: const PageStorageKey("tab_key"),
+        key: const PageStorageKey('tab_key'),
         controller: _tabController,
         physics: const NeverScrollableScrollPhysics(),
         children: [
           const ListStationWidget(),
-          MapWidget(),
+          const MapWidget(),
           const AvalancheListWidget(),
         ],
       ),
     );
+  }
+
+  void _openBREAPage(BuildContext context) {
+    url.launch('https://meteofrance.com/meteo-montagne');
   }
 
   void _openAboutDialog(BuildContext context) {
@@ -124,15 +138,15 @@ class _HomePageState extends State<HomePage>
               style:
                   TextStyle(color: Theme.of(context).textTheme.bodyText2.color),
             ),
-            Padding(padding: EdgeInsets.all(5)),
+            const Padding(padding: EdgeInsets.all(5)),
             InkWell(
+              onTap: () =>
+                  url.launch('https://github.com/Chonli/snow_weather_info'),
               child: Text(
                 'Lien vers le projet',
                 style: TextStyle(
                     color: Theme.of(context).textTheme.bodyText1.color),
               ),
-              onTap: () =>
-                  launch('https://github.com/Chonli/snow_weather_info'),
             ),
           ],
         );
