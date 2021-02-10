@@ -253,7 +253,9 @@ class DataNotifier extends ChangeNotifier {
 
         for (final json in rest) {
           final st = json['properties'] as Map<String, dynamic>;
-          if (st['ID'] != '') _stations.add(Station.fromJson(st));
+          if (st['ID'] != '') {
+            _stations.add(Station.fromJson(st));
+          }
         }
 
         _stations.forEach((s) => DatabaseHelper.instance.insertStation(s));

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
+import 'package:snow_weather_info/model/extensions.dart';
 import 'package:url_launcher/url_launcher.dart' as url;
 import 'package:webfeed/webfeed.dart';
 
@@ -21,8 +22,7 @@ class AvalancheListWidget extends StatelessWidget {
             itemCount: feed.items.length,
             itemBuilder: (context, index) {
               final item = feed.items[index];
-              final link = item.links.first;
-              final title = item.title.replaceFirst('Avalanche le', '');
+
               return Card(
                 margin: const EdgeInsets.all(
                   8,
@@ -33,15 +33,19 @@ class AvalancheListWidget extends StatelessWidget {
                 elevation: 5,
                 child: ListTile(
                   title: Text(
-                    title,
+                    item.shortTitle,
                     style: titleStyle,
                   ),
-                  trailing: link != null
+                  subtitle: Text(
+                    '${item.date} : ${item.massif}',
+                    style: titleStyle,
+                  ),
+                  trailing: item.url != null
                       ? const Icon(Icons.navigate_next)
                       : const SizedBox(),
                   onTap: () async {
-                    if (link != null && await url.canLaunch(link.href)) {
-                      url.launch(link.href);
+                    if (item.url != null && await url.canLaunch(item.url)) {
+                      url.launch(item.url);
                     }
                   },
                 ),
