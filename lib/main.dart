@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
             accentColor: Colors.blueAccent,
             backgroundColor: Colors.white,
             disabledColor: Colors.grey,
-            textTheme: TextTheme(
+            textTheme: const TextTheme(
               headline6: TextStyle(color: Colors.white),
               bodyText2: TextStyle(color: Colors.black),
               bodyText1: TextStyle(color: Colors.blue),
@@ -51,11 +51,11 @@ class MyApp extends StatelessWidget {
             backgroundColor: Colors.grey.shade800,
             disabledColor: Colors.grey.shade900,
             textTheme: TextTheme(
-              headline6: TextStyle(color: Colors.white),
-              bodyText2: TextStyle(color: Colors.white70),
+              headline6: const TextStyle(color: Colors.white),
+              bodyText2: const TextStyle(color: Colors.white70),
               bodyText1: TextStyle(color: Colors.blue.shade300),
-              subtitle1: TextStyle(color: Colors.white),
-              subtitle2: TextStyle(color: Colors.white),
+              subtitle1: const TextStyle(color: Colors.white),
+              subtitle2: const TextStyle(color: Colors.white),
             ),
           ),
           themeMode: ThemeMode.system,

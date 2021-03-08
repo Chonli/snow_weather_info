@@ -61,6 +61,8 @@ class DataNotifier extends ChangeNotifier {
     }
   }
 
+  List<AbstractStation> get allStations => [..._nivoses, ..._stations];
+
   List<AbstractStation> get favoritesStations => _favoritesStations.toList();
   List<AbstractStation> _favoritesStations;
   @protected
