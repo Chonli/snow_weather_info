@@ -1,6 +1,7 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:webfeed/webfeed.dart';
-import 'dart:convert';
 
 class AvalancheAPI {
   final client = http.Client();

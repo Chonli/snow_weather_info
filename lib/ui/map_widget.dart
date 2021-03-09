@@ -7,7 +7,6 @@ import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/ui/data_station_page.dart';
 import 'package:snow_weather_info/ui/map_licence_widget.dart';
 import 'package:snow_weather_info/ui/nivose_page.dart';
-import 'package:webfeed/domain/atom_feed.dart';
 
 class MapWidget extends StatefulWidget {
   const MapWidget({

@@ -1,7 +1,7 @@
+import 'package:path/path.dart' as p;
 import 'package:snow_weather_info/model/data_station.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart' as p;
 
 const tableStation = 'station';
 const tableStationData = 'stationData';
@@ -29,7 +29,9 @@ class DatabaseHelper {
   static Database _database;
 
   Future<Database> get database async {
-    if (_database != null) return _database;
+    if (_database != null) {
+      return _database;
+    }
     _database = await _initDatabase();
     return _database;
   }
@@ -68,7 +70,7 @@ class DatabaseHelper {
   }
 
   Future<int> insertStation(Station station) async {
-    Database db = await database;
+    final Database db = await database;
     int id = 0;
     final maps = await db.query(
       tableStation,
@@ -148,7 +150,7 @@ class DatabaseHelper {
   }
 
   Future cleanOldData(int day) async {
-    Database db = await database;
+    final Database db = await database;
     await db.delete(
       tableStationData,
       where: '$columnDate < ?',

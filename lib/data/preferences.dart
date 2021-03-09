@@ -1,8 +1,8 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-final String _lastStationPrefs = "lastStationPrefs";
-final String _lastStationDataPrefs = "lastStationDataPrefs";
-final String _favoritesStationPrefs = "favoritesStationPrefs";
+const _lastStationPrefs = 'lastStationPrefs';
+const _lastStationDataPrefs = 'lastStationDataPrefs';
+const _favoritesStationPrefs = 'favoritesStationPrefs';
 
 class Preferences {
   SharedPreferences _prefs;
@@ -12,11 +12,11 @@ class Preferences {
   }
 
   DateTime get lastStationDataDate =>
-      DateTime.parse(_prefs.getString(_lastStationDataPrefs) ?? "19700101");
+      DateTime.parse(_prefs.getString(_lastStationDataPrefs) ?? '19700101');
   DateTime get lastStationDate => DateTime.parse(
       _prefs.getString(_lastStationPrefs) ?? DateTime.now().toString());
   List<String> get favoritesStations =>
-      _prefs.getStringList(_favoritesStationPrefs) ?? List();
+      _prefs.getStringList(_favoritesStationPrefs) ?? [];
 
   void setLastStationDataDate(DateTime lastStationData) {
     _prefs.setString(_lastStationDataPrefs, lastStationData.toString());

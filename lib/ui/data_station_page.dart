@@ -10,9 +10,9 @@ import 'package:snow_weather_info/ui/data_station_chart.dart';
 import 'package:snow_weather_info/ui/data_station_widget.dart';
 
 class DataStationPage extends StatefulWidget {
-  final Station station;
+  const DataStationPage(this.station);
 
-  DataStationPage(this.station);
+  final Station station;
 
   @override
   _DataStationPageState createState() => _DataStationPageState();
@@ -26,15 +26,15 @@ class _DataStationPageState extends State<DataStationPage> {
     var ret =
         "Station ${station.name} (${station.altitude}m) au ${DateFormat('dd-MM-yyyy à kk:mm').format(data.date)}\n";
     if (data.hasTemperature) {
-      ret += "Température: ${data.temperature.toStringAsFixed(1)}°C\n";
+      ret += 'Température: ${data.temperature.toStringAsFixed(1)}°C\n';
     }
     if (data.hasSnowHeight) {
       ret +=
-          "Hauteur de neige: ${(data.snowHeight * 100).toStringAsFixed(1)}cm\n";
+          'Hauteur de neige: ${(data.snowHeight * 100).toStringAsFixed(1)}cm\n';
     }
     if (data.hasSnowNewHeight) {
       ret +=
-          "Hauteur de neige fraiches: ${(data.snowNewHeight * 100).toStringAsFixed(1)}cm\n";
+          'Hauteur de neige fraiches: ${(data.snowNewHeight * 100).toStringAsFixed(1)}cm\n';
     }
     return ret;
   }
@@ -44,18 +44,17 @@ class _DataStationPageState extends State<DataStationPage> {
     final repository = context.watch<DataNotifier>();
     repository.currentMapLoc = station.position;
     final data = repository.getDataOfStation(station.id);
-    var isFavorite = repository.isFavorite(station);
+    final isFavorite = repository.isFavorite(station);
     return Scaffold(
         appBar: AppBar(
           title: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 station.name,
               ),
               Text(
-                " (${station.altitude}m)",
+                ' (${station.altitude}m)',
               ),
             ],
           ),
@@ -72,17 +71,19 @@ class _DataStationPageState extends State<DataStationPage> {
                   });
                 }),
             Visibility(
-              visible: (data != null && data.length != 0),
+              visible: data != null && data.isNotEmpty,
               child: IconButton(
-                icon: Icon(Icons.share),
-                onPressed: () =>
-                    Share.share(_formatDataToString(station, data[_current])),
+                icon: const Icon(Icons.share),
+                onPressed: () => Share.share(
+                  _formatDataToString(station, data[_current]),
+                ),
               ),
             ),
           ],
         ),
-        body: data == null || data.length == 0
-            ? Center(child: Text('Pas de donnée pour cette station météo'))
+        body: data == null || data.isEmpty
+            ? const Center(
+                child: Text('Pas de donnée pour cette station météo'))
             : _pageBody(data));
   }
 
@@ -90,80 +91,81 @@ class _DataStationPageState extends State<DataStationPage> {
     final dataSlider = CarouselSlider(
       items: data.map((d) => DataStationWidget(d)).toList(),
       height: 220,
-      initialPage: 0,
       viewportFraction: 1.0,
       enableInfiniteScroll: false,
-      reverse: false,
-      autoPlay: false,
       enlargeCenterPage: true,
       onPageChanged: (index) {
         setState(() {
           _current = index;
         });
       },
-      scrollDirection: Axis.horizontal,
-      scrollPhysics: BouncingScrollPhysics(),
+      scrollPhysics: const BouncingScrollPhysics(),
     );
     return Container(
       color: Theme.of(context).backgroundColor,
-      child: Column(children: <Widget>[
-        Expanded(
-          child: ListView(
-            primary: true,
-            shrinkWrap: true,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  IconButton(
-                    onPressed: () => dataSlider.previousPage(
-                        duration: Duration(milliseconds: 300),
-                        curve: Curves.linear),
-                    icon: Icon(Icons.arrow_back_ios),
-                    padding: EdgeInsets.all(0.0),
-                  ),
-                  Expanded(child: dataSlider),
-                  IconButton(
-                    onPressed: () => dataSlider.nextPage(
-                        duration: Duration(milliseconds: 300),
-                        curve: Curves.linear),
-                    icon: Icon(Icons.arrow_forward_ios),
-                    padding: EdgeInsets.all(0.0),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List<Widget>.generate(
-                  data.length,
-                  (i) => Container(
-                    width: 8.0,
-                    height: 8.0,
-                    margin:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                    decoration: BoxDecoration(
+      child: Column(
+        children: <Widget>[
+          Expanded(
+            child: ListView(
+              primary: true,
+              shrinkWrap: true,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      onPressed: () => dataSlider.previousPage(
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.linear),
+                      icon: const Icon(Icons.arrow_back_ios),
+                      padding: const EdgeInsets.all(0),
+                    ),
+                    Expanded(child: dataSlider),
+                    IconButton(
+                      onPressed: () => dataSlider.nextPage(
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.linear),
+                      icon: const Icon(Icons.arrow_forward_ios),
+                      padding: const EdgeInsets.all(0),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List<Widget>.generate(
+                    data.length,
+                    (i) => Container(
+                      width: 8,
+                      height: 8,
+                      margin: const EdgeInsets.symmetric(
+                        vertical: 10,
+                        horizontal: 2,
+                      ),
+                      decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: _current == i
                             ? Theme.of(context).primaryColor.withOpacity(0.9)
-                            : Theme.of(context).primaryColor.withOpacity(0.4)),
+                            : Theme.of(context).primaryColor.withOpacity(0.4),
+                      ),
+                    ),
                   ),
                 ),
-              ),
-              DataStationChart(data),
-            ],
+                DataStationChart(data),
+              ],
+            ),
           ),
-        ),
-        Container(
-          color: Theme.of(context).primaryColor,
-          child: Text(
-            'Informations créées à partir de données de Météo-France',
-            style: TextStyle(
+          Container(
+            color: Theme.of(context).primaryColor,
+            child: Text(
+              'Informations créées à partir de données de Météo-France',
+              style: TextStyle(
                 color: Theme.of(context).textTheme.headline6.color,
-                fontSize: 14),
+                fontSize: 14,
+              ),
+            ),
           ),
-        ),
-      ]),
+        ],
+      ),
     );
   }
 }

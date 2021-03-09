@@ -9,8 +9,10 @@ void main() {
   runApp(MyApp());
 }
 
+const _title = 'Info Neige';
+
 class MyApp extends StatelessWidget {
-  final String _title = 'Info Neige';
+  const MyApp({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -58,14 +60,13 @@ class MyApp extends StatelessWidget {
               subtitle2: const TextStyle(color: Colors.white),
             ),
           ),
-          themeMode: ThemeMode.system,
-          home: MyHomePage(title: _title),
+          home: const MyHomePage(title: _title),
         ));
   }
 }
 
 class MyHomePage extends StatelessWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({Key key, this.title}) : super(key: key);
 
   final String title;
 
@@ -77,18 +78,16 @@ class MyHomePage extends StatelessWidget {
             backgroundColor: Colors.white,
             body: Center(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
                 children: [
                   Image.asset(
-                    "assets/icon/icon.png",
+                    'assets/icon/icon.png',
                     fit: BoxFit.contain,
                     height: 128,
                     width: 128,
                   ),
-                  Padding(padding: EdgeInsets.all(20)),
-                  CircularProgressIndicator(),
+                  const Padding(padding: EdgeInsets.all(20)),
+                  const CircularProgressIndicator(),
                 ],
               ),
             ),

@@ -3,15 +3,16 @@ import 'package:snow_weather_info/model/data_station.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class DataStationChart extends StatelessWidget {
-  final List<DataStation> _data;
   const DataStationChart(this._data);
+
+  final List<DataStation> _data;
 
   @override
   Widget build(BuildContext context) {
-    List<TimeSeriesData> tsdatasnow = [];
-    List<TimeSeriesData> tsdatanewsnow = [];
-    List<TimeSeriesData> tsdatasnowtemperature = [];
-    List<TimeSeriesDataTemp> tsdatatemperature = [];
+    final List<TimeSeriesData> tsdatasnow = [];
+    final List<TimeSeriesData> tsdatanewsnow = [];
+    final List<TimeSeriesData> tsdatasnowtemperature = [];
+    final List<TimeSeriesDataTemp> tsdatatemperature = [];
     if (_data != null) {
       for (var d in _data) {
         if (d.hasSnowHeight) {
@@ -37,10 +38,10 @@ class DataStationChart extends StatelessWidget {
       tsdatasnow.add(TimeSeriesData(DateTime.now(), 0.0));
     }
 
-    var seriesSnow = [
+    final seriesSnow = [
       charts.Series<TimeSeriesData, DateTime>(
         id: 'SnowHeight',
-        displayName: "Neige",
+        displayName: 'Neige',
         colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
         domainFn: (TimeSeriesData data, _) => data.time,
         measureFn: (TimeSeriesData data, _) => data.data,
@@ -56,10 +57,10 @@ class DataStationChart extends StatelessWidget {
       )..setAttribute(charts.rendererIdKey, 'customBar'),
     ];
 
-    var seriesTemperature = [
+    final seriesTemperature = [
       charts.Series<TimeSeriesDataTemp, DateTime>(
         id: 'Temperature',
-        displayName: "Température",
+        displayName: 'Température',
         colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
         domainFn: (TimeSeriesDataTemp data, _) => data.time,
         measureFn: (TimeSeriesDataTemp data, _) => data.temp,
@@ -69,7 +70,7 @@ class DataStationChart extends StatelessWidget {
       ),
       charts.Series<TimeSeriesData, DateTime>(
         id: 'Temperature Snow',
-        displayName: "Température Neige",
+        displayName: 'Température Neige',
         colorFn: (_, __) => charts.MaterialPalette.pink.shadeDefault,
         domainFn: (TimeSeriesData data, _) => data.time,
         measureFn: (TimeSeriesData data, _) => data.data,
@@ -82,13 +83,13 @@ class DataStationChart extends StatelessWidget {
       shrinkWrap: true,
       children: [
         Container(
-          constraints: BoxConstraints(
+          constraints: const BoxConstraints(
             maxHeight: 300,
           ),
           child: charts.TimeSeriesChart(
             seriesSnow,
             animate: true,
-            animationDuration: Duration(milliseconds: 800),
+            animationDuration: const Duration(milliseconds: 800),
             behaviors: [
               charts.SeriesLegend(
                 position: charts.BehaviorPosition.bottom,
@@ -104,33 +105,38 @@ class DataStationChart extends StatelessWidget {
                 topMarginSpec: charts.MarginSpec.fixedPixel(10),
                 rightMarginSpec: charts.MarginSpec.fixedPixel(10),
                 bottomMarginSpec: charts.MarginSpec.fixedPixel(10)),
-            domainAxis: charts.DateTimeAxisSpec(
-                tickFormatterSpec: charts.AutoDateTimeTickFormatterSpec(
-                    day: charts.TimeFormatterSpec(
-                        format: 'd', transitionFormat: 'dd/MM'))),
+            domainAxis: const charts.DateTimeAxisSpec(
+              tickFormatterSpec: charts.AutoDateTimeTickFormatterSpec(
+                day: charts.TimeFormatterSpec(
+                  format: 'd',
+                  transitionFormat: 'dd/MM',
+                ),
+              ),
+            ),
             customSeriesRenderers: [
               charts.BarRendererConfig(
-                  // ID used to link series to this renderer.
-                  customRendererId: 'customBar',
-                  cornerStrategy: const charts.ConstCornerStrategy(30),
-                  fillPattern: charts.FillPatternType.forwardHatch)
+                // ID used to link series to this renderer.
+                customRendererId: 'customBar',
+                cornerStrategy: const charts.ConstCornerStrategy(30),
+                fillPattern: charts.FillPatternType.forwardHatch,
+              )
             ],
           ),
         ),
         Container(
-          constraints: BoxConstraints(
+          constraints: const BoxConstraints(
             maxHeight: 300,
           ),
           child: charts.TimeSeriesChart(
             seriesTemperature,
             animate: true,
-            animationDuration: Duration(milliseconds: 800),
+            animationDuration: const Duration(milliseconds: 800),
             behaviors: [
               charts.SeriesLegend(
                 position: charts.BehaviorPosition.bottom,
                 showMeasures: true,
                 horizontalFirst: false,
-                measureFormatter: (num value) {
+                measureFormatter: (value) {
                   return value == null ? '-' : '${value.toStringAsFixed(1)}°C';
                 },
               ),
@@ -140,10 +146,14 @@ class DataStationChart extends StatelessWidget {
                 topMarginSpec: charts.MarginSpec.fixedPixel(10),
                 rightMarginSpec: charts.MarginSpec.fixedPixel(10),
                 bottomMarginSpec: charts.MarginSpec.fixedPixel(10)),
-            domainAxis: charts.DateTimeAxisSpec(
-                tickFormatterSpec: charts.AutoDateTimeTickFormatterSpec(
-                    day: charts.TimeFormatterSpec(
-                        format: 'd', transitionFormat: 'dd/MM'))),
+            domainAxis: const charts.DateTimeAxisSpec(
+              tickFormatterSpec: charts.AutoDateTimeTickFormatterSpec(
+                day: charts.TimeFormatterSpec(
+                  format: 'd',
+                  transitionFormat: 'dd/MM',
+                ),
+              ),
+            ),
           ),
         ),
       ],
@@ -152,15 +162,17 @@ class DataStationChart extends StatelessWidget {
 }
 
 class TimeSeriesData {
+  TimeSeriesData(this.time, this.data);
+
   final DateTime time;
   final double data;
-  TimeSeriesData(this.time, this.data);
 }
 
 class TimeSeriesDataTemp {
+  TimeSeriesDataTemp(this.time, this.temp, this.tempMin, this.tempMax);
+
   final DateTime time;
   final double temp;
   final double tempMin;
   final double tempMax;
-  TimeSeriesDataTemp(this.time, this.temp, this.tempMin, this.tempMax);
 }

@@ -6,6 +6,7 @@ import 'package:snow_weather_info/model/station.dart';
 
 class NivosePage extends StatefulWidget {
   const NivosePage(this.nivose);
+
   final Nivose nivose;
 
   @override

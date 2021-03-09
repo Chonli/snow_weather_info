@@ -3,58 +3,76 @@ import 'package:intl/intl.dart';
 import 'package:snow_weather_info/model/data_station.dart';
 
 class DataStationWidget extends StatelessWidget {
-  final DataStation _data;
   const DataStationWidget(this._data);
+
+  final DataStation _data;
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Text(
             DateFormat('dd-MM-yyyy à kk:mm').format(_data.date),
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           ),
-          _data.hasTemperature
-              ? _lineCard(
-                  "Température :", " ${_data.temperature.toStringAsFixed(1)}°C")
-              : Container(),
-          _data.hasTemperatureMin24
-              ? _lineCard("Température Min 24h :",
-                  " ${_data.temperatureMin24.toStringAsFixed(1)}°C")
-              : Container(),
-          _data.hasTemperatureMax24
-              ? _lineCard("Température Max 24h :",
-                  " ${_data.temperatureMax24.toStringAsFixed(1)}°C")
-              : Container(),
-          _data.hasTemperatureSnow
-              ? _lineCard("Température du sol:",
-                  " ${_data.temperatureSnow.toStringAsFixed(1)}°C")
-              : Container(),
-          _data.hasSnowHeight
-              ? _lineCard("Hauteur de neige :",
-                  " ${(_data.snowHeight * 100).toStringAsFixed(1)}cm")
-              : Container(),
-          _data.hasSnowNewHeight
-              ? _lineCard("Hauteur de neige fraiches :",
-                  " ${(_data.snowNewHeight * 100).toStringAsFixed(1)}cm")
-              : Container(),
-          _data.hasDirectionWind
-              ? _lineCard("Direction vent moyen :", " ${_data.directionWind}°")
-              : Container(),
-          _data.hasSpeedWind
-              ? _lineCard("Vent moyen :", " ${_data.speedWind}m/s")
-              : Container(),
+          if (_data.hasTemperature)
+            _LineCard(
+              'Température :',
+              ' ${_data.temperature.toStringAsFixed(1)}°C',
+            ),
+          if (_data.hasTemperatureMin24)
+            _LineCard(
+              'Température Min 24h :',
+              ' ${_data.temperatureMin24.toStringAsFixed(1)}°C',
+            ),
+          if (_data.hasTemperatureMax24)
+            _LineCard(
+              'Température Max 24h :',
+              ' ${_data.temperatureMax24.toStringAsFixed(1)}°C',
+            ),
+          if (_data.hasTemperatureSnow)
+            _LineCard(
+              'Température du sol:',
+              ' ${_data.temperatureSnow.toStringAsFixed(1)}°C',
+            ),
+          if (_data.hasSnowHeight)
+            _LineCard(
+              'Hauteur de neige :',
+              ' ${(_data.snowHeight * 100).toStringAsFixed(1)}cm',
+            ),
+          if (_data.hasSnowNewHeight)
+            _LineCard(
+              'Hauteur de neige fraiches :',
+              ' ${(_data.snowNewHeight * 100).toStringAsFixed(1)}cm',
+            ),
+          if (_data.hasDirectionWind)
+            _LineCard(
+              'Direction vent moyen :',
+              ' ${_data.directionWind}°',
+            ),
+          if (_data.hasSpeedWind)
+            _LineCard(
+              'Vent moyen :',
+              ' ${_data.speedWind}m/s',
+            ),
         ],
       ),
     );
   }
+}
 
-  Widget _lineCard(String text1, String text2) {
+class _LineCard extends StatelessWidget {
+  const _LineCard(this.text1, this.text2, {Key key}) : super(key: key);
+
+  final String text1;
+  final String text2;
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(2.0),
+      padding: const EdgeInsets.all(2),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[

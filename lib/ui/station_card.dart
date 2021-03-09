@@ -19,19 +19,23 @@ class StationCard extends StatelessWidget {
       snowHeigth = st.hasData
           ? ' ${(st.lastSnowHeight * 100).toStringAsFixed(0)}cm'
           : '';
-      Color _color = st.hasData
+      final _color = st.hasData
           ? Theme.of(context).textTheme.bodyText2.color
           : Theme.of(context).disabledColor;
-      FontStyle _font = st.hasData ? FontStyle.normal : FontStyle.italic;
+      final _font = st.hasData ? FontStyle.normal : FontStyle.italic;
       _textStyle = TextStyle(color: _color, fontStyle: _font);
     }
     return Card(
-      margin:
-          const EdgeInsets.only(left: 8.0, bottom: 8.0, top: 8.0, right: 64.0),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20.0),
+      margin: const EdgeInsets.only(
+        left: 8,
+        bottom: 8,
+        top: 8,
+        right: 64,
       ),
-      elevation: 5.0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      elevation: 5,
       child: ListTile(
         title: Text(
           station.name,
@@ -39,10 +43,15 @@ class StationCard extends StatelessWidget {
         ),
         isThreeLine: true,
         trailing: Visibility(
-            visible: snowHeigth.isNotEmpty,
-            child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [Icon(Icons.ac_unit), Text(snowHeigth)])),
+          visible: snowHeigth.isNotEmpty,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(Icons.ac_unit),
+              Text(snowHeigth),
+            ],
+          ),
+        ),
         subtitle: Text(
           '${station.altitude}m \nLatLng(${station.position.latitude},${station.position.longitude})',
           style: _textStyle,

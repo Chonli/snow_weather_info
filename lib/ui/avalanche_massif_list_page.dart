@@ -14,13 +14,13 @@ class AvalancheMassifListPage extends StatefulWidget {
 }
 
 class _AvalancheMassifListPageState extends State<AvalancheMassifListPage> {
-  List<Mountain> _mountainSelectList = [Mountain.all];
-  final Map<Mountain, String> _constMountainList = {
-    Mountain.all: "Tous",
-    Mountain.alpes_nord: "Alpes du Nord",
-    Mountain.alpes_sud: "Alpes du Sud",
-    Mountain.corse: "Corse",
-    Mountain.pyrennee: "Pyrennée",
+  final _mountainSelectList = [Mountain.all];
+  final _constMountainList = {
+    Mountain.all: 'Tous',
+    Mountain.alpesNord: 'Alpes du Nord',
+    Mountain.alpesSud: 'Alpes du Sud',
+    Mountain.corse: 'Corse',
+    Mountain.pyrennee: 'Pyrennée',
   };
 
   bool _isVisible(Mountain type) {
@@ -34,15 +34,15 @@ class _AvalancheMassifListPageState extends State<AvalancheMassifListPage> {
   }
 
   Iterable<Widget> get mountainWidgets sync* {
-    for (var mountain in _constMountainList.entries) {
+    for (final mountain in _constMountainList.entries) {
       yield Padding(
-        padding: const EdgeInsets.all(4.0),
+        padding: const EdgeInsets.all(4),
         child: ChoiceChip(
           avatar: Visibility(
             visible: _mountainSelectList.contains(mountain.key),
-            child: Icon(Icons.check),
+            child: const Icon(Icons.check),
           ),
-          label: Text("${mountain.value}"),
+          label: Text(mountain.value),
           selected: _mountainSelectList.contains(mountain.key),
           onSelected: (bool selected) {
             setState(() {
@@ -72,7 +72,7 @@ class _AvalancheMassifListPageState extends State<AvalancheMassifListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Bulletins Avalanche"),
+        title: const Text('Bulletins Avalanche'),
       ),
       body: Column(
         children: [
@@ -83,10 +83,10 @@ class _AvalancheMassifListPageState extends State<AvalancheMassifListPage> {
             child: ListView(
               primary: true,
               children: [
-                _listMassif("Alpes du Nord", Mountain.alpes_nord),
-                _listMassif("Alpes du Sud", Mountain.alpes_sud),
-                _listMassif("Corse", Mountain.corse),
-                _listMassif("Pyrénnée", Mountain.pyrennee),
+                _listMassif('Alpes du Nord', Mountain.alpesNord),
+                _listMassif('Alpes du Sud', Mountain.alpesSud),
+                _listMassif('Corse', Mountain.corse),
+                _listMassif('Pyrénnée', Mountain.pyrennee),
               ],
             ),
           ),
@@ -103,7 +103,7 @@ class _AvalancheMassifListPageState extends State<AvalancheMassifListPage> {
       visible: _isVisible(type),
       child: StickyHeader(
         header: Container(
-          padding: EdgeInsets.all(12.0),
+          padding: const EdgeInsets.all(12),
           alignment: Alignment.centerLeft,
           color: Theme.of(context).primaryColor,
           child: Text(
@@ -115,7 +115,7 @@ class _AvalancheMassifListPageState extends State<AvalancheMassifListPage> {
         ),
         content: ListView.builder(
           shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           itemCount: list.length,
           itemBuilder: (context, index) {
             return _CardMassif(list[index]);
@@ -127,17 +127,18 @@ class _AvalancheMassifListPageState extends State<AvalancheMassifListPage> {
 }
 
 class _CardMassif extends StatelessWidget {
+  const _CardMassif(this.avalancheBulletin);
+
   final AvalancheBulletin avalancheBulletin;
-  _CardMassif(this.avalancheBulletin);
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(8.0),
+      margin: const EdgeInsets.all(8),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20.0),
+        borderRadius: BorderRadius.circular(20),
       ),
-      elevation: 5.0,
+      elevation: 5,
       child: ListTile(
         title: Text(avalancheBulletin.massifName),
         onTap: () => Navigator.push(

@@ -92,10 +92,10 @@ class _HomePageState extends State<HomePage>
         bottom: TabBar(
           key: const PageStorageKey('tab_key'),
           controller: _tabController,
-          tabs: [
-            const Tab(text: 'Stations', icon: Icon(Icons.list)),
-            const Tab(text: 'Carte', icon: Icon(Icons.map)),
-            const Tab(text: 'Avalanches', icon: Icon(Icons.rss_feed)),
+          tabs: const [
+            Tab(text: 'Stations', icon: Icon(Icons.list)),
+            Tab(text: 'Carte', icon: Icon(Icons.map)),
+            Tab(text: 'Avalanches', icon: Icon(Icons.rss_feed)),
           ],
         ),
       ),
@@ -103,10 +103,10 @@ class _HomePageState extends State<HomePage>
         key: const PageStorageKey('tab_key'),
         controller: _tabController,
         physics: const NeverScrollableScrollPhysics(),
-        children: [
-          const ListStationWidget(),
-          const MapWidget(),
-          const AvalancheListWidget(),
+        children: const [
+          ListStationWidget(),
+          MapWidget(),
+          AvalancheListWidget(),
         ],
       ),
     );

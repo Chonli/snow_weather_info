@@ -105,7 +105,7 @@ class DataNotifier extends ChangeNotifier {
       hasPermission = await _location.requestPermission();
     }
     if (hasPermission == PermissionStatus.granted) {
-      var loc = await _location.getLocation();
+      final loc = await _location.getLocation();
       currentUserLoc = LatLng(loc.latitude, loc.longitude);
     }
 
@@ -130,7 +130,7 @@ class DataNotifier extends ChangeNotifier {
         await _initFavorites();
         _isInitialise = true;
       } catch (e) {
-        print("init error : " + e.toString());
+        print('init error : ' + e.toString());
       } finally {
         loading = false;
       }
@@ -160,7 +160,7 @@ class DataNotifier extends ChangeNotifier {
 
   Future<void> _initFavorites() async {
     final listFav = _preferences.favoritesStations;
-    _favoritesStations = List();
+    _favoritesStations = [];
     _stations.forEach((s) {
       if (listFav.contains(s.id.toString())) {
         _favoritesStations.add(s);
@@ -194,7 +194,7 @@ class DataNotifier extends ChangeNotifier {
       } else if (s is Nivose) {
         return s.codeMF;
       }
-      return "";
+      return '';
     }).toList());
   }
 
