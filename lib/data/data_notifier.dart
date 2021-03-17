@@ -130,7 +130,7 @@ class DataNotifier extends ChangeNotifier {
         await _initFavorites();
         _isInitialise = true;
       } catch (e) {
-        print('init error : ' + e.toString());
+        print('init error : $e');
       } finally {
         loading = false;
       }
@@ -180,11 +180,13 @@ class DataNotifier extends ChangeNotifier {
   void addFavoriteStation(AbstractStation station) {
     _favoritesStations.add(station);
     _updateFavoriteStation();
+    notifyListeners();
   }
 
   void removeFavoriteStation(AbstractStation station) {
     _favoritesStations.remove(station);
     _updateFavoriteStation();
+    notifyListeners();
   }
 
   void _updateFavoriteStation() {

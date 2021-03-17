@@ -4,7 +4,7 @@ import 'package:latlong/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/model/station.dart';
-import 'package:snow_weather_info/ui/data_station_page.dart';
+import 'package:snow_weather_info/modules/data_station/view.dart';
 import 'package:snow_weather_info/ui/map_licence_widget.dart';
 import 'package:snow_weather_info/ui/nivose_page.dart';
 
@@ -34,7 +34,9 @@ class _MapWidgetState extends State<MapWidget> {
         final isFristLaunch = notifier.currentUserLoc == null;
         final hasPosition = await notifier.updateLocation();
 
-        if (hasPosition && notifier.currentUserLoc != null) {
+        if (hasPosition &&
+            notifier.currentUserLoc != null &&
+            _mapController != null) {
           setState(() {
             _listStationMarker.add(
               Marker(
@@ -102,7 +104,7 @@ class _MapWidgetState extends State<MapWidget> {
                       context,
                       MaterialPageRoute<Widget>(
                         builder: (context) => st is Station
-                            ? DataStationPage(st)
+                            ? DataStationView(station: st)
                             : NivosePage(st as Nivose),
                       ),
                     ),

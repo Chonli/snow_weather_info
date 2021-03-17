@@ -128,3 +128,5 @@ linter:
     # Having immutable local variables makes larger functions more predictible
     # so we will use `prefer_final_locals` instead.
     unnecessary_final: false
+
+    sort_pub_dependencies: false

@@ -17,7 +17,8 @@ class AvalancheListWidget extends StatelessWidget {
       color: Theme.of(context).textTheme.bodyText2.color,
       fontStyle: FontStyle.normal,
     );
-    return feed != null || feed.items.isNotEmpty
+
+    return feed?.items?.isNotEmpty ?? false
         ? ListView.builder(
             itemCount: feed.items.length,
             itemBuilder: (context, index) {
