@@ -3,10 +3,13 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
+import 'package:snow_weather_info/model/extensions.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/modules/data_station/view.dart';
 import 'package:snow_weather_info/ui/map_licence_widget.dart';
 import 'package:snow_weather_info/ui/nivose_page.dart';
+import 'package:url_launcher/url_launcher.dart' as url;
+import 'package:webfeed/webfeed.dart';
 
 class MapWidget extends StatefulWidget {
   const MapWidget({
@@ -20,6 +23,8 @@ class MapWidget extends StatefulWidget {
 class _MapWidgetState extends State<MapWidget> {
   MapController _mapController;
   final _listStationMarker = <Marker>[];
+  final _listAvalancheMarker = <Marker>[];
+  Marker _positionUser;
   final double _zoom = 10;
 
   @override
@@ -38,15 +43,13 @@ class _MapWidgetState extends State<MapWidget> {
             notifier.currentUserLoc != null &&
             _mapController != null) {
           setState(() {
-            _listStationMarker.add(
-              Marker(
-                width: 50,
-                height: 50,
-                point: notifier.currentUserLoc,
-                builder: (ctx) => const Icon(
-                  Icons.person_pin_circle,
-                  color: Colors.blueAccent,
-                ),
+            _positionUser = Marker(
+              width: 50,
+              height: 50,
+              point: notifier.currentUserLoc,
+              builder: (ctx) => const Icon(
+                Icons.person_pin_circle,
+                color: Colors.blueAccent,
               ),
             );
             if (isFristLaunch) {
@@ -66,8 +69,8 @@ class _MapWidgetState extends State<MapWidget> {
   }
 
   void _initMakerList(BuildContext context) {
-    final list = context.read<DataNotifier>().allStations;
-    list?.forEach(
+    final stations = context.read<DataNotifier>().allStations;
+    stations?.forEach(
       (st) {
         bool hasData = false;
         Color color = Colors.blue[900];
@@ -116,28 +119,31 @@ class _MapWidgetState extends State<MapWidget> {
         );
       },
     );
-  }
 
-  // TODO(team): Add avalanche marker (webfeed need evol)
-//             <entry>
-//     <title>Avalanche le 11/02/2021 : Alpes GrÃ©es, secteur Ouille Allegra, Clapier Vert</title>
-//     <link rel="alternate" href="http://www.data-avalanche.org/avalanche/1613053579538" />
-//     <author>
-//       <name />
-//     </author>
-//     <updated>2021-02-11T14:27:25Z</updated>
-//     <published>2021-02-11T14:27:25Z</published>
-//     <summary type="html">DÃ©clenchement Ã  distance, on montait 20m Ã  droite, j'ai sondÃ© au bÃ¢ton (50cm) avant que parte la plaque, il doit y avoir un peu plus Ã  la cassure.&#xD;
-// Le vent fort a couvert le bruit de l'avalanche, je m'en suis rendu compte qu'en me retournant.&#xD;
-// Juste avant un groupe a avait dÃ©clenchÃ© une plaque 50m sur la droite.</summary>
-//     <dc:date>2021-02-11T14:27:25Z</dc:date>
-//     <geo:lat>45.33333606721882</geo:lat>
-//     <geo:long>7.051350187981403</geo:long>
-//     <avalanche:orientation>SW</avalanche:orientation>
-//     <avalanche:date_event>2021-02-10T23:00:00Z</avalanche:date_event>
-//     <avalanche:altitude_start>2940</avalanche:altitude_start>
-//     <avalanche:altitude_stop>2800</avalanche:altitude_stop>
-//   </entry>
+    final feed = context.read<DataNotifier>().avalancheFeed;
+    feed?.items?.forEach(
+      (AtomItem item) {
+        if (item.geo != null) {
+          _listStationMarker.add(
+            Marker(
+              width: 90,
+              height: 50,
+              point: LatLng(item.geo.lat, item.geo.long),
+              builder: (ctx) => IconButton(
+                icon: const Icon(Icons.ac_unit),
+                color: Colors.orange,
+                onPressed: () async {
+                  if (item.url != null && await url.canLaunch(item.url)) {
+                    url.launch(item.url);
+                  }
+                },
+              ),
+            ),
+          );
+        }
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -160,6 +166,13 @@ class _MapWidgetState extends State<MapWidget> {
             MarkerLayerOptions(
               markers: _listStationMarker,
             ),
+            MarkerLayerOptions(
+              markers: _listStationMarker,
+            ),
+            if (_positionUser != null)
+              MarkerLayerOptions(
+                markers: [_positionUser],
+              ),
           ],
         ),
         const Positioned(

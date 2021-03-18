@@ -669,8 +669,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: HEAD
-      resolved-ref: f35c207e9ab05c47d0580ecd2a48178bef417b25
+      ref: develop
+      resolved-ref: bc7fada26b764e7396c32b45d41b8fc9f96cbbb9
       url: "https://github.com/Chonli/webfeed.git"
     source: git
     version: "0.6.0"
