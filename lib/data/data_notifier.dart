@@ -28,7 +28,6 @@ class DataNotifier extends ChangeNotifier {
   PackageInfo packageInfo;
   final Location _location = Location();
   LatLng currentMapLoc = LatLng(45.05, 6.3);
-  LatLng currentUserLoc;
   int currentIndexTab = 0;
 
   bool get loading => _loading;
@@ -97,19 +96,6 @@ class DataNotifier extends ChangeNotifier {
 
   Nivose getNivose(String codeMF) {
     return _nivoses.firstWhere((n) => n.codeMF == codeMF);
-  }
-
-  Future<bool> updateLocation() async {
-    PermissionStatus hasPermission = await _location.hasPermission();
-    if (hasPermission != PermissionStatus.granted) {
-      hasPermission = await _location.requestPermission();
-    }
-    if (hasPermission == PermissionStatus.granted) {
-      final loc = await _location.getLocation();
-      currentUserLoc = LatLng(loc.latitude, loc.longitude);
-    }
-
-    return hasPermission == PermissionStatus.granted;
   }
 
   Future<bool> initData() async {

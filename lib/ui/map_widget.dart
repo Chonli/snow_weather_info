@@ -9,6 +9,7 @@ import 'package:snow_weather_info/modules/data_station/view.dart';
 import 'package:snow_weather_info/ui/map_licence_widget.dart';
 import 'package:snow_weather_info/ui/nivose_page.dart';
 import 'package:url_launcher/url_launcher.dart' as url;
+import 'package:user_location/user_location.dart';
 import 'package:webfeed/webfeed.dart';
 
 class MapWidget extends StatefulWidget {
@@ -24,42 +25,27 @@ class _MapWidgetState extends State<MapWidget> {
   MapController _mapController;
   final _listStationMarker = <Marker>[];
   final _listAvalancheMarker = <Marker>[];
-  Marker _positionUser;
+  UserLocationOptions _userLocationOptions;
+  final _userMarkers = <Marker>[];
   final double _zoom = 10;
 
   @override
   void initState() {
     super.initState();
 
-    _initMakerList(context);
     _mapController = MapController();
-    _mapController.onReady.then((_) async {
-      if (_mapController != null) {
-        final notifier = context.read<DataNotifier>();
-        final isFristLaunch = notifier.currentUserLoc == null;
-        final hasPosition = await notifier.updateLocation();
-
-        if (hasPosition &&
-            notifier.currentUserLoc != null &&
-            _mapController != null) {
-          setState(() {
-            _positionUser = Marker(
-              width: 50,
-              height: 50,
-              point: notifier.currentUserLoc,
-              builder: (ctx) => const Icon(
-                Icons.person_pin_circle,
-                color: Colors.blueAccent,
-              ),
-            );
-            if (isFristLaunch) {
-              notifier.currentMapLoc = notifier.currentUserLoc;
-              _mapController.move(notifier.currentMapLoc, _zoom);
-            }
-          });
-        }
-      }
-    });
+    _userLocationOptions = UserLocationOptions(
+      context: context,
+      mapController: _mapController,
+      markers: _userMarkers,
+      fabBottom: 40,
+      defaultZoom: 12,
+      onLocationUpdate: (pos) =>
+          context.read<DataNotifier>().currentMapLoc = pos,
+      updateMapLocationOnPositionChange: false,
+      showHeading: false,
+    );
+    _initMakerList(context);
   }
 
   @override
@@ -124,7 +110,7 @@ class _MapWidgetState extends State<MapWidget> {
     feed?.items?.forEach(
       (AtomItem item) {
         if (item.geo != null) {
-          _listStationMarker.add(
+          _listAvalancheMarker.add(
             Marker(
               width: 90,
               height: 50,
@@ -147,8 +133,9 @@ class _MapWidgetState extends State<MapWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final currentMapLoc =
-        context.select<DataNotifier, LatLng>((n) => n.currentMapLoc);
+    final currentMapLoc = context.select<DataNotifier, LatLng>(
+      (n) => n.currentMapLoc,
+    );
 
     return Stack(
       children: [
@@ -157,54 +144,34 @@ class _MapWidgetState extends State<MapWidget> {
           options: MapOptions(
             center: currentMapLoc,
             zoom: _zoom,
+            maxZoom: 16,
+            minZoom: 6,
+            plugins: [
+              UserLocationPlugin(),
+            ],
           ),
           layers: [
             TileLayerOptions(
               urlTemplate: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
               subdomains: ['a', 'b', 'c'],
             ),
-            MarkerLayerOptions(
-              markers: _listStationMarker,
-            ),
-            MarkerLayerOptions(
-              markers: _listStationMarker,
-            ),
-            if (_positionUser != null)
+            if (_listStationMarker.isNotEmpty)
               MarkerLayerOptions(
-                markers: [_positionUser],
+                markers: _listStationMarker,
               ),
+            if (_listAvalancheMarker.isNotEmpty)
+              MarkerLayerOptions(
+                markers: _listAvalancheMarker,
+              ),
+            //user location
+            MarkerLayerOptions(markers: _userMarkers),
+            _userLocationOptions,
           ],
         ),
         const Positioned(
           bottom: 0,
           right: 0,
           child: MapLicenceWidget(),
-        ),
-        Positioned(
-          top: 5,
-          right: 5,
-          child: Opacity(
-            opacity: 0.7,
-            child: Container(
-              height: 40,
-              width: 40,
-              color: Theme.of(context).backgroundColor,
-              child: IconButton(
-                icon: const Icon(Icons.my_location),
-                onPressed: () async {
-                  final notifier = context.read<DataNotifier>();
-                  final hasPosition = await notifier.updateLocation();
-
-                  if (hasPosition && notifier.currentUserLoc != null) {
-                    notifier.currentMapLoc = notifier.currentUserLoc;
-                    setState(() {
-                      _mapController.move(notifier.currentMapLoc, _zoom);
-                    });
-                  }
-                },
-              ),
-            ),
-          ),
         ),
       ],
     );
