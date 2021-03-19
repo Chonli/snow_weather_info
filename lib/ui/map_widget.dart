@@ -8,7 +8,7 @@ import 'package:snow_weather_info/modules/data_station/view.dart';
 import 'package:snow_weather_info/ui/map_licence_widget.dart';
 import 'package:snow_weather_info/ui/nivose_page.dart';
 import 'package:url_launcher/url_launcher.dart' as url;
-import 'package:user_location/user_location.dart';
+// import 'package:user_location/user_location.dart';
 import 'package:webfeed/webfeed.dart';
 
 class MapWidget extends StatefulWidget {
@@ -25,7 +25,7 @@ class _MapWidgetState extends State<MapWidget> {
   final _listStationMarker = <Marker>[];
   final _listNivoseMarker = <Marker>[];
   final _listAvalancheMarker = <Marker>[];
-  UserLocationOptions _userLocationOptions;
+  // UserLocationOptions _userLocationOptions;
   final _userMarkers = <Marker>[];
 
   @override
@@ -33,17 +33,17 @@ class _MapWidgetState extends State<MapWidget> {
     super.initState();
 
     _mapController = MapController();
-    _userLocationOptions = UserLocationOptions(
-      context: context,
-      mapController: _mapController,
-      markers: _userMarkers,
-      fabBottom: 40,
-      defaultZoom: 12,
-      onLocationUpdate: (pos) =>
-          context.read<DataNotifier>().currentMapLoc = pos,
-      updateMapLocationOnPositionChange: false,
-      showHeading: false,
-    );
+    // _userLocationOptions = UserLocationOptions(
+    //   context: context,
+    //   mapController: _mapController,
+    //   markers: _userMarkers,
+    //   fabBottom: 40,
+    //   defaultZoom: 12,
+    //   onLocationUpdate: (pos) =>
+    //       context.read<DataNotifier>().currentMapLoc = pos,
+    //   updateMapLocationOnPositionChange: false,
+    //   showHeading: false,
+    // );
     _initMakerList(context);
   }
 
@@ -163,7 +163,7 @@ class _MapWidgetState extends State<MapWidget> {
             maxZoom: 16,
             minZoom: 8,
             plugins: [
-              UserLocationPlugin(),
+              // UserLocationPlugin(),
             ],
           ),
           layers: [
@@ -184,8 +184,8 @@ class _MapWidgetState extends State<MapWidget> {
                 markers: _listAvalancheMarker,
               ),
             //user location
-            MarkerLayerOptions(markers: _userMarkers),
-            _userLocationOptions,
+            // MarkerLayerOptions(markers: _userMarkers),
+            // _userLocationOptions,
           ],
         ),
         const Positioned(
