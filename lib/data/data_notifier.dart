@@ -1,17 +1,15 @@
 import 'dart:async';
 import 'dart:collection';
-import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:csv/csv.dart';
 import 'package:intl/intl.dart';
 import 'package:latlong/latlong.dart';
-import 'package:location/location.dart';
-import 'package:package_info/package_info.dart';
 import 'package:snow_weather_info/data/sources/avalanche_api.dart';
 import 'package:snow_weather_info/data/sources/data_api.dart';
 import 'package:snow_weather_info/data/sources/database_helper.dart';
-import 'package:snow_weather_info/data/preferences.dart';
+import 'package:snow_weather_info/data/sources/preferences.dart';
 import 'package:snow_weather_info/model/avalanche_bulletin.dart';
 import 'package:snow_weather_info/model/data_station.dart';
 import 'package:snow_weather_info/model/station.dart';
@@ -19,14 +17,14 @@ import 'package:webfeed/domain/atom_feed.dart';
 import 'constant_data_list.dart';
 
 class DataNotifier extends ChangeNotifier {
-  final _preferences = Preferences();
+  Preferences preferences;
   AvalancheAPI avalancheAPI;
   DataAPI dataAPI;
+  DatabaseHelper databaseHelper;
+
   bool _isInitialise = false;
   HashMap<int, List<DataStation>> _mapDataStation;
   List<AvalancheBulletin> _avalancheBulletins;
-  PackageInfo packageInfo;
-  final Location _location = Location();
   LatLng currentMapLoc = LatLng(45.05, 6.3);
   int currentIndexTab = 0;
 
@@ -101,8 +99,7 @@ class DataNotifier extends ChangeNotifier {
   Future<bool> initData() async {
     if (!_isInitialise) {
       loading = true;
-      await _preferences.init();
-      packageInfo = await PackageInfo.fromPlatform();
+      await preferences.init();
       _initAvalancheBulletin();
       _initNivose();
 
@@ -127,10 +124,10 @@ class DataNotifier extends ChangeNotifier {
 
   Future<void> _finalizeStationData() async {
     _mapDataStation = HashMap();
-    await DatabaseHelper.instance.cleanOldData(7);
+    await databaseHelper.cleanOldData(7);
 
     for (final s in _stations) {
-      final listOfData = await DatabaseHelper.instance.getDataStation(s.id);
+      final listOfData = await databaseHelper.getDataStation(s.id);
       _mapDataStation[s.id] = listOfData;
       s.hasData = listOfData.isNotEmpty;
       if (s.hasData) {
@@ -145,7 +142,7 @@ class DataNotifier extends ChangeNotifier {
   }
 
   Future<void> _initFavorites() async {
-    final listFav = _preferences.favoritesStations;
+    final listFav = preferences.favoritesStations;
     _favoritesStations = [];
     _stations.forEach((s) {
       if (listFav.contains(s.id.toString())) {
@@ -176,19 +173,23 @@ class DataNotifier extends ChangeNotifier {
   }
 
   void _updateFavoriteStation() {
-    _preferences.updateFavoritesStations(_favoritesStations.map<String>((s) {
-      if (s is Station) {
-        return s.id.toString();
-      } else if (s is Nivose) {
-        return s.codeMF;
-      }
-      return '';
-    }).toList());
+    preferences.updateFavoritesStations(
+      _favoritesStations.map<String>(
+        (s) {
+          if (s is Station) {
+            return s.id.toString();
+          } else if (s is Nivose) {
+            return s.codeMF;
+          }
+          return '';
+        },
+      ).toList(),
+    );
   }
 
   Future<void> _downloadStationData() async {
     DateTime lastDataDownload;
-    final lastDateData = _preferences.lastStationDataDate;
+    final lastDateData = preferences.lastStationDataDate;
     print('last data ${lastDateData.toString()}');
     for (int i = 7; i >= 0; --i) {
       final dateTime = DateTime.now().subtract(Duration(days: i));
@@ -201,18 +202,24 @@ class DataNotifier extends ChangeNotifier {
         final response = await http.get(url);
 
         if (response.statusCode == 200) {
-          final cvsResult = const CsvToListConverter().convert(response.body,
-              fieldDelimiter: ';', eol: '\n', shouldParseNumbers: false);
+          final cvsResult = const CsvToListConverter().convert(
+            response.body,
+            fieldDelimiter: ';',
+            eol: '\n',
+            shouldParseNumbers: false,
+          );
 
           if (cvsResult.length > 1) {
             if (cvsResult[0].length > 2) {
               cvsResult.removeAt(0);
-              final listData = cvsResult.map<DataStation>((line) {
-                return DataStation.fromList(line);
-              }).toList();
+              final listData = cvsResult.map<DataStation>(
+                (line) {
+                  return DataStation.fromList(line);
+                },
+              ).toList();
 
               listData.forEach((d) async {
-                await DatabaseHelper.instance.insertStationData(d);
+                await databaseHelper.insertStationData(d);
               });
 
               lastDataDownload = dateTime;
@@ -224,38 +231,20 @@ class DataNotifier extends ChangeNotifier {
     }
 
     if (lastDataDownload != null) {
-      _preferences.setLastStationDataDate(lastDataDownload);
+      preferences.setLastStationDataDate(lastDataDownload);
     }
   }
 
   Future<void> _initStation() async {
-    final stationUpdateDate = _preferences.lastStationDate;
-    stations = await DatabaseHelper.instance.getAllStation();
-    if (_stations.isEmpty ||
+    final stationUpdateDate = preferences.lastStationDate;
+    stations = await databaseHelper.getAllStation();
+    if (stations.isEmpty ||
         stationUpdateDate.difference(DateTime.now()) >
             const Duration(days: 15)) {
-      final response = await http.get(
-          'https://donneespubliques.meteofrance.fr/donnees_libres/Txt/Nivo/postesNivo.json');
+      stations = await dataAPI.getStation();
+      stations.forEach((s) => databaseHelper.insertStation(s));
 
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body) as Map<String, dynamic>;
-        final rest = data['features'] as List<dynamic>;
-
-        for (final json in rest) {
-          final st = json['properties'] as Map<String, dynamic>;
-          if (st['ID'] != '') {
-            _stations.add(Station.fromJson(st));
-          }
-        }
-
-        _stations.forEach((s) => DatabaseHelper.instance.insertStation(s));
-
-        _preferences.setLastStationDate(DateTime.now());
-
-        print('donwload station ok');
-      } else {
-        throw Exception('Failed to load station');
-      }
+      preferences.setLastStationDate(DateTime.now());
     }
   }
 

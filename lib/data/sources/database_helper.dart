@@ -21,12 +21,11 @@ const columnDirectionWind = 'directionWind';
 const columnSnowHeight = 'snowHeight';
 const columnSnowNewHeight = 'snowNewHeight';
 
+const _databaseName = 'database.db';
+const _databaseVersion = 1;
+
 class DatabaseHelper {
-  DatabaseHelper._privateConstructor();
-  static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
-  static const _databaseName = 'database.db';
-  static const _databaseVersion = 1;
-  static Database _database;
+  Database _database;
 
   Future<Database> get database async {
     if (_database != null) {

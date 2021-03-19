@@ -4,7 +4,6 @@ import 'package:latlong/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/model/extensions.dart';
-import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/modules/data_station/view.dart';
 import 'package:snow_weather_info/ui/map_licence_widget.dart';
 import 'package:snow_weather_info/ui/nivose_page.dart';
@@ -24,10 +23,10 @@ class MapWidget extends StatefulWidget {
 class _MapWidgetState extends State<MapWidget> {
   MapController _mapController;
   final _listStationMarker = <Marker>[];
+  final _listNivoseMarker = <Marker>[];
   final _listAvalancheMarker = <Marker>[];
   UserLocationOptions _userLocationOptions;
   final _userMarkers = <Marker>[];
-  final double _zoom = 10;
 
   @override
   void initState() {
@@ -55,31 +54,47 @@ class _MapWidgetState extends State<MapWidget> {
   }
 
   void _initMakerList(BuildContext context) {
-    final stations = context.read<DataNotifier>().allStations;
-    stations?.forEach(
-      (st) {
-        bool hasData = false;
-        Color color = Colors.blue[900];
-        double lastSnowHeight = 0;
-        if (st is Station) {
-          hasData = st.hasData;
-          color = hasData ? Colors.black : Colors.grey;
-          lastSnowHeight = st.lastSnowHeight;
-        }
+    final nivoses = context.read<DataNotifier>().nivoses;
 
+    nivoses?.forEach(
+      (nivose) {
+        _listNivoseMarker.add(
+          Marker(
+            width: 90,
+            height: 50,
+            point: nivose.position,
+            builder: (ctx) => IconButton(
+              icon: const Icon(Icons.place),
+              color: Colors.blue[900],
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute<Widget>(
+                  builder: (context) => NivosePage(nivose),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+
+    final stations = context.read<DataNotifier>().stations;
+    stations?.forEach(
+      (station) {
+        final color = station.hasData ? Colors.black : Colors.grey;
         _listStationMarker.add(
           Marker(
             width: 90,
             height: 50,
-            point: st.position,
+            point: station.position,
             builder: (ctx) => Stack(
               children: <Widget>[
-                if (hasData)
+                if (station.hasData)
                   Positioned(
                     left: 42,
                     bottom: 0,
                     child: Text(
-                      '${(lastSnowHeight * 100).toStringAsFixed(0)}cm',
+                      '${(station.lastSnowHeight * 100).toStringAsFixed(0)}cm',
                       style: const TextStyle(color: Colors.black),
                     ),
                   ),
@@ -89,14 +104,15 @@ class _MapWidgetState extends State<MapWidget> {
                   child: IconButton(
                     icon: const Icon(Icons.place),
                     color: color,
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute<Widget>(
-                        builder: (context) => st is Station
-                            ? DataStationView(station: st)
-                            : NivosePage(st as Nivose),
-                      ),
-                    ),
+                    onPressed: () => station.hasData
+                        ? Navigator.push(
+                            context,
+                            MaterialPageRoute<Widget>(
+                              builder: (context) =>
+                                  DataStationView(station: station),
+                            ),
+                          )
+                        : null,
                   ),
                 ),
               ],
@@ -143,9 +159,9 @@ class _MapWidgetState extends State<MapWidget> {
           mapController: _mapController,
           options: MapOptions(
             center: currentMapLoc,
-            zoom: _zoom,
+            zoom: 10,
             maxZoom: 16,
-            minZoom: 6,
+            minZoom: 8,
             plugins: [
               UserLocationPlugin(),
             ],
@@ -158,6 +174,10 @@ class _MapWidgetState extends State<MapWidget> {
             if (_listStationMarker.isNotEmpty)
               MarkerLayerOptions(
                 markers: _listStationMarker,
+              ),
+            if (_listNivoseMarker.isNotEmpty)
+              MarkerLayerOptions(
+                markers: _listNivoseMarker,
               ),
             if (_listAvalancheMarker.isNotEmpty)
               MarkerLayerOptions(

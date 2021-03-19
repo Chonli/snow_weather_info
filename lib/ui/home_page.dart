@@ -1,9 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/ui/avalanche_list_widget.dart';
-import 'package:snow_weather_info/ui/avalanche_massif_list_page.dart';
 import 'package:snow_weather_info/ui/list_station_widget.dart';
 import 'package:snow_weather_info/ui/map_widget.dart';
 import 'package:url_launcher/url_launcher.dart' as url;
@@ -47,14 +47,6 @@ class _HomePageState extends State<HomePage>
             offset: const Offset(0, 40),
             onSelected: (int value) async {
               switch (value) {
-                case 0:
-                  Navigator.of(context).push(
-                    MaterialPageRoute<Widget>(
-                      builder: (BuildContext context) =>
-                          const AvalancheMassifListPage(),
-                    ),
-                  );
-                  break;
                 case 1:
                   _openAboutDialog(context);
                   break;
@@ -64,14 +56,6 @@ class _HomePageState extends State<HomePage>
               }
             },
             itemBuilder: (BuildContext context) => <PopupMenuItem<int>>[
-              // TODO Fixme Adresse BREA plus valide
-              // PopupMenuItem(
-              //   value: 0,
-              //   child: ListTile(
-              //     leading: Icon(Icons.ac_unit),
-              //     title: Text('Bulletin Avalanche'),
-              //   ),
-              // ),
               const PopupMenuItem(
                 value: 2,
                 child: ListTile(
@@ -116,8 +100,9 @@ class _HomePageState extends State<HomePage>
     url.launch('https://meteofrance.com/meteo-montagne');
   }
 
-  void _openAboutDialog(BuildContext context) {
-    final packageInfo = context.read<DataNotifier>().packageInfo;
+  Future<void> _openAboutDialog(BuildContext context) async {
+    final packageInfo = await PackageInfo.fromPlatform();
+
     showDialog<AboutDialog>(
       context: context,
       builder: (BuildContext context) {

@@ -3,10 +3,12 @@ import 'package:provider/provider.dart';
 import 'package:snow_weather_info/data/sources/avalanche_api.dart';
 import 'package:snow_weather_info/data/sources/data_api.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
+import 'package:snow_weather_info/data/sources/database_helper.dart';
+import 'package:snow_weather_info/data/sources/preferences.dart';
 import 'package:snow_weather_info/ui/home_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 const _title = 'Info Neige';
@@ -18,13 +20,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
+          Provider<DatabaseHelper>(create: (_) => DatabaseHelper()),
           Provider<AvalancheAPI>(create: (_) => AvalancheAPI()),
+          Provider<Preferences>(create: (_) => Preferences()),
           Provider<DataAPI>(create: (_) => DataAPI()),
-          ChangeNotifierProxyProvider2<AvalancheAPI, DataAPI, DataNotifier>(
+          ChangeNotifierProxyProvider0<DataNotifier>(
             create: (_) => DataNotifier(),
-            update: (_, avalancheAPI, dataAPI, old) => old
-              ..avalancheAPI = avalancheAPI
-              ..dataAPI = dataAPI
+            update: (context, old) => old
+              ..avalancheAPI = context.watch<AvalancheAPI>()
+              ..dataAPI = context.watch<DataAPI>()
+              ..preferences = context.watch<Preferences>()
+              ..databaseHelper = context.watch<DatabaseHelper>()
               ..initData(),
           ),
         ],
