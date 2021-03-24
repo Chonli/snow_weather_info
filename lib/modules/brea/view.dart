@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:provider/provider.dart';
+import 'package:snow_weather_info/core/widgets/app_web_page.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/model/avalanche_bulletin.dart';
-import 'package:snow_weather_info/modules/brea/brea_detail_page.dart';
 
 class BREAMassifListView extends StatelessWidget {
   const BREAMassifListView({
@@ -74,8 +74,10 @@ class _CardMassif extends StatelessWidget {
         onTap: () => Navigator.push(
           context,
           MaterialPageRoute<Widget>(
-            builder: (context) =>
-                BREADetailPage(avalancheBulletin: avalancheBulletin),
+            builder: (context) => AppWebPage(
+              title: avalancheBulletin.massifName,
+              url: avalancheBulletin.url,
+            ),
           ),
         ),
       ),

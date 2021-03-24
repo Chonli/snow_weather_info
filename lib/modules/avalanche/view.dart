@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:snow_weather_info/core/widgets/app_web_page.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/model/extensions.dart';
 import 'package:url_launcher/url_launcher.dart' as url;
@@ -44,11 +45,16 @@ class AvalancheListWidget extends StatelessWidget {
                   trailing: item.url != null
                       ? const Icon(Icons.navigate_next)
                       : const SizedBox(),
-                  onTap: () async {
-                    if (item.url != null && await url.canLaunch(item.url)) {
-                      url.launch(item.url);
-                    }
-                  },
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute<Widget>(
+                      builder: (context) => AppWebPage(
+                        title: item.shortTitle,
+                        url: item.url,
+                        canIsOpen: true,
+                      ),
+                    ),
+                  ),
                 ),
               );
             },

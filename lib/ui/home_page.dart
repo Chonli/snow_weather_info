@@ -4,7 +4,7 @@ import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/modules/brea/view.dart';
-import 'package:snow_weather_info/ui/avalanche_list_widget.dart';
+import 'package:snow_weather_info/modules/avalanche/view.dart';
 import 'package:snow_weather_info/ui/list_station_widget.dart';
 import 'package:snow_weather_info/ui/map_widget.dart';
 import 'package:url_launcher/url_launcher.dart' as url;

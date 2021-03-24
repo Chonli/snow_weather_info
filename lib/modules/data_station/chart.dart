@@ -35,7 +35,7 @@ class DataStationChart extends StatelessWidget {
       }
     } else {
       // Dummy list to prevent data = NULL
-      tsdatasnow.add(TimeSeriesData(DateTime.now(), 0.0));
+      tsdatasnow.add(TimeSeriesData(DateTime.now(), 0));
     }
 
     final seriesSnow = [
@@ -49,7 +49,7 @@ class DataStationChart extends StatelessWidget {
       ),
       charts.Series<TimeSeriesData, DateTime>(
         id: 'SnowNewHeight',
-        displayName: "Neige fraîche",
+        displayName: 'Neige fraîche',
         colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
         domainFn: (TimeSeriesData data, _) => data.time,
         measureFn: (TimeSeriesData data, _) => data.data,
