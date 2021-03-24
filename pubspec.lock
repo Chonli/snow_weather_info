@@ -188,6 +188,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.8.2"
+  flutter_sticky_header:
+    dependency: "direct main"
+    description:
+      name: flutter_sticky_header
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -588,6 +595,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.7.0"
+  value_layout_builder:
+    dependency: transitive
+    description:
+      name: value_layout_builder
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0"
   vector_math:
     dependency: transitive
     description:
@@ -618,6 +632,13 @@ packages:
       url: "https://github.com/Chonli/webfeed.git"
     source: git
     version: "0.6.0"
+  webview_flutter:
+    dependency: "direct main"
+    description:
+      name: webview_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.2"
   win32:
     dependency: transitive
     description:
@@ -647,5 +668,5 @@ packages:
     source: hosted
     version: "3.1.0"
 sdks:
-  dart: ">=2.12.0-0.0 <3.0.0"
+  dart: ">=2.12.0-259.9.beta <3.0.0"
   flutter: ">=1.22.2"

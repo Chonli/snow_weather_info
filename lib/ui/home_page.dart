@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
+import 'package:snow_weather_info/modules/brea/view.dart';
 import 'package:snow_weather_info/ui/avalanche_list_widget.dart';
 import 'package:snow_weather_info/ui/list_station_widget.dart';
 import 'package:snow_weather_info/ui/map_widget.dart';
@@ -25,7 +26,10 @@ class _HomePageState extends State<HomePage>
     super.initState();
     final notifier = context.read<DataNotifier>();
     _tabController = TabController(
-        vsync: this, length: 3, initialIndex: notifier.currentIndexTab);
+      vsync: this,
+      length: 4,
+      initialIndex: notifier.currentIndexTab,
+    );
     _tabController.addListener(() {
       notifier.currentIndexTab = _tabController.index;
     });
@@ -47,24 +51,14 @@ class _HomePageState extends State<HomePage>
             offset: const Offset(0, 40),
             onSelected: (int value) async {
               switch (value) {
-                case 1:
+                case 0:
                   _openAboutDialog(context);
-                  break;
-                case 2:
-                  _openBREAPage(context);
                   break;
               }
             },
             itemBuilder: (BuildContext context) => <PopupMenuItem<int>>[
               const PopupMenuItem(
-                value: 2,
-                child: ListTile(
-                  leading: Icon(Icons.ac_unit),
-                  title: Text('Lien BREA'),
-                ),
-              ),
-              const PopupMenuItem(
-                value: 1,
+                value: 0,
                 child: ListTile(
                   leading: Icon(Icons.info_outline),
                   title: Text('A propos...'),
@@ -80,6 +74,7 @@ class _HomePageState extends State<HomePage>
             Tab(text: 'Stations', icon: Icon(Icons.list)),
             Tab(text: 'Carte', icon: Icon(Icons.map)),
             Tab(text: 'Avalanches', icon: Icon(Icons.rss_feed)),
+            Tab(text: 'BREA', icon: Icon(Icons.ac_unit)),
           ],
         ),
       ),
@@ -91,13 +86,10 @@ class _HomePageState extends State<HomePage>
           ListStationWidget(),
           MapWidget(),
           AvalancheListWidget(),
+          BREAMassifListView(),
         ],
       ),
     );
-  }
-
-  void _openBREAPage(BuildContext context) {
-    url.launch('https://meteofrance.com/meteo-montagne');
   }
 
   Future<void> _openAboutDialog(BuildContext context) async {

@@ -24,9 +24,11 @@ class DataNotifier extends ChangeNotifier {
 
   bool _isInitialise = false;
   HashMap<int, List<DataStation>> _mapDataStation;
-  List<AvalancheBulletin> _avalancheBulletins;
   LatLng currentMapLoc = LatLng(45.05, 6.3);
   int currentIndexTab = 0;
+
+  List<AvalancheBulletin> get avalancheBulletins =>
+      ConstantDatalist.listAvalancheBulletin;
 
   bool get loading => _loading;
   bool _loading = false;
@@ -84,14 +86,6 @@ class DataNotifier extends ChangeNotifier {
     return _mapDataStation[id];
   }
 
-  List<AvalancheBulletin> getAvalancheBulletin(Mountain mountain) {
-    return _avalancheBulletins.where((f) => f.mountain == mountain).toList();
-  }
-
-  List<AvalancheBulletin> getAllAvalancheBulletin() {
-    return _avalancheBulletins.toList();
-  }
-
   Nivose getNivose(String codeMF) {
     return _nivoses.firstWhere((n) => n.codeMF == codeMF);
   }
@@ -100,7 +94,6 @@ class DataNotifier extends ChangeNotifier {
     if (!_isInitialise) {
       loading = true;
       await preferences.init();
-      _initAvalancheBulletin();
       _initNivose();
 
       try {
@@ -246,11 +239,6 @@ class DataNotifier extends ChangeNotifier {
 
       preferences.setLastStationDate(DateTime.now());
     }
-  }
-
-  void _initAvalancheBulletin() {
-    _avalancheBulletins = ConstantDatalist.listAvalancheBulletin
-      ..sort((a, b) => a.massifName.compareTo(b.massifName));
   }
 
   void _initNivose() {

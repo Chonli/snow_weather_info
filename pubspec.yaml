@@ -40,11 +40,12 @@ dependencies:
   carousel_slider: ^3.0.0
   share: ^0.6.4+5
   alphabet_list_scroll_view: ^1.0.6
+  webview_flutter: ^2.0.2
+  flutter_sticky_header: ^0.5.0
   webfeed:
     git:
       url: https://github.com/Chonli/webfeed.git
       ref: develop
-
 
 dev_dependencies:
   flutter_test:
