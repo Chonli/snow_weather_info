@@ -70,6 +70,7 @@ class _HomePageState extends State<HomePage>
         bottom: TabBar(
           key: const PageStorageKey('tab_key'),
           controller: _tabController,
+          isScrollable: true,
           tabs: const [
             Tab(text: 'Stations', icon: Icon(Icons.list)),
             Tab(text: 'Carte', icon: Icon(Icons.map)),
