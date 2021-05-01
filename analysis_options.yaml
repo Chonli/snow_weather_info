@@ -129,4 +129,6 @@ linter:
     # so we will use `prefer_final_locals` instead.
     unnecessary_final: false
 
+    avoid_catches_without_on_clauses: false
+
     sort_pub_dependencies: false

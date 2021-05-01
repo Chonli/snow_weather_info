@@ -1,4 +1,4 @@
-import 'package:webfeed/webfeed.dart';
+import 'package:dart_rss/dart_rss.dart';
 
 extension AtomItemExtension on AtomItem {
   String get shortTitle => title.contains(',')

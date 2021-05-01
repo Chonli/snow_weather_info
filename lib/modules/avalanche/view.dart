@@ -3,8 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:snow_weather_info/core/widgets/app_web_page.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/model/extensions.dart';
-import 'package:url_launcher/url_launcher.dart' as url;
-import 'package:webfeed/webfeed.dart';
+import 'package:dart_rss/dart_rss.dart';
 
 class AvalancheListWidget extends StatelessWidget {
   const AvalancheListWidget({

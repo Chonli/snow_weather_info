@@ -1,7 +1,8 @@
 import 'dart:convert';
+import 'dart:developer' show log;
 
 import 'package:http/http.dart' as http;
-import 'package:webfeed/webfeed.dart';
+import 'package:dart_rss/dart_rss.dart';
 
 class AvalancheAPI {
   final client = http.Client();
@@ -9,10 +10,11 @@ class AvalancheAPI {
   Future<AtomFeed> getAvalanche() async {
     AtomFeed feed;
     try {
-      final response = await client.get('http://www.data-avalanche.org/feed');
+      final response =
+          await client.get(Uri.parse('http://www.data-avalanche.org/feed'));
       feed = AtomFeed.parse(utf8.decode(response.bodyBytes));
     } catch (e) {
-      print("feed error : " + e.toString());
+      log('feed error : $e');
     }
     return feed;
   }

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:collection';
+import 'dart:developer' show log;
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
@@ -13,7 +14,7 @@ import 'package:snow_weather_info/data/sources/preferences.dart';
 import 'package:snow_weather_info/model/avalanche_bulletin.dart';
 import 'package:snow_weather_info/model/data_station.dart';
 import 'package:snow_weather_info/model/station.dart';
-import 'package:webfeed/domain/atom_feed.dart';
+import 'package:dart_rss/dart_rss.dart';
 import 'constant_data_list.dart';
 
 class DataNotifier extends ChangeNotifier {
@@ -106,7 +107,7 @@ class DataNotifier extends ChangeNotifier {
         await _initFavorites();
         _isInitialise = true;
       } catch (e) {
-        print('init error : $e');
+        log('init error : $e');
       } finally {
         loading = false;
       }
@@ -183,15 +184,15 @@ class DataNotifier extends ChangeNotifier {
   Future<void> _downloadStationData() async {
     DateTime lastDataDownload;
     final lastDateData = preferences.lastStationDataDate;
-    print('last data ${lastDateData.toString()}');
+    log('last data ${lastDateData.toString()}');
     for (int i = 7; i >= 0; --i) {
       final dateTime = DateTime.now().subtract(Duration(days: i));
 
       if (dateTime.isAfter(lastDateData)) {
         final dateStr = DateFormat('yyyyMMdd').format(dateTime);
-        final url =
-            'https://donneespubliques.meteofrance.fr/donnees_libres/Txt/Nivo/nivo.$dateStr.csv';
-        print(url);
+        final url = Uri.parse(
+          'https://donneespubliques.meteofrance.fr/donnees_libres/Txt/Nivo/nivo.$dateStr.csv',
+        );
         final response = await http.get(url);
 
         if (response.statusCode == 200) {
@@ -216,7 +217,7 @@ class DataNotifier extends ChangeNotifier {
               });
 
               lastDataDownload = dateTime;
-              print('get data OK');
+              log('get data OK');
             }
           }
         }

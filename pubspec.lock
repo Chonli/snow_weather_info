@@ -127,6 +127,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.3"
+  dart_rss:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: "feature/geo-rss-2"
+      resolved-ref: "8da04c139083a2f194fb32ac0dc904c3f549915a"
+      url: "https://github.com/Chonli/webfeed.git"
+    source: git
+    version: "2.0.1"
   fake_async:
     dependency: transitive
     description:
@@ -211,14 +220,14 @@ packages:
       name: http
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.2"
+    version: "0.13.2"
   http_parser:
     dependency: transitive
     description:
       name: http_parser
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.4"
+    version: "4.0.0"
   image:
     dependency: transitive
     description:
@@ -344,7 +353,7 @@ packages:
       name: pedantic
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.9.2"
+    version: "1.11.0"
   petitparser:
     dependency: transitive
     description:
@@ -623,15 +632,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.6.2"
-  webfeed:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: develop
-      resolved-ref: bc7fada26b764e7396c32b45d41b8fc9f96cbbb9
-      url: "https://github.com/Chonli/webfeed.git"
-    source: git
-    version: "0.6.0"
   webview_flutter:
     dependency: "direct main"
     description:
@@ -668,5 +668,5 @@ packages:
     source: hosted
     version: "3.1.0"
 sdks:
-  dart: ">=2.12.0-259.9.beta <3.0.0"
+  dart: ">=2.12.0 <3.0.0"
   flutter: ">=1.22.2"

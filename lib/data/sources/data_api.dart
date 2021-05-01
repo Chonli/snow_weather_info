@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer' show log;
 
 import 'package:http/http.dart' as http;
 import 'package:snow_weather_info/model/station.dart';
@@ -8,9 +9,9 @@ class DataAPI {
 
   Future<List<Station>> getStation() async {
     final List<Station> stations = [];
-    final response = await client.get(
+    final response = await client.get(Uri.parse(
       'https://donneespubliques.meteofrance.fr/donnees_libres/Txt/Nivo/postesNivo.json',
-    );
+    ));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body) as Map<String, dynamic>;
@@ -23,7 +24,7 @@ class DataAPI {
         }
       }
 
-      print('donwload station ok');
+      log('donwload station ok');
       return stations;
     } else {
       throw Exception('Failed to load station');

@@ -9,7 +9,7 @@ import 'package:snow_weather_info/ui/map_licence_widget.dart';
 import 'package:snow_weather_info/ui/nivose_page.dart';
 import 'package:url_launcher/url_launcher.dart' as url;
 // import 'package:user_location/user_location.dart';
-import 'package:webfeed/webfeed.dart';
+import 'package:dart_rss/dart_rss.dart';
 
 class MapWidget extends StatefulWidget {
   const MapWidget({
