@@ -1,10 +1,11 @@
 import 'dart:async';
-import 'dart:collection';
 import 'dart:developer' show log;
 
-import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
 import 'package:csv/csv.dart';
+import 'package:dart_rss/dart_rss.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:latlong/latlong.dart';
 import 'package:snow_weather_info/data/sources/avalanche_api.dart';
@@ -14,7 +15,7 @@ import 'package:snow_weather_info/data/sources/preferences.dart';
 import 'package:snow_weather_info/model/avalanche_bulletin.dart';
 import 'package:snow_weather_info/model/data_station.dart';
 import 'package:snow_weather_info/model/station.dart';
-import 'package:dart_rss/dart_rss.dart';
+
 import 'constant_data_list.dart';
 
 class DataNotifier extends ChangeNotifier {
@@ -24,7 +25,7 @@ class DataNotifier extends ChangeNotifier {
   DatabaseHelper databaseHelper;
 
   bool _isInitialise = false;
-  HashMap<int, List<DataStation>> _mapDataStation;
+  final _mapDataStation = <int, List<DataStation>>{};
   LatLng currentMapLoc = LatLng(45.05, 6.3);
   int currentIndexTab = 0;
 
@@ -64,7 +65,7 @@ class DataNotifier extends ChangeNotifier {
   List<AbstractStation> get allStations => [..._nivoses, ..._stations];
 
   List<AbstractStation> get favoritesStations => _favoritesStations.toList();
-  List<AbstractStation> _favoritesStations;
+  List<AbstractStation> _favoritesStations = [];
   @protected
   set favoritesStations(List<AbstractStation> value) {
     if (_favoritesStations != value) {
@@ -100,7 +101,8 @@ class DataNotifier extends ChangeNotifier {
       try {
         await Future.wait([
           _initStation(),
-          _downloadStationData(),
+          //_downloadStationData(),
+          _readTestStationData(),
         ]);
         avalancheFeed = await avalancheAPI.getAvalanche();
         await _finalizeStationData();
@@ -117,7 +119,6 @@ class DataNotifier extends ChangeNotifier {
   }
 
   Future<void> _finalizeStationData() async {
-    _mapDataStation = HashMap();
     await databaseHelper.cleanOldData(7);
 
     for (final s in _stations) {
@@ -181,6 +182,30 @@ class DataNotifier extends ChangeNotifier {
     );
   }
 
+  void _decodeStationData(String data) {
+    final cvsResult = const CsvToListConverter().convert(
+      data,
+      fieldDelimiter: ';',
+      eol: '\n',
+      shouldParseNumbers: false,
+    );
+
+    if (cvsResult.length > 1) {
+      if (cvsResult[0].length > 2) {
+        cvsResult.removeAt(0);
+        final listData = cvsResult.map<DataStation>(
+          (line) {
+            return DataStation.fromList(line);
+          },
+        ).toList();
+
+        listData.forEach((d) async {
+          await databaseHelper.insertStationData(d);
+        });
+      }
+    }
+  }
+
   Future<void> _downloadStationData() async {
     DateTime lastDataDownload;
     final lastDateData = preferences.lastStationDataDate;
@@ -196,30 +221,9 @@ class DataNotifier extends ChangeNotifier {
         final response = await http.get(url);
 
         if (response.statusCode == 200) {
-          final cvsResult = const CsvToListConverter().convert(
-            response.body,
-            fieldDelimiter: ';',
-            eol: '\n',
-            shouldParseNumbers: false,
-          );
-
-          if (cvsResult.length > 1) {
-            if (cvsResult[0].length > 2) {
-              cvsResult.removeAt(0);
-              final listData = cvsResult.map<DataStation>(
-                (line) {
-                  return DataStation.fromList(line);
-                },
-              ).toList();
-
-              listData.forEach((d) async {
-                await databaseHelper.insertStationData(d);
-              });
-
-              lastDataDownload = dateTime;
-              log('get data OK');
-            }
-          }
+          _decodeStationData(response.body);
+          lastDataDownload = dateTime;
+          log('get data OK');
         }
       }
     }
@@ -227,6 +231,12 @@ class DataNotifier extends ChangeNotifier {
     if (lastDataDownload != null) {
       preferences.setLastStationDataDate(lastDataDownload);
     }
+  }
+
+  Future<void> _readTestStationData() async {
+    final data =
+        await rootBundle.loadString('assets/test_data/nivo.202102.txt');
+    _decodeStationData(data);
   }
 
   Future<void> _initStation() async {

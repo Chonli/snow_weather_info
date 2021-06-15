@@ -15,7 +15,7 @@ publish_to: none
 version: 1.5.0+15
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -27,13 +27,12 @@ dependencies:
   flutter_launcher_icons: "^0.9.0"
   provider: ^4.3.2+1
   http: ^0.13.0
-  latlong: ^0.6.1
+  latlong2: ^0.8.0
   csv: ^4.1.0
   intl: ^0.17.0
   flutter_map: ^0.8.2
   # user_location: ^0.1.3
-  # replace by fl_chart
-  charts_flutter: ^0.10.0
+  fl_chart: ^0.36.1
   sqflite: ^1.3.1+1
   shared_preferences: ^0.5.6+1
   url_launcher: ^5.7.10
@@ -56,6 +55,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/icon/icon.png
+    - assets/test_data/
 
 flutter_icons:
   android: "launcher_icon"

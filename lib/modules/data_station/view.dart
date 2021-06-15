@@ -86,8 +86,10 @@ class _View extends StatelessWidget {
             child: IconButton(
               icon: const Icon(Icons.share),
               onPressed: () => Share.share(
-                _formatDataToString(station,
-                    data[context.read<DataStationNotifier>().currentIndex]),
+                _formatDataToString(
+                  station,
+                  data[context.read<DataStationNotifier>().currentIndex],
+                ),
               ),
             ),
           ),
@@ -184,7 +186,7 @@ class _Body extends StatelessWidget {
                     ),
                   ),
                 ),
-                DataStationChart(data),
+                DataStationChart(data: data),
               ],
             ),
           ),
