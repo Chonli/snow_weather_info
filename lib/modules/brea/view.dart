@@ -7,7 +7,7 @@ import 'package:snow_weather_info/model/avalanche_bulletin.dart';
 
 class BREAMassifListView extends StatelessWidget {
   const BREAMassifListView({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -24,7 +24,10 @@ class BREAMassifListView extends StatelessWidget {
 }
 
 class _ListByMassifView extends StatelessWidget {
-  const _ListByMassifView({Key key, this.mountain}) : super(key: key);
+  const _ListByMassifView({
+    Key? key,
+    required this.mountain,
+  }) : super(key: key);
 
   final Mountain mountain;
 
@@ -43,7 +46,9 @@ class _ListByMassifView extends StatelessWidget {
         child: Text(
           mountain.displayName(),
           style: TextStyle(
-              color: Theme.of(context).textTheme.headline6.color, fontSize: 25),
+            color: Theme.of(context).textTheme.headline6?.color,
+            fontSize: 25,
+          ),
         ),
       ),
       sliver: SliverList(

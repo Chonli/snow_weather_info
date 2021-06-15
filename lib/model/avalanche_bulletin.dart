@@ -19,19 +19,18 @@ extension MountainExtension on Mountain {
     switch (this) {
       case Mountain.alpesNord:
         return 'Alpes du Nord';
-        break;
+
       case Mountain.alpesSud:
         return 'Alpes du Sud';
-        break;
+
       case Mountain.corse:
         return 'Corse';
-        break;
+
       case Mountain.pyrennee:
         return 'Pyrennée';
-        break;
+
       default:
         return 'Tous';
-        break;
     }
   }
 }

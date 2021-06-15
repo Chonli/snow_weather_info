@@ -5,8 +5,8 @@ import 'package:snow_weather_info/model/data_station.dart';
 
 class DataStationChart extends StatelessWidget {
   const DataStationChart({
-    Key key,
-    @required this.data,
+    Key? key,
+    required this.data,
   }) : super(key: key);
 
   final List<DataStation> data;
@@ -18,19 +18,19 @@ class DataStationChart extends StatelessWidget {
       color: Colors.white,
       fontSize: 12,
     );
-    DateTime minDate;
+    DateTime? minDate;
 
     // final List<TimeSeriesData> tsdatanewsnow = [];
     // final List<TimeSeriesData> tsdatasnowtemperature = [];
     // final List<TimeSeriesDataTemp> tsdatatemperature = [];
-    if (data != null && data.isNotEmpty) {
+    if (data.isNotEmpty) {
       for (final d in data) {
         minDate ??= d.date;
 
         final index = d.date.difference(minDate).inDays;
 
-        if (d.hasSnowHeight) {
-          tsdatasnow.add(FlSpot(index.toDouble(), d.snowHeight * 100));
+        if (d.snowHeight != null) {
+          tsdatasnow.add(FlSpot(index.toDouble(), d.snowHeight! * 100));
         }
         //     if (d.hasTemperature) {
         //       tsdatatemperature.add(TimeSeriesDataTemp(
@@ -50,6 +50,7 @@ class DataStationChart extends StatelessWidget {
         // } else {
         //   // Dummy list to prevent data = NULL
         //   tsdatasnow.add(TimeSeriesData(DateTime.now(), 0));
+
       }
     } else {
       return const SizedBox();
@@ -118,7 +119,7 @@ class DataStationChart extends StatelessWidget {
                   getTextStyles: (value) => chartTextStyle,
                   getTitles: (value) {
                     return DateFormat('MM/dd').format(
-                      minDate.add(
+                      minDate!.add(
                         Duration(
                           days: value.toInt(),
                         ),
@@ -224,8 +225,8 @@ class DataStationChart extends StatelessWidget {
 
 class _ChartBorder extends StatelessWidget {
   const _ChartBorder({
-    Key key,
-    this.child,
+    Key? key,
+    required this.child,
   }) : super(key: key);
 
   final Widget child;

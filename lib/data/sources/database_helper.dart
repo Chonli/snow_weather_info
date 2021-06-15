@@ -25,14 +25,15 @@ const _databaseName = 'database.db';
 const _databaseVersion = 1;
 
 class DatabaseHelper {
-  Database _database;
+  Database? _database;
 
   Future<Database> get database async {
-    if (_database != null) {
-      return _database;
+    final database = _database;
+    if (database != null) {
+      return database;
     }
     _database = await _initDatabase();
-    return _database;
+    return _database!;
   }
 
   Future<Database> _initDatabase() async {

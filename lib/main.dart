@@ -14,7 +14,9 @@ void main() {
 const _title = 'Info Neige';
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
+  const MyApp({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
           Provider<DataAPI>(create: (_) => DataAPI()),
           ChangeNotifierProxyProvider0<DataNotifier>(
             create: (_) => DataNotifier(),
-            update: (context, old) => old
+            update: (context, old) => old!
               ..avalancheAPI = context.watch<AvalancheAPI>()
               ..dataAPI = context.watch<DataAPI>()
               ..preferences = context.watch<Preferences>()
@@ -72,7 +74,10 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-  const MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({
+    Key? key,
+    required this.title,
+  }) : super(key: key);
 
   final String title;
 

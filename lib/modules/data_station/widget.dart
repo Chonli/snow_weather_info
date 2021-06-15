@@ -4,8 +4,8 @@ import 'package:snow_weather_info/model/data_station.dart';
 
 class DataStationWidget extends StatelessWidget {
   const DataStationWidget({
-    Key key,
-    @required this.data,
+    Key? key,
+    required this.data,
   }) : super(key: key);
 
   final DataStation data;
@@ -23,32 +23,32 @@ class DataStationWidget extends StatelessWidget {
           if (data.hasTemperature)
             _LineCard(
               'Température :',
-              ' ${data.temperature.toStringAsFixed(1)}°C',
+              ' ${data.temperature?.toStringAsFixed(1)}°C',
             ),
           if (data.hasTemperatureMin24)
             _LineCard(
               'Température Min 24h :',
-              ' ${data.temperatureMin24.toStringAsFixed(1)}°C',
+              ' ${data.temperatureMin24?.toStringAsFixed(1)}°C',
             ),
           if (data.hasTemperatureMax24)
             _LineCard(
               'Température Max 24h :',
-              ' ${data.temperatureMax24.toStringAsFixed(1)}°C',
+              ' ${data.temperatureMax24?.toStringAsFixed(1)}°C',
             ),
           if (data.hasTemperatureSnow)
             _LineCard(
               'Température du sol:',
-              ' ${data.temperatureSnow.toStringAsFixed(1)}°C',
+              ' ${data.temperatureSnow?.toStringAsFixed(1)}°C',
             ),
           if (data.hasSnowHeight)
             _LineCard(
               'Hauteur de neige :',
-              ' ${(data.snowHeight * 100).toStringAsFixed(1)}cm',
+              ' ${(data.snowHeight! * 100).toStringAsFixed(1)}cm',
             ),
           if (data.hasSnowNewHeight)
             _LineCard(
               'Hauteur de neige fraiches :',
-              ' ${(data.snowNewHeight * 100).toStringAsFixed(1)}cm',
+              ' ${(data.snowNewHeight! * 100).toStringAsFixed(1)}cm',
             ),
           if (data.hasDirectionWind)
             _LineCard(
@@ -67,7 +67,7 @@ class DataStationWidget extends StatelessWidget {
 }
 
 class _LineCard extends StatelessWidget {
-  const _LineCard(this.text1, this.text2, {Key key}) : super(key: key);
+  const _LineCard(this.text1, this.text2, {Key? key}) : super(key: key);
 
   final String text1;
   final String text2;

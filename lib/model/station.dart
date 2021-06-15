@@ -1,4 +1,4 @@
-import 'package:latlong/latlong.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:snow_weather_info/data/sources/database_helper.dart';
 
 abstract class AbstractStation {
@@ -12,7 +12,7 @@ abstract class AbstractStation {
   final String name;
   final LatLng position;
   final int altitude;
-  bool hasData;
+  bool hasData = false;
 
   @override
   String toString() {

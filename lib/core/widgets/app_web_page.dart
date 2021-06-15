@@ -4,9 +4,9 @@ import 'package:url_launcher/url_launcher.dart' as web;
 
 class AppWebPage extends StatelessWidget {
   const AppWebPage({
-    Key key,
-    @required this.title,
-    @required this.url,
+    Key? key,
+    required this.title,
+    required this.url,
     this.canIsOpen = false,
   }) : super(key: key);
 
@@ -26,7 +26,7 @@ class AppWebPage extends StatelessWidget {
             IconButton(
               icon: const Icon(Icons.open_in_browser),
               onPressed: () async {
-                if (url != null && await web.canLaunch(url)) {
+                if (await web.canLaunch(url)) {
                   web.launch(url);
                 }
               },

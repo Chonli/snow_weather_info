@@ -65,36 +65,36 @@ class DataStation {
     _hasDirectionWind = _directionWind != null;
   }
 
-  int _id;
-  DateTime _date;
-  double _temperature;
-  double _temperatureMin24;
-  double _temperatureMax24;
-  double _temperatureSnow;
-  double _speedWind;
-  double _directionWind;
-  double _snowHeight;
-  double _snowNewHeight;
+  int _id = 0;
+  DateTime _date = DateTime.fromMillisecondsSinceEpoch(0);
+  double? _temperature;
+  double? _temperatureMin24;
+  double? _temperatureMax24;
+  double? _temperatureSnow;
+  double? _speedWind;
+  double? _directionWind;
+  double? _snowHeight;
+  double? _snowNewHeight;
 
-  bool _hasTemperature;
-  bool _hasTemperatureMin24;
-  bool _hasTemperatureMax24;
-  bool _hasTemperatureSnow;
-  bool _hasSpeedWind;
-  bool _hasDirectionWind;
-  bool _hasSnowHeight;
-  bool _hasSnowNewHeight;
+  bool _hasTemperature = false;
+  bool _hasTemperatureMin24 = false;
+  bool _hasTemperatureMax24 = false;
+  bool _hasTemperatureSnow = false;
+  bool _hasSpeedWind = false;
+  bool _hasDirectionWind = false;
+  bool _hasSnowHeight = false;
+  bool _hasSnowNewHeight = false;
 
   int get id => _id;
   DateTime get date => _date;
-  double get temperature => _temperature;
-  double get temperatureMin24 => _temperatureMin24;
-  double get temperatureMax24 => _temperatureMax24;
-  double get temperatureSnow => _temperatureSnow;
-  double get speedWind => _speedWind;
-  double get directionWind => _directionWind;
-  double get snowHeight => _snowHeight;
-  double get snowNewHeight => _snowNewHeight;
+  double? get temperature => _temperature;
+  double? get temperatureMin24 => _temperatureMin24;
+  double? get temperatureMax24 => _temperatureMax24;
+  double? get temperatureSnow => _temperatureSnow;
+  double? get speedWind => _speedWind;
+  double? get directionWind => _directionWind;
+  double? get snowHeight => _snowHeight;
+  double? get snowNewHeight => _snowNewHeight;
   bool get hasTemperature => _hasTemperature;
   bool get hasTemperatureMin24 => _hasTemperatureMin24;
   bool get hasTemperatureMax24 => _hasTemperatureMax24;
@@ -124,7 +124,11 @@ class DataStation {
   }
 
   bool _hasDoubleValue(String data) {
-    return data != 'mq' ? double.tryParse(data) != null : false;
+    if (data != 'mq') {
+      return double.tryParse(data) != null;
+    } else {
+      return false;
+    }
   }
 
   @override

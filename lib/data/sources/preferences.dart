@@ -5,7 +5,7 @@ const _lastStationDataPrefs = 'lastStationDataPrefs';
 const _favoritesStationPrefs = 'favoritesStationPrefs';
 
 class Preferences {
-  SharedPreferences _prefs;
+  late SharedPreferences _prefs;
 
   Future<void> init() async {
     _prefs = await SharedPreferences.getInstance();

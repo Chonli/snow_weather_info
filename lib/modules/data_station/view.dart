@@ -12,8 +12,8 @@ import 'package:snow_weather_info/modules/data_station/widget.dart';
 
 class DataStationView extends StatelessWidget {
   const DataStationView({
-    Key key,
-    @required this.station,
+    Key? key,
+    required this.station,
   }) : super(key: key);
 
   final Station station;
@@ -29,8 +29,8 @@ class DataStationView extends StatelessWidget {
 
 class _View extends StatelessWidget {
   const _View({
-    Key key,
-    @required this.station,
+    Key? key,
+    required this.station,
   }) : super(key: key);
 
   final Station station;
@@ -39,15 +39,15 @@ class _View extends StatelessWidget {
     var ret =
         "Station ${station.name} (${station.altitude}m) au ${DateFormat('dd-MM-yyyy à kk:mm').format(data.date)}\n";
     if (data.hasTemperature) {
-      ret += 'Température: ${data.temperature.toStringAsFixed(1)}°C\n';
+      ret += 'Température: ${data.temperature?.toStringAsFixed(1)}°C\n';
     }
     if (data.hasSnowHeight) {
       ret +=
-          'Hauteur de neige: ${(data.snowHeight * 100).toStringAsFixed(1)}cm\n';
+          'Hauteur de neige: ${(data.snowHeight! * 100).toStringAsFixed(1)}cm\n';
     }
     if (data.hasSnowNewHeight) {
       ret +=
-          'Hauteur de neige fraiches: ${(data.snowNewHeight * 100).toStringAsFixed(1)}cm\n';
+          'Hauteur de neige fraiches: ${(data.snowNewHeight! * 100).toStringAsFixed(1)}cm\n';
     }
     return ret;
   }
@@ -95,7 +95,7 @@ class _View extends StatelessWidget {
           ),
         ],
       ),
-      body: data == null || data.isEmpty
+      body: data.isEmpty
           ? const Center(child: Text('Pas de donnée pour cette station météo'))
           : _Body(data: data),
     );
@@ -104,8 +104,8 @@ class _View extends StatelessWidget {
 
 class _Body extends StatelessWidget {
   _Body({
-    Key key,
-    this.data,
+    Key? key,
+    required this.data,
   }) : super(key: key);
 
   final List<DataStation> data;
@@ -195,7 +195,7 @@ class _Body extends StatelessWidget {
             child: Text(
               'Informations créées à partir de données de Météo-France',
               style: TextStyle(
-                color: Theme.of(context).textTheme.headline6.color,
+                color: Theme.of(context).textTheme.headline6?.color,
                 fontSize: 14,
               ),
             ),

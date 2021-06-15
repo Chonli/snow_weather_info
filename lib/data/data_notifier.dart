@@ -1,13 +1,14 @@
 import 'dart:async';
 import 'dart:developer' show log;
 
+import 'package:collection/collection.dart';
 import 'package:csv/csv.dart';
 import 'package:dart_rss/dart_rss.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:latlong/latlong.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:snow_weather_info/data/sources/avalanche_api.dart';
 import 'package:snow_weather_info/data/sources/data_api.dart';
 import 'package:snow_weather_info/data/sources/database_helper.dart';
@@ -19,10 +20,10 @@ import 'package:snow_weather_info/model/station.dart';
 import 'constant_data_list.dart';
 
 class DataNotifier extends ChangeNotifier {
-  Preferences preferences;
-  AvalancheAPI avalancheAPI;
-  DataAPI dataAPI;
-  DatabaseHelper databaseHelper;
+  late Preferences preferences;
+  late AvalancheAPI avalancheAPI;
+  late DataAPI dataAPI;
+  late DatabaseHelper databaseHelper;
 
   bool _isInitialise = false;
   final _mapDataStation = <int, List<DataStation>>{};
@@ -43,7 +44,7 @@ class DataNotifier extends ChangeNotifier {
   }
 
   List<Station> get stations => _stations.toList();
-  List<Station> _stations;
+  List<Station> _stations = [];
   @protected
   set stations(List<Station> value) {
     if (_stations != value) {
@@ -53,7 +54,7 @@ class DataNotifier extends ChangeNotifier {
   }
 
   List<Nivose> get nivoses => _nivoses.toList();
-  List<Nivose> _nivoses;
+  List<Nivose> _nivoses = [];
   @protected
   set nivoses(List<Nivose> value) {
     if (_nivoses != value) {
@@ -74,10 +75,10 @@ class DataNotifier extends ChangeNotifier {
     }
   }
 
-  AtomFeed get avalancheFeed => _avalancheFeed;
-  AtomFeed _avalancheFeed;
+  AtomFeed? get avalancheFeed => _avalancheFeed;
+  AtomFeed? _avalancheFeed;
   @protected
-  set avalancheFeed(AtomFeed value) {
+  set avalancheFeed(AtomFeed? value) {
     if (_avalancheFeed != value) {
       _avalancheFeed = value;
       notifyListeners();
@@ -85,7 +86,7 @@ class DataNotifier extends ChangeNotifier {
   }
 
   List<DataStation> getDataOfStation(int id) {
-    return _mapDataStation[id];
+    return _mapDataStation[id] ?? [];
   }
 
   Nivose getNivose(String codeMF) {
@@ -126,10 +127,8 @@ class DataNotifier extends ChangeNotifier {
       _mapDataStation[s.id] = listOfData;
       s.hasData = listOfData.isNotEmpty;
       if (s.hasData) {
-        final dataSt =
-            listOfData.firstWhere((d) => d.hasSnowHeight, orElse: () => null);
-        s.lastSnowHeight =
-            dataSt != null && dataSt.hasSnowHeight ? dataSt.snowHeight : 0.0;
+        final dataSt = listOfData.firstWhereOrNull((d) => d.hasSnowHeight);
+        s.lastSnowHeight = dataSt?.snowHeight ?? 0;
       } else {
         s.lastSnowHeight = 0.0;
       }
@@ -207,7 +206,7 @@ class DataNotifier extends ChangeNotifier {
   }
 
   Future<void> _downloadStationData() async {
-    DateTime lastDataDownload;
+    DateTime? lastDataDownload;
     final lastDateData = preferences.lastStationDataDate;
     log('last data ${lastDateData.toString()}');
     for (int i = 7; i >= 0; --i) {

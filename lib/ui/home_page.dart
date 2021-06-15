@@ -10,7 +10,10 @@ import 'package:snow_weather_info/ui/map_widget.dart';
 import 'package:url_launcher/url_launcher.dart' as url;
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key key, this.title}) : super(key: key);
+  const HomePage({
+    Key? key,
+    required this.title,
+  }) : super(key: key);
   final String title;
 
   @override
@@ -19,7 +22,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
-  TabController _tabController;
+  late TabController _tabController;
 
   @override
   void initState() {
@@ -113,8 +116,8 @@ class _HomePageState extends State<HomePage>
             const Padding(padding: EdgeInsets.all(5)),
             Text(
               'Développeur: Chonli',
-              style:
-                  TextStyle(color: Theme.of(context).textTheme.bodyText2.color),
+              style: TextStyle(
+                  color: Theme.of(context).textTheme.bodyText2?.color),
             ),
             const Padding(padding: EdgeInsets.all(5)),
             InkWell(
@@ -123,7 +126,7 @@ class _HomePageState extends State<HomePage>
               child: Text(
                 'Lien vers le projet',
                 style: TextStyle(
-                    color: Theme.of(context).textTheme.bodyText1.color),
+                    color: Theme.of(context).textTheme.bodyText1?.color),
               ),
             ),
           ],
