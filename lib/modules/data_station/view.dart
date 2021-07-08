@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
+import 'package:snow_weather_info/extensions/double.dart';
 import 'package:snow_weather_info/model/data_station.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/modules/data_station/chart.dart';
@@ -38,16 +39,15 @@ class _View extends StatelessWidget {
   String _formatDataToString(Station station, DataStation data) {
     var ret =
         "Station ${station.name} (${station.altitude}m) au ${DateFormat('dd-MM-yyyy à kk:mm').format(data.date)}\n";
-    if (data.hasTemperature) {
-      ret += 'Température: ${data.temperature?.toStringAsFixed(1)}°C\n';
+    if (data.temperature != null) {
+      ret += 'Température: ${data.temperature!.toStringTemperature()}\n';
     }
-    if (data.hasSnowHeight) {
-      ret +=
-          'Hauteur de neige: ${(data.snowHeight! * 100).toStringAsFixed(1)}cm\n';
+    if (data.snowHeight != null) {
+      ret += 'Hauteur de neige: ${data.snowHeight!.toStringSnowHeigth()}cm\n';
     }
-    if (data.hasSnowNewHeight) {
+    if (data.snowNewHeight != null) {
       ret +=
-          'Hauteur de neige fraiches: ${(data.snowNewHeight! * 100).toStringAsFixed(1)}cm\n';
+          'Hauteur de neige fraiches: ${data.snowNewHeight!.toStringSnowHeigth()}cm\n';
     }
     return ret;
   }
@@ -82,7 +82,7 @@ class _View extends StatelessWidget {
                 }
               }),
           Visibility(
-            visible: data != null && data.isNotEmpty,
+            visible: data.isNotEmpty,
             child: IconButton(
               icon: const Icon(Icons.share),
               onPressed: () => Share.share(

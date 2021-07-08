@@ -99,21 +99,21 @@ class DataNotifier extends ChangeNotifier {
       await preferences.init();
       _initNivose();
 
-      try {
-        await Future.wait([
-          _initStation(),
-          //_downloadStationData(),
-          _readTestStationData(),
-        ]);
-        avalancheFeed = await avalancheAPI.getAvalanche();
-        await _finalizeStationData();
-        await _initFavorites();
-        _isInitialise = true;
-      } catch (e) {
-        log('init error : $e');
-      } finally {
-        loading = false;
-      }
+      //try {
+      await Future.wait([
+        _initStation(),
+        //_downloadStationData(),
+        _readTestStationData(),
+      ]);
+      avalancheFeed = await avalancheAPI.getAvalanche();
+      await _finalizeStationData();
+      await _initFavorites();
+      _isInitialise = true;
+      //} catch (e) {
+      // log('init error : $e');
+      //} finally {
+      loading = false;
+      //}
     }
 
     return _isInitialise;
@@ -127,7 +127,7 @@ class DataNotifier extends ChangeNotifier {
       _mapDataStation[s.id] = listOfData;
       s.hasData = listOfData.isNotEmpty;
       if (s.hasData) {
-        final dataSt = listOfData.firstWhereOrNull((d) => d.hasSnowHeight);
+        final dataSt = listOfData.firstWhereOrNull((d) => d.snowHeight != null);
         s.lastSnowHeight = dataSt?.snowHeight ?? 0;
       } else {
         s.lastSnowHeight = 0.0;
