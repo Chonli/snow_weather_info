@@ -46,11 +46,14 @@ class _NivosePageState extends State<NivosePage> {
           margin: const EdgeInsets.all(10),
           child: ListView(
             children: [
-              if (widget.nivose.urlWeek != null)
+              if (widget.nivose.urlWeek.isNotEmpty)
                 Image.network(
                   widget.nivose.urlWeek,
-                  loadingBuilder: (BuildContext context, Widget child,
-                      ImageChunkEvent loadingProgress) {
+                  loadingBuilder: (
+                    BuildContext context,
+                    Widget child,
+                    ImageChunkEvent? loadingProgress,
+                  ) {
                     if (loadingProgress == null) {
                       return child;
                     }
@@ -61,8 +64,11 @@ class _NivosePageState extends State<NivosePage> {
               if (widget.nivose.urlSeason != null)
                 Image.network(
                   widget.nivose.urlSeason,
-                  loadingBuilder: (BuildContext context, Widget child,
-                      ImageChunkEvent loadingProgress) {
+                  loadingBuilder: (
+                    BuildContext context,
+                    Widget child,
+                    ImageChunkEvent? loadingProgress,
+                  ) {
                     if (loadingProgress == null) {
                       return child;
                     }

@@ -3,9 +3,12 @@ import 'package:snow_weather_info/model/data_station.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class DataStationChart extends StatelessWidget {
-  const DataStationChart(this._data);
+  const DataStationChart({
+    Key? key,
+    required this.data,
+  }) : super(key: key);
 
-  final List<DataStation> _data;
+  final List<DataStation> data;
 
   @override
   Widget build(BuildContext context) {
@@ -13,24 +16,24 @@ class DataStationChart extends StatelessWidget {
     final List<TimeSeriesData> tsdatanewsnow = [];
     final List<TimeSeriesData> tsdatasnowtemperature = [];
     final List<TimeSeriesDataTemp> tsdatatemperature = [];
-    if (_data != null) {
-      for (var d in _data) {
-        if (d.hasSnowHeight) {
-          tsdatasnow.add(TimeSeriesData(d.date, d.snowHeight * 100));
+    if (data.isNotEmpty) {
+      for (final d in data) {
+        if (d.snowHeight != null) {
+          tsdatasnow.add(TimeSeriesData(d.date, d.snowHeight! * 100));
         }
-        if (d.hasTemperature) {
+        if (d.temperature != null) {
           tsdatatemperature.add(TimeSeriesDataTemp(
             d.date,
-            d.temperature,
-            d.hasTemperatureMin24 ? d.temperatureMin24 : d.temperature,
-            d.hasTemperatureMax24 ? d.temperatureMax24 : d.temperature,
+            d.temperature!,
+            d.temperatureMin24 != null ? d.temperatureMin24! : d.temperature!,
+            d.temperatureMax24 != null ? d.temperatureMax24! : d.temperature!,
           ));
         }
-        if (d.hasTemperatureSnow) {
-          tsdatasnowtemperature.add(TimeSeriesData(d.date, d.temperatureSnow));
+        if (d.temperatureSnow != null) {
+          tsdatasnowtemperature.add(TimeSeriesData(d.date, d.temperatureSnow!));
         }
-        if (d.hasSnowNewHeight) {
-          tsdatanewsnow.add(TimeSeriesData(d.date, d.snowNewHeight * 100));
+        if (d.snowNewHeight != null) {
+          tsdatanewsnow.add(TimeSeriesData(d.date, d.snowNewHeight! * 100));
         }
       }
     } else {
@@ -95,7 +98,7 @@ class DataStationChart extends StatelessWidget {
                 position: charts.BehaviorPosition.bottom,
                 showMeasures: true,
                 horizontalFirst: false,
-                measureFormatter: (num value) {
+                measureFormatter: (value) {
                   return value == null ? '-' : '${value.toStringAsFixed(1)}cm';
                 },
               ),

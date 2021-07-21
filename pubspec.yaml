@@ -15,7 +15,7 @@ publish_to: none
 version: 1.5.0+15
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -23,26 +23,26 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
+  cupertino_icons: ^1.0.3
   flutter_launcher_icons: "^0.9.0"
-  provider: ^4.3.2+1
-  http: ^0.13.0
-  latlong: ^0.6.1
-  csv: ^4.1.0
+  provider: ^5.0.0
+  http: ^0.13.3
+  collection: ^1.15.0
+  latlong2: ^0.8.0
+  csv: ^5.0.0
   intl: ^0.17.0
-  flutter_map: ^0.8.2
+  flutter_map: ^0.13.1
   # user_location: ^0.1.3
-  # replace by fl_chart
-  charts_flutter: ^0.10.0
-  sqflite: ^1.3.1+1
-  shared_preferences: ^0.5.6+1
-  url_launcher: ^5.7.10
-  package_info: ^0.4.3
-  carousel_slider: ^3.0.0
-  share: ^0.6.4+5
-  alphabet_list_scroll_view: ^1.0.6
-  webview_flutter: ^2.0.2
-  flutter_sticky_header: ^0.5.0
+  charts_flutter: ^0.11.0
+  sqflite: ^2.0.0+3
+  shared_preferences: ^2.0.6
+  url_launcher: ^6.0.6
+  package_info: ^2.0.2
+  carousel_slider: ^4.0.0-nullsafety.0
+  share: ^2.0.4
+  alphabet_list_scroll_view: ^2.0.0
+  webview_flutter: ^2.0.8
+  flutter_sticky_header: ^0.6.0
   dart_rss:
     git:
       url: https://github.com/Chonli/webfeed.git
@@ -56,6 +56,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/icon/icon.png
+    - assets/test_data/
 
 flutter_icons:
   android: "launcher_icon"

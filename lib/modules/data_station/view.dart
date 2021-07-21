@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
+import 'package:snow_weather_info/extensions/double.dart';
 import 'package:snow_weather_info/model/data_station.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/modules/data_station/chart.dart';
@@ -12,8 +13,8 @@ import 'package:snow_weather_info/modules/data_station/widget.dart';
 
 class DataStationView extends StatelessWidget {
   const DataStationView({
-    Key key,
-    @required this.station,
+    Key? key,
+    required this.station,
   }) : super(key: key);
 
   final Station station;
@@ -29,8 +30,8 @@ class DataStationView extends StatelessWidget {
 
 class _View extends StatelessWidget {
   const _View({
-    Key key,
-    @required this.station,
+    Key? key,
+    required this.station,
   }) : super(key: key);
 
   final Station station;
@@ -38,16 +39,15 @@ class _View extends StatelessWidget {
   String _formatDataToString(Station station, DataStation data) {
     var ret =
         "Station ${station.name} (${station.altitude}m) au ${DateFormat('dd-MM-yyyy à kk:mm').format(data.date)}\n";
-    if (data.hasTemperature) {
-      ret += 'Température: ${data.temperature.toStringAsFixed(1)}°C\n';
+    if (data.temperature != null) {
+      ret += 'Température: ${data.temperature!.toStringTemperature()}\n';
     }
-    if (data.hasSnowHeight) {
-      ret +=
-          'Hauteur de neige: ${(data.snowHeight * 100).toStringAsFixed(1)}cm\n';
+    if (data.snowHeight != null) {
+      ret += 'Hauteur de neige: ${data.snowHeight!.toStringSnowHeigth()}cm\n';
     }
-    if (data.hasSnowNewHeight) {
+    if (data.snowNewHeight != null) {
       ret +=
-          'Hauteur de neige fraiches: ${(data.snowNewHeight * 100).toStringAsFixed(1)}cm\n';
+          'Hauteur de neige fraiches: ${data.snowNewHeight!.toStringSnowHeigth()}cm\n';
     }
     return ret;
   }
@@ -82,18 +82,20 @@ class _View extends StatelessWidget {
                 }
               }),
           Visibility(
-            visible: data != null && data.isNotEmpty,
+            visible: data.isNotEmpty,
             child: IconButton(
               icon: const Icon(Icons.share),
               onPressed: () => Share.share(
-                _formatDataToString(station,
-                    data[context.read<DataStationNotifier>().currentIndex]),
+                _formatDataToString(
+                  station,
+                  data[context.read<DataStationNotifier>().currentIndex],
+                ),
               ),
             ),
           ),
         ],
       ),
-      body: data == null || data.isEmpty
+      body: data.isEmpty
           ? const Center(child: Text('Pas de donnée pour cette station météo'))
           : _Body(data: data),
     );
@@ -102,8 +104,8 @@ class _View extends StatelessWidget {
 
 class _Body extends StatelessWidget {
   _Body({
-    Key key,
-    this.data,
+    Key? key,
+    required this.data,
   }) : super(key: key);
 
   final List<DataStation> data;
@@ -184,7 +186,7 @@ class _Body extends StatelessWidget {
                     ),
                   ),
                 ),
-                DataStationChart(data),
+                DataStationChart(data: data),
               ],
             ),
           ),
@@ -193,7 +195,7 @@ class _Body extends StatelessWidget {
             child: Text(
               'Informations créées à partir de données de Météo-France',
               style: TextStyle(
-                color: Theme.of(context).textTheme.headline6.color,
+                color: Theme.of(context).textTheme.headline6?.color,
                 fontSize: 14,
               ),
             ),

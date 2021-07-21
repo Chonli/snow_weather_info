@@ -2,27 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:snow_weather_info/core/widgets/app_web_page.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
-import 'package:snow_weather_info/model/extensions.dart';
+import 'package:snow_weather_info/extensions/atom_item.dart';
 import 'package:dart_rss/dart_rss.dart';
 
 class AvalancheListWidget extends StatelessWidget {
   const AvalancheListWidget({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final feed = context.select<DataNotifier, AtomFeed>((n) => n.avalancheFeed);
+    final feedItems = context.select<DataNotifier, List<AtomItem>>(
+      (n) => n.avalancheFeed?.items ?? [],
+    );
     final titleStyle = TextStyle(
-      color: Theme.of(context).textTheme.bodyText2.color,
+      color: Theme.of(context).textTheme.bodyText2?.color,
       fontStyle: FontStyle.normal,
     );
 
-    return feed?.items?.isNotEmpty ?? false
+    return feedItems.isNotEmpty
         ? ListView.builder(
-            itemCount: feed.items.length,
+            itemCount: feedItems.length,
             itemBuilder: (context, index) {
-              final item = feed.items[index];
+              final item = feedItems[index];
 
               return Card(
                 margin: const EdgeInsets.all(
@@ -41,7 +43,7 @@ class AvalancheListWidget extends StatelessWidget {
                     '${item.date} : ${item.massif}',
                     style: titleStyle,
                   ),
-                  trailing: item.url != null
+                  trailing: item.url.isNotEmpty
                       ? const Icon(Icons.navigate_next)
                       : const SizedBox(),
                   onTap: () => Navigator.push(

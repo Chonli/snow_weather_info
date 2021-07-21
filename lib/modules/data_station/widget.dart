@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:snow_weather_info/model/data_station.dart';
+import 'package:snow_weather_info/extensions/double.dart';
 
 class DataStationWidget extends StatelessWidget {
   const DataStationWidget({
-    Key key,
-    @required this.data,
+    Key? key,
+    required this.data,
   }) : super(key: key);
 
   final DataStation data;
@@ -20,42 +21,42 @@ class DataStationWidget extends StatelessWidget {
             DateFormat('dd-MM-yyyy à kk:mm').format(data.date),
             style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           ),
-          if (data.hasTemperature)
+          if (data.temperature != null)
             _LineCard(
               'Température :',
-              ' ${data.temperature.toStringAsFixed(1)}°C',
+              ' ${data.temperature!.toStringTemperature()}',
             ),
-          if (data.hasTemperatureMin24)
+          if (data.temperatureMin24 != null)
             _LineCard(
               'Température Min 24h :',
-              ' ${data.temperatureMin24.toStringAsFixed(1)}°C',
+              ' ${data.temperatureMin24!.toStringTemperature()}',
             ),
-          if (data.hasTemperatureMax24)
+          if (data.temperatureMax24 != null)
             _LineCard(
               'Température Max 24h :',
-              ' ${data.temperatureMax24.toStringAsFixed(1)}°C',
+              ' ${data.temperatureMax24!.toStringTemperature()}',
             ),
-          if (data.hasTemperatureSnow)
+          if (data.temperatureSnow != null)
             _LineCard(
               'Température du sol:',
-              ' ${data.temperatureSnow.toStringAsFixed(1)}°C',
+              ' ${data.temperatureSnow!.toStringTemperature()}',
             ),
-          if (data.hasSnowHeight)
+          if (data.snowHeight != null)
             _LineCard(
               'Hauteur de neige :',
-              ' ${(data.snowHeight * 100).toStringAsFixed(1)}cm',
+              ' ${data.snowHeight!.toStringSnowHeigth()}',
             ),
-          if (data.hasSnowNewHeight)
+          if (data.snowNewHeight != null)
             _LineCard(
               'Hauteur de neige fraiches :',
-              ' ${(data.snowNewHeight * 100).toStringAsFixed(1)}cm',
+              ' ${data.snowNewHeight!.toStringSnowHeigth()}',
             ),
-          if (data.hasDirectionWind)
+          if (data.directionWind != null)
             _LineCard(
               'Direction vent moyen :',
               ' ${data.directionWind}°',
             ),
-          if (data.hasSpeedWind)
+          if (data.speedWind != null)
             _LineCard(
               'Vent moyen :',
               ' ${data.speedWind}m/s',
@@ -67,7 +68,7 @@ class DataStationWidget extends StatelessWidget {
 }
 
 class _LineCard extends StatelessWidget {
-  const _LineCard(this.text1, this.text2, {Key key}) : super(key: key);
+  const _LineCard(this.text1, this.text2, {Key? key}) : super(key: key);
 
   final String text1;
   final String text2;

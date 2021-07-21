@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong/latlong.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
+import 'package:snow_weather_info/core/widgets/app_web_page.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
-import 'package:snow_weather_info/model/extensions.dart';
+import 'package:snow_weather_info/extensions/atom_item.dart';
 import 'package:snow_weather_info/modules/data_station/view.dart';
 import 'package:snow_weather_info/ui/map_licence_widget.dart';
 import 'package:snow_weather_info/ui/nivose_page.dart';
@@ -13,7 +14,7 @@ import 'package:dart_rss/dart_rss.dart';
 
 class MapWidget extends StatefulWidget {
   const MapWidget({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -21,12 +22,12 @@ class MapWidget extends StatefulWidget {
 }
 
 class _MapWidgetState extends State<MapWidget> {
-  MapController _mapController;
+  late MapController _mapController;
   final _listStationMarker = <Marker>[];
   final _listNivoseMarker = <Marker>[];
   final _listAvalancheMarker = <Marker>[];
   // UserLocationOptions _userLocationOptions;
-  final _userMarkers = <Marker>[];
+  //final _userMarkers = <Marker>[];
 
   @override
   void initState() {
@@ -49,14 +50,13 @@ class _MapWidgetState extends State<MapWidget> {
 
   @override
   void dispose() {
-    _mapController = null;
     super.dispose();
   }
 
   void _initMakerList(BuildContext context) {
     final nivoses = context.read<DataNotifier>().nivoses;
 
-    nivoses?.forEach(
+    nivoses.forEach(
       (nivose) {
         _listNivoseMarker.add(
           Marker(
@@ -79,7 +79,7 @@ class _MapWidgetState extends State<MapWidget> {
     );
 
     final stations = context.read<DataNotifier>().stations;
-    stations?.forEach(
+    stations.forEach(
       (station) {
         final color = station.hasData ? Colors.black : Colors.grey;
         _listStationMarker.add(
@@ -123,22 +123,27 @@ class _MapWidgetState extends State<MapWidget> {
     );
 
     final feed = context.read<DataNotifier>().avalancheFeed;
-    feed?.items?.forEach(
+    feed?.items.forEach(
       (AtomItem item) {
         if (item.geo != null) {
           _listAvalancheMarker.add(
             Marker(
               width: 90,
               height: 50,
-              point: LatLng(item.geo.lat, item.geo.long),
+              point: LatLng(item.geo?.lat ?? 0, item.geo?.long ?? 0),
               builder: (ctx) => IconButton(
                 icon: const Icon(Icons.ac_unit),
                 color: Colors.orange,
-                onPressed: () async {
-                  if (item.url != null && await url.canLaunch(item.url)) {
-                    url.launch(item.url);
-                  }
-                },
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute<Widget>(
+                    builder: (context) => AppWebPage(
+                      title: item.shortTitle,
+                      url: item.url,
+                      canIsOpen: true,
+                    ),
+                  ),
+                ),
               ),
             ),
           );
