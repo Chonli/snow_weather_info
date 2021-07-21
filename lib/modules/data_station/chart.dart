@@ -1,7 +1,6 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:snow_weather_info/model/data_station.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
 class DataStationChart extends StatelessWidget {
   const DataStationChart({
@@ -13,232 +12,170 @@ class DataStationChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<FlSpot> tsdatasnow = [];
-    final chartTextStyle = const TextStyle(
-      color: Colors.white,
-      fontSize: 12,
-    );
-    DateTime? minDate;
-
-    // final List<TimeSeriesData> tsdatanewsnow = [];
-    // final List<TimeSeriesData> tsdatasnowtemperature = [];
-    // final List<TimeSeriesDataTemp> tsdatatemperature = [];
+    final List<TimeSeriesData> tsdatasnow = [];
+    final List<TimeSeriesData> tsdatanewsnow = [];
+    final List<TimeSeriesData> tsdatasnowtemperature = [];
+    final List<TimeSeriesDataTemp> tsdatatemperature = [];
     if (data.isNotEmpty) {
       for (final d in data) {
-        minDate ??= d.date;
-
-        final index = d.date.difference(minDate).inDays;
-
         if (d.snowHeight != null) {
-          tsdatasnow.add(FlSpot(index.toDouble(), d.snowHeight! * 100));
+          tsdatasnow.add(TimeSeriesData(d.date, d.snowHeight! * 100));
         }
-        //     if (d.hasTemperature) {
-        //       tsdatatemperature.add(TimeSeriesDataTemp(
-        //         d.date,
-        //         d.temperature,
-        //         d.hasTemperatureMin24 ? d.temperatureMin24 : d.temperature,
-        //         d.hasTemperatureMax24 ? d.temperatureMax24 : d.temperature,
-        //       ));
-        //     }
-        //     if (d.hasTemperatureSnow) {
-        //       tsdatasnowtemperature.add(TimeSeriesData(d.date, d.temperatureSnow));
-        //     }
-        //     if (d.hasSnowNewHeight) {
-        //       tsdatanewsnow.add(TimeSeriesData(d.date, d.snowNewHeight * 100));
-        //     }
-        //   }
-        // } else {
-        //   // Dummy list to prevent data = NULL
-        //   tsdatasnow.add(TimeSeriesData(DateTime.now(), 0));
-
+        if (d.temperature != null) {
+          tsdatatemperature.add(TimeSeriesDataTemp(
+            d.date,
+            d.temperature!,
+            d.temperatureMin24 != null ? d.temperatureMin24! : d.temperature!,
+            d.temperatureMax24 != null ? d.temperatureMax24! : d.temperature!,
+          ));
+        }
+        if (d.temperatureSnow != null) {
+          tsdatasnowtemperature.add(TimeSeriesData(d.date, d.temperatureSnow!));
+        }
+        if (d.snowNewHeight != null) {
+          tsdatanewsnow.add(TimeSeriesData(d.date, d.snowNewHeight! * 100));
+        }
       }
     } else {
-      return const SizedBox();
+      // Dummy list to prevent data = NULL
+      tsdatasnow.add(TimeSeriesData(DateTime.now(), 0));
     }
 
-    // final seriesSnow = [
-    //   charts.Series<TimeSeriesData, DateTime>(
-    //     id: 'SnowHeight',
-    //     displayName: 'Neige',
-    //     colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-    //     domainFn: (TimeSeriesData data, _) => data.time,
-    //     measureFn: (TimeSeriesData data, _) => data.data,
-    //     data: tsdatasnow,
-    //   ),
-    //   charts.Series<TimeSeriesData, DateTime>(
-    //     id: 'SnowNewHeight',
-    //     displayName: 'Neige fraîche',
-    //     colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-    //     domainFn: (TimeSeriesData data, _) => data.time,
-    //     measureFn: (TimeSeriesData data, _) => data.data,
-    //     data: tsdatanewsnow,
-    //   )..setAttribute(charts.rendererIdKey, 'customBar'),
-    // ];
+    final seriesSnow = [
+      charts.Series<TimeSeriesData, DateTime>(
+        id: 'SnowHeight',
+        displayName: 'Neige',
+        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+        domainFn: (TimeSeriesData data, _) => data.time,
+        measureFn: (TimeSeriesData data, _) => data.data,
+        data: tsdatasnow,
+      ),
+      charts.Series<TimeSeriesData, DateTime>(
+        id: 'SnowNewHeight',
+        displayName: 'Neige fraîche',
+        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+        domainFn: (TimeSeriesData data, _) => data.time,
+        measureFn: (TimeSeriesData data, _) => data.data,
+        data: tsdatanewsnow,
+      )..setAttribute(charts.rendererIdKey, 'customBar'),
+    ];
 
-    // final seriesTemperature = [
-    //   charts.Series<TimeSeriesDataTemp, DateTime>(
-    //     id: 'Temperature',
-    //     displayName: 'Température',
-    //     colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
-    //     domainFn: (TimeSeriesDataTemp data, _) => data.time,
-    //     measureFn: (TimeSeriesDataTemp data, _) => data.temp,
-    //     measureLowerBoundFn: (TimeSeriesDataTemp data, _) => data.tempMin,
-    //     measureUpperBoundFn: (TimeSeriesDataTemp data, _) => data.tempMax,
-    //     data: tsdatatemperature,
-    //   ),
-    //   charts.Series<TimeSeriesData, DateTime>(
-    //     id: 'Temperature Snow',
-    //     displayName: 'Température Neige',
-    //     colorFn: (_, __) => charts.MaterialPalette.pink.shadeDefault,
-    //     domainFn: (TimeSeriesData data, _) => data.time,
-    //     measureFn: (TimeSeriesData data, _) => data.data,
-    //     data: tsdatasnowtemperature,
-    //   ),
-    // ];
+    final seriesTemperature = [
+      charts.Series<TimeSeriesDataTemp, DateTime>(
+        id: 'Temperature',
+        displayName: 'Température',
+        colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
+        domainFn: (TimeSeriesDataTemp data, _) => data.time,
+        measureFn: (TimeSeriesDataTemp data, _) => data.temp,
+        measureLowerBoundFn: (TimeSeriesDataTemp data, _) => data.tempMin,
+        measureUpperBoundFn: (TimeSeriesDataTemp data, _) => data.tempMax,
+        data: tsdatatemperature,
+      ),
+      charts.Series<TimeSeriesData, DateTime>(
+        id: 'Temperature Snow',
+        displayName: 'Température Neige',
+        colorFn: (_, __) => charts.MaterialPalette.pink.shadeDefault,
+        domainFn: (TimeSeriesData data, _) => data.time,
+        measureFn: (TimeSeriesData data, _) => data.data,
+        data: tsdatasnowtemperature,
+      ),
+    ];
 
     return ListView(
       primary: false,
       shrinkWrap: true,
       children: [
-        _ChartBorder(
-          child: LineChart(
-            LineChartData(
-              gridData: FlGridData(
-                show: false,
+        Container(
+          constraints: const BoxConstraints(
+            maxHeight: 300,
+          ),
+          child: charts.TimeSeriesChart(
+            seriesSnow,
+            animate: true,
+            animationDuration: const Duration(milliseconds: 800),
+            behaviors: [
+              charts.SeriesLegend(
+                position: charts.BehaviorPosition.bottom,
+                showMeasures: true,
+                horizontalFirst: false,
+                measureFormatter: (value) {
+                  return value == null ? '-' : '${value.toStringAsFixed(1)}cm';
+                },
               ),
-              lineBarsData: [
-                LineChartBarData(
-                  spots: tsdatasnow,
-                  isCurved: true,
-                ),
-              ],
-              titlesData: FlTitlesData(
-                show: true,
-                bottomTitles: SideTitles(
-                  showTitles: true,
-                  getTextStyles: (value) => chartTextStyle,
-                  getTitles: (value) {
-                    return DateFormat('MM/dd').format(
-                      minDate!.add(
-                        Duration(
-                          days: value.toInt(),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                leftTitles: SideTitles(
-                  showTitles: true,
-                  getTextStyles: (value) => chartTextStyle,
-                  getTitles: (value) {
-                    if (value % 10 == 0) {
-                      return '${value.toInt()}';
-                    }
-                    return '';
-                  },
-                  margin: 12,
+            ],
+            layoutConfig: charts.LayoutConfig(
+                leftMarginSpec: charts.MarginSpec.fixedPixel(30),
+                topMarginSpec: charts.MarginSpec.fixedPixel(10),
+                rightMarginSpec: charts.MarginSpec.fixedPixel(10),
+                bottomMarginSpec: charts.MarginSpec.fixedPixel(10)),
+            domainAxis: const charts.DateTimeAxisSpec(
+              tickFormatterSpec: charts.AutoDateTimeTickFormatterSpec(
+                day: charts.TimeFormatterSpec(
+                  format: 'd',
+                  transitionFormat: 'dd/MM',
                 ),
               ),
-              minY: 0,
+            ),
+            customSeriesRenderers: [
+              charts.BarRendererConfig(
+                // ID used to link series to this renderer.
+                customRendererId: 'customBar',
+                cornerStrategy: const charts.ConstCornerStrategy(30),
+                fillPattern: charts.FillPatternType.forwardHatch,
+              )
+            ],
+          ),
+        ),
+        Container(
+          constraints: const BoxConstraints(
+            maxHeight: 300,
+          ),
+          child: charts.TimeSeriesChart(
+            seriesTemperature,
+            animate: true,
+            animationDuration: const Duration(milliseconds: 800),
+            behaviors: [
+              charts.SeriesLegend(
+                position: charts.BehaviorPosition.bottom,
+                showMeasures: true,
+                horizontalFirst: false,
+                measureFormatter: (value) {
+                  return value == null ? '-' : '${value.toStringAsFixed(1)}°C';
+                },
+              ),
+            ],
+            layoutConfig: charts.LayoutConfig(
+                leftMarginSpec: charts.MarginSpec.fixedPixel(30),
+                topMarginSpec: charts.MarginSpec.fixedPixel(10),
+                rightMarginSpec: charts.MarginSpec.fixedPixel(10),
+                bottomMarginSpec: charts.MarginSpec.fixedPixel(10)),
+            domainAxis: const charts.DateTimeAxisSpec(
+              tickFormatterSpec: charts.AutoDateTimeTickFormatterSpec(
+                day: charts.TimeFormatterSpec(
+                  format: 'd',
+                  transitionFormat: 'dd/MM',
+                ),
+              ),
             ),
           ),
         ),
-
-        // Container(
-        //   constraints: const BoxConstraints(
-        //     maxHeight: 300,
-        //   ),
-        //   child: charts.TimeSeriesChart(
-        //     seriesSnow,
-        //     animate: true,
-        //     animationDuration: const Duration(milliseconds: 800),
-        //     behaviors: [
-        //       charts.SeriesLegend(
-        //         position: charts.BehaviorPosition.bottom,
-        //         showMeasures: true,
-        //         horizontalFirst: false,
-        //         measureFormatter: (num value) {
-        //           return value == null ? '-' : '${value.toStringAsFixed(1)}cm';
-        //         },
-        //       ),
-        //     ],
-        //     layoutConfig: charts.LayoutConfig(
-        //         leftMarginSpec: charts.MarginSpec.fixedPixel(30),
-        //         topMarginSpec: charts.MarginSpec.fixedPixel(10),
-        //         rightMarginSpec: charts.MarginSpec.fixedPixel(10),
-        //         bottomMarginSpec: charts.MarginSpec.fixedPixel(10)),
-        //     domainAxis: const charts.DateTimeAxisSpec(
-        //       tickFormatterSpec: charts.AutoDateTimeTickFormatterSpec(
-        //         day: charts.TimeFormatterSpec(
-        //           format: 'd',
-        //           transitionFormat: 'dd/MM',
-        //         ),
-        //       ),
-        //     ),
-        //     customSeriesRenderers: [
-        //       charts.BarRendererConfig(
-        //         // ID used to link series to this renderer.
-        //         customRendererId: 'customBar',
-        //         cornerStrategy: const charts.ConstCornerStrategy(30),
-        //         fillPattern: charts.FillPatternType.forwardHatch,
-        //       )
-        //     ],
-        //   ),
-        // ),
-        // Container(
-        //   constraints: const BoxConstraints(
-        //     maxHeight: 300,
-        //   ),
-        //   child: charts.TimeSeriesChart(
-        //     seriesTemperature,
-        //     animate: true,
-        //     animationDuration: const Duration(milliseconds: 800),
-        //     behaviors: [
-        //       charts.SeriesLegend(
-        //         position: charts.BehaviorPosition.bottom,
-        //         showMeasures: true,
-        //         horizontalFirst: false,
-        //         measureFormatter: (value) {
-        //           return value == null ? '-' : '${value.toStringAsFixed(1)}°C';
-        //         },
-        //       ),
-        //     ],
-        //     layoutConfig: charts.LayoutConfig(
-        //         leftMarginSpec: charts.MarginSpec.fixedPixel(30),
-        //         topMarginSpec: charts.MarginSpec.fixedPixel(10),
-        //         rightMarginSpec: charts.MarginSpec.fixedPixel(10),
-        //         bottomMarginSpec: charts.MarginSpec.fixedPixel(10)),
-        //     domainAxis: const charts.DateTimeAxisSpec(
-        //       tickFormatterSpec: charts.AutoDateTimeTickFormatterSpec(
-        //         day: charts.TimeFormatterSpec(
-        //           format: 'd',
-        //           transitionFormat: 'dd/MM',
-        //         ),
-        //       ),
-        //     ),
-        //   ),
-        // ),
       ],
     );
   }
 }
 
-class _ChartBorder extends StatelessWidget {
-  const _ChartBorder({
-    Key? key,
-    required this.child,
-  }) : super(key: key);
+class TimeSeriesData {
+  TimeSeriesData(this.time, this.data);
 
-  final Widget child;
+  final DateTime time;
+  final double data;
+}
 
-  @override
-  Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1.30,
-      child: Container(
-        padding: const EdgeInsets.all(15),
-        child: child,
-      ),
-    );
-  }
+class TimeSeriesDataTemp {
+  TimeSeriesDataTemp(this.time, this.temp, this.tempMin, this.tempMax);
+
+  final DateTime time;
+  final double temp;
+  final double tempMin;
+  final double tempMax;
 }
