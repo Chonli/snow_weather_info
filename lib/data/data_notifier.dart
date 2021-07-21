@@ -99,21 +99,22 @@ class DataNotifier extends ChangeNotifier {
       await preferences.init();
       _initNivose();
 
-      //try {
-      await Future.wait([
-        _initStation(),
-        //_downloadStationData(),
-        _readTestStationData(),
-      ]);
-      avalancheFeed = await avalancheAPI.getAvalanche();
-      await _finalizeStationData();
-      await _initFavorites();
-      _isInitialise = true;
-      //} catch (e) {
-      // log('init error : $e');
-      //} finally {
-      loading = false;
-      //}
+      try {
+        await Future.wait([
+          _initStation(),
+          _downloadStationData(),
+          // uncomment to use test value
+          //_readTestStationData(),
+        ]);
+        avalancheFeed = await avalancheAPI.getAvalanche();
+        await _finalizeStationData();
+        await _initFavorites();
+        _isInitialise = true;
+      } catch (e) {
+        log('init error : $e');
+      } finally {
+        loading = false;
+      }
     }
 
     return _isInitialise;
