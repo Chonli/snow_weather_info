@@ -43,6 +43,7 @@ dependencies:
   alphabet_list_scroll_view: ^2.0.0
   webview_flutter: ^2.0.8
   flutter_sticky_header: ^0.6.0
+  logging: ^1.0.1
   dart_rss:
     git:
       url: https://github.com/Chonli/webfeed.git
