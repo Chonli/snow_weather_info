@@ -1,57 +1,59 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher.dart' as url;
 
 class MapLicenceWidget extends StatelessWidget {
-  const MapLicenceWidget({Key key}) : super(key: key);
+  const MapLicenceWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final bodyText2Color = Theme.of(context).textTheme.bodyText2?.color;
+    final bodyText1Color = Theme.of(context).textTheme.bodyText1?.color;
     return Container(
-      child: Container(
-        color: Theme.of(context).backgroundColor,
-        child: RichText(
-          text: TextSpan(
-            children: [
-              TextSpan(
-                text: 'donnée carte: © ',
-                style:
-                    TextStyle(color: Theme.of(context).textTheme.body1.color),
+      color: Theme.of(context).backgroundColor,
+      child: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: 'donnée carte: © ',
+              style: TextStyle(
+                color: bodyText2Color,
               ),
-              TextSpan(
-                text: 'OpenStreetMap',
-                style:
-                    TextStyle(color: Theme.of(context).textTheme.body2.color),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () async {
-                    await launch('https://www.openstreetmap.org/copyright');
-                  },
+            ),
+            TextSpan(
+              text: 'OpenStreetMap',
+              style: TextStyle(
+                color: bodyText1Color,
               ),
-              TextSpan(
-                text: ' contributors\nstyle carte: ©',
-                style:
-                    TextStyle(color: Theme.of(context).textTheme.body1.color),
+              recognizer: TapGestureRecognizer()
+                ..onTap =
+                    () => url.launch('https://www.openstreetmap.org/copyright'),
+            ),
+            TextSpan(
+              text: ' contributors\nstyle carte: ©',
+              style: TextStyle(
+                color: bodyText2Color,
               ),
-              TextSpan(
-                text: ' opentopomap.org',
-                style:
-                    TextStyle(color: Theme.of(context).textTheme.body2.color),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () {
-                    launch('https://opentopomap.org');
-                  },
+            ),
+            TextSpan(
+              text: ' opentopomap.org',
+              style: TextStyle(
+                color: bodyText1Color,
               ),
-              TextSpan(
-                text: ' (CC-BY-SA)',
-                style:
-                    TextStyle(color: Theme.of(context).textTheme.body2.color),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () {
-                    launch('https://creativecommons.org/licenses/by-sa/3.0/');
-                  },
+              recognizer: TapGestureRecognizer()
+                ..onTap = () => url.launch('https://opentopomap.org'),
+            ),
+            TextSpan(
+              text: ' (CC-BY-SA)',
+              style: TextStyle(
+                color: bodyText2Color,
               ),
-            ],
-          ),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () => url.launch(
+                      'https://creativecommons.org/licenses/by-sa/3.0/',
+                    ),
+            ),
+          ],
         ),
       ),
     );

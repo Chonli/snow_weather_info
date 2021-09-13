@@ -1,64 +1,71 @@
 import 'package:flutter/material.dart';
 import 'package:snow_weather_info/model/station.dart';
-import 'package:snow_weather_info/ui/data_station_page.dart';
+import 'package:snow_weather_info/modules/data_station/view.dart';
 import 'package:snow_weather_info/ui/nivose_page.dart';
 
 class StationCard extends StatelessWidget {
-  final AbstractStation _station;
+  const StationCard({
+    Key? key,
+    required this.station,
+  }) : super(key: key);
 
-  StationCard(this._station);
+  final AbstractStation station;
 
   @override
   Widget build(BuildContext context) {
-    TextStyle _textStyle = TextStyle(
-        color: Theme.of(context).textTheme.body2.color,
+    var _textStyle = TextStyle(
+        color: Theme.of(context).textTheme.bodyText1?.color,
         fontStyle: FontStyle.normal);
-    var snowHeigth = "";
-    if (_station is Station) {
-      final st = _station as Station;
+    var snowHeigth = '';
+    if (station is Station) {
+      final st = station as Station;
       snowHeigth = st.hasData
-          ? " ${(st.lastSnowHeight * 100).toStringAsFixed(0)}cm"
-          : "";
-      Color _color = st.hasData
-          ? Theme.of(context).textTheme.body1.color
+          ? ' ${(st.lastSnowHeight * 100).toStringAsFixed(0)}cm'
+          : '';
+      final _color = st.hasData
+          ? Theme.of(context).textTheme.bodyText2?.color
           : Theme.of(context).disabledColor;
-      FontStyle _font = st.hasData ? FontStyle.normal : FontStyle.italic;
+      final _font = st.hasData ? FontStyle.normal : FontStyle.italic;
       _textStyle = TextStyle(color: _color, fontStyle: _font);
     }
     return Card(
-      margin: EdgeInsets.only(left: 8.0, bottom: 8.0, top: 8.0, right: 64.0),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20.0),
+      margin: const EdgeInsets.only(
+        left: 8,
+        bottom: 8,
+        top: 8,
+        right: 64,
       ),
-      elevation: 5.0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      elevation: 5,
       child: ListTile(
         title: Text(
-          _station.name,
+          station.name,
           style: _textStyle,
         ),
         isThreeLine: true,
         trailing: Visibility(
-            visible: snowHeigth.isNotEmpty,
-            child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [Icon(Icons.ac_unit), Text(snowHeigth)])),
+          visible: snowHeigth.isNotEmpty,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(Icons.ac_unit),
+              Text(snowHeigth),
+            ],
+          ),
+        ),
         subtitle: Text(
-          '${_station.altitude}m \nLatLng(${_station.position.latitude},${_station.position.longitude})',
+          '${station.altitude}m \nLatLng(${station.position.latitude},${station.position.longitude})',
           style: _textStyle,
         ),
         onTap: () => Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) {
-            if (_station is Station) {
-              return DataStationPage(
-                (_station as Station),
-              );
-            } else {
-              return NivosePage(
-                (_station as Nivose),
-              );
-            }
-          }),
+          MaterialPageRoute<Widget>(
+            builder: (context) => station is Station
+                ? DataStationView(station: station as Station)
+                : NivosePage(station as Nivose),
+          ),
         ),
       ),
     );

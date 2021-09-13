@@ -1,20 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:snow_weather_info/data/repository.dart';
+import 'package:snow_weather_info/data/sources/avalanche_api.dart';
+import 'package:snow_weather_info/data/sources/data_api.dart';
+import 'package:snow_weather_info/data/data_notifier.dart';
+import 'package:snow_weather_info/data/sources/database_helper.dart';
+import 'package:snow_weather_info/data/sources/preferences.dart';
 import 'package:snow_weather_info/ui/home_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
+const _title = 'Info Neige';
+
 class MyApp extends StatelessWidget {
-  final String _title = 'Info Neige';
+  const MyApp({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          Provider<Repository>(create: (_) => Repository()),
+          Provider<DatabaseHelper>(create: (_) => DatabaseHelper()),
+          Provider<AvalancheAPI>(create: (_) => AvalancheAPI()),
+          Provider<Preferences>(create: (_) => Preferences()),
+          Provider<DataAPI>(create: (_) => DataAPI()),
+          ChangeNotifierProxyProvider0<DataNotifier>(
+            create: (_) => DataNotifier(),
+            update: (context, old) => old!
+              ..avalancheAPI = context.watch<AvalancheAPI>()
+              ..dataAPI = context.watch<DataAPI>()
+              ..preferences = context.watch<Preferences>()
+              ..databaseHelper = context.watch<DatabaseHelper>()
+              ..initData(),
+          ),
         ],
         child: MaterialApp(
           title: _title,
@@ -25,12 +45,12 @@ class MyApp extends StatelessWidget {
             accentColor: Colors.blueAccent,
             backgroundColor: Colors.white,
             disabledColor: Colors.grey,
-            textTheme: TextTheme(
-              title: TextStyle(color: Colors.white),
-              body1: TextStyle(color: Colors.black),
-              body2: TextStyle(color: Colors.blue),
-              subhead: TextStyle(color: Colors.black),
-              subtitle: TextStyle(color: Colors.black),
+            textTheme: const TextTheme(
+              headline6: TextStyle(color: Colors.white),
+              bodyText2: TextStyle(color: Colors.black),
+              bodyText1: TextStyle(color: Colors.blue),
+              subtitle1: TextStyle(color: Colors.black),
+              subtitle2: TextStyle(color: Colors.black),
             ),
           ),
           darkTheme: ThemeData(
@@ -41,65 +61,48 @@ class MyApp extends StatelessWidget {
             backgroundColor: Colors.grey.shade800,
             disabledColor: Colors.grey.shade900,
             textTheme: TextTheme(
-              title: TextStyle(color: Colors.white),
-              body1: TextStyle(color: Colors.white70),
-              body2: TextStyle(color: Colors.blue.shade300),
-              subhead: TextStyle(color: Colors.white),
-              subtitle: TextStyle(color: Colors.white),
+              headline6: const TextStyle(color: Colors.white),
+              bodyText2: const TextStyle(color: Colors.white70),
+              bodyText1: TextStyle(color: Colors.blue.shade300),
+              subtitle1: const TextStyle(color: Colors.white),
+              subtitle2: const TextStyle(color: Colors.white),
             ),
           ),
-          themeMode: ThemeMode.system,
-          home: MyHomePage(title: _title),
+          home: const MyHomePage(title: _title),
         ));
   }
 }
 
 class MyHomePage extends StatelessWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({
+    Key? key,
+    required this.title,
+  }) : super(key: key);
 
   final String title;
 
   @override
   Widget build(BuildContext context) {
-    Repository repository = Provider.of<Repository>(context);
-    return FutureBuilder(
-        future: repository.initData(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError)
-            return Scaffold(
-                appBar: AppBar(
-                  title: Text(title),
-                ),
-                body: Center(
-                    child: Text('Initialisation erreur: ${snapshot.error}')));
-          switch (snapshot.connectionState) {
-            case ConnectionState.waiting:
-              return Scaffold(
-                backgroundColor: Colors.white,
-                body: Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Image.asset(
-                        "assets/icon/icon.png",
-                        fit: BoxFit.contain,
-                        height: 128,
-                        width: 128,
-                      ),
-                      Padding(padding: EdgeInsets.all(20)),
-                      CircularProgressIndicator(),
-                    ],
+    final loading = context.select<DataNotifier, bool>((n) => n.loading);
+    return loading
+        ? Scaffold(
+            backgroundColor: Colors.white,
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/icon/icon.png',
+                    fit: BoxFit.contain,
+                    height: 128,
+                    width: 128,
                   ),
-                ),
-              );
-            default:
-              return HomePage(
-                title: title,
-                repository: repository,
-              );
-          }
-        });
+                  const Padding(padding: EdgeInsets.all(20)),
+                  const CircularProgressIndicator(),
+                ],
+              ),
+            ),
+          )
+        : HomePage(title: title);
   }
 }

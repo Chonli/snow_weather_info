@@ -1,176 +1,202 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
-import 'package:snow_weather_info/data/repository.dart';
-import 'package:snow_weather_info/model/station.dart';
-import 'package:snow_weather_info/ui/data_station_page.dart';
+import 'package:snow_weather_info/core/widgets/app_web_page.dart';
+import 'package:snow_weather_info/data/data_notifier.dart';
+import 'package:snow_weather_info/extensions/atom_item.dart';
+import 'package:snow_weather_info/modules/data_station/view.dart';
 import 'package:snow_weather_info/ui/map_licence_widget.dart';
 import 'package:snow_weather_info/ui/nivose_page.dart';
+import 'package:url_launcher/url_launcher.dart' as url;
+// import 'package:user_location/user_location.dart';
+import 'package:dart_rss/dart_rss.dart';
 
 class MapWidget extends StatefulWidget {
-  final Repository repository;
-  MapWidget(this.repository);
+  const MapWidget({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _MapWidgetState createState() => _MapWidgetState();
 }
 
 class _MapWidgetState extends State<MapWidget> {
-  MapController _mapController;
-  final List<Marker> _listStationMarker = List<Marker>();
-  Repository get repository => widget.repository;
-
-  final double _zoom = 10.0;
-  bool onlyOne = true;
+  late MapController _mapController;
+  final _listStationMarker = <Marker>[];
+  final _listNivoseMarker = <Marker>[];
+  final _listAvalancheMarker = <Marker>[];
+  // UserLocationOptions _userLocationOptions;
+  //final _userMarkers = <Marker>[];
 
   @override
   void initState() {
-    _mapController = MapController();
-    _mapController.onReady.then((result) async {
-      var isFristLaunch = repository.currentUserLoc == null;
-      var hasPosition = await repository.updateLocation();
-
-      if (hasPosition && repository.currentUserLoc != null) {
-        setState(() {
-          _listStationMarker.add(Marker(
-              width: 50.0,
-              height: 50.0,
-              point: repository.currentUserLoc,
-              builder: (ctx) => Icon(
-                    Icons.person_pin_circle,
-                    color: Theme.of(context).primaryColor,
-                  )));
-          if (isFristLaunch) {
-            repository.currentMapLoc = repository.currentUserLoc;
-            _mapController.move(repository.currentMapLoc, _zoom);
-          }
-        });
-      }
-    });
     super.initState();
+
+    _mapController = MapController();
+    // _userLocationOptions = UserLocationOptions(
+    //   context: context,
+    //   mapController: _mapController,
+    //   markers: _userMarkers,
+    //   fabBottom: 40,
+    //   defaultZoom: 12,
+    //   onLocationUpdate: (pos) =>
+    //       context.read<DataNotifier>().currentMapLoc = pos,
+    //   updateMapLocationOnPositionChange: false,
+    //   showHeading: false,
+    // );
+    _initMakerList(context);
   }
 
   @override
   void dispose() {
-    _mapController = null;
     super.dispose();
   }
 
-  void _initMakerList() {
-    if (onlyOne) {
-      onlyOne = false;
-      Repository repository = Provider.of<Repository>(context);
-      List<AbstractStation> list = List<AbstractStation>();
-      list.addAll(repository.stations);
-      list.addAll(repository.nivoses);
-      for (var st in list) {
-        bool hasData = false;
-        Color color = Theme.of(context).primaryColor;
-        double lastSnowHeight = 0.0;
-        if (st is Station) {
-          hasData = st.hasData;
-          color = hasData ? Colors.black : Colors.grey;
-          lastSnowHeight = st.lastSnowHeight;
-        }
+  void _initMakerList(BuildContext context) {
+    final nivoses = context.read<DataNotifier>().nivoses;
 
+    nivoses.forEach(
+      (nivose) {
+        _listNivoseMarker.add(
+          Marker(
+            width: 90,
+            height: 50,
+            point: nivose.position,
+            builder: (ctx) => IconButton(
+              icon: const Icon(Icons.place),
+              color: Colors.blue[900],
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute<Widget>(
+                  builder: (context) => NivosePage(nivose),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+
+    final stations = context.read<DataNotifier>().stations;
+    stations.forEach(
+      (station) {
+        final color = station.hasData ? Colors.black : Colors.grey;
         _listStationMarker.add(
           Marker(
-            width: 90.0,
-            height: 50.0,
-            point: st.position,
+            width: 90,
+            height: 50,
+            point: station.position,
             builder: (ctx) => Stack(
               children: <Widget>[
-                Positioned(
-                  left: 42.0,
-                  bottom: 0.0,
-                  child: Visibility(
-                      visible: hasData,
-                      child: Text(
-                        "${(lastSnowHeight * 100).toStringAsFixed(0)}cm",
-                        style: TextStyle(color: Colors.black),
-                      )),
-                ),
-                Positioned(
-                  right: 0.0,
-                  bottom: 2.0,
-                  child: IconButton(
-                    icon: Icon(Icons.place),
-                    color: color,
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) {
-                        if (st is Station) {
-                          return DataStationPage(
-                            st,
-                          );
-                        } else {
-                          return NivosePage(
-                            st as Nivose,
-                          );
-                        }
-                      }),
+                if (station.hasData)
+                  Positioned(
+                    left: 42,
+                    bottom: 0,
+                    child: Text(
+                      '${(station.lastSnowHeight * 100).toStringAsFixed(0)}cm',
+                      style: const TextStyle(color: Colors.black),
                     ),
+                  ),
+                Positioned(
+                  right: 0,
+                  bottom: 2,
+                  child: IconButton(
+                    icon: const Icon(Icons.place),
+                    color: color,
+                    onPressed: () => station.hasData
+                        ? Navigator.push(
+                            context,
+                            MaterialPageRoute<Widget>(
+                              builder: (context) =>
+                                  DataStationView(station: station),
+                            ),
+                          )
+                        : null,
                   ),
                 ),
               ],
             ),
           ),
         );
-      }
-    }
+      },
+    );
+
+    final feed = context.read<DataNotifier>().avalancheFeed;
+    feed?.items.forEach(
+      (AtomItem item) {
+        if (item.geo != null) {
+          _listAvalancheMarker.add(
+            Marker(
+              width: 90,
+              height: 50,
+              point: LatLng(item.geo?.lat ?? 0, item.geo?.long ?? 0),
+              builder: (ctx) => IconButton(
+                icon: const Icon(Icons.ac_unit),
+                color: Colors.orange,
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute<Widget>(
+                    builder: (context) => AppWebPage(
+                      title: item.shortTitle,
+                      url: item.url,
+                      canIsOpen: true,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        }
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    _initMakerList();
+    final currentMapLoc = context.select<DataNotifier, LatLng>(
+      (n) => n.currentMapLoc,
+    );
 
     return Stack(
       children: [
         FlutterMap(
           mapController: _mapController,
           options: MapOptions(
-            center: repository.currentMapLoc,
-            zoom: _zoom,
+            center: currentMapLoc,
+            zoom: 10,
+            maxZoom: 16,
+            minZoom: 8,
+            plugins: [
+              // UserLocationPlugin(),
+            ],
           ),
           layers: [
             TileLayerOptions(
-              urlTemplate: "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
-              subdomains: ["a", "b", "c"],
+              urlTemplate: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
+              subdomains: ['a', 'b', 'c'],
             ),
-            MarkerLayerOptions(
-              markers: _listStationMarker,
-            ),
+            if (_listStationMarker.isNotEmpty)
+              MarkerLayerOptions(
+                markers: _listStationMarker,
+              ),
+            if (_listNivoseMarker.isNotEmpty)
+              MarkerLayerOptions(
+                markers: _listNivoseMarker,
+              ),
+            if (_listAvalancheMarker.isNotEmpty)
+              MarkerLayerOptions(
+                markers: _listAvalancheMarker,
+              ),
+            //user location
+            // MarkerLayerOptions(markers: _userMarkers),
+            // _userLocationOptions,
           ],
         ),
-        Positioned(
+        const Positioned(
           bottom: 0,
           right: 0,
           child: MapLicenceWidget(),
-        ),
-        Positioned(
-          top: 5,
-          right: 5,
-          child: Opacity(
-            opacity: 0.7,
-            child: Container(
-              height: 40,
-              width: 40,
-              color: Theme.of(context).backgroundColor,
-              child: IconButton(
-                icon: Icon(Icons.my_location),
-                onPressed: () async {
-                  var hasPosition = await repository.updateLocation();
-
-                  if (hasPosition && repository.currentUserLoc != null) {
-                    repository.currentMapLoc = repository.currentUserLoc;
-                    setState(() {
-                      _mapController.move(repository.currentMapLoc, _zoom);
-                    });
-                  }
-                },
-              ),
-            ),
-          ),
         ),
       ],
     );

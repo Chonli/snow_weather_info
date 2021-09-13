@@ -1,131 +1,74 @@
-import 'package:snow_weather_info/data/database_helper.dart';
+import 'package:snow_weather_info/data/sources/database_helper.dart';
+import 'package:snow_weather_info/extensions/string.dart';
+
+const double kelvin = -273.15;
 
 class DataStation {
-  static const double kelvin = 273.15;
-
-  int _id;
-  DateTime _date;
-  double _temperature;
-  double _temperatureMin24;
-  double _temperatureMax24;
-  double _temperatureSnow;
-  double _speedWind;
-  double _directionWind;
-  double _snowHeight;
-  double _snowNewHeight;
-
-  bool _hasTemperature;
-  bool _hasTemperatureMin24;
-  bool _hasTemperatureMax24;
-  bool _hasTemperatureSnow;
-  bool _hasSpeedWind;
-  bool _hasDirectionWind;
-  bool _hasSnowHeight;
-  bool _hasSnowNewHeight;
-
-  int get id => _id;
-  DateTime get date => _date;
-  double get temperature => _temperature;
-  double get temperatureMin24 => _temperatureMin24;
-  double get temperatureMax24 => _temperatureMax24;
-  double get temperatureSnow => _temperatureSnow;
-  double get speedWind => _speedWind;
-  double get directionWind => _directionWind;
-  double get snowHeight => _snowHeight;
-  double get snowNewHeight => _snowNewHeight;
-  bool get hasTemperature => _hasTemperature;
-  bool get hasTemperatureMin24 => _hasTemperatureMin24;
-  bool get hasTemperatureMax24 => _hasTemperatureMax24;
-  bool get hasTemperatureSnow => _hasTemperatureSnow;
-  bool get hasSpeedWind => _hasSpeedWind;
-  bool get hasDirectionWind => _hasDirectionWind;
-  bool get hasSnowHeight => _hasSnowHeight;
-  bool get hasSnowNewHeight => _hasSnowNewHeight;
-
   DataStation();
 
   DataStation.fromList(List<dynamic> data) {
-    _id = int.parse(data[0]);
-    _date =
-        DateTime.parse(data[1].substring(0, 8) + "T" + data[1].substring(8));
-    _hasTemperature = _hasDoubleValue(data[5]);
-    if (_hasTemperature) {
-      _temperature = _getDoubleValue(data[5]) - kelvin;
-    }
-    _hasTemperatureMin24 = _hasDoubleValue(data[19]);
-    if (_hasTemperatureMin24) {
-      _temperatureMin24 = _getDoubleValue(data[19]) - kelvin;
-    }
-    _hasTemperatureMax24 = _hasDoubleValue(data[21]);
-    if (_hasTemperatureMax24) {
-      _temperatureMax24 = _getDoubleValue(data[21]) - kelvin;
-    }
-    _hasTemperatureSnow = _hasDoubleValue(data[28]);
-    if (_hasTemperatureSnow) {
-      _temperatureSnow = _getDoubleValue(data[28]) - kelvin;
-    }
-    _hasSpeedWind = _hasDoubleValue(data[4]);
-    if (_hasSpeedWind) {
-      _speedWind = _getDoubleValue(data[4]);
-    }
-    _hasDirectionWind = _hasDoubleValue(data[3]);
-    if (_hasDirectionWind) {
-      _directionWind = _getDoubleValue(data[3]);
-    }
-    _hasSnowHeight = _hasDoubleValue(data[22]);
-    if (_hasSnowHeight) {
-      _snowHeight = _getDoubleValue(data[22]);
-    }
-    _hasSnowNewHeight = _hasDoubleValue(data[23]);
-    if (_hasSnowNewHeight) {
-      _snowNewHeight = _getDoubleValue(data[23]);
-    }
+    _id = int.parse(data[0] as String);
+    _date = DateTime.parse(
+      '${(data[1]).substring(0, 8)}T${(data[1]).substring(8)}',
+    );
+    _temperature = (data[5] as String?).parseDouble(addValue: kelvin);
+    _temperatureMin24 = (data[19] as String?).parseDouble(addValue: kelvin);
+    _temperatureMax24 = (data[21] as String?).parseDouble(addValue: kelvin);
+    _temperatureSnow = (data[28] as String?).parseDouble(addValue: kelvin);
+    _speedWind = (data[4] as String?).parseDouble();
+    _directionWind = (data[3] as String?).parseDouble();
+    _snowHeight = (data[22] as String?).parseDouble();
+    _snowNewHeight = (data[23] as String?).parseDouble();
   }
 
   DataStation.fromMap(Map<String, dynamic> map) {
-    _id = map[columnIdStation];
-    _date = DateTime.parse(map[columnDate]);
-    _temperature = map[columnTemperature];
-    _hasTemperature = _temperature != null;
-    _temperatureMin24 = map[columnTemperatureMin24];
-    _hasTemperatureMin24 = _temperatureMin24 != null;
-    _temperatureMax24 = map[columnTemperatureMax24];
-    _hasTemperatureMax24 = _temperatureMax24 != null;
-    _temperatureSnow = map[columnTemperatureSnow];
-    _hasTemperatureSnow = _temperatureSnow != null;
-    _snowHeight = map[columnSnowHeight];
-    _hasSnowHeight = _snowHeight != null;
-    _snowNewHeight = map[columnSnowNewHeight];
-    _hasSnowNewHeight = _snowNewHeight != null;
-    _speedWind = map[columnSpeedWind];
-    _hasSpeedWind = _speedWind != null;
-    _directionWind = map[columnDirectionWind];
-    _hasDirectionWind = _directionWind != null;
+    _id = map[columnIdStation] as int;
+    _date = DateTime.parse(map[columnDate] as String);
+    _temperature = map[columnTemperature] as double?;
+    _temperatureMin24 = map[columnTemperatureMin24] as double?;
+    _temperatureMax24 = map[columnTemperatureMax24] as double?;
+    _temperatureSnow = map[columnTemperatureSnow] as double?;
+    _snowHeight = map[columnSnowHeight] as double?;
+    _snowNewHeight = map[columnSnowNewHeight] as double?;
+    _speedWind = map[columnSpeedWind] as double?;
+    _directionWind = map[columnDirectionWind] as double?;
   }
+
+  int _id = 0;
+  DateTime _date = DateTime.fromMillisecondsSinceEpoch(0);
+  double? _temperature;
+  double? _temperatureMin24;
+  double? _temperatureMax24;
+  double? _temperatureSnow;
+  double? _speedWind;
+  double? _directionWind;
+  double? _snowHeight;
+  double? _snowNewHeight;
+
+  int get id => _id;
+  DateTime get date => _date;
+  double? get temperature => _temperature;
+  double? get temperatureMin24 => _temperatureMin24;
+  double? get temperatureMax24 => _temperatureMax24;
+  double? get temperatureSnow => _temperatureSnow;
+  double? get speedWind => _speedWind;
+  double? get directionWind => _directionWind;
+  double? get snowHeight => _snowHeight;
+  double? get snowNewHeight => _snowNewHeight;
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       columnIdStation: _id,
       columnDate: _date.toIso8601String(),
-      columnTemperature: _hasTemperature ? _temperature : null,
-      columnTemperatureMin24: _hasTemperatureMin24 ? _temperatureMin24 : null,
-      columnTemperatureMax24: _hasTemperatureMax24 ? _temperatureMax24 : null,
-      columnTemperatureSnow: _hasTemperatureSnow ? _temperatureSnow : null,
-      columnSpeedWind: _hasSpeedWind ? _speedWind : null,
-      columnDirectionWind: _hasDirectionWind ? _directionWind : null,
-      columnSnowHeight: _hasSnowHeight ? _snowHeight : null,
-      columnSnowNewHeight: _hasSnowNewHeight ? _snowNewHeight : null
+      columnTemperature: _temperature,
+      columnTemperatureMin24: _temperatureMin24,
+      columnTemperatureMax24: _temperatureMax24,
+      columnTemperatureSnow: _temperatureSnow,
+      columnSpeedWind: _speedWind,
+      columnDirectionWind: _directionWind,
+      columnSnowHeight: _snowHeight,
+      columnSnowNewHeight: _snowNewHeight
     };
-  }
-
-  double _getDoubleValue(dynamic data) {
-    return double.parse(data);
-  }
-
-  bool _hasDoubleValue(dynamic data) {
-    return data != 'mq'
-        ? (double.tryParse(data) != null ? true : false)
-        : false;
   }
 
   @override
