@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/data/sources/avalanche_api.dart';
 import 'package:snow_weather_info/data/sources/data_api.dart';
-import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/data/sources/database_helper.dart';
 import 'package:snow_weather_info/data/sources/preferences.dart';
 import 'package:snow_weather_info/ui/home_page.dart';
