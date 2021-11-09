@@ -5,7 +5,7 @@ import 'package:collection/collection.dart';
 import 'package:csv/csv.dart';
 import 'package:dart_rss/dart_rss.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart' show rootBundle;
+// import 'package:flutter/services.dart' show rootBundle;
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:latlong2/latlong.dart';
@@ -233,11 +233,11 @@ class DataNotifier extends ChangeNotifier {
     }
   }
 
-  Future<void> _readTestStationData() async {
-    final data =
-        await rootBundle.loadString('assets/test_data/nivo.202102.txt');
-    _decodeStationData(data);
-  }
+  // Future<void> _readTestStationData() async {
+  //   final data =
+  //       await rootBundle.loadString('assets/test_data/nivo.202102.txt');
+  //   _decodeStationData(data);
+  // }
 
   Future<void> _initStation() async {
     final stationUpdateDate = preferences.lastStationDate;

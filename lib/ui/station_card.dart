@@ -64,7 +64,7 @@ class StationCard extends StatelessWidget {
           MaterialPageRoute<Widget>(
             builder: (context) => station is Station
                 ? DataStationView(station: station as Station)
-                : NivosePage(station as Nivose),
+                : NivosePage(nivose: station as Nivose),
           ),
         ),
       ),

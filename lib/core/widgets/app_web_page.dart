@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 import 'package:url_launcher/url_launcher.dart' as web;
+import 'package:webview_flutter/webview_flutter.dart';
 
 class AppWebPage extends StatelessWidget {
   const AppWebPage({

@@ -1,6 +1,6 @@
+import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:snow_weather_info/model/data_station.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
 
 class DataStationChart extends StatelessWidget {
   const DataStationChart({

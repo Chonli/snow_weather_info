@@ -1,3 +1,5 @@
+// import 'package:user_location/user_location.dart';
+import 'package:dart_rss/dart_rss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
@@ -8,9 +10,6 @@ import 'package:snow_weather_info/extensions/atom_item.dart';
 import 'package:snow_weather_info/modules/data_station/view.dart';
 import 'package:snow_weather_info/ui/map_licence_widget.dart';
 import 'package:snow_weather_info/ui/nivose_page.dart';
-import 'package:url_launcher/url_launcher.dart' as url;
-// import 'package:user_location/user_location.dart';
-import 'package:dart_rss/dart_rss.dart';
 
 class MapWidget extends StatefulWidget {
   const MapWidget({
@@ -69,7 +68,7 @@ class _MapWidgetState extends State<MapWidget> {
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute<Widget>(
-                  builder: (context) => NivosePage(nivose),
+                  builder: (context) => NivosePage(nivose: nivose),
                 ),
               ),
             ),
