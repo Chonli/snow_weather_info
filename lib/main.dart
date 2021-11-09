@@ -42,7 +42,6 @@ class MyApp extends StatelessWidget {
             brightness: Brightness.light,
             fontFamily: 'Helvetica',
             primaryColor: Colors.blueAccent,
-            accentColor: Colors.blueAccent,
             backgroundColor: Colors.white,
             disabledColor: Colors.grey,
             textTheme: const TextTheme(
@@ -57,7 +56,6 @@ class MyApp extends StatelessWidget {
             brightness: Brightness.dark,
             fontFamily: 'Helvetica',
             primaryColor: Colors.blueAccent.shade400,
-            accentColor: Colors.blueAccent.shade400,
             backgroundColor: Colors.grey.shade800,
             disabledColor: Colors.grey.shade900,
             textTheme: TextTheme(

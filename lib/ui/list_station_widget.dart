@@ -6,7 +6,7 @@ import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/ui/station_card.dart';
 
 class ListStationWidget extends StatefulWidget {
-  const ListStationWidget();
+  const ListStationWidget({Key? key}) : super(key: key);
 
   @override
   _ListStationWidgetState createState() => _ListStationWidgetState();

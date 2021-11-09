@@ -74,6 +74,7 @@ class _HomePageState extends State<HomePage>
           key: const PageStorageKey('tab_key'),
           controller: _tabController,
           isScrollable: true,
+          indicatorColor: Theme.of(context).primaryColor,
           tabs: const [
             Tab(text: 'Stations', icon: Icon(Icons.list)),
             Tab(text: 'Carte', icon: Icon(Icons.map)),
