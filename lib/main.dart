@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:snow_weather_info/core/notifier/theme.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/data/sources/avalanche_api.dart';
 import 'package:snow_weather_info/data/sources/data_api.dart';
@@ -7,8 +9,13 @@ import 'package:snow_weather_info/data/sources/database_helper.dart';
 import 'package:snow_weather_info/data/sources/preferences.dart';
 import 'package:snow_weather_info/ui/home_page.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final prefs = await SharedPreferences.getInstance();
+
+  runApp(MyApp(
+    preferences: prefs,
+  ));
 }
 
 const _title = 'Info Neige';
@@ -16,27 +23,38 @@ const _title = 'Info Neige';
 class MyApp extends StatelessWidget {
   const MyApp({
     Key? key,
+    required this.preferences,
   }) : super(key: key);
+
+  final SharedPreferences preferences;
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [
-          Provider<DatabaseHelper>(create: (_) => DatabaseHelper()),
-          Provider<AvalancheAPI>(create: (_) => AvalancheAPI()),
-          Provider<Preferences>(create: (_) => Preferences()),
-          Provider<DataAPI>(create: (_) => DataAPI()),
-          ChangeNotifierProxyProvider0<DataNotifier>(
-            create: (_) => DataNotifier(),
-            update: (context, old) => old!
-              ..avalancheAPI = context.watch<AvalancheAPI>()
-              ..dataAPI = context.watch<DataAPI>()
-              ..preferences = context.watch<Preferences>()
-              ..databaseHelper = context.watch<DatabaseHelper>()
-              ..initData(),
-          ),
-        ],
-        child: MaterialApp(
+      providers: [
+        Provider<DatabaseHelper>(create: (_) => DatabaseHelper()),
+        Provider<AvalancheAPI>(create: (_) => AvalancheAPI()),
+        Provider<Preferences>(create: (_) => Preferences(preferences)),
+        Provider<DataAPI>(create: (_) => DataAPI()),
+        ChangeNotifierProxyProvider0<ThemeNotifier>(
+          create: (_) => ThemeNotifier(),
+          update: (context, old) => old!
+            ..preferences = context.watch<Preferences>()
+            ..init(),
+        ),
+        ChangeNotifierProxyProvider0<DataNotifier>(
+          create: (_) => DataNotifier(),
+          update: (context, old) => old!
+            ..avalancheAPI = context.watch<AvalancheAPI>()
+            ..dataAPI = context.watch<DataAPI>()
+            ..preferences = context.watch<Preferences>()
+            ..databaseHelper = context.watch<DatabaseHelper>()
+            ..initData(),
+        ),
+      ],
+      child: Consumer<ThemeNotifier>(
+          builder: (context, ThemeNotifier notifier, child) {
+        return MaterialApp(
           title: _title,
           theme: ThemeData(
             brightness: Brightness.light,
@@ -66,8 +84,11 @@ class MyApp extends StatelessWidget {
               subtitle2: const TextStyle(color: Colors.white),
             ),
           ),
+          themeMode: notifier.themeMode,
           home: const MyHomePage(title: _title),
-        ));
+        );
+      }),
+    );
   }
 }
 

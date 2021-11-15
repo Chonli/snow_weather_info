@@ -96,7 +96,6 @@ class DataNotifier extends ChangeNotifier {
   Future<bool> initData() async {
     if (!_isInitialise) {
       loading = true;
-      await preferences.init();
       _initNivose();
 
       try {
