@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:avalanche="http://data-avalanche.org" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#">
+  <title>Dernières avalanches saisies sur data-avalanche.org</title>
+  <link rel="alternate" href="http://www.data-avalanche.org" />
+  <subtitle>Atom Feed of last avalanches</subtitle>
+  <rights>data-avalanche.org</rights>
+  <updated>2021-11-16T12:45:30Z</updated>
+  <dc:creator>data-avalanche.org</dc:creator>
+  <dc:date>2021-11-16T12:45:30Z</dc:date>
+  <dc:language>fr</dc:language>
+  <dc:rights>data-avalanche.org</dc:rights>
+  <entry>
+    <title>Avalanche le 16/11/2021 : Haute Maurienne, secteur Pointe de Ronce, Galcier de l'Arcelle</title>
+    <link rel="alternate" href="http://www.data-avalanche.org/avalanche/1637063119134" />
+    <author>
+      <name />
+    </author>
+    <updated>2021-11-16T12:45:30Z</updated>
+    <published>2021-11-16T12:45:30Z</published>
+    <summary type="html">Vaste avalanche observée ce matin sous le sommet de la Pointe de Ronce. Départ probable hier (le 15) ou dans la nuit.&#xD;
+La rupture est large et semble épaisse.&#xD;
+&#xD;
+Pas d'autres informations, mais preneur de photos et d'autres détailles.</summary>
+    <dc:date>2021-11-16T12:45:30Z</dc:date>
+    <geo:lat>45.2670339475689</geo:lat>
+    <geo:long>6.967391967773438</geo:long>
+    <avalanche:orientation>NW</avalanche:orientation>
+    <avalanche:date_event>2021-11-15T23:00:00Z</avalanche:date_event>
+    <avalanche:altitude_start>3300</avalanche:altitude_start>
+  </entry>
+  <entry>
+    <title>Avalanche le 16/11/2021 : Haute Maurienne, secteur Tierce</title>
+    <link rel="alternate" href="http://www.data-avalanche.org/avalanche/1637058436388" />
+    <author>
+      <name />
+    </author>
+    <updated>2021-11-16T10:48:13Z</updated>
+    <published>2021-11-16T10:48:13Z</published>
+    <summary type="html">Une des très nombreuses avalanches observée ce jour suite aux chutes de neige de la veille.&#xD;
+Les photos du Dépôt sont prises dans le couloir à gauche de le goulotte Grassi, mais comme sur le versant de Frette, une bonne partie des couloirs et pentes raides semblent avoir purgé.</summary>
+    <dc:date>2021-11-16T10:48:13Z</dc:date>
+    <geo:lat>45.315400087806445</geo:lat>
+    <geo:long>7.009406089782716</geo:long>
+    <avalanche:orientation>NW</avalanche:orientation>
+    <avalanche:date_event>2021-11-15T23:00:00Z</avalanche:date_event>
+    <avalanche:altitude_stop>1750</avalanche:altitude_stop>
+  </entry>
+  <entry>
+    <title>Avalanche le 16/11/2021 : Haute Maurienne, secteur Tierce, couloir du Chaffray</title>
+    <link rel="alternate" href="http://www.data-avalanche.org/avalanche/1637131103304" />
+    <author>
+      <name />
+    </author>
+    <updated>2021-11-17T09:58:28Z</updated>
+    <published>2021-11-17T09:58:28Z</published>
+    <summary type="html">Avalanche de neige humide qui est descendue jusqu'en foret et s'est approchée de près d'un chemin. &#xD;
+Pas de neige fraiche dessus, ce qui laisse penser que l'avalanche est descendue dans la nuit du mardi 16-11 car il y avait un peu de neige fraiche au sol (hors foret) déposée lors du retour d'Est de la veille.</summary>
+    <dc:date>2021-11-17T09:58:28Z</dc:date>
+    <geo:lat>45.31339621837383</geo:lat>
+    <geo:long>6.995003699994413</geo:long>
+    <avalanche:orientation>N</avalanche:orientation>
+    <avalanche:date_event>2021-11-15T23:00:00Z</avalanche:date_event>
+    <avalanche:altitude_stop>1720</avalanche:altitude_stop>
+  </entry>
+  <entry>
+    <title>Avalanche le 15/11/2021 : Haute Maurienne, secteur Bessans, La Frête</title>
+    <link rel="alternate" href="http://www.data-avalanche.org/avalanche/1637046849228" />
+    <author>
+      <name />
+    </author>
+    <updated>2021-11-16T07:35:25Z</updated>
+    <published>2021-11-16T07:35:25Z</published>
+    <summary type="html">Purges de neige fraiche (semble  humide sur le bas) pendant la chute de neige du lundi 15 novembre</summary>
+    <dc:date>2021-11-16T07:35:25Z</dc:date>
+    <geo:lat>45.33061994120171</geo:lat>
+    <geo:long>7.034683227539063</geo:long>
+    <avalanche:orientation>NW</avalanche:orientation>
+    <avalanche:date_event>2021-11-14T23:00:00Z</avalanche:date_event>
+    <avalanche:altitude_stop>1749</avalanche:altitude_stop>
+  </entry>
+  <entry>
+    <title>Avalanche le 11/11/2021 : Aravis, secteur Col du Rasoir, Col du rasoir descente côté dent du Jallouvre.</title>
+    <link rel="alternate" href="http://www.data-avalanche.org/avalanche/1636806058059" />
+    <author>
+      <name />
+    </author>
+    <updated>2021-11-13T13:04:28Z</updated>
+    <published>2021-11-13T13:04:28Z</published>
+    <summary type="html">Décrochage d'un gros volume de roche qui a entraîné dans sa chute le manteau neigeux se trouvant sur sa trajectoire</summary>
+    <dc:date>2021-11-13T13:04:28Z</dc:date>
+    <geo:lat>45.998441179792565</geo:lat>
+    <geo:long>6.450868597339624</geo:long>
+    <avalanche:orientation>NE</avalanche:orientation>
+    <avalanche:date_event>2021-11-10T23:00:00Z</avalanche:date_event>
+    <avalanche:altitude_start>2030</avalanche:altitude_start>
+    <avalanche:altitude_stop>1950</avalanche:altitude_stop>
+  </entry>
+</feed>
+
