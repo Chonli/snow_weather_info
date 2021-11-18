@@ -5,6 +5,7 @@ const _lastStationPrefs = 'lastStationPrefs';
 const _lastStationDataPrefs = 'lastStationDataPrefs';
 const _favoritesStationPrefs = 'favoritesStationPrefs';
 const _themeModePrefs = 'themeModePrefs';
+const _viewNoDataStationPrefs = 'viewNoDataStationPrefs';
 
 class Preferences {
   Preferences(this.preferences);
@@ -41,5 +42,13 @@ class Preferences {
 
   void setThemeMode(ThemeMode themeMode) {
     preferences.setInt(_themeModePrefs, themeMode.index);
+  }
+
+  //views data station
+  bool get viewNoDataStation =>
+      preferences.getBool(_viewNoDataStationPrefs) ?? true;
+
+  void setViewNoDataStation({required bool viewNoDataStation}) {
+    preferences.setBool(_viewNoDataStationPrefs, viewNoDataStation);
   }
 }

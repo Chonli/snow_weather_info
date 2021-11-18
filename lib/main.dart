@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:snow_weather_info/core/notifier/theme.dart';
+import 'package:snow_weather_info/core/notifier/preference.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/data/sources/avalanche_api.dart';
 import 'package:snow_weather_info/data/sources/data_api.dart';
@@ -36,8 +36,8 @@ class MyApp extends StatelessWidget {
         Provider<AvalancheAPI>(create: (_) => AvalancheAPI()),
         Provider<Preferences>(create: (_) => Preferences(preferences)),
         Provider<DataAPI>(create: (_) => DataAPI()),
-        ChangeNotifierProxyProvider0<ThemeNotifier>(
-          create: (_) => ThemeNotifier(),
+        ChangeNotifierProxyProvider0<PreferenceNotifier>(
+          create: (_) => PreferenceNotifier(),
           update: (context, old) => old!
             ..preferences = context.watch<Preferences>()
             ..init(),
@@ -52,8 +52,8 @@ class MyApp extends StatelessWidget {
             ..initData(),
         ),
       ],
-      child: Consumer<ThemeNotifier>(
-          builder: (context, ThemeNotifier notifier, child) {
+      child: Consumer<PreferenceNotifier>(
+          builder: (context, PreferenceNotifier notifier, child) {
         return MaterialApp(
           title: _title,
           theme: ThemeData(

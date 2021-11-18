@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:snow_weather_info/core/notifier/theme.dart';
+import 'package:snow_weather_info/core/notifier/preference.dart';
 import 'package:snow_weather_info/extensions/theme_mode.dart';
 
 class PreferencePage extends StatelessWidget {
@@ -15,16 +15,17 @@ class PreferencePage extends StatelessWidget {
       body: Center(
         child: Container(
           margin: const EdgeInsets.all(10),
-          child: ListView(children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                const Text("Thème de l'application: "),
-                DropdownButton<ThemeMode>(
-                  value: context.watch<ThemeNotifier>().themeMode,
+          child: ListView(
+            children: [
+              PreferenceRow(
+                text: "Thème de l'application",
+                widget: DropdownButton<ThemeMode>(
+                  value: context.select<PreferenceNotifier, ThemeMode>(
+                    (n) => n.themeMode,
+                  ),
                   onChanged: (value) {
                     if (value != null) {
-                      context.read<ThemeNotifier>().themeMode = value;
+                      context.read<PreferenceNotifier>().themeMode = value;
                     }
                   },
                   items: ThemeMode.values
@@ -36,11 +37,42 @@ class PreferencePage extends StatelessWidget {
                       )
                       .toList(),
                 ),
-              ],
-            ),
-          ]),
+              ),
+              SwitchListTile(
+                title: const Text('Afficher les stations sans données: '),
+                value: context.select<PreferenceNotifier, bool>(
+                  (n) => n.viewNoDataStation,
+                ),
+                onChanged: (value) => context
+                    .read<PreferenceNotifier>()
+                    .viewNoDataStation = value,
+              ),
+            ],
+          ),
         ),
       ),
+    );
+  }
+}
+
+class PreferenceRow extends StatelessWidget {
+  const PreferenceRow({
+    Key? key,
+    required this.text,
+    required this.widget,
+  }) : super(key: key);
+
+  final String text;
+  final Widget widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Text('$text: '),
+        widget,
+      ],
     );
   }
 }

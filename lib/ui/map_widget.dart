@@ -2,14 +2,22 @@
 import 'package:dart_rss/dart_rss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
+import 'package:snow_weather_info/core/notifier/preference.dart';
 import 'package:snow_weather_info/core/widgets/app_web_page.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/extensions/atom_item.dart';
 import 'package:snow_weather_info/modules/data_station/view.dart';
 import 'package:snow_weather_info/ui/map_licence_widget.dart';
+import 'package:snow_weather_info/ui/map_maker.dart';
 import 'package:snow_weather_info/ui/nivose_page.dart';
+
+final nivoseColor = Colors.blue.shade900;
+const stationColor = Colors.black;
+const stationNoDataColor = Colors.grey;
+const avalancheColor = Colors.orange;
 
 class MapWidget extends StatefulWidget {
   const MapWidget({
@@ -25,6 +33,7 @@ class _MapWidgetState extends State<MapWidget> {
   final _listStationMarker = <Marker>[];
   final _listNivoseMarker = <Marker>[];
   final _listAvalancheMarker = <Marker>[];
+  final _listStationNoDataMarker = <Marker>[];
   // UserLocationOptions _userLocationOptions;
   //final _userMarkers = <Marker>[];
 
@@ -62,9 +71,9 @@ class _MapWidgetState extends State<MapWidget> {
             width: 90,
             height: 50,
             point: nivose.position,
-            builder: (ctx) => IconButton(
+            builder: (ctx) => MapMaker(
               icon: const Icon(Icons.place),
-              color: Colors.blue[900],
+              color: nivoseColor,
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute<Widget>(
@@ -80,44 +89,38 @@ class _MapWidgetState extends State<MapWidget> {
     final stations = context.read<DataNotifier>().stations;
     stations.forEach(
       (station) {
-        final color = station.hasData ? Colors.black : Colors.grey;
-        _listStationMarker.add(
-          Marker(
-            width: 90,
-            height: 50,
-            point: station.position,
-            builder: (ctx) => Stack(
-              children: <Widget>[
-                if (station.hasData)
-                  Positioned(
-                    left: 42,
-                    bottom: 0,
-                    child: Text(
-                      '${(station.lastSnowHeight * 100).toStringAsFixed(0)}cm',
-                      style: const TextStyle(color: Colors.black),
-                    ),
-                  ),
-                Positioned(
-                  right: 0,
-                  bottom: 2,
-                  child: IconButton(
-                    icon: const Icon(Icons.place),
-                    color: color,
-                    onPressed: () => station.hasData
-                        ? Navigator.push(
-                            context,
-                            MaterialPageRoute<Widget>(
-                              builder: (context) =>
-                                  DataStationView(station: station),
-                            ),
-                          )
-                        : null,
+        if (station.hasData) {
+          _listStationMarker.add(
+            Marker(
+              width: 90,
+              height: 50,
+              point: station.position,
+              builder: (ctx) => MapMaker(
+                icon: const Icon(Icons.place),
+                color: stationColor,
+                lastSnowHeight: station.lastSnowHeight,
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute<Widget>(
+                    builder: (context) => DataStationView(station: station),
                   ),
                 ),
-              ],
+              ),
             ),
-          ),
-        );
+          );
+        } else {
+          _listStationNoDataMarker.add(
+            Marker(
+              width: 90,
+              height: 50,
+              point: station.position,
+              builder: (ctx) => const MapMaker(
+                icon: Icon(Icons.place),
+                color: stationNoDataColor,
+              ),
+            ),
+          );
+        }
       },
     );
 
@@ -130,9 +133,9 @@ class _MapWidgetState extends State<MapWidget> {
               width: 90,
               height: 50,
               point: LatLng(item.geo?.lat ?? 0, item.geo?.long ?? 0),
-              builder: (ctx) => IconButton(
+              builder: (ctx) => MapMaker(
                 icon: const Icon(Icons.ac_unit),
-                color: Colors.orange,
+                color: avalancheColor,
                 onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute<Widget>(
@@ -156,6 +159,9 @@ class _MapWidgetState extends State<MapWidget> {
     final currentMapLoc = context.select<DataNotifier, LatLng>(
       (n) => n.currentMapLoc,
     );
+    final showNoDataStations = context.select<PreferenceNotifier, bool>(
+      (n) => n.viewNoDataStation,
+    );
 
     return Stack(
       children: [
@@ -168,6 +174,7 @@ class _MapWidgetState extends State<MapWidget> {
             minZoom: 8,
             plugins: [
               // UserLocationPlugin(),
+              MarkerClusterPlugin(),
             ],
           ),
           layers: [
@@ -176,16 +183,68 @@ class _MapWidgetState extends State<MapWidget> {
               subdomains: ['a', 'b', 'c'],
             ),
             if (_listStationMarker.isNotEmpty)
-              MarkerLayerOptions(
+              MarkerClusterLayerOptions(
                 markers: _listStationMarker,
+                polygonOptions: const PolygonOptions(
+                  borderColor: stationColor,
+                  color: stationColor,
+                  borderStrokeWidth: 3,
+                ),
+                builder: (context, markers) {
+                  return FloatingActionButton(
+                    backgroundColor: stationColor,
+                    onPressed: null,
+                    child: Text(markers.length.toString()),
+                  );
+                },
+              ),
+            if (_listStationNoDataMarker.isNotEmpty && showNoDataStations)
+              MarkerClusterLayerOptions(
+                markers: _listStationNoDataMarker,
+                polygonOptions: const PolygonOptions(
+                  borderColor: stationNoDataColor,
+                  color: stationNoDataColor,
+                  borderStrokeWidth: 3,
+                ),
+                builder: (context, markers) {
+                  return FloatingActionButton(
+                    backgroundColor: stationNoDataColor,
+                    onPressed: null,
+                    child: Text(markers.length.toString()),
+                  );
+                },
               ),
             if (_listNivoseMarker.isNotEmpty)
-              MarkerLayerOptions(
+              MarkerClusterLayerOptions(
                 markers: _listNivoseMarker,
+                polygonOptions: PolygonOptions(
+                  borderColor: nivoseColor,
+                  color: nivoseColor,
+                  borderStrokeWidth: 3,
+                ),
+                builder: (context, markers) {
+                  return FloatingActionButton(
+                    backgroundColor: nivoseColor,
+                    onPressed: null,
+                    child: Text(markers.length.toString()),
+                  );
+                },
               ),
             if (_listAvalancheMarker.isNotEmpty)
-              MarkerLayerOptions(
+              MarkerClusterLayerOptions(
                 markers: _listAvalancheMarker,
+                polygonOptions: const PolygonOptions(
+                  borderColor: avalancheColor,
+                  color: avalancheColor,
+                  borderStrokeWidth: 2,
+                ),
+                builder: (context, markers) {
+                  return FloatingActionButton(
+                    backgroundColor: avalancheColor,
+                    onPressed: null,
+                    child: Text(markers.length.toString()),
+                  );
+                },
               ),
             //user location
             // MarkerLayerOptions(markers: _userMarkers),
