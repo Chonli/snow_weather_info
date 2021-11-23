@@ -70,7 +70,9 @@ class DataNotifier extends ChangeNotifier {
   @protected
   set favoritesStations(List<AbstractStation> value) {
     if (_favoritesStations != value) {
+      value.sort((a, b) => a.name.compareTo(b.name));
       _favoritesStations = value;
+      _persitFavoriteStation();
       notifyListeners();
     }
   }
@@ -137,17 +139,18 @@ class DataNotifier extends ChangeNotifier {
 
   Future<void> _initFavorites() async {
     final listFav = preferences.favoritesStations;
-    _favoritesStations = [];
+    final tmpFavoritesStations = <AbstractStation>[];
     _stations.forEach((s) {
       if (listFav.contains(s.id.toString())) {
-        _favoritesStations.add(s);
+        tmpFavoritesStations.add(s);
       }
     });
     _nivoses.forEach((s) {
       if (listFav.contains(s.codeMF)) {
-        _favoritesStations.add(s);
+        tmpFavoritesStations.add(s);
       }
     });
+    favoritesStations = tmpFavoritesStations;
   }
 
   bool isFavorite(AbstractStation station) {
@@ -155,18 +158,20 @@ class DataNotifier extends ChangeNotifier {
   }
 
   void addFavoriteStation(AbstractStation station) {
-    _favoritesStations.add(station);
-    _updateFavoriteStation();
+    final tmpFavoritesStations = _favoritesStations;
+    tmpFavoritesStations.add(station);
+    favoritesStations = tmpFavoritesStations;
     notifyListeners();
   }
 
   void removeFavoriteStation(AbstractStation station) {
-    _favoritesStations.remove(station);
-    _updateFavoriteStation();
+    final tmpFavoritesStations = _favoritesStations;
+    tmpFavoritesStations.remove(station);
+    favoritesStations = tmpFavoritesStations;
     notifyListeners();
   }
 
-  void _updateFavoriteStation() {
+  void _persitFavoriteStation() {
     preferences.updateFavoritesStations(
       _favoritesStations.map<String>(
         (s) {
