@@ -3,10 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:snow_weather_info/core/notifier/preference.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
+import 'package:snow_weather_info/data/repositories/stations.dart';
 import 'package:snow_weather_info/data/sources/avalanche_api.dart';
-import 'package:snow_weather_info/data/sources/data_api.dart';
 import 'package:snow_weather_info/data/sources/database_helper.dart';
 import 'package:snow_weather_info/data/sources/preferences.dart';
+import 'package:snow_weather_info/data/sources/station_api.dart';
 import 'package:snow_weather_info/ui/home_page.dart';
 
 Future<void> main() async {
@@ -35,7 +36,15 @@ class MyApp extends StatelessWidget {
         Provider<DatabaseHelper>(create: (_) => DatabaseHelper()),
         Provider<AvalancheAPI>(create: (_) => AvalancheAPI()),
         Provider<Preferences>(create: (_) => Preferences(preferences)),
-        Provider<DataAPI>(create: (_) => DataAPI()),
+        Provider<StationAPI>(create: (_) => StationAPI()),
+        ProxyProvider0<StationsRepository>(
+          update: (context, old) => StationsRepository.update(
+            context.watch<StationAPI>(),
+            context.watch<DatabaseHelper>(),
+            context.watch<Preferences>(),
+            old,
+          ),
+        ),
         ChangeNotifierProxyProvider0<PreferenceNotifier>(
           create: (_) => PreferenceNotifier(),
           update: (context, old) => old!
@@ -46,9 +55,10 @@ class MyApp extends StatelessWidget {
           create: (_) => DataNotifier(),
           update: (context, old) => old!
             ..avalancheAPI = context.watch<AvalancheAPI>()
-            ..dataAPI = context.watch<DataAPI>()
+            ..stationAPI = context.watch<StationAPI>()
             ..preferences = context.watch<Preferences>()
             ..databaseHelper = context.watch<DatabaseHelper>()
+            ..stationsRepository = context.watch<StationsRepository>()
             ..initData(),
         ),
       ],

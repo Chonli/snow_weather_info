@@ -9,10 +9,11 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:snow_weather_info/data/repositories/stations.dart';
 import 'package:snow_weather_info/data/sources/avalanche_api.dart';
-import 'package:snow_weather_info/data/sources/data_api.dart';
 import 'package:snow_weather_info/data/sources/database_helper.dart';
 import 'package:snow_weather_info/data/sources/preferences.dart';
+import 'package:snow_weather_info/data/sources/station_api.dart';
 import 'package:snow_weather_info/model/avalanche_bulletin.dart';
 import 'package:snow_weather_info/model/data_station.dart';
 import 'package:snow_weather_info/model/station.dart';
@@ -22,7 +23,8 @@ import 'constant_data_list.dart';
 class DataNotifier extends ChangeNotifier {
   late Preferences preferences;
   late AvalancheAPI avalancheAPI;
-  late DataAPI dataAPI;
+  late StationAPI stationAPI;
+  late StationsRepository stationsRepository;
   late DatabaseHelper databaseHelper;
 
   bool _isInitialise = false;
@@ -244,16 +246,7 @@ class DataNotifier extends ChangeNotifier {
   // }
 
   Future<void> _initStation() async {
-    final stationUpdateDate = preferences.lastStationDate;
-    stations = await databaseHelper.getAllStation();
-    if (stations.isEmpty ||
-        stationUpdateDate.difference(DateTime.now()) >
-            const Duration(days: 15)) {
-      stations = await dataAPI.getStation();
-      stations.forEach((s) => databaseHelper.insertStation(s));
-
-      preferences.setLastStationDate(DateTime.now());
-    }
+    stations = await stationsRepository.getStations();
   }
 
   void _initNivose() {

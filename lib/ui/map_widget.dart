@@ -163,99 +163,91 @@ class _MapWidgetState extends State<MapWidget> {
       (n) => n.viewNoDataStation,
     );
 
-    return Stack(
-      children: [
-        FlutterMap(
-          mapController: _mapController,
-          options: MapOptions(
-            center: currentMapLoc,
-            zoom: 10,
-            maxZoom: 16,
-            minZoom: 8,
-            plugins: [
-              // UserLocationPlugin(),
-              MarkerClusterPlugin(),
-            ],
-          ),
-          layers: [
-            TileLayerOptions(
-              urlTemplate: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
-              subdomains: ['a', 'b', 'c'],
+    return FlutterMap(
+      mapController: _mapController,
+      options: MapOptions(
+        center: currentMapLoc,
+        zoom: 10,
+        maxZoom: 16,
+        minZoom: 8,
+        plugins: [
+          // UserLocationPlugin(),
+          MarkerClusterPlugin(),
+        ],
+      ),
+      layers: [
+        TileLayerOptions(
+          urlTemplate: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
+          subdomains: ['a', 'b', 'c'],
+          attributionBuilder: (_) => const MapLicenceWidget(),
+        ),
+        if (_listStationMarker.isNotEmpty)
+          MarkerClusterLayerOptions(
+            markers: _listStationMarker,
+            polygonOptions: const PolygonOptions(
+              borderColor: stationColor,
+              color: stationColor,
+              borderStrokeWidth: 3,
             ),
-            if (_listStationMarker.isNotEmpty)
-              MarkerClusterLayerOptions(
-                markers: _listStationMarker,
-                polygonOptions: const PolygonOptions(
-                  borderColor: stationColor,
-                  color: stationColor,
-                  borderStrokeWidth: 3,
-                ),
-                builder: (context, markers) {
-                  return FloatingActionButton(
-                    backgroundColor: stationColor,
-                    onPressed: null,
-                    child: Text(markers.length.toString()),
-                  );
-                },
-              ),
-            if (_listStationNoDataMarker.isNotEmpty && showNoDataStations)
-              MarkerClusterLayerOptions(
-                markers: _listStationNoDataMarker,
-                polygonOptions: const PolygonOptions(
-                  borderColor: stationNoDataColor,
-                  color: stationNoDataColor,
-                  borderStrokeWidth: 3,
-                ),
-                builder: (context, markers) {
-                  return FloatingActionButton(
-                    backgroundColor: stationNoDataColor,
-                    onPressed: null,
-                    child: Text(markers.length.toString()),
-                  );
-                },
-              ),
-            if (_listNivoseMarker.isNotEmpty)
-              MarkerClusterLayerOptions(
-                markers: _listNivoseMarker,
-                polygonOptions: PolygonOptions(
-                  borderColor: nivoseColor,
-                  color: nivoseColor,
-                  borderStrokeWidth: 3,
-                ),
-                builder: (context, markers) {
-                  return FloatingActionButton(
-                    backgroundColor: nivoseColor,
-                    onPressed: null,
-                    child: Text(markers.length.toString()),
-                  );
-                },
-              ),
-            if (_listAvalancheMarker.isNotEmpty)
-              MarkerClusterLayerOptions(
-                markers: _listAvalancheMarker,
-                polygonOptions: const PolygonOptions(
-                  borderColor: avalancheColor,
-                  color: avalancheColor,
-                  borderStrokeWidth: 2,
-                ),
-                builder: (context, markers) {
-                  return FloatingActionButton(
-                    backgroundColor: avalancheColor,
-                    onPressed: null,
-                    child: Text(markers.length.toString()),
-                  );
-                },
-              ),
-            //user location
-            // MarkerLayerOptions(markers: _userMarkers),
-            // _userLocationOptions,
-          ],
-        ),
-        const Positioned(
-          bottom: 0,
-          right: 0,
-          child: MapLicenceWidget(),
-        ),
+            builder: (context, markers) {
+              return FloatingActionButton(
+                backgroundColor: stationColor,
+                onPressed: null,
+                child: Text(markers.length.toString()),
+              );
+            },
+          ),
+        if (_listStationNoDataMarker.isNotEmpty && showNoDataStations)
+          MarkerClusterLayerOptions(
+            markers: _listStationNoDataMarker,
+            polygonOptions: const PolygonOptions(
+              borderColor: stationNoDataColor,
+              color: stationNoDataColor,
+              borderStrokeWidth: 3,
+            ),
+            builder: (context, markers) {
+              return FloatingActionButton(
+                backgroundColor: stationNoDataColor,
+                onPressed: null,
+                child: Text(markers.length.toString()),
+              );
+            },
+          ),
+        if (_listNivoseMarker.isNotEmpty)
+          MarkerClusterLayerOptions(
+            markers: _listNivoseMarker,
+            polygonOptions: PolygonOptions(
+              borderColor: nivoseColor,
+              color: nivoseColor,
+              borderStrokeWidth: 3,
+            ),
+            builder: (context, markers) {
+              return FloatingActionButton(
+                backgroundColor: nivoseColor,
+                onPressed: null,
+                child: Text(markers.length.toString()),
+              );
+            },
+          ),
+        if (_listAvalancheMarker.isNotEmpty)
+          MarkerClusterLayerOptions(
+            markers: _listAvalancheMarker,
+            polygonOptions: const PolygonOptions(
+              borderColor: avalancheColor,
+              color: avalancheColor,
+              borderStrokeWidth: 2,
+            ),
+            builder: (context, markers) {
+              return FloatingActionButton(
+                backgroundColor: avalancheColor,
+                onPressed: null,
+                child: Text(markers.length.toString()),
+              );
+            },
+          ),
+        //user location
+        // MarkerLayerOptions(markers: _userMarkers),
+        // _userLocationOptions,
       ],
     );
   }

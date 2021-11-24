@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:snow_weather_info/core/notifier/preference.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/modules/station/notifier.dart';
-import 'package:snow_weather_info/ui/station_card.dart';
+import 'package:snow_weather_info/modules/station/station_card.dart';
 
 class ListStationWidget extends StatelessWidget {
   const ListStationWidget({Key? key}) : super(key: key);
@@ -45,7 +45,7 @@ class _InnerWidget extends StatelessWidget {
         return StationCard(station: notifier.stations[index]);
       },
       indexedHeight: (i) {
-        return 106;
+        return 100;
       },
       headerWidgetList: <AlphabetScrollListHeader>[
         AlphabetScrollListHeader(
@@ -83,7 +83,7 @@ class _InnerWidget extends StatelessWidget {
               .toList(),
           icon: const Icon(Icons.star),
           indexedHeaderHeight: (index) {
-            return 106;
+            return 100;
           },
         ),
       ],
