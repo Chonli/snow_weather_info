@@ -43,6 +43,7 @@ class AppWebPage extends StatelessWidget {
       ),
       body: WebView(
         initialUrl: url,
+        javascriptMode: JavascriptMode.unrestricted,
       ),
     );
   }
