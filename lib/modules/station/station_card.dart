@@ -14,8 +14,9 @@ class StationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _textStyle = TextStyle(
-        color: Theme.of(context).textTheme.bodyText1?.color,
-        fontStyle: FontStyle.normal);
+      color: Theme.of(context).textTheme.bodyText1?.color,
+      fontStyle: FontStyle.normal,
+    );
     var snowHeigth = '';
     if (station is Station) {
       final st = station as Station;

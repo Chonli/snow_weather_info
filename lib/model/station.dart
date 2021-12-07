@@ -5,9 +5,9 @@ abstract class AbstractStation {
   AbstractStation(
     this.name,
     this.position,
-    this.altitude,
-    this.hasData,
-  );
+    this.altitude, {
+    required this.hasData,
+  });
 
   final String name;
   final LatLng position;
@@ -28,7 +28,7 @@ class Station extends AbstractStation {
     LatLng position,
     int altitude, {
     bool hasData = false,
-  }) : super(name, position, altitude, hasData);
+  }) : super(name, position, altitude, hasData: hasData);
 
   Station.fromJson(Map<String, dynamic> json)
       : id = int.parse(json['ID'] as String),
@@ -39,7 +39,7 @@ class Station extends AbstractStation {
             double.parse(json['Longitude'] as String),
           ),
           int.parse(json['Altitude'] as String),
-          false,
+          hasData: false,
         );
 
   Station.fromMap(Map<String, dynamic> map)
@@ -48,7 +48,7 @@ class Station extends AbstractStation {
           map[columnName] as String,
           LatLng(map[columnLatitude] as double, map[columnLongitude] as double),
           map[columnAltitude] as int,
-          false,
+          hasData: false,
         );
 
   final int id;
@@ -75,7 +75,7 @@ const _urlBase =
 
 class Nivose extends AbstractStation {
   Nivose(String name, LatLng position, int altitude, this.codeMF)
-      : super(name, position, altitude, false);
+      : super(name, position, altitude, hasData: false);
 
   final String codeMF;
 

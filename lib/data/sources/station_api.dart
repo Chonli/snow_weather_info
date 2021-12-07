@@ -4,7 +4,7 @@ import 'dart:developer' show log;
 import 'package:http/http.dart' as http;
 import 'package:snow_weather_info/model/station.dart';
 
-class DataAPI {
+class StationAPI {
   final client = http.Client();
 
   Future<List<Station>> getStation() async {
