@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:snow_weather_info/core/notifier/preference.dart';
+import 'package:snow_weather_info/core/theme/app_theme.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/data/repositories/stations.dart';
 import 'package:snow_weather_info/data/sources/avalanche_api.dart';
@@ -66,34 +67,8 @@ class MyApp extends StatelessWidget {
           builder: (context, PreferenceNotifier notifier, child) {
         return MaterialApp(
           title: _title,
-          theme: ThemeData(
-            brightness: Brightness.light,
-            fontFamily: 'Helvetica',
-            primaryColor: Colors.blueAccent,
-            backgroundColor: Colors.white,
-            disabledColor: Colors.grey,
-            textTheme: const TextTheme(
-              headline6: TextStyle(color: Colors.white),
-              bodyText2: TextStyle(color: Colors.black),
-              bodyText1: TextStyle(color: Colors.blue),
-              subtitle1: TextStyle(color: Colors.black),
-              subtitle2: TextStyle(color: Colors.black),
-            ),
-          ),
-          darkTheme: ThemeData(
-            brightness: Brightness.dark,
-            fontFamily: 'Helvetica',
-            primaryColor: Colors.blueAccent.shade400,
-            backgroundColor: Colors.grey.shade800,
-            disabledColor: Colors.grey.shade900,
-            textTheme: TextTheme(
-              headline6: const TextStyle(color: Colors.white),
-              bodyText2: const TextStyle(color: Colors.white70),
-              bodyText1: TextStyle(color: Colors.blue.shade300),
-              subtitle1: const TextStyle(color: Colors.white),
-              subtitle2: const TextStyle(color: Colors.white),
-            ),
-          ),
+          theme: AppTheme.ligthTheme,
+          darkTheme: AppTheme.darkTheme,
           themeMode: notifier.themeMode,
           home: const MyHomePage(title: _title),
         );

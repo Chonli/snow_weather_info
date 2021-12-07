@@ -10,8 +10,8 @@ import 'package:snow_weather_info/core/widgets/app_web_page.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/extensions/atom_item.dart';
 import 'package:snow_weather_info/modules/data_station/view.dart';
-import 'package:snow_weather_info/ui/map_licence_widget.dart';
-import 'package:snow_weather_info/ui/map_maker.dart';
+import 'package:snow_weather_info/modules/map/map_licence_widget.dart';
+import 'package:snow_weather_info/modules/map/map_maker.dart';
 import 'package:snow_weather_info/ui/nivose_page.dart';
 
 final nivoseColor = Colors.blue.shade900;
@@ -182,73 +182,64 @@ class _MapWidgetState extends State<MapWidget> {
           attributionBuilder: (_) => const MapLicenceWidget(),
         ),
         if (_listStationMarker.isNotEmpty)
-          MarkerClusterLayerOptions(
-            markers: _listStationMarker,
-            polygonOptions: const PolygonOptions(
-              borderColor: stationColor,
-              color: stationColor,
-              borderStrokeWidth: 3,
-            ),
-            builder: (context, markers) {
-              return FloatingActionButton(
-                backgroundColor: stationColor,
-                onPressed: null,
-                child: Text(markers.length.toString()),
-              );
-            },
+          _getLayer(
+            context,
+            _listStationMarker,
+            stationColor,
           ),
         if (_listStationNoDataMarker.isNotEmpty && showNoDataStations)
-          MarkerClusterLayerOptions(
-            markers: _listStationNoDataMarker,
-            polygonOptions: const PolygonOptions(
-              borderColor: stationNoDataColor,
-              color: stationNoDataColor,
-              borderStrokeWidth: 3,
-            ),
-            builder: (context, markers) {
-              return FloatingActionButton(
-                backgroundColor: stationNoDataColor,
-                onPressed: null,
-                child: Text(markers.length.toString()),
-              );
-            },
+          _getLayer(
+            context,
+            _listStationNoDataMarker,
+            stationNoDataColor,
           ),
         if (_listNivoseMarker.isNotEmpty)
-          MarkerClusterLayerOptions(
-            markers: _listNivoseMarker,
-            polygonOptions: PolygonOptions(
-              borderColor: nivoseColor,
-              color: nivoseColor,
-              borderStrokeWidth: 3,
-            ),
-            builder: (context, markers) {
-              return FloatingActionButton(
-                backgroundColor: nivoseColor,
-                onPressed: null,
-                child: Text(markers.length.toString()),
-              );
-            },
+          _getLayer(
+            context,
+            _listNivoseMarker,
+            nivoseColor,
           ),
         if (_listAvalancheMarker.isNotEmpty)
-          MarkerClusterLayerOptions(
-            markers: _listAvalancheMarker,
-            polygonOptions: const PolygonOptions(
-              borderColor: avalancheColor,
-              color: avalancheColor,
-              borderStrokeWidth: 2,
-            ),
-            builder: (context, markers) {
-              return FloatingActionButton(
-                backgroundColor: avalancheColor,
-                onPressed: null,
-                child: Text(markers.length.toString()),
-              );
-            },
+          _getLayer(
+            context,
+            _listAvalancheMarker,
+            avalancheColor,
           ),
         //user location
         // MarkerLayerOptions(markers: _userMarkers),
         // _userLocationOptions,
       ],
     );
+  }
+
+  LayerOptions _getLayer(
+    BuildContext context,
+    List<Marker> markers,
+    Color color,
+  ) {
+    final showClusterLayer = context.select<PreferenceNotifier, bool>(
+      (n) => n.showClusterLayer,
+    );
+    if (showClusterLayer) {
+      return MarkerClusterLayerOptions(
+        markers: markers,
+        polygonOptions: PolygonOptions(
+          borderColor: color,
+          color: color,
+          borderStrokeWidth: 2,
+        ),
+        builder: (context, markers) {
+          return FloatingActionButton(
+            backgroundColor: color,
+            onPressed: null,
+            child: Text(markers.length.toString()),
+          );
+        },
+      );
+    } else {
+      return MarkerLayerOptions(
+        markers: markers,
+      );
+    }
   }
 }

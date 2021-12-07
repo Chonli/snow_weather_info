@@ -27,7 +27,7 @@ extension MountainExtension on Mountain {
         return 'Corse';
 
       case Mountain.pyrennee:
-        return 'Pyrennée';
+        return 'Pyrennées';
 
       default:
         return 'Tous';

@@ -28,4 +28,14 @@ class PreferenceNotifier extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  bool _showClusterLayer = true;
+  bool get showClusterLayer => _showClusterLayer;
+  set showClusterLayer(bool value) {
+    if (_showClusterLayer != value) {
+      _showClusterLayer = value;
+      preferences.setShowClusterLayer(showClusterLayer: value);
+      notifyListeners();
+    }
+  }
 }

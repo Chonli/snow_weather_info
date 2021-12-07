@@ -47,6 +47,14 @@ class PreferencePage extends StatelessWidget {
                     .read<PreferenceNotifier>()
                     .viewNoDataStation = value,
               ),
+              SwitchListTile(
+                title: const Text('Regrouper les icones de la carte: '),
+                value: context.select<PreferenceNotifier, bool>(
+                  (n) => n.showClusterLayer,
+                ),
+                onChanged: (value) =>
+                    context.read<PreferenceNotifier>().showClusterLayer = value,
+              ),
             ],
           ),
         ),

@@ -6,6 +6,7 @@ const _lastStationDataPrefs = 'lastStationDataPrefs';
 const _favoritesStationPrefs = 'favoritesStationPrefs';
 const _themeModePrefs = 'themeModePrefs';
 const _viewNoDataStationPrefs = 'viewNoDataStationPrefs';
+const _showClusterLayerPrefs = 'showClusterLayerPrefs';
 
 class Preferences {
   Preferences(this.preferences);
@@ -50,5 +51,13 @@ class Preferences {
 
   void setViewNoDataStation({required bool viewNoDataStation}) {
     preferences.setBool(_viewNoDataStationPrefs, viewNoDataStation);
+  }
+
+  //views data station
+  bool get showClusterLayer =>
+      preferences.getBool(_showClusterLayerPrefs) ?? false;
+
+  void setShowClusterLayer({required bool showClusterLayer}) {
+    preferences.setBool(_showClusterLayerPrefs, showClusterLayer);
   }
 }
