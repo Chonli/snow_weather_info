@@ -232,7 +232,15 @@ class _MapWidgetState extends State<MapWidget> {
           return FloatingActionButton(
             backgroundColor: color,
             onPressed: null,
-            child: Text(markers.length.toString()),
+            child: Text(
+              markers.length.toString(),
+              style: TextStyle(
+                color: ThemeData.estimateBrightnessForColor(color) ==
+                        Brightness.light
+                    ? Colors.black
+                    : Colors.white,
+              ),
+            ),
           );
         },
       );
