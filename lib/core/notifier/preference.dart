@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:snow_weather_info/data/sources/preferences.dart';
 
 class PreferenceNotifier extends ChangeNotifier {
-  late final Preferences preferences;
+  late Preferences preferences;
 
   void init() {
     themeMode = preferences.themeMode;
     viewNoDataStation = preferences.viewNoDataStation;
+    showClusterLayer = preferences.showClusterLayer;
   }
 
   ThemeMode _themeMode = ThemeMode.system;
@@ -29,7 +30,7 @@ class PreferenceNotifier extends ChangeNotifier {
     }
   }
 
-  bool _showClusterLayer = true;
+  bool _showClusterLayer = false;
   bool get showClusterLayer => _showClusterLayer;
   set showClusterLayer(bool value) {
     if (_showClusterLayer != value) {
