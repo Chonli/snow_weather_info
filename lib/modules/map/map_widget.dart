@@ -163,51 +163,60 @@ class _MapWidgetState extends State<MapWidget> {
       (n) => n.viewNoDataStation,
     );
 
-    return FlutterMap(
-      mapController: _mapController,
-      options: MapOptions(
-        center: currentMapLoc,
-        zoom: 10,
-        maxZoom: 16,
-        minZoom: 8,
-        plugins: [
-          // UserLocationPlugin(),
-          MarkerClusterPlugin(),
-        ],
-      ),
-      layers: [
-        TileLayerOptions(
-          urlTemplate: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
-          subdomains: ['a', 'b', 'c'],
-          attributionBuilder: (_) => const MapLicenceWidget(),
+    return Stack(
+      children: [
+        FlutterMap(
+          mapController: _mapController,
+          options: MapOptions(
+            center: currentMapLoc,
+            zoom: 10,
+            maxZoom: 16,
+            minZoom: 8,
+            plugins: [
+              // UserLocationPlugin(),
+              MarkerClusterPlugin(),
+            ],
+          ),
+          layers: [
+            TileLayerOptions(
+              urlTemplate: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
+              subdomains: ['a', 'b', 'c'],
+              attributionBuilder: (_) => const MapLicenceWidget(),
+            ),
+            if (_listStationMarker.isNotEmpty)
+              _getLayer(
+                context,
+                _listStationMarker,
+                stationColor,
+              ),
+            if (_listStationNoDataMarker.isNotEmpty && showNoDataStations)
+              _getLayer(
+                context,
+                _listStationNoDataMarker,
+                stationNoDataColor,
+              ),
+            if (_listNivoseMarker.isNotEmpty)
+              _getLayer(
+                context,
+                _listNivoseMarker,
+                nivoseColor,
+              ),
+            if (_listAvalancheMarker.isNotEmpty)
+              _getLayer(
+                context,
+                _listAvalancheMarker,
+                avalancheColor,
+              ),
+            //user location
+            // MarkerLayerOptions(markers: _userMarkers),
+            // _userLocationOptions,
+          ],
         ),
-        if (_listStationMarker.isNotEmpty)
-          _getLayer(
-            context,
-            _listStationMarker,
-            stationColor,
-          ),
-        if (_listStationNoDataMarker.isNotEmpty && showNoDataStations)
-          _getLayer(
-            context,
-            _listStationNoDataMarker,
-            stationNoDataColor,
-          ),
-        if (_listNivoseMarker.isNotEmpty)
-          _getLayer(
-            context,
-            _listNivoseMarker,
-            nivoseColor,
-          ),
-        if (_listAvalancheMarker.isNotEmpty)
-          _getLayer(
-            context,
-            _listAvalancheMarker,
-            avalancheColor,
-          ),
-        //user location
-        // MarkerLayerOptions(markers: _userMarkers),
-        // _userLocationOptions,
+        const Positioned(
+          bottom: 0,
+          right: 0,
+          child: MapLicenceWidget(),
+        ),
       ],
     );
   }
