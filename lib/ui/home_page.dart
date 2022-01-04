@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
-import 'package:snow_weather_info/modules/brea/view.dart';
 import 'package:snow_weather_info/modules/avalanche/view.dart';
-import 'package:snow_weather_info/ui/list_station_widget.dart';
-import 'package:snow_weather_info/ui/map_widget.dart';
+import 'package:snow_weather_info/modules/brea/view.dart';
+import 'package:snow_weather_info/modules/map/map_widget.dart';
+import 'package:snow_weather_info/modules/station/list_station_widget.dart';
+import 'package:snow_weather_info/ui/preference_page.dart';
 import 'package:url_launcher/url_launcher.dart' as url;
 
 class HomePage extends StatefulWidget {
@@ -55,6 +56,14 @@ class _HomePageState extends State<HomePage>
             onSelected: (int value) async {
               switch (value) {
                 case 0:
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute<Widget>(
+                      builder: (context) => const PreferencePage(),
+                    ),
+                  );
+                  break;
+                case 1:
                   _openAboutDialog(context);
                   break;
               }
@@ -62,6 +71,13 @@ class _HomePageState extends State<HomePage>
             itemBuilder: (BuildContext context) => <PopupMenuItem<int>>[
               const PopupMenuItem(
                 value: 0,
+                child: ListTile(
+                  leading: Icon(Icons.settings),
+                  title: Text('Préférences...'),
+                ),
+              ),
+              const PopupMenuItem(
+                value: 1,
                 child: ListTile(
                   leading: Icon(Icons.info_outline),
                   title: Text('A propos...'),
@@ -74,6 +90,7 @@ class _HomePageState extends State<HomePage>
           key: const PageStorageKey('tab_key'),
           controller: _tabController,
           isScrollable: true,
+          indicatorColor: Theme.of(context).primaryColor,
           tabs: const [
             Tab(text: 'Stations', icon: Icon(Icons.list)),
             Tab(text: 'Carte', icon: Icon(Icons.map)),

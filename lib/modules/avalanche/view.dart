@@ -1,9 +1,9 @@
+import 'package:dart_rss/dart_rss.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:snow_weather_info/core/widgets/app_web_page.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/extensions/atom_item.dart';
-import 'package:dart_rss/dart_rss.dart';
 
 class AvalancheListWidget extends StatelessWidget {
   const AvalancheListWidget({

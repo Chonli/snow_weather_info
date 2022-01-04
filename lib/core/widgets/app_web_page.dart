@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart' as web;
+import 'package:webview_flutter/webview_flutter.dart';
 
 class AppWebPage extends StatelessWidget {
   const AppWebPage({
@@ -8,11 +9,13 @@ class AppWebPage extends StatelessWidget {
     required this.title,
     required this.url,
     this.canIsOpen = false,
+    this.canShare = false,
   }) : super(key: key);
 
   final String title;
   final String url;
   final bool canIsOpen;
+  final bool canShare;
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +34,16 @@ class AppWebPage extends StatelessWidget {
                 }
               },
             ),
+          if (canShare)
+            IconButton(
+              icon: const Icon(Icons.share),
+              onPressed: () => Share.share(url),
+            ),
         ],
       ),
       body: WebView(
         initialUrl: url,
+        javascriptMode: JavascriptMode.unrestricted,
       ),
     );
   }

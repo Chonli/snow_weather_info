@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:snow_weather_info/model/data_station.dart';
 import 'package:snow_weather_info/extensions/double.dart';
+import 'package:snow_weather_info/model/data_station.dart';
 
 class DataStationWidget extends StatelessWidget {
   const DataStationWidget({

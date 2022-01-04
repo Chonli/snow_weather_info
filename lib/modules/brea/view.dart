@@ -82,6 +82,7 @@ class _CardMassif extends StatelessWidget {
             builder: (context) => AppWebPage(
               title: avalancheBulletin.massifName,
               url: avalancheBulletin.url,
+              canShare: true,
             ),
           ),
         ),

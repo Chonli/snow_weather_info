@@ -5,14 +5,15 @@ import 'package:collection/collection.dart';
 import 'package:csv/csv.dart';
 import 'package:dart_rss/dart_rss.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart' show rootBundle;
+// import 'package:flutter/services.dart' show rootBundle;
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:snow_weather_info/data/repositories/stations.dart';
 import 'package:snow_weather_info/data/sources/avalanche_api.dart';
-import 'package:snow_weather_info/data/sources/data_api.dart';
 import 'package:snow_weather_info/data/sources/database_helper.dart';
 import 'package:snow_weather_info/data/sources/preferences.dart';
+import 'package:snow_weather_info/data/sources/station_api.dart';
 import 'package:snow_weather_info/model/avalanche_bulletin.dart';
 import 'package:snow_weather_info/model/data_station.dart';
 import 'package:snow_weather_info/model/station.dart';
@@ -22,7 +23,8 @@ import 'constant_data_list.dart';
 class DataNotifier extends ChangeNotifier {
   late Preferences preferences;
   late AvalancheAPI avalancheAPI;
-  late DataAPI dataAPI;
+  late StationAPI stationAPI;
+  late StationsRepository stationsRepository;
   late DatabaseHelper databaseHelper;
 
   bool _isInitialise = false;
@@ -70,7 +72,9 @@ class DataNotifier extends ChangeNotifier {
   @protected
   set favoritesStations(List<AbstractStation> value) {
     if (_favoritesStations != value) {
+      value.sort((a, b) => a.name.compareTo(b.name));
       _favoritesStations = value;
+      _persitFavoriteStation();
       notifyListeners();
     }
   }
@@ -96,7 +100,6 @@ class DataNotifier extends ChangeNotifier {
   Future<bool> initData() async {
     if (!_isInitialise) {
       loading = true;
-      await preferences.init();
       _initNivose();
 
       try {
@@ -138,17 +141,18 @@ class DataNotifier extends ChangeNotifier {
 
   Future<void> _initFavorites() async {
     final listFav = preferences.favoritesStations;
-    _favoritesStations = [];
+    final tmpFavoritesStations = <AbstractStation>[];
     _stations.forEach((s) {
       if (listFav.contains(s.id.toString())) {
-        _favoritesStations.add(s);
+        tmpFavoritesStations.add(s);
       }
     });
     _nivoses.forEach((s) {
       if (listFav.contains(s.codeMF)) {
-        _favoritesStations.add(s);
+        tmpFavoritesStations.add(s);
       }
     });
+    favoritesStations = tmpFavoritesStations;
   }
 
   bool isFavorite(AbstractStation station) {
@@ -156,18 +160,20 @@ class DataNotifier extends ChangeNotifier {
   }
 
   void addFavoriteStation(AbstractStation station) {
-    _favoritesStations.add(station);
-    _updateFavoriteStation();
+    final tmpFavoritesStations = _favoritesStations;
+    tmpFavoritesStations.add(station);
+    favoritesStations = tmpFavoritesStations;
     notifyListeners();
   }
 
   void removeFavoriteStation(AbstractStation station) {
-    _favoritesStations.remove(station);
-    _updateFavoriteStation();
+    final tmpFavoritesStations = _favoritesStations;
+    tmpFavoritesStations.remove(station);
+    favoritesStations = tmpFavoritesStations;
     notifyListeners();
   }
 
-  void _updateFavoriteStation() {
+  void _persitFavoriteStation() {
     preferences.updateFavoritesStations(
       _favoritesStations.map<String>(
         (s) {
@@ -233,23 +239,14 @@ class DataNotifier extends ChangeNotifier {
     }
   }
 
-  Future<void> _readTestStationData() async {
-    final data =
-        await rootBundle.loadString('assets/test_data/nivo.202102.txt');
-    _decodeStationData(data);
-  }
+  // Future<void> _readTestStationData() async {
+  //   final data =
+  //       await rootBundle.loadString('assets/test_data/nivo.202102.txt');
+  //   _decodeStationData(data);
+  // }
 
   Future<void> _initStation() async {
-    final stationUpdateDate = preferences.lastStationDate;
-    stations = await databaseHelper.getAllStation();
-    if (stations.isEmpty ||
-        stationUpdateDate.difference(DateTime.now()) >
-            const Duration(days: 15)) {
-      stations = await dataAPI.getStation();
-      stations.forEach((s) => databaseHelper.insertStation(s));
-
-      preferences.setLastStationDate(DateTime.now());
-    }
+    stations = await stationsRepository.getStations();
   }
 
   void _initNivose() {

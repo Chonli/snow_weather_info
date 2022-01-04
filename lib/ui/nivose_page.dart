@@ -5,7 +5,10 @@ import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/model/station.dart';
 
 class NivosePage extends StatefulWidget {
-  const NivosePage(this.nivose);
+  const NivosePage({
+    Key? key,
+    required this.nivose,
+  }) : super(key: key);
 
   final Nivose nivose;
 
@@ -61,7 +64,7 @@ class _NivosePageState extends State<NivosePage> {
                   },
                 ),
               const SizedBox(height: 5),
-              if (widget.nivose.urlSeason != null)
+              if (widget.nivose.urlSeason.isNotEmpty)
                 Image.network(
                   widget.nivose.urlSeason,
                   loadingBuilder: (

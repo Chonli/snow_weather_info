@@ -14,8 +14,9 @@ class StationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _textStyle = TextStyle(
-        color: Theme.of(context).textTheme.bodyText1?.color,
-        fontStyle: FontStyle.normal);
+      color: Theme.of(context).textTheme.bodyText1?.color,
+      fontStyle: FontStyle.normal,
+    );
     var snowHeigth = '';
     if (station is Station) {
       final st = station as Station;
@@ -64,7 +65,7 @@ class StationCard extends StatelessWidget {
           MaterialPageRoute<Widget>(
             builder: (context) => station is Station
                 ? DataStationView(station: station as Station)
-                : NivosePage(station as Nivose),
+                : NivosePage(nivose: station as Nivose),
           ),
         ),
       ),

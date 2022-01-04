@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:developer' show log;
 
-import 'package:http/http.dart' as http;
 import 'package:dart_rss/dart_rss.dart';
+import 'package:http/http.dart' as http;
 
 class AvalancheAPI {
   final client = http.Client();
