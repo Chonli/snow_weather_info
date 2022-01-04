@@ -318,57 +318,57 @@ abstract class ConstantDatalist {
     const AvalancheBulletin(
       'Pays-Basque',
       'http://api.meteofrance.com/files/mountain/bulletins/BRA64.xml',
-      Mountain.pyrennee,
+      Mountain.pyrenees,
     ),
     const AvalancheBulletin(
       'Aspe-Ossau',
       'http://api.meteofrance.com/files/mountain/bulletins/BRA65.xml',
-      Mountain.pyrennee,
+      Mountain.pyrenees,
     ),
     const AvalancheBulletin(
       'Haute-Bigorre',
       'http://api.meteofrance.com/files/mountain/bulletins/BRA66.xml',
-      Mountain.pyrennee,
+      Mountain.pyrenees,
     ),
     const AvalancheBulletin(
       'Aure-Louron',
       'http://api.meteofrance.com/files/mountain/bulletins/BRA67.xml',
-      Mountain.pyrennee,
+      Mountain.pyrenees,
     ),
     const AvalancheBulletin(
       'Luchonnais',
       'http://api.meteofrance.com/files/mountain/bulletins/BRA68.xml',
-      Mountain.pyrennee,
+      Mountain.pyrenees,
     ),
     const AvalancheBulletin(
       'Couserans',
       'http://api.meteofrance.com/files/mountain/bulletins/BRA69.xml',
-      Mountain.pyrennee,
+      Mountain.pyrenees,
     ),
     const AvalancheBulletin(
       'Haute-Ariege',
       'http://api.meteofrance.com/files/mountain/bulletins/BRA70.xml',
-      Mountain.pyrennee,
+      Mountain.pyrenees,
     ),
     const AvalancheBulletin(
       'Andorre',
       'http://api.meteofrance.com/files/mountain/bulletins/BRA71.xml',
-      Mountain.pyrennee,
+      Mountain.pyrenees,
     ),
     const AvalancheBulletin(
       'Orlu-St-Barthelemy',
       'http://api.meteofrance.com/files/mountain/bulletins/BRA72.xml',
-      Mountain.pyrennee,
+      Mountain.pyrenees,
     ),
     const AvalancheBulletin(
       'Capcir-Puymorens',
       'http://api.meteofrance.com/files/mountain/bulletins/BRA73.xml',
-      Mountain.pyrennee,
+      Mountain.pyrenees,
     ),
     const AvalancheBulletin(
       'Cerdagne-Canigou',
       'http://api.meteofrance.com/files/mountain/bulletins/BRA74.xml',
-      Mountain.pyrennee,
+      Mountain.pyrenees,
     ),
   ];
 }
