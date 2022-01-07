@@ -10,6 +10,7 @@ import 'package:snow_weather_info/core/widgets/app_web_page.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/extensions/atom_item.dart';
 import 'package:snow_weather_info/modules/data_station/view.dart';
+import 'package:snow_weather_info/modules/map/map_cache_provider.dart';
 import 'package:snow_weather_info/modules/map/map_licence_widget.dart';
 import 'package:snow_weather_info/modules/map/map_maker.dart';
 import 'package:snow_weather_info/ui/nivose_page.dart';
@@ -180,6 +181,7 @@ class _MapWidgetState extends State<MapWidget> {
           urlTemplate: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
           subdomains: ['a', 'b', 'c'],
           attributionBuilder: (_) => const MapLicenceWidget(),
+          tileProvider: NetworkCacheTileProvider(),
         ),
         if (_listStationMarker.isNotEmpty)
           _getLayer(
