@@ -19,22 +19,18 @@ class NivosePage extends StatefulWidget {
 class _NivosePageState extends State<NivosePage> {
   @override
   Widget build(BuildContext context) {
-    final repository = context.watch<DataNotifier>();
-    repository.currentMapLoc = widget.nivose.position;
-    final isFavorite = repository.isFavorite(widget.nivose);
+    final notifier = context.watch<DataNotifier>();
+    notifier.currentMapLoc = widget.nivose.position;
+    final isFavorite = notifier.isFavorite(widget.nivose);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.nivose.name),
         actions: <Widget>[
           IconButton(
             icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
-            onPressed: () => setState(() {
-              if (isFavorite) {
-                repository.removeFavoriteStation(widget.nivose);
-              } else {
-                repository.addFavoriteStation(widget.nivose);
-              }
-            }),
+            onPressed: () => setState(
+              () => notifier.addOrRemoveFavoriteStation(widget.nivose),
+            ),
           ),
           IconButton(
             icon: const Icon(Icons.share),
@@ -50,38 +46,48 @@ class _NivosePageState extends State<NivosePage> {
           child: ListView(
             children: [
               if (widget.nivose.urlWeek.isNotEmpty)
-                Image.network(
-                  widget.nivose.urlWeek,
-                  loadingBuilder: (
-                    BuildContext context,
-                    Widget child,
-                    ImageChunkEvent? loadingProgress,
-                  ) {
-                    if (loadingProgress == null) {
-                      return child;
-                    }
-                    return const Center(child: CircularProgressIndicator());
-                  },
+                _NetworkImage(
+                  url: widget.nivose.urlWeek,
                 ),
               const SizedBox(height: 5),
               if (widget.nivose.urlSeason.isNotEmpty)
-                Image.network(
-                  widget.nivose.urlSeason,
-                  loadingBuilder: (
-                    BuildContext context,
-                    Widget child,
-                    ImageChunkEvent? loadingProgress,
-                  ) {
-                    if (loadingProgress == null) {
-                      return child;
-                    }
-                    return const Center(child: CircularProgressIndicator());
-                  },
+                _NetworkImage(
+                  url: widget.nivose.urlSeason,
                 ),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class _NetworkImage extends StatelessWidget {
+  const _NetworkImage({
+    Key? key,
+    required this.url,
+  }) : super(key: key);
+
+  final String url;
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.network(
+      url,
+      loadingBuilder: (
+        BuildContext context,
+        Widget child,
+        ImageChunkEvent? loadingProgress,
+      ) {
+        if (loadingProgress == null) {
+          return child;
+        }
+        return const Expanded(
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      },
     );
   }
 }

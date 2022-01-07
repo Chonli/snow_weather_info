@@ -54,10 +54,10 @@ class _View extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final repository = context.watch<DataNotifier>();
-    repository.currentMapLoc = station.position;
-    final data = repository.getDataOfStation(station.id);
-    final isFavorite = repository.isFavorite(station);
+    final notifier = context.watch<DataNotifier>();
+    notifier.currentMapLoc = station.position;
+    final data = notifier.getDataOfStation(station.id);
+    final isFavorite = notifier.isFavorite(station);
     return Scaffold(
       appBar: AppBar(
         title: Column(
@@ -73,14 +73,9 @@ class _View extends StatelessWidget {
         ),
         actions: <Widget>[
           IconButton(
-              icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
-              onPressed: () {
-                if (isFavorite) {
-                  repository.removeFavoriteStation(station);
-                } else {
-                  repository.addFavoriteStation(station);
-                }
-              }),
+            icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
+            onPressed: () => notifier.addOrRemoveFavoriteStation(station),
+          ),
           Visibility(
             visible: data.isNotEmpty,
             child: IconButton(

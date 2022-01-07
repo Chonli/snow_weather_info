@@ -79,6 +79,36 @@ class DataNotifier extends ChangeNotifier {
     }
   }
 
+  void addOrRemoveFavoriteStation(AbstractStation station) {
+    if (_favoritesStations.contains(station)) {
+      _favoritesStations.remove(station);
+    } else {
+      _favoritesStations.add(station);
+    }
+    _persitFavoriteStation();
+    notifyListeners();
+  }
+
+  Future<void> _initFavorites() async {
+    final listFav = preferences.favoritesStations;
+    final tmpFavoritesStations = <AbstractStation>[];
+    _stations.forEach((s) {
+      if (listFav.contains(s.id.toString())) {
+        tmpFavoritesStations.add(s);
+      }
+    });
+    _nivoses.forEach((s) {
+      if (listFav.contains(s.codeMF)) {
+        tmpFavoritesStations.add(s);
+      }
+    });
+    favoritesStations = tmpFavoritesStations;
+  }
+
+  bool isFavorite(AbstractStation station) {
+    return _favoritesStations.contains(station);
+  }
+
   AtomFeed? get avalancheFeed => _avalancheFeed;
   AtomFeed? _avalancheFeed;
   @protected
@@ -137,40 +167,6 @@ class DataNotifier extends ChangeNotifier {
         s.lastSnowHeight = 0.0;
       }
     }
-  }
-
-  Future<void> _initFavorites() async {
-    final listFav = preferences.favoritesStations;
-    final tmpFavoritesStations = <AbstractStation>[];
-    _stations.forEach((s) {
-      if (listFav.contains(s.id.toString())) {
-        tmpFavoritesStations.add(s);
-      }
-    });
-    _nivoses.forEach((s) {
-      if (listFav.contains(s.codeMF)) {
-        tmpFavoritesStations.add(s);
-      }
-    });
-    favoritesStations = tmpFavoritesStations;
-  }
-
-  bool isFavorite(AbstractStation station) {
-    return _favoritesStations.contains(station);
-  }
-
-  void addFavoriteStation(AbstractStation station) {
-    final tmpFavoritesStations = _favoritesStations;
-    tmpFavoritesStations.add(station);
-    favoritesStations = tmpFavoritesStations;
-    notifyListeners();
-  }
-
-  void removeFavoriteStation(AbstractStation station) {
-    final tmpFavoritesStations = _favoritesStations;
-    tmpFavoritesStations.remove(station);
-    favoritesStations = tmpFavoritesStations;
-    notifyListeners();
   }
 
   void _persitFavoriteStation() {
