@@ -1,10 +1,9 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/modules/avalanche/view.dart';
-import 'package:snow_weather_info/modules/brea/view.dart';
+import 'package:snow_weather_info/modules/bera/view.dart';
 import 'package:snow_weather_info/modules/map/map_widget.dart';
 import 'package:snow_weather_info/modules/station/list_station_widget.dart';
 import 'package:snow_weather_info/ui/preference_page.dart';
@@ -95,7 +94,7 @@ class _HomePageState extends State<HomePage>
             Tab(text: 'Stations', icon: Icon(Icons.list)),
             Tab(text: 'Carte', icon: Icon(Icons.map)),
             Tab(text: 'Avalanches', icon: Icon(Icons.rss_feed)),
-            Tab(text: 'BREA', icon: Icon(Icons.ac_unit)),
+            Tab(text: 'BERA', icon: Icon(Icons.ac_unit)),
           ],
         ),
       ),
@@ -107,7 +106,7 @@ class _HomePageState extends State<HomePage>
           ListStationWidget(),
           MapWidget(),
           AvalancheListWidget(),
-          BREAMassifListView(),
+          BERAMassifListView(),
         ],
       ),
     );
