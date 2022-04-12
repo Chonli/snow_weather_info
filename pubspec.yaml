@@ -12,36 +12,35 @@ publish_to: none
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.8.1+22
+version: 1.8.2+23
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.15.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
-  flutter_launcher_icons: ^0.9.0
-  provider: ^6.0.1
-  http: ^0.13.3
-  collection: ^1.15.0
-  latlong2: ^0.8.0
-  csv: ^5.0.0
+  flutter_launcher_icons: ^0.9.2
+  provider: ^6.0.2
+  http: ^0.13.4
+  latlong2: ^0.8.1
+  csv: ^5.0.1
   intl: ^0.17.0
   flutter_map: ^0.14.0
-  flutter_map_marker_cluster: ^0.4.3
+  flutter_map_marker_cluster: ^0.4.4
   # user_location: ^0.1.3
   charts_flutter: ^0.12.0
-  sqflite: ^2.0.0+3
-  shared_preferences: ^2.0.8
-  url_launcher: ^6.0.6
+  sqflite: ^2.0.2
+  shared_preferences: ^2.0.13
+  url_launcher: ^6.0.20
   package_info: ^2.0.2
   carousel_slider: ^4.0.0-nullsafety.0
   share: ^2.0.4
   alphabet_list_scroll_view: ^2.0.0
-  webview_flutter: ^2.3.0
-  flutter_sticky_header: ^0.6.0
-  logging: ^1.0.1
+  webview_flutter: ^3.0.2
+  flutter_sticky_header: ^0.6.1
+  logging: ^1.0.2
   dart_rss:
     git:
       url: https://github.com/Chonli/webfeed.git
@@ -50,7 +49,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^1.0.0
+  flutter_lints: ^1.0.4
 
 flutter:
   uses-material-design: true

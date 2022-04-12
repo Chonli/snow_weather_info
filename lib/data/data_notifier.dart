@@ -185,7 +185,7 @@ class DataNotifier extends ChangeNotifier {
   }
 
   void _decodeStationData(String data) {
-    final cvsResult = const CsvToListConverter().convert(
+    final cvsResult = const CsvToListConverter().convert<dynamic>(
       data,
       fieldDelimiter: ';',
       eol: '\n',
