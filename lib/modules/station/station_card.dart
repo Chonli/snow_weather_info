@@ -46,16 +46,15 @@ class StationCard extends StatelessWidget {
           style: _textStyle,
         ),
         isThreeLine: true,
-        trailing: Visibility(
-          visible: snowHeigth.isNotEmpty,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(Icons.ac_unit),
-              Text(snowHeigth),
-            ],
-          ),
-        ),
+        trailing: snowHeigth.isNotEmpty
+            ? Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.ac_unit),
+                  Text(snowHeigth),
+                ],
+              )
+            : null,
         subtitle: Text(
           '${station.altitude}m \nLatLng(${station.position.latitude},${station.position.longitude})',
           style: _textStyle,
