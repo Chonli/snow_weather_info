@@ -30,12 +30,7 @@ class StationCard extends StatelessWidget {
       _textStyle = TextStyle(color: _color, fontStyle: _font);
     }
     return Card(
-      margin: const EdgeInsets.only(
-        left: 8,
-        bottom: 8,
-        top: 8,
-        right: 64,
-      ),
+      margin: const EdgeInsets.all(8),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),

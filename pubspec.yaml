@@ -37,7 +37,7 @@ dependencies:
   package_info: ^2.0.2
   carousel_slider: ^4.0.0-nullsafety.0
   share: ^2.0.4
-  alphabet_list_scroll_view: ^2.0.0
+  azlistview: ^2.0.0
   webview_flutter: ^3.0.2
   flutter_sticky_header: ^0.6.1
   logging: ^1.0.2
