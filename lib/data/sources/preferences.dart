@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 const _lastStationPrefs = 'lastStationPrefs';
 const _lastStationDataPrefs = 'lastStationDataPrefs';
 const _favoritesStationPrefs = 'favoritesStationPrefs';
+const _favoritesBERAPrefs = 'favoritesBERAPrefs';
 const _themeModePrefs = 'themeModePrefs';
 const _viewNoDataStationPrefs = 'viewNoDataStationPrefs';
 const _showClusterLayerPrefs = 'showClusterLayerPrefs';
@@ -30,6 +31,14 @@ class Preferences {
 
   void updateFavoritesStations(List<String> favorites) {
     preferences.setStringList(_favoritesStationPrefs, favorites);
+  }
+
+  // BERA
+  List<String> get favoritesBERA =>
+      preferences.getStringList(_favoritesBERAPrefs) ?? [];
+
+  void updateFavoritesBERA(List<String> favorites) {
+    preferences.setStringList(_favoritesBERAPrefs, favorites);
   }
 
   //Themes

@@ -26,8 +26,9 @@ class MapLicenceWidget extends StatelessWidget {
                 color: bodyText1Color,
               ),
               recognizer: TapGestureRecognizer()
-                ..onTap =
-                    () => url.launch('https://www.openstreetmap.org/copyright'),
+                ..onTap = () => url.launchUrl(
+                      Uri.parse('https://www.openstreetmap.org/copyright'),
+                    ),
             ),
             TextSpan(
               text: ' contributors\nstyle carte: ©',
@@ -41,7 +42,9 @@ class MapLicenceWidget extends StatelessWidget {
                 color: bodyText1Color,
               ),
               recognizer: TapGestureRecognizer()
-                ..onTap = () => url.launch('https://opentopomap.org'),
+                ..onTap = () => url.launchUrl(
+                      Uri.parse('https://opentopomap.org'),
+                    ),
             ),
             TextSpan(
               text: ' (CC-BY-SA)',
@@ -49,8 +52,10 @@ class MapLicenceWidget extends StatelessWidget {
                 color: bodyText2Color,
               ),
               recognizer: TapGestureRecognizer()
-                ..onTap = () => url.launch(
-                      'https://creativecommons.org/licenses/by-sa/3.0/',
+                ..onTap = () => url.launchUrl(
+                      Uri.parse(
+                        'https://creativecommons.org/licenses/by-sa/3.0/',
+                      ),
                     ),
             ),
           ],

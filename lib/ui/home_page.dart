@@ -137,8 +137,9 @@ class _HomePageState extends State<HomePage>
             ),
             const Padding(padding: EdgeInsets.all(5)),
             InkWell(
-              onTap: () =>
-                  url.launch('https://github.com/Chonli/snow_weather_info'),
+              onTap: () => url.launchUrl(
+                Uri.parse('https://github.com/Chonli/snow_weather_info'),
+              ),
               child: Text(
                 'Lien vers le projet',
                 style: TextStyle(

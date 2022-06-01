@@ -35,6 +35,38 @@ class DataNotifier extends ChangeNotifier {
   List<AvalancheBulletin> get avalancheBulletins =>
       ConstantDatalist.listAvalancheBulletin;
 
+  List<AvalancheBulletin> get favoritesBERA => _favoritesBERA.toList();
+  List<AvalancheBulletin> _favoritesBERA = [];
+  @protected
+  set favoritesBERA(List<AvalancheBulletin> value) {
+    if (_favoritesBERA != value) {
+      value.sort((a, b) => a.massifName.compareTo(b.massifName));
+      _favoritesBERA = value;
+      _persitFavoriteBERA();
+      notifyListeners();
+    }
+  }
+
+  void addOrRemoveFavoriteBERA(AvalancheBulletin bera) {
+    if (_favoritesBERA.contains(bera)) {
+      _favoritesBERA.remove(bera);
+    } else {
+      _favoritesBERA.add(bera);
+    }
+    _persitFavoriteBERA();
+    notifyListeners();
+  }
+
+  void _persitFavoriteBERA() {
+    preferences.updateFavoritesStations(
+      _favoritesBERA
+          .map<String>(
+            (bera) => bera.massifName,
+          )
+          .toList(),
+    );
+  }
+
   bool get loading => _loading;
   bool _loading = false;
   @protected
@@ -90,6 +122,7 @@ class DataNotifier extends ChangeNotifier {
   }
 
   Future<void> _initFavorites() async {
+    //Stations
     final listFav = preferences.favoritesStations;
     final tmpFavoritesStations = <AbstractStation>[];
     _stations.forEach((s) {
@@ -103,6 +136,16 @@ class DataNotifier extends ChangeNotifier {
       }
     });
     favoritesStations = tmpFavoritesStations;
+
+    //BERA
+    final listBERA = preferences.favoritesBERA;
+    final tmpFavoritesBERA = <AvalancheBulletin>[];
+    avalancheBulletins.forEach((bera) {
+      if (listBERA.contains(bera.massifName)) {
+        tmpFavoritesBERA.add(bera);
+      }
+    });
+    favoritesBERA = tmpFavoritesBERA;
   }
 
   bool isFavorite(AbstractStation station) {

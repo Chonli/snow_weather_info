@@ -17,6 +17,7 @@ analyzer:
     - "**/lib/**/*.freezed.dart"
     - "**/lib/**/*.g.dart"
     - "assets/**"
+
 linter:
   rules:
     # We prefer having parameters in the same order as fields https://github.com/flutter/flutter/issues/10219
