@@ -41,8 +41,9 @@ class _AppWebPageState extends State<AppWebPage> {
             IconButton(
               icon: const Icon(Icons.open_in_browser),
               onPressed: () async {
-                if (await web.canLaunch(widget.url)) {
-                  web.launch(widget.url);
+                final uri = Uri.parse(widget.url);
+                if (await web.canLaunchUrl(uri)) {
+                  web.launchUrl(uri);
                 }
               },
             ),
@@ -74,7 +75,7 @@ class _AppWebPageState extends State<AppWebPage> {
               child: CircularProgressIndicator(),
             )
           else
-            Stack(),
+            const SizedBox.shrink(),
         ],
       ),
     );

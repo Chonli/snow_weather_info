@@ -125,7 +125,7 @@ class _BERAView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isFavorite = context.select<DataNotifier, bool>(
-      (n) => n.favoritesStations.contains(avalancheBulletin),
+      (n) => n.favoritesBERA.contains(avalancheBulletin),
     );
 
     return AppWebPage(
