@@ -186,7 +186,7 @@ abstract class ConstantDatalist {
       LatLng(42.74692, 0.18128),
       2120,
       'AIGTE',
-    )
+    ),
   ];
 
   static final listAvalancheBulletin = <AvalancheBulletin>[

@@ -49,6 +49,7 @@ class _View extends StatelessWidget {
       ret +=
           'Hauteur de neige fraiches: ${data.snowNewHeight!.toStringSnowHeigth()}cm\n';
     }
+
     return ret;
   }
 
@@ -58,6 +59,7 @@ class _View extends StatelessWidget {
     notifier.currentMapLoc = station.position;
     final data = notifier.getDataOfStation(station.id);
     final isFavorite = notifier.isFavorite(station);
+
     return Scaffold(
       appBar: AppBar(
         title: Column(
@@ -109,6 +111,7 @@ class _Body extends StatelessWidget {
     final currentIndex = context.select<DataStationNotifier, int>(
       (n) => n.currentIndex,
     );
+
     return Container(
       color: Theme.of(context).backgroundColor,
       child: Column(

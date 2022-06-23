@@ -21,18 +21,16 @@ class StationsRepository {
     Preferences preferences,
     StationsRepository? old,
   ) {
-    if (old == null ||
-        apiClient != old._apiClient ||
-        databaseHelper != old._databaseHelper ||
-        preferences != old._preferences) {
-      return StationsRepository(
-        apiClient: apiClient,
-        databaseHelper: databaseHelper,
-        preferences: preferences,
-      );
-    } else {
-      return old;
-    }
+    return old == null ||
+            apiClient != old._apiClient ||
+            databaseHelper != old._databaseHelper ||
+            preferences != old._preferences
+        ? StationsRepository(
+            apiClient: apiClient,
+            databaseHelper: databaseHelper,
+            preferences: preferences,
+          )
+        : old;
   }
 
   final StationAPI _apiClient;

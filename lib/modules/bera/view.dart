@@ -99,17 +99,18 @@ class _CardMassif extends StatelessWidget {
       ),
       elevation: 5,
       child: ListTile(
-          title: Text(avalancheBulletin.massifName),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute<Widget>(
-                builder: (context) => _BERAView(
-                  avalancheBulletin: avalancheBulletin,
-                ),
+        title: Text(avalancheBulletin.massifName),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute<Widget>(
+              builder: (context) => _BERAView(
+                avalancheBulletin: avalancheBulletin,
               ),
-            );
-          }),
+            ),
+          );
+        },
+      ),
     );
   }
 }

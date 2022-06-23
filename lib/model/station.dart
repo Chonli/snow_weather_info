@@ -60,7 +60,7 @@ class Station extends AbstractStation {
       columnName: name,
       columnLatitude: position.latitude,
       columnLongitude: position.longitude,
-      columnAltitude: altitude
+      columnAltitude: altitude,
     };
   }
 

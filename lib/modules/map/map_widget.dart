@@ -229,34 +229,31 @@ class _MapWidgetState extends State<MapWidget> {
     final showClusterLayer = context.select<PreferenceNotifier, bool>(
       (n) => n.showClusterLayer,
     );
-    if (showClusterLayer) {
-      return MarkerClusterLayerOptions(
-        markers: markers,
-        polygonOptions: PolygonOptions(
-          borderColor: color,
-          color: color,
-          borderStrokeWidth: 2,
-        ),
-        builder: (context, markers) {
-          return FloatingActionButton(
-            backgroundColor: color,
-            onPressed: null,
-            child: Text(
-              markers.length.toString(),
-              style: TextStyle(
-                color: ThemeData.estimateBrightnessForColor(color) ==
-                        Brightness.light
-                    ? Colors.black
-                    : Colors.white,
-              ),
+
+    return showClusterLayer
+        ? MarkerClusterLayerOptions(
+            markers: markers,
+            polygonOptions: PolygonOptions(
+              borderColor: color,
+              color: color,
+              borderStrokeWidth: 2,
             ),
-          );
-        },
-      );
-    } else {
-      return MarkerLayerOptions(
-        markers: markers,
-      );
-    }
+            builder: (context, markers) {
+              return FloatingActionButton(
+                backgroundColor: color,
+                onPressed: null,
+                child: Text(
+                  markers.length.toString(),
+                  style: TextStyle(
+                    color: ThemeData.estimateBrightnessForColor(color) ==
+                            Brightness.light
+                        ? Colors.black
+                        : Colors.white,
+                  ),
+                ),
+              );
+            },
+          )
+        : MarkerLayerOptions(markers: markers);
   }
 }

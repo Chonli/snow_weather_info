@@ -31,6 +31,7 @@ class _AppWebPageState extends State<AppWebPage> {
   @override
   Widget build(BuildContext context) {
     final safeOnFavorite = widget.onFavorite;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(

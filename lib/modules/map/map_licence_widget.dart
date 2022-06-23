@@ -9,6 +9,7 @@ class MapLicenceWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final bodyText2Color = Theme.of(context).textTheme.bodyText2?.color;
     final bodyText1Color = Theme.of(context).textTheme.bodyText1?.color;
+
     return Container(
       color: Theme.of(context).backgroundColor,
       child: RichText(

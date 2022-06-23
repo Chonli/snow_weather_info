@@ -133,7 +133,8 @@ class _HomePageState extends State<HomePage>
             Text(
               'Développeur: Chonli',
               style: TextStyle(
-                  color: Theme.of(context).textTheme.bodyText2?.color),
+                color: Theme.of(context).textTheme.bodyText2?.color,
+              ),
             ),
             const Padding(padding: EdgeInsets.all(5)),
             InkWell(
@@ -143,7 +144,8 @@ class _HomePageState extends State<HomePage>
               child: Text(
                 'Lien vers le projet',
                 style: TextStyle(
-                    color: Theme.of(context).textTheme.bodyText1?.color),
+                  color: Theme.of(context).textTheme.bodyText1?.color,
+                ),
               ),
             ),
           ],

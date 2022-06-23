@@ -16,6 +16,7 @@ class AvalancheAPI {
     } catch (e) {
       log('feed error : $e');
     }
+
     return feed;
   }
 }

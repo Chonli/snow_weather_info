@@ -25,6 +25,7 @@ class StationAPI {
       }
 
       log('donwload station ok');
+
       return stations;
     } else {
       throw Exception('Failed to load station');
