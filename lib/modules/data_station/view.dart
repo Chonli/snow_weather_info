@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -104,7 +103,7 @@ class _Body extends StatelessWidget {
   }) : super(key: key);
 
   final List<DataStation> data;
-  final carouselController = CarouselController();
+  final carouselController = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -133,20 +132,15 @@ class _Body extends StatelessWidget {
                       padding: const EdgeInsets.all(0),
                     ),
                     Expanded(
-                      child: CarouselSlider(
-                        items: data
-                            .map((d) => DataStationWidget(
-                                  data: d,
-                                ))
-                            .toList(),
-                        carouselController: carouselController,
-                        options: CarouselOptions(
-                          height: 220,
-                          enlargeCenterPage: true,
-                          enableInfiniteScroll: false,
-                          viewportFraction: 1,
-                          scrollPhysics: const BouncingScrollPhysics(),
-                          onPageChanged: (index, _) => context
+                      child: SizedBox(
+                        height: 220,
+                        child: PageView.builder(
+                          itemCount: data.length,
+                          itemBuilder: (context, index) => DataStationWidget(
+                            data: data[index],
+                          ),
+                          controller: carouselController,
+                          onPageChanged: (index) => context
                               .read<DataStationNotifier>()
                               .currentIndex = index,
                         ),
