@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:snow_weather_info/core/notifier/location.dart';
 import 'package:snow_weather_info/core/notifier/preference.dart';
 import 'package:snow_weather_info/core/theme/app_theme.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
@@ -51,6 +52,9 @@ class MyApp extends StatelessWidget {
           update: (context, old) => old!
             ..preferences = context.watch<Preferences>()
             ..init(),
+        ),
+        ChangeNotifierProvider<LocationNotifier>(
+          create: (_) => LocationNotifier(),
         ),
         ChangeNotifierProxyProvider0<DataNotifier>(
           create: (_) => DataNotifier(),

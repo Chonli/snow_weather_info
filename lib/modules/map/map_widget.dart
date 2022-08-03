@@ -5,6 +5,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
+import 'package:snow_weather_info/core/notifier/location.dart';
 import 'package:snow_weather_info/core/notifier/preference.dart';
 import 'package:snow_weather_info/core/widgets/app_web_page.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
@@ -29,39 +30,26 @@ class MapWidget extends StatefulWidget {
 }
 
 class _MapWidgetState extends State<MapWidget> {
-  late MapController _mapController;
+  final _mapController = MapController();
   final _listStationMarker = <Marker>[];
   final _listNivoseMarker = <Marker>[];
   final _listAvalancheMarker = <Marker>[];
   final _listStationNoDataMarker = <Marker>[];
-  // UserLocationOptions _userLocationOptions;
-  //final _userMarkers = <Marker>[];
 
   @override
   void initState() {
     super.initState();
-
-    _mapController = MapController();
-    // _userLocationOptions = UserLocationOptions(
-    //   context: context,
-    //   mapController: _mapController,
-    //   markers: _userMarkers,
-    //   fabBottom: 40,
-    //   defaultZoom: 12,
-    //   onLocationUpdate: (pos) =>
-    //       context.read<DataNotifier>().currentMapLoc = pos,
-    //   updateMapLocationOnPositionChange: false,
-    //   showHeading: false,
-    // );
-    _initMakerList(context);
+    _updateUserLocation();
+    _initMakerList();
   }
 
   @override
   void dispose() {
+    _mapController.dispose();
     super.dispose();
   }
 
-  void _initMakerList(BuildContext context) {
+  void _initMakerList() {
     final nivoses = context.read<DataNotifier>().nivoses;
 
     nivoses.forEach(
@@ -154,6 +142,15 @@ class _MapWidgetState extends State<MapWidget> {
     );
   }
 
+  Future<void> _updateUserLocation() async {
+    final notifier = context.read<LocationNotifier>();
+    await notifier.updateLocation();
+    final userLocation = notifier.userLocation;
+    if (userLocation != null) {
+      _mapController.move(userLocation, 10);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final currentMapLoc = context.select<DataNotifier, LatLng>(
@@ -163,25 +160,44 @@ class _MapWidgetState extends State<MapWidget> {
       (n) => n.viewNoDataStation,
     );
 
+    final userLocation = context.select<LocationNotifier, LatLng?>(
+      (n) => n.userLocation,
+    );
+
     return Stack(
       children: [
         FlutterMap(
           mapController: _mapController,
           options: MapOptions(
-            center: currentMapLoc,
+            center: userLocation ?? currentMapLoc,
             zoom: 10,
             maxZoom: 16,
             minZoom: 8,
             plugins: [
-              // UserLocationPlugin(),
               MarkerClusterPlugin(),
             ],
           ),
+          nonRotatedChildren: <Widget>[
+            Positioned(
+              top: 20,
+              right: 20,
+              child: FloatingActionButton(
+                backgroundColor: Colors.grey,
+                onPressed: () => _updateUserLocation(),
+                child: const Icon(
+                  Icons.gps_fixed_rounded,
+                  size: 28,
+                ),
+              ),
+            ),
+            AttributionWidget(
+              attributionBuilder: (context) => const MapLicenceWidget(),
+            ),
+          ],
           layers: [
             TileLayerOptions(
               urlTemplate: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
               subdomains: ['a', 'b', 'c'],
-              attributionBuilder: (_) => const MapLicenceWidget(),
             ),
             if (_listStationMarker.isNotEmpty)
               _getLayer(
@@ -207,9 +223,19 @@ class _MapWidgetState extends State<MapWidget> {
                 _listAvalancheMarker,
                 avalancheColor,
               ),
-            //user location
-            // MarkerLayerOptions(markers: _userMarkers),
-            // _userLocationOptions,
+            if (userLocation != null)
+              MarkerLayerOptions(
+                markers: [
+                  Marker(
+                    point: userLocation,
+                    builder: (context) => const Icon(
+                      Icons.person_pin,
+                      color: Colors.blue,
+                      size: 32,
+                    ),
+                  ),
+                ],
+              ),
           ],
         ),
         const Positioned(

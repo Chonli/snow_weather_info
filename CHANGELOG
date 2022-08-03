@@ -19,9 +19,9 @@ All notable changes to this project will be documented in this file.
 ## 1.8.0
 ### Added
 - Add settings menu 
-- Add grouped view of map pin.
+- Add map marker clustering functionality
 ### Changed
-- Update Android 12.
+- Update Android 12
 ### Fixed
 - Fix minor bugs
 
