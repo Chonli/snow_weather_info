@@ -1,0 +1,51 @@
+# Change Log
+All notable changes to this project will be documented in this file.
+ 
+## 1.9.0
+### Added
+- Add BERA in favori
+### Fixed
+- Fix text color in dark mode
+
+## 1.8.2
+### Fixed
+- update and fix minor bugs
+
+## 1.8.1
+### Fixed
+- Fix add in favori of stations and nivoses 
+- Fix minor bugs
+
+## 1.8.0
+### Added
+- Add settings menu 
+- Add grouped view of map pin.
+### Changed
+- Update Android 12.
+### Fixed
+- Fix minor bugs
+
+## 1.7.0
+### Changed
+- Update Android SDK
+
+## 1.6.0
+### Fixed
+- Fix minor bugs
+### Changed
+- Update Flutter version (null safety)
+
+## 1.5.0
+### Added
+- Add BERA
+- Add detail view of avalanche in app
+
+## 1.4.0
+### Added
+- Disable geoloc (background geloc play store error) 
+- Add avalanche information on map
+
+## 1.3.0
+### Added
+- Add RSS stream of last avalanches come from web site data-avalanche.org
+- Add shortcut link to Meteo France BERA
