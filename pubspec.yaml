@@ -2,23 +2,23 @@ name: snow_weather_info
 description: A application to display french snow weather beacon informations
 publish_to: none
 
-version: 1.9.0+24
+version: 1.10.0+25
 
 environment:
-  sdk: ">=2.15.0 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
-  flutter_launcher_icons: ^0.9.3
+  flutter_launcher_icons: ^0.10.0
   provider: ^6.0.3
-  http: ^0.13.4
+  http: ^0.13.5
   latlong2: ^0.8.1
   csv: ^5.0.1
   intl: ^0.17.0
-  flutter_map: ^1.1.1
-  flutter_map_marker_cluster: ^0.5.0
+  flutter_map: ^2.2.0
+  flutter_map_marker_cluster: ^0.5.4
   charts_flutter: ^0.12.0
   sqflite: ^2.0.3
   shared_preferences: ^2.0.15
