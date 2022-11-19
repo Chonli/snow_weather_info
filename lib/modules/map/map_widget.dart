@@ -173,9 +173,6 @@ class _MapWidgetState extends State<MapWidget> {
             zoom: 10,
             maxZoom: 16,
             minZoom: 8,
-            plugins: [
-              MarkerClusterPlugin(),
-            ],
           ),
           nonRotatedChildren: <Widget>[
             Positioned(
@@ -194,37 +191,33 @@ class _MapWidgetState extends State<MapWidget> {
               attributionBuilder: (context) => const MapLicenceWidget(),
             ),
           ],
-          layers: [
-            TileLayerOptions(
+          children: [
+            TileLayer(
               urlTemplate: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
-              subdomains: ['a', 'b', 'c'],
+              subdomains: const ['a', 'b', 'c'],
             ),
             if (_listStationMarker.isNotEmpty)
-              _getLayer(
-                context,
-                _listStationMarker,
-                stationColor,
+              MakerLayer(
+                markers: _listStationMarker,
+                color: stationColor,
               ),
             if (_listStationNoDataMarker.isNotEmpty && showNoDataStations)
-              _getLayer(
-                context,
-                _listStationNoDataMarker,
-                stationNoDataColor,
+              MakerLayer(
+                markers: _listStationNoDataMarker,
+                color: stationNoDataColor,
               ),
             if (_listNivoseMarker.isNotEmpty)
-              _getLayer(
-                context,
-                _listNivoseMarker,
-                nivoseColor,
+              MakerLayer(
+                markers: _listNivoseMarker,
+                color: nivoseColor,
               ),
             if (_listAvalancheMarker.isNotEmpty)
-              _getLayer(
-                context,
-                _listAvalancheMarker,
-                avalancheColor,
+              MakerLayer(
+                markers: _listAvalancheMarker,
+                color: avalancheColor,
               ),
             if (userLocation != null)
-              MarkerLayerOptions(
+              MarkerLayer(
                 markers: [
                   Marker(
                     point: userLocation,
@@ -246,40 +239,49 @@ class _MapWidgetState extends State<MapWidget> {
       ],
     );
   }
+}
 
-  LayerOptions _getLayer(
-    BuildContext context,
-    List<Marker> markers,
-    Color color,
-  ) {
+class MakerLayer extends StatelessWidget {
+  const MakerLayer({
+    super.key,
+    required this.markers,
+    required this.color,
+  });
+
+  final List<Marker> markers;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
     final showClusterLayer = context.select<PreferenceNotifier, bool>(
       (n) => n.showClusterLayer,
     );
 
     return showClusterLayer
-        ? MarkerClusterLayerOptions(
-            markers: markers,
-            polygonOptions: PolygonOptions(
-              borderColor: color,
-              color: color,
-              borderStrokeWidth: 2,
-            ),
-            builder: (context, markers) {
-              return FloatingActionButton(
-                backgroundColor: color,
-                onPressed: null,
-                child: Text(
-                  markers.length.toString(),
-                  style: TextStyle(
-                    color: ThemeData.estimateBrightnessForColor(color) ==
-                            Brightness.light
-                        ? Colors.black
-                        : Colors.white,
+        ? MarkerClusterLayerWidget(
+            options: MarkerClusterLayerOptions(
+              markers: markers,
+              polygonOptions: const PolygonOptions(
+                borderColor: Colors.transparent,
+                color: Colors.transparent,
+              ),
+              builder: (context, markers) {
+                return FloatingActionButton(
+                  backgroundColor: color,
+                  onPressed: null,
+                  child: Text(
+                    markers.length.toString(),
+                    style: TextStyle(
+                      color: ThemeData.estimateBrightnessForColor(color) ==
+                              Brightness.light
+                          ? Colors.black
+                          : Colors.white,
+                    ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           )
-        : MarkerLayerOptions(markers: markers);
+        : MarkerLayer(markers: markers);
   }
 }
