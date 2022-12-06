@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart' as url;
 
 class MapLicenceWidget extends StatelessWidget {
-  const MapLicenceWidget({Key? key}) : super(key: key);
+  const MapLicenceWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

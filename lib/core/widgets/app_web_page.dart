@@ -5,14 +5,14 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class AppWebPage extends StatefulWidget {
   const AppWebPage({
-    Key? key,
+    super.key,
     required this.title,
     required this.url,
     this.canIsOpen = false,
     this.canShare = false,
     this.isFavorite = false,
     this.onFavorite,
-  }) : super(key: key);
+  });
 
   final String title;
   final String url;

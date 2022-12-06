@@ -5,9 +5,9 @@ import 'package:snow_weather_info/ui/nivose_page.dart';
 
 class StationCard extends StatelessWidget {
   const StationCard({
-    Key? key,
+    super.key,
     required this.station,
-  }) : super(key: key);
+  });
 
   final AbstractStation station;
 

@@ -4,7 +4,9 @@ import 'package:snow_weather_info/core/notifier/preference.dart';
 import 'package:snow_weather_info/extensions/theme_mode.dart';
 
 class PreferencePage extends StatelessWidget {
-  const PreferencePage({Key? key}) : super(key: key);
+  const PreferencePage({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -65,10 +67,10 @@ class PreferencePage extends StatelessWidget {
 
 class PreferenceRow extends StatelessWidget {
   const PreferenceRow({
-    Key? key,
+    super.key,
     required this.text,
     required this.widget,
-  }) : super(key: key);
+  });
 
   final String text;
   final Widget widget;

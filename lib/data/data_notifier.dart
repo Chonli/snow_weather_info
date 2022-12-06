@@ -58,7 +58,7 @@ class DataNotifier extends ChangeNotifier {
   }
 
   void _persitFavoriteBERA() {
-    preferences.updateFavoritesStations(
+    preferences.updateFavoritesBERA(
       _favoritesBERA
           .map<String>(
             (bera) => bera.massifName,

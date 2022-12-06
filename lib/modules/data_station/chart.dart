@@ -4,9 +4,9 @@ import 'package:snow_weather_info/model/data_station.dart';
 
 class DataStationChart extends StatelessWidget {
   const DataStationChart({
-    Key? key,
+    super.key,
     required this.data,
-  }) : super(key: key);
+  });
 
   final List<DataStation> data;
 

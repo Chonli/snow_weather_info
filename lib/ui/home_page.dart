@@ -11,9 +11,9 @@ import 'package:url_launcher/url_launcher.dart' as url;
 
 class HomePage extends StatefulWidget {
   const HomePage({
-    Key? key,
+    super.key,
     required this.title,
-  }) : super(key: key);
+  });
   final String title;
 
   @override

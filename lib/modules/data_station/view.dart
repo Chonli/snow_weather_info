@@ -12,9 +12,9 @@ import 'package:snow_weather_info/modules/data_station/widget.dart';
 
 class DataStationView extends StatelessWidget {
   const DataStationView({
-    Key? key,
+    super.key,
     required this.station,
-  }) : super(key: key);
+  });
 
   final Station station;
 
@@ -29,9 +29,9 @@ class DataStationView extends StatelessWidget {
 
 class _View extends StatelessWidget {
   const _View({
-    Key? key,
+    super.key,
     required this.station,
-  }) : super(key: key);
+  });
 
   final Station station;
 
@@ -98,9 +98,9 @@ class _View extends StatelessWidget {
 
 class _Body extends StatelessWidget {
   _Body({
-    Key? key,
+    super.key,
     required this.data,
-  }) : super(key: key);
+  });
 
   final List<DataStation> data;
   final carouselController = PageController();

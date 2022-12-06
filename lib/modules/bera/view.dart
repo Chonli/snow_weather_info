@@ -8,8 +8,8 @@ import 'package:snow_weather_info/model/avalanche_bulletin.dart';
 
 class BERAMassifListView extends StatelessWidget {
   const BERAMassifListView({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +27,8 @@ class BERAMassifListView extends StatelessWidget {
 
 class _ListFavoriteView extends StatelessWidget {
   const _ListFavoriteView({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -58,9 +58,9 @@ class _ListFavoriteView extends StatelessWidget {
 
 class _ListByMassifView extends StatelessWidget {
   const _ListByMassifView({
-    Key? key,
+    super.key,
     required this.mountain,
-  }) : super(key: key);
+  });
 
   final Mountain mountain;
 
@@ -117,9 +117,9 @@ class _CardMassif extends StatelessWidget {
 
 class _BERAView extends StatelessWidget {
   const _BERAView({
-    Key? key,
+    super.key,
     required this.avalancheBulletin,
-  }) : super(key: key);
+  });
 
   final AvalancheBulletin avalancheBulletin;
 
