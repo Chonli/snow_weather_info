@@ -5,8 +5,8 @@ import 'package:snow_weather_info/core/widgets/app_web_page.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/model/avalanche_bulletin.dart';
 
-class BREAMassifListView extends StatelessWidget {
-  const BREAMassifListView({
+class BERAMassifListView extends StatelessWidget {
+  const BERAMassifListView({
     Key? key,
   }) : super(key: key);
 
