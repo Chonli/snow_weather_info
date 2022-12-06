@@ -2,7 +2,7 @@ name: snow_weather_info
 description: A application to display french snow weather beacon informations
 publish_to: none
 
-version: 1.10.0+25
+version: 1.10.1+26
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
@@ -17,12 +17,12 @@ dependencies:
   latlong2: ^0.8.1
   csv: ^5.0.1
   intl: ^0.17.0
-  flutter_map: ^2.2.0
-  flutter_map_marker_cluster: ^0.5.4
+  flutter_map: ^3.0.0
+  flutter_map_marker_cluster: ^1.0.1
   charts_flutter: ^0.12.0
-  sqflite: ^2.0.3
+  sqflite: ^2.2.0+3
   shared_preferences: ^2.0.15
-  url_launcher: ^6.1.5
+  url_launcher: ^6.1.6
   package_info: ^2.0.2
   share: ^2.0.4
   webview_flutter: ^3.0.4
@@ -30,7 +30,7 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
   location: ^4.4.0
 
-  logging: ^1.0.2
+  logging: ^1.1.0
   dart_rss:
     git:
       url: https://github.com/Chonli/webfeed.git
