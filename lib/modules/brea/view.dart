@@ -17,7 +17,7 @@ class BREAMassifListView extends StatelessWidget {
         _ListByMassifView(mountain: Mountain.alpesNord),
         _ListByMassifView(mountain: Mountain.alpesSud),
         _ListByMassifView(mountain: Mountain.corse),
-        _ListByMassifView(mountain: Mountain.pyrennee),
+        _ListByMassifView(mountain: Mountain.pyrenees),
       ],
     );
   }

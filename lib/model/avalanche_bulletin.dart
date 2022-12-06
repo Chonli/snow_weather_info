@@ -11,7 +11,7 @@ enum Mountain {
   alpesNord,
   alpesSud,
   corse,
-  pyrennee,
+  pyrenees,
 }
 
 extension MountainExtension on Mountain {
@@ -26,8 +26,8 @@ extension MountainExtension on Mountain {
       case Mountain.corse:
         return 'Corse';
 
-      case Mountain.pyrennee:
-        return 'Pyrennées';
+      case Mountain.pyrenees:
+        return 'Pyrenées';
 
       default:
         return 'Tous';
