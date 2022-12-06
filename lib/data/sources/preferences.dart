@@ -15,9 +15,11 @@ class Preferences {
   final SharedPreferences preferences;
 
   DateTime get lastStationDataDate => DateTime.parse(
-      preferences.getString(_lastStationDataPrefs) ?? '19700101');
+        preferences.getString(_lastStationDataPrefs) ?? '19700101',
+      );
   DateTime get lastStationDate => DateTime.parse(
-      preferences.getString(_lastStationPrefs) ?? DateTime.now().toString());
+        preferences.getString(_lastStationPrefs) ?? DateTime.now().toString(),
+      );
   List<String> get favoritesStations =>
       preferences.getStringList(_favoritesStationPrefs) ?? [];
 
@@ -47,6 +49,7 @@ class Preferences {
     if (index != null) {
       return ThemeMode.values[index];
     }
+
     return ThemeMode.system;
   }
 

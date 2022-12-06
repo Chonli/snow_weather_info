@@ -33,12 +33,14 @@ class DatabaseHelper {
       return database;
     }
     _database = await _initDatabase();
+
     return _database!;
   }
 
   Future<Database> _initDatabase() async {
     final pathFolder = await getDatabasesPath();
     final path = p.join(pathFolder, _databaseName);
+
     return openDatabase(path, version: _databaseVersion, onCreate: _onCreate);
   }
 
@@ -81,6 +83,7 @@ class DatabaseHelper {
     if (maps.isEmpty) {
       id = await db.insert(tableStation, station.toMap());
     }
+
     return id;
   }
 
@@ -96,6 +99,7 @@ class DatabaseHelper {
     if (maps.isEmpty) {
       id = await db.insert(tableStationData, stationData.toMap());
     }
+
     return id;
   }
 
@@ -114,7 +118,7 @@ class DatabaseHelper {
         columnDirectionWind,
         columnSpeedWind,
         columnSnowHeight,
-        columnSnowNewHeight
+        columnSnowNewHeight,
       ],
       where: '$columnIdStation = ?',
       whereArgs: <dynamic>[idStation],
@@ -125,6 +129,7 @@ class DatabaseHelper {
         ret.add(DataStation.fromMap(stationDataMap));
       }
     }
+
     return ret;
   }
 
@@ -138,7 +143,7 @@ class DatabaseHelper {
         columnName,
         columnLatitude,
         columnLongitude,
-        columnAltitude
+        columnAltitude,
       ],
     );
     if (maps.isNotEmpty) {
@@ -146,6 +151,7 @@ class DatabaseHelper {
         ret.add(Station.fromMap(stationMap as Map<String, dynamic>));
       }
     }
+
     return ret;
   }
 
@@ -155,7 +161,11 @@ class DatabaseHelper {
       tableStationData,
       where: '$columnDate < ?',
       whereArgs: <dynamic>[
-        DateTime.now().subtract(Duration(days: day)).toIso8601String()
+        DateTime.now()
+            .subtract(
+              Duration(days: day),
+            )
+            .toIso8601String(),
       ],
     );
   }

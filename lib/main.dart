@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:snow_weather_info/core/notifier/location.dart';
 import 'package:snow_weather_info/core/notifier/preference.dart';
 import 'package:snow_weather_info/core/theme/app_theme.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
@@ -52,6 +53,9 @@ class MyApp extends StatelessWidget {
             ..preferences = context.watch<Preferences>()
             ..init(),
         ),
+        ChangeNotifierProvider<LocationNotifier>(
+          create: (_) => LocationNotifier(),
+        ),
         ChangeNotifierProxyProvider0<DataNotifier>(
           create: (_) => DataNotifier(),
           update: (context, old) => old!
@@ -64,15 +68,16 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: Consumer<PreferenceNotifier>(
-          builder: (context, PreferenceNotifier notifier, child) {
-        return MaterialApp(
-          title: _title,
-          theme: AppTheme.ligthTheme,
-          darkTheme: AppTheme.darkTheme,
-          themeMode: notifier.themeMode,
-          home: const MyHomePage(title: _title),
-        );
-      }),
+        builder: (context, PreferenceNotifier notifier, child) {
+          return MaterialApp(
+            title: _title,
+            theme: AppTheme.ligthTheme,
+            darkTheme: AppTheme.darkTheme,
+            themeMode: notifier.themeMode,
+            home: const MyHomePage(title: _title),
+          );
+        },
+      ),
     );
   }
 }
@@ -88,6 +93,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final loading = context.select<DataNotifier, bool>((n) => n.loading);
+
     return loading
         ? Scaffold(
             backgroundColor: Colors.white,

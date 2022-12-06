@@ -3,6 +3,7 @@ import 'package:dart_rss/dart_rss.dart';
 extension AtomItemExtension on AtomItem {
   String get shortTitle {
     final safetitle = title;
+
     return safetitle != null && safetitle.contains(',')
         ? safetitle.replaceFirst(RegExp('.*, '), '')
         : 'Avalanche';

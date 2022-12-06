@@ -7,6 +7,7 @@ extension StringNullExtension on String? {
         data += addValue;
       }
     }
+
     return data;
   }
 }

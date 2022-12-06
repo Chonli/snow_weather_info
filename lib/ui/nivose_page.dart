@@ -28,6 +28,7 @@ class _NivosePageState extends State<NivosePage> {
     final isFavorite = context.select(
       (DataNotifier n) => n.isFavorite(widget.nivose),
     );
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.nivose.name),
@@ -45,7 +46,7 @@ class _NivosePageState extends State<NivosePage> {
             onPressed: () => Share.share(
               'Nivose ${widget.nivose.name}\ndonnée semaine: ${widget.nivose.urlWeek}\ndonnée saison: ${widget.nivose.urlSeason}\n',
             ),
-          )
+          ),
         ],
       ),
       body: Center(

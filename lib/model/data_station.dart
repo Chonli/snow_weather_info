@@ -67,7 +67,7 @@ class DataStation {
       columnSpeedWind: _speedWind,
       columnDirectionWind: _directionWind,
       columnSnowHeight: _snowHeight,
-      columnSnowNewHeight: _snowNewHeight
+      columnSnowNewHeight: _snowNewHeight,
     };
   }
 

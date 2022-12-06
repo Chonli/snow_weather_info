@@ -21,7 +21,7 @@ class ListStationWidget extends StatelessWidget {
             ..displayNoDataStation =
                 context.watch<PreferenceNotifier>().viewNoDataStation
             ..init(),
-        )
+        ),
       ],
       child: const _InnerWidget(),
     );
@@ -36,6 +36,7 @@ class _InnerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final notifier = context.watch<StationNotifier>();
+
     return CustomScrollView(
       slivers: [
         // recherche

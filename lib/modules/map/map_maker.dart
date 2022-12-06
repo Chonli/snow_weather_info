@@ -34,6 +34,7 @@ class MapMaker extends StatelessWidget {
           child: IconButton(
             icon: icon,
             color: color,
+            // ignore: no-empty-block
             onPressed: onPressed ?? () {},
           ),
         ),

@@ -86,6 +86,7 @@ class StationNotifier extends ChangeNotifier {
 
       tmpGroupList[s.name[0]]?.add(s);
     });
+
     return tmpGroupList;
   }
 }

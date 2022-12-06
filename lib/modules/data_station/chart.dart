@@ -21,11 +21,9 @@ class DataStationChart extends StatelessWidget {
     final brightness = Theme.of(context).brightness;
     final charts.Color textColor;
     final lineColor = charts.MaterialPalette.gray.shade400;
-    if (brightness == Brightness.dark) {
-      textColor = charts.MaterialPalette.white;
-    } else {
-      textColor = charts.MaterialPalette.black;
-    }
+    textColor = brightness == Brightness.dark
+        ? charts.MaterialPalette.white
+        : charts.MaterialPalette.black;
     final primaryAxis = charts.NumericAxisSpec(
       showAxisLine: false,
       renderSpec: charts.GridlineRendererSpec(
@@ -150,7 +148,7 @@ class DataStationChart extends StatelessWidget {
                 customRendererId: 'customBar',
                 cornerStrategy: const charts.ConstCornerStrategy(30),
                 fillPattern: charts.FillPatternType.forwardHatch,
-              )
+              ),
             ],
           ),
         ),
