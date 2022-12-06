@@ -5,9 +5,9 @@ import 'package:snow_weather_info/model/data_station.dart';
 
 class DataStationWidget extends StatelessWidget {
   const DataStationWidget({
-    Key? key,
+    super.key,
     required this.data,
-  }) : super(key: key);
+  });
 
   final DataStation data;
 
@@ -68,7 +68,7 @@ class DataStationWidget extends StatelessWidget {
 }
 
 class _LineCard extends StatelessWidget {
-  const _LineCard(this.text1, this.text2, {Key? key}) : super(key: key);
+  const _LineCard(this.text1, this.text2, {super.key});
 
   final String text1;
   final String text2;

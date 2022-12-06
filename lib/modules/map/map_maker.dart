@@ -3,12 +3,12 @@ import 'package:snow_weather_info/extensions/double.dart';
 
 class MapMaker extends StatelessWidget {
   const MapMaker({
-    Key? key,
+    super.key,
     required this.icon,
     required this.color,
     this.onPressed,
     this.lastSnowHeight,
-  }) : super(key: key);
+  });
 
   final double? lastSnowHeight;
   final Color color;

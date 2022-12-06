@@ -74,8 +74,8 @@ const _urlBase =
     'https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/';
 
 class Nivose extends AbstractStation {
-  Nivose(String name, LatLng position, int altitude, this.codeMF)
-      : super(name, position, altitude, hasData: false);
+  Nivose(super.name, super.position, super.altitude, this.codeMF)
+      : super(hasData: false);
 
   final String codeMF;
 

@@ -7,8 +7,8 @@ import 'package:snow_weather_info/extensions/atom_item.dart';
 
 class AvalancheListWidget extends StatelessWidget {
   const AvalancheListWidget({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

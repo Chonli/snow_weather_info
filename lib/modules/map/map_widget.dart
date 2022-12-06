@@ -22,8 +22,8 @@ const avalancheColor = Colors.orange;
 
 class MapWidget extends StatefulWidget {
   const MapWidget({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   _MapWidgetState createState() => _MapWidgetState();

@@ -25,9 +25,9 @@ const _title = 'Info Neige';
 
 class MyApp extends StatelessWidget {
   const MyApp({
-    Key? key,
+    super.key,
     required this.preferences,
-  }) : super(key: key);
+  });
 
   final SharedPreferences preferences;
 
@@ -84,9 +84,9 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({
-    Key? key,
+    super.key,
     required this.title,
-  }) : super(key: key);
+  });
 
   final String title;
 

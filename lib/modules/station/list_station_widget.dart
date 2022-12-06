@@ -8,7 +8,9 @@ import 'package:snow_weather_info/modules/station/notifier.dart';
 import 'package:snow_weather_info/modules/station/station_card.dart';
 
 class ListStationWidget extends StatelessWidget {
-  const ListStationWidget({Key? key}) : super(key: key);
+  const ListStationWidget({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +32,8 @@ class ListStationWidget extends StatelessWidget {
 
 class _InnerWidget extends StatelessWidget {
   const _InnerWidget({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

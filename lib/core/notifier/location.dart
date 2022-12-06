@@ -9,14 +9,12 @@ class LocationNotifier extends ChangeNotifier {
   LatLng? get userLocation => _userLocation;
   set userLocation(LatLng? value) {
     if (_userLocation != value) {
-      print('userLocation');
       _userLocation = value;
       notifyListeners();
     }
   }
 
   Future<void> updateLocation() async {
-    print('updateLocation');
     bool serviceEnabled = await _location.serviceEnabled();
     if (!serviceEnabled) {
       serviceEnabled = await _location.requestService();

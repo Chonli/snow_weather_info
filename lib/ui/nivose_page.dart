@@ -6,9 +6,9 @@ import 'package:snow_weather_info/model/station.dart';
 
 class NivosePage extends StatefulWidget {
   const NivosePage({
-    Key? key,
+    super.key,
     required this.nivose,
-  }) : super(key: key);
+  });
 
   final Nivose nivose;
 
@@ -73,9 +73,9 @@ class _NivosePageState extends State<NivosePage> {
 
 class _NetworkImage extends StatelessWidget {
   const _NetworkImage({
-    Key? key,
+    super.key,
     required this.url,
-  }) : super(key: key);
+  });
 
   final String url;
 
