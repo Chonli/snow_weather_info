@@ -76,9 +76,8 @@ class _View extends StatelessWidget {
             icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
             onPressed: () => notifier.addOrRemoveFavoriteStation(station),
           ),
-          Visibility(
-            visible: data.isNotEmpty,
-            child: IconButton(
+          if (data.isNotEmpty)
+            IconButton(
               icon: const Icon(Icons.share),
               onPressed: () => Share.share(
                 _formatDataToString(
@@ -87,7 +86,6 @@ class _View extends StatelessWidget {
                 ),
               ),
             ),
-          ),
         ],
       ),
       body: data.isEmpty

@@ -30,12 +30,7 @@ class StationCard extends StatelessWidget {
       _textStyle = TextStyle(color: _color, fontStyle: _font);
     }
     return Card(
-      margin: const EdgeInsets.only(
-        left: 8,
-        bottom: 8,
-        top: 8,
-        right: 64,
-      ),
+      margin: const EdgeInsets.all(8),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
@@ -46,16 +41,15 @@ class StationCard extends StatelessWidget {
           style: _textStyle,
         ),
         isThreeLine: true,
-        trailing: Visibility(
-          visible: snowHeigth.isNotEmpty,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(Icons.ac_unit),
-              Text(snowHeigth),
-            ],
-          ),
-        ),
+        trailing: snowHeigth.isNotEmpty
+            ? Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.ac_unit),
+                  Text(snowHeigth),
+                ],
+              )
+            : null,
         subtitle: Text(
           '${station.altitude}m \nLatLng(${station.position.latitude},${station.position.longitude})',
           style: _textStyle,

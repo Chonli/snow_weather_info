@@ -18,10 +18,16 @@ class NivosePage extends StatefulWidget {
 
 class _NivosePageState extends State<NivosePage> {
   @override
+  void initState() {
+    super.initState();
+    context.read<DataNotifier>().currentMapLoc = widget.nivose.position;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final notifier = context.watch<DataNotifier>();
-    notifier.currentMapLoc = widget.nivose.position;
-    final isFavorite = notifier.isFavorite(widget.nivose);
+    final isFavorite = context.select(
+      (DataNotifier n) => n.isFavorite(widget.nivose),
+    );
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.nivose.name),
@@ -29,7 +35,9 @@ class _NivosePageState extends State<NivosePage> {
           IconButton(
             icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
             onPressed: () => setState(
-              () => notifier.addOrRemoveFavoriteStation(widget.nivose),
+              () => context
+                  .read<DataNotifier>()
+                  .addOrRemoveFavoriteStation(widget.nivose),
             ),
           ),
           IconButton(
@@ -82,10 +90,9 @@ class _NetworkImage extends StatelessWidget {
         if (loadingProgress == null) {
           return child;
         }
-        return const Expanded(
-          child: Center(
-            child: CircularProgressIndicator(),
-          ),
+
+        return const Center(
+          child: CircularProgressIndicator(),
         );
       },
     );

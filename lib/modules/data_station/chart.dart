@@ -16,6 +16,39 @@ class DataStationChart extends StatelessWidget {
     final List<TimeSeriesData> tsdatanewsnow = [];
     final List<TimeSeriesData> tsdatasnowtemperature = [];
     final List<TimeSeriesDataTemp> tsdatatemperature = [];
+
+    // Axis Style
+    final brightness = Theme.of(context).brightness;
+    final charts.Color textColor;
+    final lineColor = charts.MaterialPalette.gray.shade400;
+    if (brightness == Brightness.dark) {
+      textColor = charts.MaterialPalette.white;
+    } else {
+      textColor = charts.MaterialPalette.black;
+    }
+    final primaryAxis = charts.NumericAxisSpec(
+      showAxisLine: false,
+      renderSpec: charts.GridlineRendererSpec(
+        lineStyle: charts.LineStyleSpec(color: lineColor),
+        labelStyle: charts.TextStyleSpec(
+          color: textColor,
+        ),
+      ),
+    );
+    final domainAxis = charts.DateTimeAxisSpec(
+      renderSpec: charts.SmallTickRendererSpec(
+        labelStyle: charts.TextStyleSpec(
+          color: textColor,
+        ),
+      ),
+      tickFormatterSpec: const charts.AutoDateTimeTickFormatterSpec(
+        day: charts.TimeFormatterSpec(
+          format: 'd',
+          transitionFormat: 'dd/MM',
+        ),
+      ),
+    );
+
     if (data.isNotEmpty) {
       for (final d in data) {
         if (d.snowHeight != null) {
@@ -104,18 +137,13 @@ class DataStationChart extends StatelessWidget {
               ),
             ],
             layoutConfig: charts.LayoutConfig(
-                leftMarginSpec: charts.MarginSpec.fixedPixel(30),
-                topMarginSpec: charts.MarginSpec.fixedPixel(10),
-                rightMarginSpec: charts.MarginSpec.fixedPixel(10),
-                bottomMarginSpec: charts.MarginSpec.fixedPixel(10)),
-            domainAxis: const charts.DateTimeAxisSpec(
-              tickFormatterSpec: charts.AutoDateTimeTickFormatterSpec(
-                day: charts.TimeFormatterSpec(
-                  format: 'd',
-                  transitionFormat: 'dd/MM',
-                ),
-              ),
+              leftMarginSpec: charts.MarginSpec.fixedPixel(30),
+              topMarginSpec: charts.MarginSpec.fixedPixel(10),
+              rightMarginSpec: charts.MarginSpec.fixedPixel(10),
+              bottomMarginSpec: charts.MarginSpec.fixedPixel(10),
             ),
+            primaryMeasureAxis: primaryAxis,
+            domainAxis: domainAxis,
             customSeriesRenderers: [
               charts.BarRendererConfig(
                 // ID used to link series to this renderer.
@@ -145,18 +173,13 @@ class DataStationChart extends StatelessWidget {
               ),
             ],
             layoutConfig: charts.LayoutConfig(
-                leftMarginSpec: charts.MarginSpec.fixedPixel(30),
-                topMarginSpec: charts.MarginSpec.fixedPixel(10),
-                rightMarginSpec: charts.MarginSpec.fixedPixel(10),
-                bottomMarginSpec: charts.MarginSpec.fixedPixel(10)),
-            domainAxis: const charts.DateTimeAxisSpec(
-              tickFormatterSpec: charts.AutoDateTimeTickFormatterSpec(
-                day: charts.TimeFormatterSpec(
-                  format: 'd',
-                  transitionFormat: 'dd/MM',
-                ),
-              ),
+              leftMarginSpec: charts.MarginSpec.fixedPixel(30),
+              topMarginSpec: charts.MarginSpec.fixedPixel(10),
+              rightMarginSpec: charts.MarginSpec.fixedPixel(10),
+              bottomMarginSpec: charts.MarginSpec.fixedPixel(10),
             ),
+            primaryMeasureAxis: primaryAxis,
+            domainAxis: domainAxis,
           ),
         ),
       ],

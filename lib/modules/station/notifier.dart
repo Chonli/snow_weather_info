@@ -18,13 +18,14 @@ class StationNotifier extends ChangeNotifier {
     tmpStations.addAll(_dataStations);
     tmpStations.addAll(dataNotifier.nivoses);
     tmpStations.sort((a, b) => a.name.compareTo(b.name));
-    stations = tmpStations;
+
+    stations = _splitToGroupMap(tmpStations);
     favoriteStations = dataNotifier.favoritesStations;
   }
 
-  List<AbstractStation> _stations = [];
-  List<AbstractStation> get stations => _stations;
-  set stations(List<AbstractStation> value) {
+  Map<String, List<AbstractStation>> _stations = {};
+  Map<String, List<AbstractStation>> get stations => _stations;
+  set stations(Map<String, List<AbstractStation>> value) {
     if (_stations != value) {
       _stations = value;
       notifyListeners();
@@ -68,9 +69,23 @@ class StationNotifier extends ChangeNotifier {
           .toList());
     }
     tmpStations.sort((a, b) => a.name.compareTo(b.name));
-    stations = tmpStations;
+    stations = _splitToGroupMap(tmpStations);
 
     tmpFavoriteStations.sort((a, b) => a.name.compareTo(b.name));
     favoriteStations = tmpFavoriteStations;
+  }
+
+  Map<String, List<AbstractStation>> _splitToGroupMap(
+    List<AbstractStation> stations,
+  ) {
+    final Map<String, List<AbstractStation>> tmpGroupList = {};
+    stations.forEach((s) {
+      if (tmpGroupList[s.name[0]] == null) {
+        tmpGroupList[s.name[0]] = <AbstractStation>[];
+      }
+
+      tmpGroupList[s.name[0]]?.add(s);
+    });
+    return tmpGroupList;
   }
 }
