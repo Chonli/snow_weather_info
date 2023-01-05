@@ -92,27 +92,38 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final loading = context.select<DataNotifier, bool>((n) => n.loading);
+    final loading = context.select(
+      (DataNotifier n) => n.loading,
+    );
 
-    return loading
-        ? Scaffold(
-            backgroundColor: Colors.white,
-            body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'assets/icon/icon.png',
-                    fit: BoxFit.contain,
-                    height: 128,
-                    width: 128,
-                  ),
-                  const Padding(padding: EdgeInsets.all(20)),
-                  const CircularProgressIndicator(),
-                ],
-              ),
+    return loading ? const _LoadingPage() : HomePage(title: title);
+  }
+}
+
+class _LoadingPage extends StatelessWidget {
+  const _LoadingPage({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/icon/icon.png',
+              fit: BoxFit.contain,
+              height: 128,
+              width: 128,
             ),
-          )
-        : HomePage(title: title);
+            const Padding(padding: EdgeInsets.all(20)),
+            const CircularProgressIndicator(),
+          ],
+        ),
+      ),
+    );
   }
 }
