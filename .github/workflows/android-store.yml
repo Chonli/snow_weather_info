@@ -1,17 +1,38 @@
 name: Android Store CI
-on: none
+on: push
+
 jobs:
-  build:
-  runs-on: ubuntu-latest
-  steps:
-    — uses: actions/checkout@v2
-    — uses: actions/setup-java@v1
-      with:
-        java-version: ‘12.x’
-    - uses: subosito/flutter-action@v1
-      with:
-        flutter-version: ‘3.3.10’
-    - name: Build apk
-    run: |
-      flutter pub get
-      flutter build apk --debug
+  build_appbundle:
+    name: Build AppBundle
+    runs-on: ubuntu-latest
+    env:
+      PROPERTIES_PATH: "./android/key.properties"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 12
+        uses: actions/setup-java@v2
+        with:
+          distribution: "adopt"
+          java-version: "12.x"
+
+      - name: Get project version
+        id: project_version
+        uses: its404/get-flutter-version@v1.0.0
+
+      - name: "Build Production AAB"
+        uses: subosito/flutter-action@v2
+        with:
+          channel: "stable"
+      - run: |
+          echo keyPassword=\${{ secrets.KEY_PASSWORD }} > ${{env.PROPERTIES_PATH}}
+          echo storePassword=\${{ secrets.KEY_STORE_PASSWORD }} >> ${{env.PROPERTIES_PATH}}
+          echo keyAlias=\${{ secrets.ALIAS }} >> ${{env.PROPERTIES_PATH}}
+          echo storeFile=\${{ secrets.STORE_FILE }} >> ${{env.PROPERTIES_PATH}}
+      - run: echo "${{ secrets.KEYSTORE }}" | base64 --decode > android/app/key.jks
+      - run: flutter build appbundle
+      - uses: actions/upload-artifact@v3
+        with:
+          name: appbundle
+          path: build/app/outputs/bundle/release
