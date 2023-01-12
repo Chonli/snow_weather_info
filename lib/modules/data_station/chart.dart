@@ -1,17 +1,17 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:snow_weather_info/model/data_station.dart';
 
 class DataStationChart extends StatelessWidget {
   const DataStationChart({
     super.key,
-    required this.data,
   });
-
-  final List<DataStation> data;
 
   @override
   Widget build(BuildContext context) {
+    final List<DataStation> data = context.watch<List<DataStation>>();
+
     final List<TimeSeriesData> tsdatasnow = [];
     final List<TimeSeriesData> tsdatanewsnow = [];
     final List<TimeSeriesData> tsdatasnowtemperature = [];
