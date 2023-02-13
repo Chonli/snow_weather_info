@@ -3,6 +3,14 @@ import 'dart:developer' show log;
 
 import 'package:dart_rss/dart_rss.dart';
 import 'package:http/http.dart' as http;
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'avalanche_api.g.dart';
+
+@Riverpod(keepAlive: true)
+AvalancheAPI avalancheAPI(AvalancheAPIRef ref) {
+  return AvalancheAPI();
+}
 
 class AvalancheAPI {
   final client = http.Client();

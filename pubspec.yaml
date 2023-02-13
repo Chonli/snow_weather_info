@@ -11,8 +11,10 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flutter_launcher_icons: ^0.10.0
-  provider: ^6.0.3
+  flutter_launcher_icons: ^0.11.0
+  flutter_hooks: ^0.18.5+1
+  hooks_riverpod: ^2.2.0
+  riverpod_annotation: ^1.2.1
   http: ^0.13.5
   latlong2: ^0.8.1
   csv: ^5.0.1
@@ -29,8 +31,7 @@ dependencies:
   flutter_sticky_header: ^0.6.4
   smooth_page_indicator: ^1.0.0+2
   location: ^4.4.0
-
-  logging: ^1.1.0
+  logging: ^1.1.1
   dart_rss:
     git:
       url: https://github.com/Chonli/webfeed.git
@@ -40,8 +41,10 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.1
-  dart_code_metrics: ^4.15.2
-
+  dart_code_metrics: ^5.6.0
+  build_runner: ^2.3.0
+  riverpod_generator: ^1.2.0
+  
 flutter:
   uses-material-design: true
   assets:

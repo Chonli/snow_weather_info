@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+part 'preferences.g.dart';
 
 const _lastStationPrefs = 'lastStationPrefs';
 const _lastStationDataPrefs = 'lastStationDataPrefs';
@@ -8,6 +11,11 @@ const _favoritesBERAPrefs = 'favoritesBERAPrefs';
 const _themeModePrefs = 'themeModePrefs';
 const _viewNoDataStationPrefs = 'viewNoDataStationPrefs';
 const _showClusterLayerPrefs = 'showClusterLayerPrefs';
+
+@Riverpod(keepAlive: true)
+Preferences preferences(PreferencesRef ref, SharedPreferences pref) {
+  return Preferences(pref);
+}
 
 class Preferences {
   Preferences(this.preferences);

@@ -1,7 +1,10 @@
 import 'package:path/path.dart' as p;
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/model/data_station.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:sqflite/sqflite.dart';
+
+part 'database_helper.g.dart';
 
 const tableStation = 'station';
 const tableStationData = 'stationData';
@@ -23,6 +26,9 @@ const columnSnowNewHeight = 'snowNewHeight';
 
 const _databaseName = 'database.db';
 const _databaseVersion = 1;
+
+@Riverpod(keepAlive: true)
+DatabaseHelper databaseHelper(DatabaseHelperRef ref) => DatabaseHelper();
 
 class DatabaseHelper {
   Database? _database;
