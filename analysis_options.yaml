@@ -74,9 +74,6 @@ linter:
     # Can be useful to have a more readable code
     avoid_types_on_closure_parameters: false
 
-    # Used by generators
-    avoid_as: false
-
     # Can be difficult to read in some cases
     cascade_invocations: false
 
@@ -88,9 +85,6 @@ linter:
 
     # Not useful for public properties for a constructor
     diagnostic_describe_all_properties: false
-
-    # Experimental: Too many false positives: https://github.com/dart-lang/linter/issues/811
-    invariant_booleans: false
 
     # Can be useful to have a more readable code
     join_return_with_assignment: false

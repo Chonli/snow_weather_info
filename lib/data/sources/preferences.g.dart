@@ -6,107 +6,33 @@ part of 'preferences.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$preferencesHash() => r'b15baf65e36214206e4e6fa804a1c8f5f83dda78';
+String _$sharedPreferencesHash() => r'3a9f8412df34c1653d08100c9826aa2125b80f7f';
 
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
+/// See also [sharedPreferences].
+@ProviderFor(sharedPreferences)
+final sharedPreferencesProvider = Provider<SharedPreferences>.internal(
+  sharedPreferences,
+  name: r'sharedPreferencesProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$sharedPreferencesHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
 
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
-  }
-
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
-  }
-}
-
-typedef PreferencesRef = ProviderRef<Preferences>;
+typedef SharedPreferencesRef = ProviderRef<SharedPreferences>;
+String _$preferencesHash() => r'727d333fbf91356b5004bd40f5a1c7b9d1e2b283';
 
 /// See also [preferences].
 @ProviderFor(preferences)
-const preferencesProvider = PreferencesFamily();
+final preferencesProvider = Provider<Preferences>.internal(
+  preferences,
+  name: r'preferencesProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$preferencesHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
 
-/// See also [preferences].
-class PreferencesFamily extends Family<Preferences> {
-  /// See also [preferences].
-  const PreferencesFamily();
-
-  /// See also [preferences].
-  PreferencesProvider call(
-    SharedPreferences pref,
-  ) {
-    return PreferencesProvider(
-      pref,
-    );
-  }
-
-  @override
-  PreferencesProvider getProviderOverride(
-    covariant PreferencesProvider provider,
-  ) {
-    return call(
-      provider.pref,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'preferencesProvider';
-}
-
-/// See also [preferences].
-class PreferencesProvider extends Provider<Preferences> {
-  /// See also [preferences].
-  PreferencesProvider(
-    this.pref,
-  ) : super.internal(
-          (ref) => preferences(
-            ref,
-            pref,
-          ),
-          from: preferencesProvider,
-          name: r'preferencesProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$preferencesHash,
-          dependencies: PreferencesFamily._dependencies,
-          allTransitiveDependencies:
-              PreferencesFamily._allTransitiveDependencies,
-        );
-
-  final SharedPreferences pref;
-
-  @override
-  bool operator ==(Object other) {
-    return other is PreferencesProvider && other.pref == pref;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, pref.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
+typedef PreferencesRef = ProviderRef<Preferences>;
 // ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions

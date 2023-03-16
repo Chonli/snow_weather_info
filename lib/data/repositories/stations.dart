@@ -1,8 +1,21 @@
 import 'package:flutter/foundation.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/data/sources/database_helper.dart';
 import 'package:snow_weather_info/data/sources/preferences.dart';
 import 'package:snow_weather_info/data/sources/station_api.dart';
 import 'package:snow_weather_info/model/station.dart';
+
+part 'stations.g.dart';
+
+@Riverpod(keepAlive: true)
+StationsRepository stationsRepository(StationsRepositoryRef ref) {
+  return StationsRepository.update(
+    ref.watch(stationAPIProvider),
+    ref.watch(databaseHelperProvider),
+    ref.watch(preferencesProvider),
+    null,
+  );
+}
 
 @immutable
 class StationsRepository {

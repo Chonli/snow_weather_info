@@ -6,6 +6,7 @@ import 'package:csv/csv.dart';
 import 'package:dart_rss/dart_rss.dart';
 import 'package:flutter/foundation.dart';
 // import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:latlong2/latlong.dart';
@@ -20,12 +21,23 @@ import 'package:snow_weather_info/model/station.dart';
 
 import 'constant_data_list.dart';
 
+final countryProvider = Provider((ProviderRef ref) => 'England');
+
+final dataNotifier = ChangeNotifierProvider<DataNotifier>((ref) {
+  return DataNotifier(ref);
+});
+
 class DataNotifier extends ChangeNotifier {
-  late Preferences preferences;
-  late AvalancheAPI avalancheAPI;
-  late StationAPI stationAPI;
-  late StationsRepository stationsRepository;
-  late DatabaseHelper databaseHelper;
+  DataNotifier(this.ref);
+
+  final Ref ref;
+
+  Preferences get preferences => ref.read(preferencesProvider);
+  AvalancheAPI get avalancheAPI => ref.read(avalancheAPIProvider);
+  StationAPI get stationAPI => ref.read(stationAPIProvider);
+  StationsRepository get stationsRepository =>
+      ref.read(stationsRepositoryProvider);
+  DatabaseHelper get databaseHelper => ref.read(databaseHelperProvider);
 
   bool _isInitialise = false;
   final _mapDataStation = <int, List<DataStation>>{};

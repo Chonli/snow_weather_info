@@ -1,39 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:snow_weather_info/core/notifier/location.dart';
-import 'package:snow_weather_info/core/notifier/preference.dart';
 import 'package:snow_weather_info/core/theme/app_theme.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
-import 'package:snow_weather_info/data/repositories/stations.dart';
-import 'package:snow_weather_info/data/sources/avalanche_api.dart';
-import 'package:snow_weather_info/data/sources/database_helper.dart';
 import 'package:snow_weather_info/data/sources/preferences.dart';
-import 'package:snow_weather_info/data/sources/station_api.dart';
 import 'package:snow_weather_info/ui/home_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = await SharedPreferences.getInstance();
 
-  runApp(MyApp(
-    preferences: prefs,
+  runApp(ProviderScope(
+    overrides: [
+      sharedPreferencesProvider.overrideWithValue(prefs),
+    ],
+    child: const MyApp(),
   ));
 }
 
 const _title = 'Info Neige';
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({
     super.key,
-    required this.preferences,
   });
 
-  final SharedPreferences preferences;
-
   @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
+  Widget build(BuildContext context, WidgetRef ref) {
+    /*return MultiProvider(
       providers: [
         Provider<DatabaseHelper>(create: (_) => DatabaseHelper()),
         Provider<AvalancheAPI>(create: (_) => AvalancheAPI()),
@@ -68,21 +62,23 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: Consumer<PreferenceNotifier>(
-        builder: (context, PreferenceNotifier notifier, child) {
-          return MaterialApp(
-            title: _title,
-            theme: AppTheme.ligthTheme,
-            darkTheme: AppTheme.darkTheme,
-            themeMode: notifier.themeMode,
-            home: const MyHomePage(title: _title),
-          );
-        },
-      ),
+        builder: (context, PreferenceNotifier notifier, child) {*/
+    final preferences = ref.watch(preferencesProvider);
+
+    return MaterialApp(
+      title: _title,
+      theme: AppTheme.ligthTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: preferences.themeMode,
+      home: const MyHomePage(title: _title),
     );
+    // },
+    //),
+    //);
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends ConsumerWidget {
   const MyHomePage({
     super.key,
     required this.title,
@@ -91,19 +87,15 @@ class MyHomePage extends StatelessWidget {
   final String title;
 
   @override
-  Widget build(BuildContext context) {
-    final loading = context.select(
-      (DataNotifier n) => n.loading,
-    );
+  Widget build(BuildContext context, WidgetRef ref) {
+    final loading = ref.watch(dataNotifier.select((n) => n.loading));
 
     return loading ? const _LoadingPage() : HomePage(title: title);
   }
 }
 
 class _LoadingPage extends StatelessWidget {
-  const _LoadingPage({
-    super.key,
-  });
+  const _LoadingPage();
 
   @override
   Widget build(BuildContext context) {

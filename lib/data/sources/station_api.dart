@@ -2,7 +2,15 @@ import 'dart:convert';
 import 'dart:developer' show log;
 
 import 'package:http/http.dart' as http;
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/model/station.dart';
+
+part 'station_api.g.dart';
+
+@Riverpod(keepAlive: true)
+StationAPI stationAPI(StationAPIRef ref) {
+  return StationAPI();
+}
 
 class StationAPI {
   final client = http.Client();

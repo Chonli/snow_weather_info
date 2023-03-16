@@ -13,8 +13,15 @@ const _viewNoDataStationPrefs = 'viewNoDataStationPrefs';
 const _showClusterLayerPrefs = 'showClusterLayerPrefs';
 
 @Riverpod(keepAlive: true)
-Preferences preferences(PreferencesRef ref, SharedPreferences pref) {
-  return Preferences(pref);
+SharedPreferences sharedPreferences(SharedPreferencesRef ref) {
+  throw UnimplementedError();
+}
+
+@Riverpod(keepAlive: true)
+Preferences preferences(PreferencesRef ref) {
+  final sharedPrefs = ref.watch(sharedPreferencesProvider);
+
+  return Preferences(sharedPrefs);
 }
 
 class Preferences {
