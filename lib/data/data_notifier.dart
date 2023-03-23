@@ -26,7 +26,9 @@ final dataNotifier = ChangeNotifierProvider<DataNotifier>((ref) {
 });
 
 class DataNotifier extends ChangeNotifier {
-  DataNotifier(this.ref);
+  DataNotifier(this.ref) {
+    _initData();
+  }
 
   final Ref ref;
 
@@ -180,7 +182,7 @@ class DataNotifier extends ChangeNotifier {
     return _nivoses.firstWhere((n) => n.codeMF == codeMF);
   }
 
-  Future<bool> initData() async {
+  Future<bool> _initData() async {
     if (!_isInitialise) {
       loading = true;
       _initNivose();

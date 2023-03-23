@@ -5,7 +5,9 @@ import 'package:snow_weather_info/data/sources/preferences.dart';
 import 'package:snow_weather_info/model/station.dart';
 
 class StationNotifier extends ChangeNotifier {
-  StationNotifier(this.ref);
+  StationNotifier(this.ref) {
+    _init();
+  }
 
   final Ref ref;
 
@@ -16,7 +18,7 @@ class StationNotifier extends ChangeNotifier {
   late List<Station> _noDataStations;
   late List<Station> _dataStations;
 
-  void init() {
+  void _init() {
     _dataStations = datasNotifier.stations.where((s) => s.hasData).toList();
     _noDataStations = datasNotifier.stations.where((s) => !s.hasData).toList();
     final tmpStations = <AbstractStation>[];
