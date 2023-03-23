@@ -1,43 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
-import 'package:provider/provider.dart';
-import 'package:snow_weather_info/core/notifier/preference.dart';
 import 'package:snow_weather_info/core/widgets/app_sticky_header_view.dart';
-import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/modules/station/notifier.dart';
 import 'package:snow_weather_info/modules/station/station_card.dart';
 
-class ListStationWidget extends StatelessWidget {
+final _stationNotifier = ChangeNotifierProvider<StationNotifier>((ref) {
+  return StationNotifier(ref);
+});
+
+class ListStationWidget extends ConsumerWidget {
   const ListStationWidget({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProxyProvider0<StationNotifier>(
-          create: (_) => StationNotifier(),
-          update: (context, old) => old!
-            ..dataNotifier = context.watch<DataNotifier>()
-            ..displayNoDataStation =
-                context.watch<PreferenceNotifier>().viewNoDataStation
-            ..init(),
-        ),
-      ],
-      child: const _InnerWidget(),
-    );
-  }
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    // return MultiProvider(
+    //   providers: [
+    //     ChangeNotifierProxyProvider0<StationNotifier>(
+    //       create: (_) => StationNotifier(),
+    //       update: (context, old) => old!
+    //         ..dataNotifier = context.watch<DataNotifier>()
+    //         ..displayNoDataStation =
+    //             context.watch<PreferenceNotifier>().viewNoDataStation
+    //         ..init(),
+    //     ),
+    //   ],
+    //   child:
 
-class _InnerWidget extends StatelessWidget {
-  const _InnerWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final notifier = context.watch<StationNotifier>();
+    final notifier = ref.watch(_stationNotifier);
 
     return CustomScrollView(
       slivers: [
@@ -47,7 +39,7 @@ class _InnerWidget extends StatelessWidget {
             padding: const EdgeInsets.all(8),
             child: TextField(
               onChanged: (value) {
-                context.read<StationNotifier>().search(value);
+                ref.read(_stationNotifier).search(value);
               },
               decoration: const InputDecoration(
                 labelText: 'Recherche',

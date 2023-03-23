@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
+
+final locationNotifier = ChangeNotifierProvider<LocationNotifier>((ref) {
+  return LocationNotifier();
+});
 
 class LocationNotifier extends ChangeNotifier {
   final _location = Location();

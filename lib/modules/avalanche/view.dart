@@ -1,24 +1,25 @@
-import 'package:dart_rss/dart_rss.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart' as url;
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snow_weather_info/core/widgets/app_web_page.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/extensions/atom_item.dart';
+import 'package:url_launcher/url_launcher.dart' as url;
 
-class AvalancheListWidget extends StatelessWidget {
+class AvalancheListWidget extends ConsumerWidget {
   const AvalancheListWidget({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
-    final feedItems = context.select<DataNotifier, List<AtomItem>>(
-      (n) => n.avalancheFeed?.items ?? [],
+  Widget build(BuildContext context, WidgetRef ref) {
+    final feedItems = ref.watch(
+      dataNotifier.select(
+        (n) => n.avalancheFeed?.items ?? [],
+      ),
     );
     final titleStyle = TextStyle(
-      color: Theme.of(context).textTheme.bodyText2?.color,
+      color: Theme.of(context).textTheme.bodyMedium?.color,
       fontStyle: FontStyle.normal,
     );
 
@@ -79,19 +80,17 @@ class AvalancheListWidget extends StatelessWidget {
 }
 
 class _AttributionWidget extends StatelessWidget {
-  const _AttributionWidget({
-    super.key,
-  });
+  const _AttributionWidget();
 
   @override
   Widget build(BuildContext context) {
-    final bodyText2Color = Theme.of(context).textTheme.bodyText2?.color;
-    final bodyText1Color = Theme.of(context).textTheme.bodyText1?.color;
+    final bodyText2Color = Theme.of(context).textTheme.bodyMedium?.color;
+    final bodyText1Color = Theme.of(context).textTheme.bodyLarge?.color;
 
     return ColoredBox(
-      color: Theme.of(context).backgroundColor,
+      color: Theme.of(context).colorScheme.background,
       child: Padding(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: RichText(
           text: TextSpan(
             children: [

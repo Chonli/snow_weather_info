@@ -1,16 +1,17 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snow_weather_info/model/data_station.dart';
+import 'package:snow_weather_info/modules/data_station/view.dart';
 
-class DataStationChart extends StatelessWidget {
+class DataStationChart extends ConsumerWidget {
   const DataStationChart({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
-    final List<DataStation> data = context.watch<List<DataStation>>();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final List<DataStation> data = ref.watch(dataListProvider);
 
     final List<TimeSeriesData> tsdatasnow = [];
     final List<TimeSeriesData> tsdatanewsnow = [];

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:package_info/package_info.dart';
-import 'package:provider/provider.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/modules/avalanche/view.dart';
 import 'package:snow_weather_info/modules/bera/view.dart';
@@ -9,25 +9,26 @@ import 'package:snow_weather_info/modules/station/list_station_widget.dart';
 import 'package:snow_weather_info/ui/preference_page.dart';
 import 'package:url_launcher/url_launcher.dart' as url;
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({
     super.key,
     required this.title,
   });
+
   final String title;
 
   @override
-  _HomePageState createState() => _HomePageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
+class _HomePageState extends ConsumerState<HomePage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    final notifier = context.read<DataNotifier>();
+    final notifier = ref.read(dataNotifier);
     _tabController = TabController(
       vsync: this,
       length: 4,
@@ -133,7 +134,7 @@ class _HomePageState extends State<HomePage>
             Text(
               'Développeur: Chonli',
               style: TextStyle(
-                color: Theme.of(context).textTheme.bodyText2?.color,
+                color: Theme.of(context).textTheme.bodyMedium?.color,
               ),
             ),
             const Padding(padding: EdgeInsets.all(5)),
@@ -144,7 +145,7 @@ class _HomePageState extends State<HomePage>
               child: Text(
                 'Lien vers le projet',
                 style: TextStyle(
-                  color: Theme.of(context).textTheme.bodyText1?.color,
+                  color: Theme.of(context).textTheme.bodyLarge?.color,
                 ),
               ),
             ),

@@ -21,8 +21,6 @@ import 'package:snow_weather_info/model/station.dart';
 
 import 'constant_data_list.dart';
 
-final countryProvider = Provider((ProviderRef ref) => 'England');
-
 final dataNotifier = ChangeNotifierProvider<DataNotifier>((ref) {
   return DataNotifier(ref);
 });

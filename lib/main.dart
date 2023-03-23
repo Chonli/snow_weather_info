@@ -63,18 +63,15 @@ class MyApp extends ConsumerWidget {
       ],
       child: Consumer<PreferenceNotifier>(
         builder: (context, PreferenceNotifier notifier, child) {*/
-    final preferences = ref.watch(preferencesProvider);
+    final themeMode = ref.watch(preferencesProvider.select((p) => p.themeMode));
 
     return MaterialApp(
       title: _title,
       theme: AppTheme.ligthTheme,
       darkTheme: AppTheme.darkTheme,
-      themeMode: preferences.themeMode,
+      themeMode: themeMode,
       home: const MyHomePage(title: _title),
     );
-    // },
-    //),
-    //);
   }
 }
 

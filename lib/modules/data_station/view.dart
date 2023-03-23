@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/extensions/double.dart';
@@ -8,59 +8,60 @@ import 'package:snow_weather_info/model/data_station.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/modules/data_station/card.dart';
 import 'package:snow_weather_info/modules/data_station/chart.dart';
-import 'package:snow_weather_info/modules/data_station/notifier.dart';
 
-class DataStationView extends StatefulWidget {
+final dataListProvider =
+    StateProvider.autoDispose<List<DataStation>>((ref) => []);
+final _stationProvider = StateProvider.autoDispose<Station?>((ref) => null);
+final _currentIndexProvider = StateProvider.autoDispose<int>((ref) => 0);
+
+class DataStationView extends ConsumerStatefulWidget {
   const DataStationView({
     super.key,
     required this.station,
   });
-
   final Station station;
 
   @override
-  State<DataStationView> createState() => _DataStationViewState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _DataStationViewState();
 }
 
-class _DataStationViewState extends State<DataStationView> {
-  late final List<DataStation> data;
-
+class _DataStationViewState extends ConsumerState<DataStationView> {
   @override
   void initState() {
     super.initState();
-    final notifier = context.read<DataNotifier>();
+    final notifier = ref.read(dataNotifier);
     notifier.currentMapLoc = widget.station.position;
-    data = notifier.getDataOfStation(widget.station.id);
+    ref.read(dataListProvider.notifier).state =
+        notifier.getDataOfStation(widget.station.id);
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        Provider<Station>.value(value: widget.station),
-        Provider<List<DataStation>>.value(value: data),
-        ChangeNotifierProvider<DataStationNotifier>(
-          create: (_) => DataStationNotifier(),
-        ),
-      ],
-      child: const _View(),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return MultiProvider(
+//       providers: [
+//         Provider<Station>.value(value: widget.station),
+//         Provider<List<DataStation>>.value(value: data),
+//         ChangeNotifierProvider<DataStationNotifier>(
+//           create: (_) => DataStationNotifier(),
+//         ),
+//       ],
+//       child: const _View(),
+//     );
+//   }
+// }
 
-class _View extends StatelessWidget {
-  const _View({
-    super.key,
-  });
+// class _View extends StatelessWidget {
+//   const _View({
+//     super.key,
+//   });
 
-  String _formatDataToString(BuildContext context) {
-    final station = context.read<Station>();
-    final notifier = context.read<DataStationNotifier>();
-    final displayData =
-        context.read<List<DataStation>>()[notifier.currentIndex];
+  String _formatDataToString() {
+    final currentIndex = ref.read(_currentIndexProvider);
+    final displayData = ref.read(dataListProvider)[currentIndex];
 
     String ret =
-        "Station ${station.name} (${station.altitude}m) au ${DateFormat('dd-MM-yyyy à kk:mm').format(displayData.date)}\n";
+        "Station ${widget.station.name} (${widget.station.altitude}m) au ${DateFormat('dd-MM-yyyy à kk:mm').format(displayData.date)}\n";
     if (displayData.temperature != null) {
       ret += 'Température: ${displayData.temperature!.toStringTemperature()}\n';
     }
@@ -78,10 +79,11 @@ class _View extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final station = context.watch<Station>();
-    final dataIsNotEmpty = context.watch<List<DataStation>>().isNotEmpty;
-    final isFavorite = context.select(
-      (DataNotifier notifier) => notifier.isFavorite(station),
+    final dataIsNotEmpty = ref.watch(dataListProvider).isNotEmpty;
+    final isFavorite = ref.watch(
+      dataNotifier.select(
+        (notifier) => notifier.isFavorite(widget.station),
+      ),
     );
 
     return Scaffold(
@@ -90,28 +92,25 @@ class _View extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              station.name,
+              widget.station.name,
             ),
             Text(
-              ' (${station.altitude}m)',
+              ' (${widget.station.altitude}m)',
             ),
           ],
         ),
         actions: <Widget>[
           IconButton(
             icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
-            onPressed: () =>
-                context.read<DataNotifier>().addOrRemoveFavoriteStation(
-                      station,
-                    ),
+            onPressed: () => ref.read(dataNotifier).addOrRemoveFavoriteStation(
+                  widget.station,
+                ),
           ),
           if (dataIsNotEmpty)
             IconButton(
               icon: const Icon(Icons.share),
               onPressed: () => Share.share(
-                _formatDataToString(
-                  context,
-                ),
+                _formatDataToString(),
               ),
             ),
         ],
@@ -124,14 +123,12 @@ class _View extends StatelessWidget {
 }
 
 class _Body extends StatelessWidget {
-  const _Body({
-    super.key,
-  });
+  const _Body();
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Theme.of(context).backgroundColor,
+      color: Theme.of(context).colorScheme.background,
       child: Column(
         children: <Widget>[
           Expanded(
@@ -150,7 +147,7 @@ class _Body extends StatelessWidget {
             child: Text(
               'Informations créées à partir de données de Météo-France',
               style: TextStyle(
-                color: Theme.of(context).textTheme.headline6?.color,
+                color: Theme.of(context).textTheme.titleLarge?.color,
                 fontSize: 14,
               ),
             ),
@@ -161,16 +158,14 @@ class _Body extends StatelessWidget {
   }
 }
 
-class _DataView extends StatefulWidget {
-  const _DataView({
-    super.key,
-  });
+class _DataView extends ConsumerStatefulWidget {
+  const _DataView();
 
   @override
-  State<_DataView> createState() => _DataViewState();
+  ConsumerState<ConsumerStatefulWidget> createState() => __DataViewState();
 }
 
-class _DataViewState extends State<_DataView> {
+class __DataViewState extends ConsumerState<_DataView> {
   late final carouselController = PageController();
 
   @override
@@ -181,14 +176,14 @@ class _DataViewState extends State<_DataView> {
 
   @override
   Widget build(BuildContext context) {
-    final List<DataStation> data = context.watch<List<DataStation>>();
+    final data = ref.watch(dataListProvider);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         IconButton(
           onPressed: () {
-            if (context.read<DataStationNotifier>().currentIndex > 0) {
+            if (ref.read(_currentIndexProvider) > 0) {
               carouselController.previousPage(
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.linear,
@@ -208,14 +203,13 @@ class _DataViewState extends State<_DataView> {
               ),
               controller: carouselController,
               onPageChanged: (index) =>
-                  context.read<DataStationNotifier>().currentIndex = index,
+                  ref.read(_currentIndexProvider.notifier).state = index,
             ),
           ),
         ),
         IconButton(
           onPressed: () {
-            if (context.read<DataStationNotifier>().currentIndex <
-                data.length - 1) {
+            if (ref.read(_currentIndexProvider) < data.length - 1) {
               carouselController.nextPage(
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.linear,
@@ -230,17 +224,13 @@ class _DataViewState extends State<_DataView> {
   }
 }
 
-class _DotRow extends StatelessWidget {
-  const _DotRow({
-    super.key,
-  });
+class _DotRow extends ConsumerWidget {
+  const _DotRow();
 
   @override
-  Widget build(BuildContext context) {
-    final number = context.watch<List<DataStation>>().length;
-    final currentIndex = context.select(
-      (DataStationNotifier n) => n.currentIndex,
-    );
+  Widget build(BuildContext context, WidgetRef ref) {
+    final number = ref.watch(dataListProvider).length;
+    final currentIndex = ref.watch(_currentIndexProvider);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,

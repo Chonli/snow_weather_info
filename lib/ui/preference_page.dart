@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:snow_weather_info/core/notifier/preference.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:snow_weather_info/data/sources/preferences.dart';
 import 'package:snow_weather_info/extensions/theme_mode.dart';
 
-class PreferencePage extends StatelessWidget {
+class PreferencePage extends ConsumerWidget {
   const PreferencePage({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Préférences'),
@@ -22,12 +22,14 @@ class PreferencePage extends StatelessWidget {
               PreferenceRow(
                 text: "Thème de l'application",
                 widget: DropdownButton<ThemeMode>(
-                  value: context.select<PreferenceNotifier, ThemeMode>(
-                    (n) => n.themeMode,
+                  value: ref.watch(
+                    preferencesProvider.select(
+                      (n) => n.themeMode,
+                    ),
                   ),
                   onChanged: (value) {
                     if (value != null) {
-                      context.read<PreferenceNotifier>().themeMode = value;
+                      ref.read(preferencesProvider).themeMode = value;
                     }
                   },
                   items: ThemeMode.values
@@ -42,20 +44,23 @@ class PreferencePage extends StatelessWidget {
               ),
               SwitchListTile(
                 title: const Text('Afficher les stations sans données: '),
-                value: context.select<PreferenceNotifier, bool>(
-                  (n) => n.viewNoDataStation,
+                value: ref.watch(
+                  preferencesProvider.select(
+                    (n) => n.viewNoDataStation,
+                  ),
                 ),
-                onChanged: (value) => context
-                    .read<PreferenceNotifier>()
-                    .viewNoDataStation = value,
+                onChanged: (value) =>
+                    ref.read(preferencesProvider).viewNoDataStation = value,
               ),
               SwitchListTile(
                 title: const Text('Regrouper les icones de la carte: '),
-                value: context.select<PreferenceNotifier, bool>(
-                  (n) => n.showClusterLayer,
+                value: ref.watch(
+                  preferencesProvider.select(
+                    (n) => n.showClusterLayer,
+                  ),
                 ),
                 onChanged: (value) =>
-                    context.read<PreferenceNotifier>().showClusterLayer = value,
+                    ref.read(preferencesProvider).showClusterLayer = value,
               ),
             ],
           ),

@@ -1,32 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share/share.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/model/station.dart';
 
-class NivosePage extends StatefulWidget {
+class NivosePage extends ConsumerStatefulWidget {
   const NivosePage({
     super.key,
     required this.nivose,
   });
-
   final Nivose nivose;
 
   @override
-  _NivosePageState createState() => _NivosePageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _NivosePageState();
 }
 
-class _NivosePageState extends State<NivosePage> {
+class _NivosePageState extends ConsumerState<NivosePage> {
   @override
   void initState() {
     super.initState();
-    context.read<DataNotifier>().currentMapLoc = widget.nivose.position;
+    ref.read(dataNotifier).currentMapLoc = widget.nivose.position;
   }
 
   @override
   Widget build(BuildContext context) {
-    final isFavorite = context.select(
-      (DataNotifier n) => n.isFavorite(widget.nivose),
+    final isFavorite = ref.watch(
+      dataNotifier.select(
+        (n) => n.isFavorite(widget.nivose),
+      ),
     );
 
     return Scaffold(
@@ -36,8 +37,8 @@ class _NivosePageState extends State<NivosePage> {
           IconButton(
             icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
             onPressed: () => setState(
-              () => context
-                  .read<DataNotifier>()
+              () => ref
+                  .read(dataNotifier)
                   .addOrRemoveFavoriteStation(widget.nivose),
             ),
           ),
@@ -73,7 +74,6 @@ class _NivosePageState extends State<NivosePage> {
 
 class _NetworkImage extends StatelessWidget {
   const _NetworkImage({
-    super.key,
     required this.url,
   });
 

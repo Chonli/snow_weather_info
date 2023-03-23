@@ -3,12 +3,12 @@ import 'package:dart_rss/dart_rss.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:provider/provider.dart';
 import 'package:snow_weather_info/core/notifier/location.dart';
-import 'package:snow_weather_info/core/notifier/preference.dart';
 import 'package:snow_weather_info/core/widgets/app_web_page.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
+import 'package:snow_weather_info/data/sources/preferences.dart';
 import 'package:snow_weather_info/extensions/atom_item.dart';
 import 'package:snow_weather_info/modules/data_station/view.dart';
 import 'package:snow_weather_info/modules/map/map_licence_widget.dart';
@@ -20,16 +20,14 @@ const stationColor = Colors.black;
 const stationNoDataColor = Colors.grey;
 const avalancheColor = Colors.orange;
 
-class MapWidget extends StatefulWidget {
-  const MapWidget({
-    super.key,
-  });
+class MapWidget extends ConsumerStatefulWidget {
+  const MapWidget({super.key});
 
   @override
-  _MapWidgetState createState() => _MapWidgetState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _MapWidgetState();
 }
 
-class _MapWidgetState extends State<MapWidget> {
+class _MapWidgetState extends ConsumerState<MapWidget> {
   final _mapController = MapController();
   final _listStationMarker = <Marker>[];
   final _listNivoseMarker = <Marker>[];
@@ -50,7 +48,7 @@ class _MapWidgetState extends State<MapWidget> {
   }
 
   void _initMakerList() {
-    final nivoses = context.read<DataNotifier>().nivoses;
+    final nivoses = ref.read(dataNotifier).nivoses;
 
     nivoses.forEach(
       (nivose) {
@@ -74,7 +72,7 @@ class _MapWidgetState extends State<MapWidget> {
       },
     );
 
-    final stations = context.read<DataNotifier>().stations;
+    final stations = ref.read(dataNotifier).stations;
     stations.forEach(
       (station) {
         if (station.hasData) {
@@ -112,7 +110,7 @@ class _MapWidgetState extends State<MapWidget> {
       },
     );
 
-    final feed = context.read<DataNotifier>().avalancheFeed;
+    final feed = ref.read(dataNotifier).avalancheFeed;
     feed?.items.forEach(
       (AtomItem item) {
         if (item.geo != null) {
@@ -143,7 +141,7 @@ class _MapWidgetState extends State<MapWidget> {
   }
 
   Future<void> _updateUserLocation() async {
-    final notifier = context.read<LocationNotifier>();
+    final notifier = ref.read(locationNotifier);
     await notifier.updateLocation();
     final userLocation = notifier.userLocation;
     if (userLocation != null) {
@@ -153,15 +151,21 @@ class _MapWidgetState extends State<MapWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final currentMapLoc = context.select<DataNotifier, LatLng>(
-      (n) => n.currentMapLoc,
+    final currentMapLoc = ref.watch(
+      dataNotifier.select(
+        (n) => n.currentMapLoc,
+      ),
     );
-    final showNoDataStations = context.select<PreferenceNotifier, bool>(
-      (n) => n.viewNoDataStation,
+    final showNoDataStations = ref.watch(
+      preferencesProvider.select(
+        (n) => n.viewNoDataStation,
+      ),
     );
 
-    final userLocation = context.select<LocationNotifier, LatLng?>(
-      (n) => n.userLocation,
+    final userLocation = ref.watch(
+      locationNotifier.select(
+        (n) => n.userLocation,
+      ),
     );
 
     return Stack(
@@ -241,7 +245,7 @@ class _MapWidgetState extends State<MapWidget> {
   }
 }
 
-class MakerLayer extends StatelessWidget {
+class MakerLayer extends ConsumerWidget {
   const MakerLayer({
     super.key,
     required this.markers,
@@ -252,9 +256,11 @@ class MakerLayer extends StatelessWidget {
   final Color color;
 
   @override
-  Widget build(BuildContext context) {
-    final showClusterLayer = context.select<PreferenceNotifier, bool>(
-      (n) => n.showClusterLayer,
+  Widget build(BuildContext context, WidgetRef ref) {
+    final showClusterLayer = ref.watch(
+      preferencesProvider.select(
+        (n) => n.showClusterLayer,
+      ),
     );
 
     return showClusterLayer

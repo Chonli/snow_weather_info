@@ -68,7 +68,7 @@ class Preferences {
     return ThemeMode.system;
   }
 
-  void setThemeMode(ThemeMode themeMode) {
+  set themeMode(ThemeMode themeMode) {
     preferences.setInt(_themeModePrefs, themeMode.index);
   }
 
@@ -76,7 +76,7 @@ class Preferences {
   bool get viewNoDataStation =>
       preferences.getBool(_viewNoDataStationPrefs) ?? true;
 
-  void setViewNoDataStation({required bool viewNoDataStation}) {
+  set viewNoDataStation(bool viewNoDataStation) {
     preferences.setBool(_viewNoDataStationPrefs, viewNoDataStation);
   }
 
@@ -84,7 +84,7 @@ class Preferences {
   bool get showClusterLayer =>
       preferences.getBool(_showClusterLayerPrefs) ?? false;
 
-  void setShowClusterLayer({required bool showClusterLayer}) {
+  set showClusterLayer(bool showClusterLayer) {
     preferences.setBool(_showClusterLayerPrefs, showClusterLayer);
   }
 }

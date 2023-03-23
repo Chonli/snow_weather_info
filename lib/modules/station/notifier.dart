@@ -1,26 +1,34 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:snow_weather_info/data/data_notifier.dart';
+import 'package:snow_weather_info/data/sources/preferences.dart';
 import 'package:snow_weather_info/model/station.dart';
 
 class StationNotifier extends ChangeNotifier {
-  late DataNotifier dataNotifier;
-  late bool displayNoDataStation;
+  StationNotifier(this.ref);
+
+  final Ref ref;
+
+  DataNotifier get datasNotifier => ref.read(dataNotifier);
+  bool get displayNoDataStation =>
+      ref.read(preferencesProvider).viewNoDataStation;
+
   late List<Station> _noDataStations;
   late List<Station> _dataStations;
 
   void init() {
-    _dataStations = dataNotifier.stations.where((s) => s.hasData).toList();
-    _noDataStations = dataNotifier.stations.where((s) => !s.hasData).toList();
+    _dataStations = datasNotifier.stations.where((s) => s.hasData).toList();
+    _noDataStations = datasNotifier.stations.where((s) => !s.hasData).toList();
     final tmpStations = <AbstractStation>[];
     if (displayNoDataStation) {
       tmpStations.addAll(_noDataStations);
     }
     tmpStations.addAll(_dataStations);
-    tmpStations.addAll(dataNotifier.nivoses);
+    tmpStations.addAll(datasNotifier.nivoses);
     tmpStations.sort((a, b) => a.name.compareTo(b.name));
 
     stations = _splitToGroupMap(tmpStations);
-    favoriteStations = dataNotifier.favoritesStations;
+    favoriteStations = datasNotifier.favoritesStations;
   }
 
   Map<String, List<AbstractStation>> _stations = {};
@@ -50,8 +58,8 @@ class StationNotifier extends ChangeNotifier {
         tmpStations.addAll(_noDataStations);
       }
       tmpStations.addAll(_dataStations);
-      tmpStations.addAll(dataNotifier.nivoses);
-      tmpFavoriteStations.addAll(dataNotifier.favoritesStations);
+      tmpStations.addAll(datasNotifier.nivoses);
+      tmpFavoriteStations.addAll(datasNotifier.favoritesStations);
     } else {
       tmpStations.addAll(_dataStations
           .where((s) => s.name.toLowerCase().contains(tmpQuery))
@@ -61,10 +69,10 @@ class StationNotifier extends ChangeNotifier {
             .where((s) => s.name.toLowerCase().contains(tmpQuery))
             .toList());
       }
-      tmpStations.addAll(dataNotifier.nivoses
+      tmpStations.addAll(datasNotifier.nivoses
           .where((s) => s.name.toLowerCase().contains(tmpQuery))
           .toList());
-      tmpFavoriteStations.addAll(dataNotifier.favoritesStations
+      tmpFavoriteStations.addAll(datasNotifier.favoritesStations
           .where((s) => s.name.toLowerCase().contains(tmpQuery))
           .toList());
     }
