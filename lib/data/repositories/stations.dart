@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/data/sources/database_helper.dart';
 import 'package:snow_weather_info/data/sources/preferences.dart';
@@ -7,60 +6,26 @@ import 'package:snow_weather_info/model/station.dart';
 
 part 'stations.g.dart';
 
-@Riverpod(keepAlive: true)
-StationsRepository stationsRepository(StationsRepositoryRef ref) {
-  return StationsRepository.update(
-    ref.watch(stationAPIProvider),
-    ref.watch(databaseHelperProvider),
-    ref.watch(preferencesProvider),
-    null,
-  );
-}
-
-@immutable
-class StationsRepository {
-  /// Creates a [AreasRepository].
-  const StationsRepository({
-    required StationAPI apiClient,
-    required DatabaseHelper databaseHelper,
-    required Preferences preferences,
-  })  : _apiClient = apiClient,
-        _preferences = preferences,
-        _databaseHelper = databaseHelper;
-
-  factory StationsRepository.update(
-    StationAPI apiClient,
-    DatabaseHelper databaseHelper,
-    Preferences preferences,
-    StationsRepository? old,
-  ) {
-    return old == null ||
-            apiClient != old._apiClient ||
-            databaseHelper != old._databaseHelper ||
-            preferences != old._preferences
-        ? StationsRepository(
-            apiClient: apiClient,
-            databaseHelper: databaseHelper,
-            preferences: preferences,
-          )
-        : old;
+@riverpod
+class StationRepository extends _$StationRepository {
+  @override
+  FutureOr<List<Station>> build() {
+    return _getStations(forceUpdate: true);
   }
 
-  final StationAPI _apiClient;
-  final DatabaseHelper _databaseHelper;
-  final Preferences _preferences;
-
-  Future<List<Station>> getStations({bool forceUpdate = false}) async {
-    final stationUpdateDate = _preferences.lastStationDate;
-    List<Station> stations = await _databaseHelper.getAllStation();
+  Future<List<Station>> _getStations({bool forceUpdate = false}) async {
+    final stationUpdateDate = ref.read(lastStationSettingsProvider);
+    List<Station> stations =
+        await ref.read(databaseHelperProvider).getAllStation();
     if (forceUpdate ||
         stations.isEmpty ||
         stationUpdateDate.difference(DateTime.now()) >
             const Duration(days: 15)) {
-      stations = await _apiClient.getStation();
-      stations.forEach((s) => _databaseHelper.insertStation(s));
+      stations = await ref.watch(stationAPIProvider).getStation();
+      stations
+          .forEach((s) => ref.read(databaseHelperProvider).insertStation(s));
 
-      _preferences.setLastStationDate(DateTime.now());
+      ref.read(lastStationSettingsProvider.notifier).updateDate(DateTime.now());
     }
 
     return stations;

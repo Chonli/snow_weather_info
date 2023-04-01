@@ -156,11 +156,7 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
         (n) => n.currentMapLoc,
       ),
     );
-    final showNoDataStations = ref.watch(
-      preferencesProvider.select(
-        (n) => n.viewNoDataStation,
-      ),
-    );
+    final showNoDataStations = ref.watch(showNoDataStationSettingsProvider);
 
     final userLocation = ref.watch(
       locationNotifier.select(
@@ -257,11 +253,7 @@ class MakerLayer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final showClusterLayer = ref.watch(
-      preferencesProvider.select(
-        (n) => n.showClusterLayer,
-      ),
-    );
+    final showClusterLayer = ref.watch(showClusterLayerSettingsProvider);
 
     return showClusterLayer
         ? MarkerClusterLayerWidget(

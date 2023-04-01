@@ -11,7 +11,6 @@ import 'package:snow_weather_info/modules/data_station/chart.dart';
 
 final dataListProvider =
     StateProvider.autoDispose<List<DataStation>>((ref) => []);
-final _stationProvider = StateProvider.autoDispose<Station?>((ref) => null);
 final _currentIndexProvider = StateProvider.autoDispose<int>((ref) => 0);
 
 class DataStationView extends ConsumerStatefulWidget {
@@ -35,26 +34,6 @@ class _DataStationViewState extends ConsumerState<DataStationView> {
     ref.read(dataListProvider.notifier).state =
         notifier.getDataOfStation(widget.station.id);
   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MultiProvider(
-//       providers: [
-//         Provider<Station>.value(value: widget.station),
-//         Provider<List<DataStation>>.value(value: data),
-//         ChangeNotifierProvider<DataStationNotifier>(
-//           create: (_) => DataStationNotifier(),
-//         ),
-//       ],
-//       child: const _View(),
-//     );
-//   }
-// }
-
-// class _View extends StatelessWidget {
-//   const _View({
-//     super.key,
-//   });
 
   String _formatDataToString() {
     final currentIndex = ref.read(_currentIndexProvider);

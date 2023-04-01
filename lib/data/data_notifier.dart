@@ -32,11 +32,8 @@ class DataNotifier extends ChangeNotifier {
 
   final Ref ref;
 
-  Preferences get preferences => ref.read(preferencesProvider);
   AvalancheAPI get avalancheAPI => ref.read(avalancheAPIProvider);
   StationAPI get stationAPI => ref.read(stationAPIProvider);
-  StationsRepository get stationsRepository =>
-      ref.read(stationsRepositoryProvider);
   DatabaseHelper get databaseHelper => ref.read(databaseHelperProvider);
 
   bool _isInitialise = false;
@@ -70,13 +67,13 @@ class DataNotifier extends ChangeNotifier {
   }
 
   void _persitFavoriteBERA() {
-    preferences.updateFavoritesBERA(
-      _favoritesBERA
-          .map<String>(
-            (bera) => bera.massifName,
-          )
-          .toList(),
-    );
+    ref.read(favoritesBERASettingsProvider.notifier).update(
+          _favoritesBERA
+              .map<String>(
+                (bera) => bera.massifName,
+              )
+              .toList(),
+        );
   }
 
   bool get loading => _loading;
@@ -135,7 +132,7 @@ class DataNotifier extends ChangeNotifier {
 
   Future<void> _initFavorites() async {
     //Stations
-    final listFav = preferences.favoritesStations;
+    final listFav = ref.read(favoritesStationSettingsProvider);
     final tmpFavoritesStations = <AbstractStation>[];
     _stations.forEach((s) {
       if (listFav.contains(s.id.toString())) {
@@ -150,7 +147,7 @@ class DataNotifier extends ChangeNotifier {
     favoritesStations = tmpFavoritesStations;
 
     //BERA
-    final listBERA = preferences.favoritesBERA;
+    final listBERA = ref.read(favoritesBERASettingsProvider);
     final tmpFavoritesBERA = <AvalancheBulletin>[];
     avalancheBulletins.forEach((bera) {
       if (listBERA.contains(bera.massifName)) {
@@ -225,19 +222,19 @@ class DataNotifier extends ChangeNotifier {
   }
 
   void _persitFavoriteStation() {
-    preferences.updateFavoritesStations(
-      _favoritesStations.map<String>(
-        (s) {
-          if (s is Station) {
-            return s.id.toString();
-          } else if (s is Nivose) {
-            return s.codeMF;
-          }
+    ref.read(favoritesStationSettingsProvider.notifier).update(
+          _favoritesStations.map<String>(
+            (s) {
+              if (s is Station) {
+                return s.id.toString();
+              } else if (s is Nivose) {
+                return s.codeMF;
+              }
 
-          return '';
-        },
-      ).toList(),
-    );
+              return '';
+            },
+          ).toList(),
+        );
   }
 
   void _decodeStationData(String data) {
@@ -266,8 +263,8 @@ class DataNotifier extends ChangeNotifier {
 
   Future<void> _downloadStationData() async {
     DateTime? lastDataDownload;
-    final lastDateData = preferences.lastStationDataDate;
-    log('last data ${lastDateData.toString()}');
+    final lastDateData = ref.read(lastStationDataSettingsProvider);
+    log('last data $lastDateData');
     for (int i = 7; i >= 0; --i) {
       final dateTime = DateTime.now().subtract(Duration(days: i));
 
@@ -287,7 +284,9 @@ class DataNotifier extends ChangeNotifier {
     }
 
     if (lastDataDownload != null) {
-      preferences.setLastStationDataDate(lastDataDownload);
+      ref.read(lastStationDataSettingsProvider.notifier).updateDate(
+            lastDataDownload,
+          );
     }
   }
 
@@ -298,7 +297,7 @@ class DataNotifier extends ChangeNotifier {
   // }
 
   Future<void> _initStation() async {
-    stations = await stationsRepository.getStations();
+    stations = await ref.read(stationRepositoryProvider.notifier).build();
   }
 
   void _initNivose() {

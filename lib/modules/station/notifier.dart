@@ -12,8 +12,7 @@ class StationNotifier extends ChangeNotifier {
   final Ref ref;
 
   DataNotifier get datasNotifier => ref.read(dataNotifier);
-  bool get displayNoDataStation =>
-      ref.read(preferencesProvider).viewNoDataStation;
+  bool get displayNoDataStation => ref.read(showNoDataStationSettingsProvider);
 
   late List<Station> _noDataStations;
   late List<Station> _dataStations;

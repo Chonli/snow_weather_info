@@ -22,14 +22,12 @@ class PreferencePage extends ConsumerWidget {
               PreferenceRow(
                 text: "Thème de l'application",
                 widget: DropdownButton<ThemeMode>(
-                  value: ref.watch(
-                    preferencesProvider.select(
-                      (n) => n.themeMode,
-                    ),
-                  ),
-                  onChanged: (value) {
-                    if (value != null) {
-                      ref.read(preferencesProvider).themeMode = value;
+                  value: ref.watch(themeModeSettingsProvider),
+                  onChanged: (mode) {
+                    if (mode != null) {
+                      ref
+                          .read(themeModeSettingsProvider.notifier)
+                          .updateThemeMode(mode);
                     }
                   },
                   items: ThemeMode.values
@@ -44,23 +42,18 @@ class PreferencePage extends ConsumerWidget {
               ),
               SwitchListTile(
                 title: const Text('Afficher les stations sans données: '),
-                value: ref.watch(
-                  preferencesProvider.select(
-                    (n) => n.viewNoDataStation,
-                  ),
-                ),
+                value: ref.watch(showNoDataStationSettingsProvider),
                 onChanged: (value) =>
-                    ref.read(preferencesProvider).viewNoDataStation = value,
+                    ref.read(showNoDataStationSettingsProvider.notifier).update(
+                          value,
+                        ),
               ),
               SwitchListTile(
                 title: const Text('Regrouper les icones de la carte: '),
-                value: ref.watch(
-                  preferencesProvider.select(
-                    (n) => n.showClusterLayer,
-                  ),
-                ),
-                onChanged: (value) =>
-                    ref.read(preferencesProvider).showClusterLayer = value,
+                value: ref.watch(showClusterLayerSettingsProvider),
+                onChanged: (value) => ref
+                    .read(showClusterLayerSettingsProvider.notifier)
+                    .update(value),
               ),
             ],
           ),

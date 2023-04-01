@@ -1,14 +1,11 @@
 # Enable all rules by default
 include: all_lint_rules.yaml
 analyzer:
-  plugins:
-    - dart_code_metrics
   strong-mode:
     implicit-casts: false
     implicit-dynamic: false
   errors:
     dead_code: warning
-    invalid_use_of_protected_member: error
     # Otherwise cause the import of all_lint_rules to warn because of some rules conflicts.
     # The conflicts are fixed in this file instead, so we can safely ignore the warning.
     included_file_warning: ignore
@@ -18,27 +15,11 @@ analyzer:
   exclude:
     - "**/lib/**/*.freezed.dart"
     - "**/lib/**/*.g.dart"
-    - "assets/**"
-
-dart_code_metrics:
-  anti-patterns:
-    - long-method
-    - long-parameter-list
-  metrics:
-    cyclomatic-complexity: 20
-    maximum-nesting-level: 5
-    number-of-parameters: 4
-    source-lines-of-code: 100
-  metrics-exclude:
-    - test/**
-  rules:
-    - newline-before-return
-    - no-boolean-literal-compare
-    - no-empty-block
-    - prefer-trailing-comma
-    - prefer-conditional-expressions
-    - no-equal-then-else
-
+    - "**/i18n/*"
+    - "ci/**"
+    - "coverage/**"
+    - "third_parties/**"
+    - "submodules/**"
 linter:
   rules:
     # We prefer having parameters in the same order as fields https://github.com/flutter/flutter/issues/10219
@@ -144,7 +125,3 @@ linter:
     # Having immutable local variables makes larger functions more predictible
     # so we will use `prefer_final_locals` instead.
     unnecessary_final: false
-
-    avoid_catches_without_on_clauses: false
-
-    sort_pub_dependencies: false
