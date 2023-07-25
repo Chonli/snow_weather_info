@@ -43,17 +43,16 @@ class PreferencePage extends ConsumerWidget {
               SwitchListTile(
                 title: const Text('Afficher les stations sans données: '),
                 value: ref.watch(showNoDataStationSettingsProvider),
-                onChanged: (value) =>
-                    ref.read(showNoDataStationSettingsProvider.notifier).update(
-                          value,
-                        ),
+                onChanged: (value) => ref
+                    .read(showNoDataStationSettingsProvider.notifier)
+                    .state = value,
               ),
               SwitchListTile(
                 title: const Text('Regrouper les icones de la carte: '),
                 value: ref.watch(showClusterLayerSettingsProvider),
                 onChanged: (value) => ref
                     .read(showClusterLayerSettingsProvider.notifier)
-                    .update(value),
+                    .state = value,
               ),
             ],
           ),

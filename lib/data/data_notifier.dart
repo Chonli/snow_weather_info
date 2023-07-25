@@ -3,8 +3,9 @@ import 'dart:developer' show log;
 
 import 'package:collection/collection.dart';
 import 'package:csv/csv.dart';
-import 'package:dart_rss/dart_rss.dart';
+//import 'package:dart_rss/dart_rss.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 // import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
@@ -134,26 +135,26 @@ class DataNotifier extends ChangeNotifier {
     //Stations
     final listFav = ref.read(favoritesStationSettingsProvider);
     final tmpFavoritesStations = <AbstractStation>[];
-    _stations.forEach((s) {
+    for (var s in _stations) {
       if (listFav.contains(s.id.toString())) {
         tmpFavoritesStations.add(s);
       }
-    });
-    _nivoses.forEach((s) {
+    }
+    for (var s in _nivoses) {
       if (listFav.contains(s.codeMF)) {
         tmpFavoritesStations.add(s);
       }
-    });
+    }
     favoritesStations = tmpFavoritesStations;
 
     //BERA
     final listBERA = ref.read(favoritesBERASettingsProvider);
     final tmpFavoritesBERA = <AvalancheBulletin>[];
-    avalancheBulletins.forEach((bera) {
+    for (var bera in avalancheBulletins) {
       if (listBERA.contains(bera.massifName)) {
         tmpFavoritesBERA.add(bera);
       }
-    });
+    }
     favoritesBERA = tmpFavoritesBERA;
   }
 
@@ -161,15 +162,16 @@ class DataNotifier extends ChangeNotifier {
     return _favoritesStations.contains(station);
   }
 
-  AtomFeed? get avalancheFeed => _avalancheFeed;
-  AtomFeed? _avalancheFeed;
-  @protected
-  set avalancheFeed(AtomFeed? value) {
-    if (_avalancheFeed != value) {
-      _avalancheFeed = value;
-      notifyListeners();
-    }
-  }
+  // TODO(APA): migrate
+  // AtomFeed? get avalancheFeed => _avalancheFeed;
+  // AtomFeed? _avalancheFeed;
+  // @protected
+  // set avalancheFeed(AtomFeed? value) {
+  //   if (_avalancheFeed != value) {
+  //     _avalancheFeed = value;
+  //     notifyListeners();
+  //   }
+  // }
 
   List<DataStation> getDataOfStation(int id) {
     return _mapDataStation[id] ?? [];
@@ -177,6 +179,12 @@ class DataNotifier extends ChangeNotifier {
 
   Nivose getNivose(String codeMF) {
     return _nivoses.firstWhere((n) => n.codeMF == codeMF);
+  }
+
+  Future<void> _readTestStationData() async {
+    final data =
+        await rootBundle.loadString('assets/test_data/nivo.202102.txt');
+    _decodeStationData(data);
   }
 
   Future<bool> _initData() async {
@@ -189,9 +197,10 @@ class DataNotifier extends ChangeNotifier {
           _initStation(),
           _downloadStationData(),
           // uncomment to use test value
-          //_readTestStationData(),
+          _readTestStationData(),
         ]);
-        avalancheFeed = await avalancheAPI.getAvalanche();
+        // TODO(APA): migrate
+        // avalancheFeed = await avalancheAPI.getAvalanche();
         await _finalizeStationData();
         await _initFavorites();
         _isInitialise = true;
