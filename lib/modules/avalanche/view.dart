@@ -2,7 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snow_weather_info/core/widgets/app_web_page.dart';
-import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:url_launcher/url_launcher.dart' as url;
 
 class AvalancheListWidget extends ConsumerWidget {
@@ -12,11 +11,12 @@ class AvalancheListWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final feedItems = ref.watch(
-      dataNotifier.select(
-        (n) => [], //n.avalancheFeed?.items ?? [],
-      ),
-    );
+    final feedItems = [];
+    //  ref.watch(
+    //   dataNotifier.select(
+    //     (n) => n.avalancheFeed?.items ?? [],
+    //   ),
+    // );
     final titleStyle = TextStyle(
       color: Theme.of(context).textTheme.bodyMedium?.color,
       fontStyle: FontStyle.normal,

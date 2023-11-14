@@ -1,13 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/core/widgets/app_sticky_header_view.dart';
-import 'package:snow_weather_info/modules/station/notifier.dart';
+import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/modules/station/station_card.dart';
+import 'package:snow_weather_info/provider/all_station.dart';
+import 'package:snow_weather_info/provider/favorite_station.dart';
 
-final _stationNotifier = ChangeNotifierProvider<StationNotifier>((ref) {
-  return StationNotifier(ref);
-});
+part 'list_station_widget.g.dart';
+
+@riverpod
+class _Search extends _$Search {
+  @override
+  String build() {
+    return '';
+  }
+
+  void search(String value) {
+    state = value;
+  }
+}
+
+@riverpod
+class _FilteredSations extends _$FilteredSations {
+  @override
+  Map<String, List<AbstractStation>> build() {
+    final allStations = ref.watch(allStationsProvider);
+    final search = ref.watch(_searchProvider);
+
+    final stations = allStations
+        .where(
+          (station) => search.isEmpty || station.name.contains(search),
+        )
+        .toList();
+
+    final Map<String, List<AbstractStation>> tmpGroupList = {};
+    for (var s in stations) {
+      if (tmpGroupList[s.name[0]] == null) {
+        tmpGroupList[s.name[0]] = <AbstractStation>[];
+      }
+
+      tmpGroupList[s.name[0]]?.add(s);
+    }
+
+    return tmpGroupList;
+  }
+}
 
 class ListStationWidget extends ConsumerWidget {
   const ListStationWidget({
@@ -16,20 +55,8 @@ class ListStationWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // return MultiProvider(
-    //   providers: [
-    //     ChangeNotifierProxyProvider0<StationNotifier>(
-    //       create: (_) => StationNotifier(),
-    //       update: (context, old) => old!
-    //         ..dataNotifier = context.watch<DataNotifier>()
-    //         ..displayNoDataStation =
-    //             context.watch<PreferenceNotifier>().viewNoDataStation
-    //         ..init(),
-    //     ),
-    //   ],
-    //   child:
-
-    final notifier = ref.watch(_stationNotifier);
+    final filteredSations = ref.watch(_filteredSationsProvider);
+    final favoriteStation = ref.watch(favoriteStationProvider);
 
     return CustomScrollView(
       slivers: [
@@ -39,7 +66,7 @@ class ListStationWidget extends ConsumerWidget {
             padding: const EdgeInsets.all(8),
             child: TextField(
               onChanged: (value) {
-                ref.read(_stationNotifier).search(value);
+                ref.read(_searchProvider.notifier).search(value);
               },
               decoration: const InputDecoration(
                 labelText: 'Recherche',
@@ -55,22 +82,21 @@ class ListStationWidget extends ConsumerWidget {
           ),
         ),
         // favorite
-        if (notifier.favoriteStations.isNotEmpty)
+        if (favoriteStation.isNotEmpty)
           SliverStickyHeader(
             header: AppStickyHeaderView(
-              text: notifier.favoriteStations.length == 1
-                  ? 'Favorite'
-                  : 'Favorites',
+              text: favoriteStation.length == 1 ? 'Favorite' : 'Favorites',
             ),
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate(
-                (context, index) =>
-                    StationCard(station: notifier.favoriteStations[index]),
-                childCount: notifier.favoriteStations.length,
+                (context, index) => StationCard(
+                  station: favoriteStation[index],
+                ),
+                childCount: favoriteStation.length,
               ),
             ),
           ),
-        ...notifier.stations.entries.map(
+        ...filteredSations.entries.map(
           (e) => SliverStickyHeader(
             header: AppStickyHeaderView(text: e.key),
             sliver: SliverList(

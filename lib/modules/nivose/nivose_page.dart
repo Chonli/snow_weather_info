@@ -1,8 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:share/share.dart';
-import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/model/station.dart';
+import 'package:snow_weather_info/modules/map/map_widget.dart';
+import 'package:snow_weather_info/provider/favorite_station.dart';
+
+part 'nivose_page.g.dart';
+
+@riverpod
+bool _isFavorite(Ref ref, String codeMF) {
+  final stations = ref.watch(favoriteStationProvider);
+
+  return stations.any(
+    (element) => switch (element) {
+      Nivose nivose => nivose.codeMF == codeMF,
+      _ => false,
+    },
+  );
+}
 
 class NivosePage extends ConsumerStatefulWidget {
   const NivosePage({
@@ -19,15 +36,19 @@ class _NivosePageState extends ConsumerState<NivosePage> {
   @override
   void initState() {
     super.initState();
-    ref.read(dataNotifier).currentMapLoc = widget.nivose.position;
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        ref.read(currentMapLocProvider.notifier).setLocation(
+              widget.nivose.position,
+            );
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final isFavorite = ref.watch(
-      dataNotifier.select(
-        (n) => n.isFavorite(widget.nivose),
-      ),
+      _isFavoriteProvider(widget.nivose.codeMF),
     );
 
     return Scaffold(
@@ -38,7 +59,7 @@ class _NivosePageState extends ConsumerState<NivosePage> {
             icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
             onPressed: () => setState(
               () => ref
-                  .read(dataNotifier)
+                  .read(favoriteStationProvider.notifier)
                   .addOrRemoveFavoriteStation(widget.nivose),
             ),
           ),

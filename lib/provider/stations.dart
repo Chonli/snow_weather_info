@@ -6,8 +6,8 @@ import 'package:snow_weather_info/model/station.dart';
 
 part 'stations.g.dart';
 
-@riverpod
-class StationRepository extends _$StationRepository {
+@Riverpod(keepAlive: true)
+class Stations extends _$Stations {
   @override
   FutureOr<List<Station>> build() {
     return _getStations(forceUpdate: true);
@@ -16,14 +16,17 @@ class StationRepository extends _$StationRepository {
   Future<List<Station>> _getStations({bool forceUpdate = false}) async {
     final stationUpdateDate = ref.read(lastStationSettingsProvider);
     List<Station> stations =
-        await ref.read(databaseHelperProvider).getAllStation();
+        await ref.watch(databaseHelperProvider).getAllStation();
     if (forceUpdate ||
         stations.isEmpty ||
         stationUpdateDate.difference(DateTime.now()) >
             const Duration(days: 15)) {
       stations = await ref.watch(stationAPIProvider).getStation();
-      stations
-          .forEach((s) => ref.read(databaseHelperProvider).insertStation(s));
+
+      await Future.forEach(
+        stations,
+        (s) => ref.watch(databaseHelperProvider).insertStation(s),
+      );
 
       ref.read(lastStationSettingsProvider.notifier).updateDate(DateTime.now());
     }

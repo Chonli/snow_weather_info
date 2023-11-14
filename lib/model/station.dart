@@ -1,7 +1,7 @@
 import 'package:latlong2/latlong.dart';
 import 'package:snow_weather_info/data/sources/database_helper.dart';
 
-abstract class AbstractStation {
+sealed class AbstractStation {
   AbstractStation(
     this.name,
     this.position,

@@ -1,17 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:share/share.dart';
-import 'package:snow_weather_info/data/data_notifier.dart';
 import 'package:snow_weather_info/extensions/double.dart';
 import 'package:snow_weather_info/model/data_station.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/modules/data_station/card.dart';
 import 'package:snow_weather_info/modules/data_station/chart.dart';
+import 'package:snow_weather_info/modules/map/map_widget.dart';
+import 'package:snow_weather_info/provider/favorite_station.dart';
+import 'package:snow_weather_info/provider/station_data.dart';
 
-final dataListProvider =
-    StateProvider.autoDispose<List<DataStation>>((ref) => []);
-final _currentIndexProvider = StateProvider.autoDispose<int>((ref) => 0);
+part 'view.g.dart';
+
+@Riverpod(keepAlive: false)
+class DataList extends _$DataList {
+  @override
+  List<DataStation> build() {
+    return [];
+  }
+
+  setDatas(List<DataStation> value) {
+    state = value;
+  }
+}
+
+@Riverpod(keepAlive: false)
+class _CurrentIndex extends _$CurrentIndex {
+  @override
+  int build() {
+    return 0;
+  }
+
+  void setIndex(int index) {
+    state = index;
+  }
+}
+
+@riverpod
+bool _isFavorite(Ref ref, int id) {
+  final favorites = ref.watch(favoriteStationProvider);
+  return favorites.any(
+    (element) => switch (element) {
+      Station st => st.id == id,
+      _ => false,
+    },
+  );
+}
 
 class DataStationView extends ConsumerStatefulWidget {
   const DataStationView({
@@ -29,10 +65,15 @@ class _DataStationViewState extends ConsumerState<DataStationView> {
   @override
   void initState() {
     super.initState();
-    final notifier = ref.read(dataNotifier);
-    notifier.currentMapLoc = widget.station.position;
-    ref.read(dataListProvider.notifier).state =
-        notifier.getDataOfStation(widget.station.id);
+
+    ref
+        .read(currentMapLocProvider.notifier)
+        .setLocation(widget.station.position);
+    ref.read(dataListProvider.notifier).setDatas(
+          ref.read(stationDataProvider.notifier).getDataOfStation(
+                widget.station.id,
+              ),
+        );
   }
 
   String _formatDataToString() {
@@ -60,9 +101,7 @@ class _DataStationViewState extends ConsumerState<DataStationView> {
   Widget build(BuildContext context) {
     final dataIsNotEmpty = ref.watch(dataListProvider).isNotEmpty;
     final isFavorite = ref.watch(
-      dataNotifier.select(
-        (notifier) => notifier.isFavorite(widget.station),
-      ),
+      _isFavoriteProvider(widget.station.id),
     );
 
     return Scaffold(
@@ -81,7 +120,9 @@ class _DataStationViewState extends ConsumerState<DataStationView> {
         actions: <Widget>[
           IconButton(
             icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
-            onPressed: () => ref.read(dataNotifier).addOrRemoveFavoriteStation(
+            onPressed: () => ref
+                .read(favoriteStationProvider.notifier)
+                .addOrRemoveFavoriteStation(
                   widget.station,
                 ),
           ),
@@ -182,7 +223,7 @@ class __DataViewState extends ConsumerState<_DataView> {
               ),
               controller: carouselController,
               onPageChanged: (index) =>
-                  ref.read(_currentIndexProvider.notifier).state = index,
+                  ref.read(_currentIndexProvider.notifier).setIndex(index),
             ),
           ),
         ),

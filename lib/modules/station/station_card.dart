@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/modules/data_station/view.dart';
-import 'package:snow_weather_info/ui/nivose_page.dart';
+import 'package:snow_weather_info/modules/nivose/nivose_page.dart';
 
 class StationCard extends StatelessWidget {
   const StationCard({
@@ -13,21 +13,24 @@ class StationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _textStyle = TextStyle(
-      color: Theme.of(context).textTheme.bodyText1?.color,
-      fontStyle: FontStyle.normal,
-    );
-    var snowHeigth = '';
-    if (station is Station) {
-      final st = station as Station;
+    late final TextStyle textStyle;
+    late final String snowHeigth;
+
+    if (station case Station st) {
       snowHeigth = st.hasData
           ? ' ${(st.lastSnowHeight * 100).toStringAsFixed(0)}cm'
           : '';
-      final _color = st.hasData
-          ? Theme.of(context).textTheme.bodyText2?.color
+      final color = st.hasData
+          ? Theme.of(context).textTheme.bodyMedium?.color
           : Theme.of(context).disabledColor;
-      final _font = st.hasData ? FontStyle.normal : FontStyle.italic;
-      _textStyle = TextStyle(color: _color, fontStyle: _font);
+      final font = st.hasData ? FontStyle.normal : FontStyle.italic;
+      textStyle = TextStyle(color: color, fontStyle: font);
+    } else {
+      snowHeigth = '';
+      textStyle = TextStyle(
+        color: Theme.of(context).textTheme.bodyLarge?.color,
+        fontStyle: FontStyle.normal,
+      );
     }
 
     return Card(
@@ -39,7 +42,7 @@ class StationCard extends StatelessWidget {
       child: ListTile(
         title: Text(
           station.name,
-          style: _textStyle,
+          style: textStyle,
         ),
         isThreeLine: true,
         trailing: snowHeigth.isNotEmpty
@@ -53,7 +56,7 @@ class StationCard extends StatelessWidget {
             : null,
         subtitle: Text(
           '${station.altitude}m \nLatLng(${station.position.latitude},${station.position.longitude})',
-          style: _textStyle,
+          style: textStyle,
         ),
         onTap: () => Navigator.push(
           context,

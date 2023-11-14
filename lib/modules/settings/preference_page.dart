@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snow_weather_info/data/sources/preferences.dart';
 import 'package:snow_weather_info/extensions/theme_mode.dart';
 

@@ -3,19 +3,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/core/notifier/location.dart';
-import 'package:snow_weather_info/data/data_notifier.dart';
+import 'package:snow_weather_info/data/constant_data_list.dart';
 import 'package:snow_weather_info/data/sources/preferences.dart';
 import 'package:snow_weather_info/modules/data_station/view.dart';
 import 'package:snow_weather_info/modules/map/map_licence_widget.dart';
 import 'package:snow_weather_info/modules/map/map_maker.dart';
-import 'package:snow_weather_info/ui/nivose_page.dart';
+import 'package:snow_weather_info/modules/nivose/nivose_page.dart';
+import 'package:snow_weather_info/provider/stations.dart';
+
+part 'map_widget.g.dart';
 
 final nivoseColor = Colors.blue.shade900;
 const stationColor = Colors.black;
 const stationNoDataColor = Colors.grey;
 const avalancheColor = Colors.orange;
+
+@riverpod
+class CurrentMapLoc extends _$CurrentMapLoc {
+  @override
+  LatLng build() {
+    return LatLng(45.05, 6.3);
+  }
+
+  void setLocation(LatLng value) {
+    state = value;
+  }
+}
 
 class MapWidget extends ConsumerStatefulWidget {
   const MapWidget({super.key});
@@ -45,7 +62,7 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
   }
 
   void _initMakerList() {
-    final nivoses = ref.read(dataNotifier).nivoses;
+    final nivoses = ConstantDatalist.listNivose;
 
     for (var nivose in nivoses) {
       _listNivoseMarker.add(
@@ -67,7 +84,7 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
       );
     }
 
-    final stations = ref.read(dataNotifier).stations;
+    final stations = ref.read(stationsProvider).asData?.value ?? [];
     for (var station in stations) {
       if (station.hasData) {
         _listStationMarker.add(
@@ -135,9 +152,12 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
   }
 
   Future<void> _updateUserLocation() async {
-    final notifier = ref.read(locationNotifier);
-    await notifier.updateLocation();
-    final userLocation = notifier.userLocation;
+    final userLocation = await ref
+        .read(
+          userLocationProvider.notifier,
+        )
+        .updateLocation();
+
     if (userLocation != null) {
       _mapController.move(userLocation, 10);
     }
@@ -145,18 +165,9 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final currentMapLoc = ref.watch(
-      dataNotifier.select(
-        (n) => n.currentMapLoc,
-      ),
-    );
+    final currentMapLoc = ref.watch(currentMapLocProvider);
     final showNoDataStations = ref.watch(showNoDataStationSettingsProvider);
-
-    final userLocation = ref.watch(
-      locationNotifier.select(
-        (n) => n.userLocation,
-      ),
-    );
+    final userLocation = ref.watch(userLocationProvider).asData?.value;
 
     return Stack(
       children: [
@@ -210,9 +221,9 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
                 markers: _listAvalancheMarker,
                 color: avalancheColor,
               ),
-            if (userLocation != null)
-              MarkerLayer(
-                markers: [
+            MarkerLayer(
+              markers: [
+                if (userLocation != null)
                   Marker(
                     point: userLocation,
                     builder: (context) => const Icon(
@@ -221,8 +232,8 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
                       size: 32,
                     ),
                   ),
-                ],
-              ),
+              ],
+            ),
           ],
         ),
         const Positioned(

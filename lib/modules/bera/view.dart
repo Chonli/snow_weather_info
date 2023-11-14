@@ -3,8 +3,9 @@ import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snow_weather_info/core/widgets/app_sticky_header_view.dart';
 import 'package:snow_weather_info/core/widgets/app_web_page.dart';
-import 'package:snow_weather_info/data/data_notifier.dart';
+import 'package:snow_weather_info/data/constant_data_list.dart';
 import 'package:snow_weather_info/model/avalanche_bulletin.dart';
+import 'package:snow_weather_info/provider/favorite_bera.dart';
 
 class BERAMassifListView extends StatelessWidget {
   const BERAMassifListView({
@@ -31,7 +32,7 @@ class _ListFavoriteView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final favorites = ref.watch(
-      dataNotifier.select((n) => n.favoritesBERA),
+      favoriteBeraProvider,
     );
 
     if (favorites.isEmpty) {
@@ -63,15 +64,11 @@ class _ListByMassifView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final list = ref.watch(
-      dataNotifier.select(
-        (n) => n.avalancheBulletins
-            .where(
-              (b) => b.mountain == mountain,
-            )
-            .toList(),
-      ),
-    );
+    final list = ConstantDatalist.listAvalancheBulletin
+        .where(
+          (b) => b.mountain == mountain,
+        )
+        .toList();
     list.sort((a, b) => a.massifName.compareTo(b.massifName));
 
     return SliverStickyHeader(
@@ -127,11 +124,8 @@ class _BERAView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isFavorite = ref.watch(
-      dataNotifier.select(
-        (n) => n.favoritesBERA.contains(avalancheBulletin),
-      ),
-    );
+    final isFavorite =
+        ref.watch(favoriteBeraProvider).contains(avalancheBulletin);
 
     return AppWebPage(
       title: avalancheBulletin.massifName,
@@ -139,7 +133,7 @@ class _BERAView extends ConsumerWidget {
       canShare: true,
       isFavorite: isFavorite,
       onFavorite: () {
-        ref.read(dataNotifier).addOrRemoveFavoriteBERA(
+        ref.read(favoriteBeraProvider.notifier).addOrRemoveFavoriteBERA(
               avalancheBulletin,
             );
       },

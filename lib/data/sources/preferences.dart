@@ -18,14 +18,14 @@ SharedPreferences sharedPreferences(SharedPreferencesRef ref) {
   throw UnimplementedError();
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class ThemeModeSettings extends _$ThemeModeSettings {
   @override
   ThemeMode build() {
     return _themeMode;
   }
 
-  SharedPreferences get _preference => ref.read(sharedPreferencesProvider);
+  SharedPreferences get _preference => ref.watch(sharedPreferencesProvider);
 
   ThemeMode get _themeMode {
     final index = _preference.getInt(_themeModePrefs);
@@ -48,14 +48,14 @@ class ThemeModeSettings extends _$ThemeModeSettings {
   }
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class LastStationDataSettings extends _$LastStationDataSettings {
   @override
   DateTime build() {
     return _lastStationDataDate;
   }
 
-  SharedPreferences get _preference => ref.read(sharedPreferencesProvider);
+  SharedPreferences get _preference => ref.watch(sharedPreferencesProvider);
 
   DateTime get _lastStationDataDate => DateTime.parse(
         _preference.getString(_lastStationDataPrefs) ?? '19700101',
@@ -69,35 +69,35 @@ class LastStationDataSettings extends _$LastStationDataSettings {
   }
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class LastStationSettings extends _$LastStationSettings {
   @override
   DateTime build() {
     return _lastStationDate;
   }
 
-  SharedPreferences get _preference => ref.read(sharedPreferencesProvider);
+  SharedPreferences get _preference => ref.watch(sharedPreferencesProvider);
 
   DateTime get _lastStationDate => DateTime.parse(
         _preference.getString(_lastStationPrefs) ?? '19700101',
       );
 
   void updateDate(DateTime lastDate) {
-    if (state != lastDate) {
+    if (state.difference(lastDate) > const Duration(days: 1)) {
       state = lastDate;
       _preference.setString(_lastStationPrefs, lastDate.toString());
     }
   }
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class FavoritesStationSettings extends _$FavoritesStationSettings {
   @override
   List<String> build() {
     return _favoritesStations;
   }
 
-  SharedPreferences get _preference => ref.read(sharedPreferencesProvider);
+  SharedPreferences get _preference => ref.watch(sharedPreferencesProvider);
 
   List<String> get _favoritesStations =>
       _preference.getStringList(_favoritesStationPrefs) ?? [];
@@ -110,14 +110,14 @@ class FavoritesStationSettings extends _$FavoritesStationSettings {
   }
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class FavoritesBERASettings extends _$FavoritesBERASettings {
   @override
   List<String> build() {
     return _favoritesStations;
   }
 
-  SharedPreferences get _preference => ref.read(sharedPreferencesProvider);
+  SharedPreferences get _preference => ref.watch(sharedPreferencesProvider);
 
   List<String> get _favoritesStations =>
       _preference.getStringList(_favoritesBERAPrefs) ?? [];
@@ -130,14 +130,14 @@ class FavoritesBERASettings extends _$FavoritesBERASettings {
   }
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class ShowNoDataStationSettings extends _$ShowNoDataStationSettings {
   @override
   bool build() {
     return _showNoDataStation;
   }
 
-  SharedPreferences get _preference => ref.read(sharedPreferencesProvider);
+  SharedPreferences get _preference => ref.watch(sharedPreferencesProvider);
 
   bool get _showNoDataStation =>
       _preference.getBool(_showNoDataStationPrefs) ?? true;
@@ -148,14 +148,14 @@ class ShowNoDataStationSettings extends _$ShowNoDataStationSettings {
   }
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class ShowClusterLayerSettings extends _$ShowClusterLayerSettings {
   @override
   bool build() {
     return _showClusterLayer;
   }
 
-  SharedPreferences get _preference => ref.read(sharedPreferencesProvider);
+  SharedPreferences get _preference => ref.watch(sharedPreferencesProvider);
 
   bool get _showClusterLayer =>
       _preference.getBool(_showClusterLayerPrefs) ?? false;

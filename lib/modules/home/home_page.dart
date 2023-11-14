@@ -1,13 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:package_info/package_info.dart';
-import 'package:snow_weather_info/data/data_notifier.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/modules/avalanche/view.dart';
 import 'package:snow_weather_info/modules/bera/view.dart';
 import 'package:snow_weather_info/modules/map/map_widget.dart';
+import 'package:snow_weather_info/modules/settings/preference_page.dart';
 import 'package:snow_weather_info/modules/station/list_station_widget.dart';
-import 'package:snow_weather_info/ui/preference_page.dart';
 import 'package:url_launcher/url_launcher.dart' as url;
+
+part 'home_page.g.dart';
+
+@Riverpod(keepAlive: false)
+class _CurrentTabIndex extends _$CurrentTabIndex {
+  @override
+  int build() {
+    return 0;
+  }
+
+  void setIndex(int index) {
+    state = index;
+  }
+}
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({
@@ -28,14 +42,16 @@ class _HomePageState extends ConsumerState<HomePage>
   @override
   void initState() {
     super.initState();
-    final notifier = ref.read(dataNotifier);
+    final index = ref.read(_currentTabIndexProvider);
     _tabController = TabController(
       vsync: this,
       length: 4,
-      initialIndex: notifier.currentIndexTab,
+      initialIndex: index,
     );
     _tabController.addListener(() {
-      notifier.currentIndexTab = _tabController.index;
+      ref.read(_currentTabIndexProvider.notifier).setIndex(
+            _tabController.index,
+          );
     });
   }
 
