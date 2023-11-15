@@ -29,8 +29,6 @@ class _SystemHash {
   }
 }
 
-typedef _IsFavoriteRef = AutoDisposeProviderRef<bool>;
-
 /// See also [_isFavorite].
 @ProviderFor(_isFavorite)
 const _isFavoriteProvider = _IsFavoriteFamily();
@@ -77,10 +75,10 @@ class _IsFavoriteFamily extends Family<bool> {
 class _IsFavoriteProvider extends AutoDisposeProvider<bool> {
   /// See also [_isFavorite].
   _IsFavoriteProvider(
-    this.id,
-  ) : super.internal(
+    int id,
+  ) : this._internal(
           (ref) => _isFavorite(
-            ref,
+            ref as _IsFavoriteRef,
             id,
           ),
           from: _isFavoriteProvider,
@@ -92,9 +90,43 @@ class _IsFavoriteProvider extends AutoDisposeProvider<bool> {
           dependencies: _IsFavoriteFamily._dependencies,
           allTransitiveDependencies:
               _IsFavoriteFamily._allTransitiveDependencies,
+          id: id,
         );
 
+  _IsFavoriteProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.id,
+  }) : super.internal();
+
   final int id;
+
+  @override
+  Override overrideWith(
+    bool Function(_IsFavoriteRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: _IsFavoriteProvider._internal(
+        (ref) => create(ref as _IsFavoriteRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        id: id,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeProviderElement<bool> createElement() {
+    return _IsFavoriteProviderElement(this);
+  }
 
   @override
   bool operator ==(Object other) {
@@ -108,6 +140,19 @@ class _IsFavoriteProvider extends AutoDisposeProvider<bool> {
 
     return _SystemHash.finish(hash);
   }
+}
+
+mixin _IsFavoriteRef on AutoDisposeProviderRef<bool> {
+  /// The parameter `id` of this provider.
+  int get id;
+}
+
+class _IsFavoriteProviderElement extends AutoDisposeProviderElement<bool>
+    with _IsFavoriteRef {
+  _IsFavoriteProviderElement(super.provider);
+
+  @override
+  int get id => (origin as _IsFavoriteProvider).id;
 }
 
 String _$dataListHash() => r'9b5d0c940e89b92d078311985ef34054dec91e34';
@@ -140,4 +185,5 @@ final _currentIndexProvider =
 );
 
 typedef _$CurrentIndex = AutoDisposeNotifier<int>;
-// ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions
+// ignore_for_file: type=lint
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

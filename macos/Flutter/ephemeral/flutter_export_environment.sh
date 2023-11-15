@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=/Users/adrienpally/development/flutter"
-export "FLUTTER_APPLICATION_PATH=/Users/adrienpally/development/perso/snow_weather_info"
+export "FLUTTER_ROOT=/home/lichon/flutter"
+export "FLUTTER_APPLICATION_PATH=/mnt/stock/code/flutter/snow_weather_info"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"
 export "FLUTTER_BUILD_NAME=1.10.2"

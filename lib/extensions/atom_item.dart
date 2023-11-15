@@ -1,22 +1,21 @@
-  // TODO(APA): migrate
-// import 'package:dart_rss/dart_rss.dart';
+import 'package:dart_rss/dart_rss.dart';
 
-// extension AtomItemExtension on AtomItem {
-//   String get shortTitle {
-//     final safetitle = title;
+extension AtomItemExtension on AtomItem {
+  String get shortTitle {
+    final safetitle = title;
 
-//     return safetitle != null && safetitle.contains(',')
-//         ? safetitle.replaceFirst(RegExp('.*, '), '')
-//         : 'Avalanche';
-//   }
+    return safetitle != null && safetitle.contains(',')
+        ? safetitle.replaceFirst(RegExp('.*, '), '')
+        : 'Avalanche';
+  }
 
-//   String get date => title?.substring(13, 23) ?? '';
+  String get date => title?.substring(13, 23) ?? '';
 
-//   String get massif =>
-//       title
-//           ?.replaceFirst(RegExp('.* : '), '')
-//           .replaceFirst(RegExp(', .*'), '') ??
-//       '';
+  String get massif =>
+      title
+          ?.replaceFirst(RegExp('.* : '), '')
+          .replaceFirst(RegExp(', .*'), '') ??
+      '';
 
-//   String get url => links.first.href ?? '';
-// }
+  String get url => links.first.href ?? '';
+}

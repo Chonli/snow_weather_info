@@ -6,12 +6,12 @@ part of 'avalanche.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$avalancheFeedHash() => r'03384d5aeecf88d8b40d9b76c9b9476ff259f0c0';
+String _$avalancheFeedHash() => r'963eab7af61fce260ff5e895b0274cf7eb26406f';
 
 /// See also [AvalancheFeed].
 @ProviderFor(AvalancheFeed)
 final avalancheFeedProvider =
-    AsyncNotifierProvider<AvalancheFeed, int>.internal(
+    AsyncNotifierProvider<AvalancheFeed, AtomFeed?>.internal(
   AvalancheFeed.new,
   name: r'avalancheFeedProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -21,5 +21,6 @@ final avalancheFeedProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$AvalancheFeed = AsyncNotifier<int>;
-// ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions
+typedef _$AvalancheFeed = AsyncNotifier<AtomFeed?>;
+// ignore_for_file: type=lint
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

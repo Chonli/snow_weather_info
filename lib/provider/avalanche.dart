@@ -1,23 +1,14 @@
+import 'package:dart_rss/domain/atom_feed.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:snow_weather_info/data/sources/avalanche_api.dart';
 
 part 'avalanche.g.dart';
 
 @Riverpod(keepAlive: true)
 class AvalancheFeed extends _$AvalancheFeed {
   @override
-  FutureOr<int> build() {
-    return 0;
+  FutureOr<AtomFeed?> build() {
+    final client = ref.watch(avalancheAPIProvider);
+    return client.getAvalanche();
   }
 }
-
-
-  // TODO(APA): migrate
-  // AtomFeed? get avalancheFeed => _avalancheFeed;
-  // AtomFeed? _avalancheFeed;
-  // @protected
-  // set avalancheFeed(AtomFeed? value) {
-  //   if (_avalancheFeed != value) {
-  //     _avalancheFeed = value;
-  //     notifyListeners();
-  //   }
-  // }

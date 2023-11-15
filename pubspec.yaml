@@ -5,7 +5,7 @@ publish_to: none
 version: 1.10.2+27
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -13,16 +13,16 @@ dependencies:
 
   collection: any
   flutter_launcher_icons: ^0.13.1
-  flutter_hooks: ^0.18.6
+  flutter_hooks: ^0.20.3
   hooks_riverpod: ^2.4.6
   riverpod_annotation: ^2.3.1
-  http: ^0.13.6
-  latlong2: ^0.8.2
+  http: ^1.1.0
+  latlong2: ^0.9.0
   csv: ^5.1.1
-  intl: ^0.18.1
-  flutter_map: ^3.0.0
-  flutter_map_marker_cluster: ^1.0.1
-  fl_chart: ^0.63.0
+  intl: ^0.18.0
+  flutter_map: ^6.0.1
+  flutter_map_marker_cluster: ^1.3.3
+  fl_chart: ^0.64.0
   sqflite: ^2.3.0
   shared_preferences: ^2.2.2
   url_launcher: ^6.2.1
@@ -33,21 +33,19 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   location: ^5.0.3
   logging: ^1.2.0
-  # dart_rss:
-  #   git:
-  #     url: https://github.com/Chonli/webfeed.git
-  #     ref: feature/geo-rss-2
+  dart_rss:
+    git:
+      url: https://github.com/Chonli/webfeed.git
+      ref: feature/geo-rss-2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.2
-  custom_lint: ^0.4.0
-  build_runner: ^2.4.6
-  riverpod_generator: ^2.2.3
-
-dependency_overrides:
-  watcher: 1.1.0
+  flutter_lints: ^3.0.1
+  custom_lint: ^0.5.6
+  build_runner: any
+  build_runner_core: ^7.2.9
+  riverpod_generator: ^2.3.6
 
 flutter:
   uses-material-design: true
@@ -56,6 +54,6 @@ flutter:
     - assets/test_data/
 
 flutter_icons:
-  android: 'launcher_icon'
+  android: "launcher_icon"
   ios: true
-  image_path: 'assets/icon/icon.png'
+  image_path: "assets/icon/icon.png"

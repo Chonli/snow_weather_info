@@ -29,8 +29,6 @@ class _SystemHash {
   }
 }
 
-typedef _IsFavoriteRef = AutoDisposeProviderRef<bool>;
-
 /// See also [_isFavorite].
 @ProviderFor(_isFavorite)
 const _isFavoriteProvider = _IsFavoriteFamily();
@@ -77,10 +75,10 @@ class _IsFavoriteFamily extends Family<bool> {
 class _IsFavoriteProvider extends AutoDisposeProvider<bool> {
   /// See also [_isFavorite].
   _IsFavoriteProvider(
-    this.codeMF,
-  ) : super.internal(
+    String codeMF,
+  ) : this._internal(
           (ref) => _isFavorite(
-            ref,
+            ref as _IsFavoriteRef,
             codeMF,
           ),
           from: _isFavoriteProvider,
@@ -92,9 +90,43 @@ class _IsFavoriteProvider extends AutoDisposeProvider<bool> {
           dependencies: _IsFavoriteFamily._dependencies,
           allTransitiveDependencies:
               _IsFavoriteFamily._allTransitiveDependencies,
+          codeMF: codeMF,
         );
 
+  _IsFavoriteProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.codeMF,
+  }) : super.internal();
+
   final String codeMF;
+
+  @override
+  Override overrideWith(
+    bool Function(_IsFavoriteRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: _IsFavoriteProvider._internal(
+        (ref) => create(ref as _IsFavoriteRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        codeMF: codeMF,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeProviderElement<bool> createElement() {
+    return _IsFavoriteProviderElement(this);
+  }
 
   @override
   bool operator ==(Object other) {
@@ -109,4 +141,18 @@ class _IsFavoriteProvider extends AutoDisposeProvider<bool> {
     return _SystemHash.finish(hash);
   }
 }
-// ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions
+
+mixin _IsFavoriteRef on AutoDisposeProviderRef<bool> {
+  /// The parameter `codeMF` of this provider.
+  String get codeMF;
+}
+
+class _IsFavoriteProviderElement extends AutoDisposeProviderElement<bool>
+    with _IsFavoriteRef {
+  _IsFavoriteProviderElement(super.provider);
+
+  @override
+  String get codeMF => (origin as _IsFavoriteProvider).codeMF;
+}
+// ignore_for_file: type=lint
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
