@@ -31,12 +31,19 @@ class _FilteredSations extends _$FilteredSations {
 
     final stations = allStations
         .where(
-          (station) => search.isEmpty || station.name.contains(search),
+          (station) =>
+              search.isEmpty ||
+              station.name.toLowerCase().contains(
+                    search.toLowerCase(),
+                  ),
         )
-        .toList();
+        .toList()
+      ..sort(
+        (a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()),
+      );
 
-    final Map<String, List<AbstractStation>> tmpGroupList = {};
-    for (var s in stations) {
+    final tmpGroupList = <String, List<AbstractStation>>{};
+    for (final s in stations) {
       if (tmpGroupList[s.name[0]] == null) {
         tmpGroupList[s.name[0]] = <AbstractStation>[];
       }
@@ -44,7 +51,10 @@ class _FilteredSations extends _$FilteredSations {
       tmpGroupList[s.name[0]]?.add(s);
     }
 
-    return tmpGroupList;
+    //sort keys
+    return Map.fromEntries(
+      tmpGroupList.entries.toList()..sort(((a, b) => a.key.compareTo(b.key))),
+    );
   }
 }
 

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:snow_weather_info/core/theme/app_theme.dart';
 import 'package:snow_weather_info/data/sources/preferences.dart';
 import 'package:snow_weather_info/modules/home/home_page.dart';
 import 'package:snow_weather_info/provider/station_data.dart';
@@ -29,8 +28,13 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       title: _title,
-      theme: AppTheme.ligthTheme,
-      darkTheme: AppTheme.darkTheme,
+      theme: ThemeData(
+        colorSchemeSeed: Colors.blueAccent,
+      ),
+      darkTheme: ThemeData(
+        colorSchemeSeed: Colors.blue.shade800,
+        brightness: Brightness.dark,
+      ),
       themeMode: ref.watch(themeModeSettingsProvider),
       home: const MyHomePage(title: _title),
     );

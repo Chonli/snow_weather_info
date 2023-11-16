@@ -1,5 +1,6 @@
 import 'package:dart_rss/dart_rss.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -9,20 +10,20 @@ import 'package:snow_weather_info/core/notifier/location.dart';
 import 'package:snow_weather_info/core/widgets/app_web_page.dart';
 import 'package:snow_weather_info/data/constant_data_list.dart';
 import 'package:snow_weather_info/data/sources/preferences.dart';
+import 'package:snow_weather_info/extensions/atom_item.dart';
 import 'package:snow_weather_info/modules/data_station/view.dart';
 import 'package:snow_weather_info/modules/map/map_licence_widget.dart';
 import 'package:snow_weather_info/modules/map/map_maker.dart';
 import 'package:snow_weather_info/modules/nivose/nivose_page.dart';
 import 'package:snow_weather_info/provider/avalanche.dart';
 import 'package:snow_weather_info/provider/stations.dart';
-import 'package:snow_weather_info/extensions/atom_item.dart';
 
 part 'map_widget.g.dart';
 
-final nivoseColor = Colors.blue.shade900;
-const stationColor = Colors.black;
-const stationNoDataColor = Colors.grey;
-const avalancheColor = Colors.orange;
+final _nivoseColor = Colors.blue.shade900;
+const _stationColor = Colors.black;
+const _stationNoDataColor = Colors.grey;
+const _avalancheColor = Colors.orange;
 
 @riverpod
 class CurrentMapLoc extends _$CurrentMapLoc {
@@ -53,8 +54,12 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
   @override
   void initState() {
     super.initState();
-    _updateUserLocation();
     _initMakerList();
+    ServicesBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _updateUserLocation();
+      }
+    });
   }
 
   @override
@@ -74,7 +79,7 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
           point: nivose.position,
           child: MapMaker(
             icon: const Icon(Icons.place),
-            color: nivoseColor,
+            color: _nivoseColor,
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute<Widget>(
@@ -96,7 +101,7 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
             point: station.position,
             child: MapMaker(
               icon: const Icon(Icons.place),
-              color: stationColor,
+              color: _stationColor,
               lastSnowHeight: station.lastSnowHeight,
               onPressed: () => Navigator.push(
                 context,
@@ -115,7 +120,7 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
             point: station.position,
             child: const MapMaker(
               icon: Icon(Icons.place),
-              color: stationNoDataColor,
+              color: _stationNoDataColor,
             ),
           ),
         );
@@ -133,7 +138,7 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
               point: LatLng(item.geo?.lat ?? 0, item.geo?.long ?? 0),
               child: MapMaker(
                 icon: const Icon(Icons.ac_unit),
-                color: avalancheColor,
+                color: _avalancheColor,
                 onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute<Widget>(
@@ -201,22 +206,22 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
             if (_listStationMarker.isNotEmpty)
               _MakerLayer(
                 markers: _listStationMarker,
-                color: stationColor,
+                color: _stationColor,
               ),
             if (_listStationNoDataMarker.isNotEmpty && showNoDataStations)
               _MakerLayer(
                 markers: _listStationNoDataMarker,
-                color: stationNoDataColor,
+                color: _stationNoDataColor,
               ),
             if (_listNivoseMarker.isNotEmpty)
               _MakerLayer(
                 markers: _listNivoseMarker,
-                color: nivoseColor,
+                color: _nivoseColor,
               ),
             if (_listAvalancheMarker.isNotEmpty)
               _MakerLayer(
                 markers: _listAvalancheMarker,
-                color: avalancheColor,
+                color: _avalancheColor,
               ),
             MarkerLayer(
               markers: [

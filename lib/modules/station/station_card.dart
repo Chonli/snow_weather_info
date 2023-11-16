@@ -28,7 +28,7 @@ class StationCard extends StatelessWidget {
     } else {
       snowHeigth = '';
       textStyle = TextStyle(
-        color: Theme.of(context).textTheme.bodyLarge?.color,
+        color: Theme.of(context).colorScheme.primary,
         fontStyle: FontStyle.normal,
       );
     }

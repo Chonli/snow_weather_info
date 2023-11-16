@@ -13,11 +13,11 @@ class AppStickyHeaderView extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12),
       alignment: Alignment.centerLeft,
-      color: Theme.of(context).primaryColor,
+      color: Theme.of(context).colorScheme.primary,
       child: Text(
         text,
         style: TextStyle(
-          color: Theme.of(context).textTheme.headline6?.color,
+          color: Theme.of(context).colorScheme.onPrimary,
           fontSize: 25,
         ),
       ),

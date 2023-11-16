@@ -6,7 +6,7 @@ part of 'map_widget.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$currentMapLocHash() => r'3a8b371a58fad13da8b29d00e267342bd44645c2';
+String _$currentMapLocHash() => r'a00ac1e233ca477c956a761fa3c2c75b901ab168';
 
 /// See also [CurrentMapLoc].
 @ProviderFor(CurrentMapLoc)
