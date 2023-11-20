@@ -11,7 +11,7 @@ class DataStationChart extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final List<DataStation> datas = ref.watch(dataListProvider);
+    final List<DataStation> datas = ref.watch(currentDataStationProvider);
     final tempData = <FlSpot>[];
 
     for (var data in datas) {

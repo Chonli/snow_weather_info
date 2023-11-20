@@ -8,25 +8,22 @@ import 'package:snow_weather_info/model/data_station.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/modules/data_station/card.dart';
 import 'package:snow_weather_info/modules/data_station/chart.dart';
-import 'package:snow_weather_info/modules/map/map_widget.dart';
 import 'package:snow_weather_info/provider/favorite_station.dart';
 import 'package:snow_weather_info/provider/station_data.dart';
 
 part 'view.g.dart';
 
-@Riverpod(keepAlive: false)
-class DataList extends _$DataList {
-  @override
-  List<DataStation> build() {
-    return [];
-  }
-
-  setDatas(List<DataStation> value) {
-    state = value;
-  }
+@riverpod
+List<DataStation> currentDataStation(Ref ref) {
+  throw UnimplementedError();
 }
 
-@Riverpod(keepAlive: false)
+@riverpod
+Station currentStation(Ref ref) {
+  throw UnimplementedError();
+}
+
+@riverpod
 class _CurrentIndex extends _$CurrentIndex {
   @override
   int build() {
@@ -35,6 +32,15 @@ class _CurrentIndex extends _$CurrentIndex {
 
   void setIndex(int index) {
     state = index;
+  }
+}
+
+@riverpod
+class _CurrentIndexData extends _$CurrentIndexData {
+  @override
+  DataStation? build() {
+    final index = ref.watch(_currentIndexProvider);
+    return ref.watch(currentDataStationProvider)[index];
   }
 }
 
@@ -49,7 +55,7 @@ bool _isFavorite(Ref ref, int id) {
   );
 }
 
-class DataStationView extends ConsumerStatefulWidget {
+class DataStationView extends ConsumerWidget {
   const DataStationView({
     super.key,
     required this.station,
@@ -57,51 +63,57 @@ class DataStationView extends ConsumerStatefulWidget {
   final Station station;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _DataStationViewState();
+  Widget build(BuildContext context, WidgetRef ref) {
+    return ProviderScope(
+      overrides: [
+        currentDataStationProvider.overrideWith(
+          (ref) => ref
+              .watch(stationDataProvider.notifier)
+              .getDataOfStation(station.id),
+        ),
+        currentStationProvider.overrideWithValue(station),
+      ],
+      child: const _InnerView(),
+    );
+  }
 }
 
-class _DataStationViewState extends ConsumerState<DataStationView> {
-  @override
-  void initState() {
-    super.initState();
+class _InnerView extends ConsumerWidget {
+  const _InnerView();
 
-    ref
-        .read(currentMapLocProvider.notifier)
-        .setLocation(widget.station.position);
-    ref.read(dataListProvider.notifier).setDatas(
-          ref.read(stationDataProvider.notifier).getDataOfStation(
-                widget.station.id,
-              ),
-        );
-  }
+  String _formatDataToString(WidgetRef ref) {
+    final displayData = ref.read(_currentIndexDataProvider);
+    final station = ref.read(currentStationProvider);
 
-  String _formatDataToString() {
-    final currentIndex = ref.read(_currentIndexProvider);
-    final displayData = ref.read(dataListProvider)[currentIndex];
+    if (displayData != null) {
+      String ret =
+          "Station ${station.name} (${station.altitude}m) au ${DateFormat('dd-MM-yyyy à kk:mm').format(displayData.date)}\n";
 
-    String ret =
-        "Station ${widget.station.name} (${widget.station.altitude}m) au ${DateFormat('dd-MM-yyyy à kk:mm').format(displayData.date)}\n";
-    if (displayData.temperature != null) {
-      ret += 'Température: ${displayData.temperature!.toStringTemperature()}\n';
+      if (displayData.temperature != null) {
+        ret +=
+            'Température: ${displayData.temperature!.toStringTemperature()}\n';
+      }
+      if (displayData.snowHeight != null) {
+        ret +=
+            'Hauteur de neige: ${displayData.snowHeight!.toStringSnowHeigth()}cm\n';
+      }
+      if (displayData.snowNewHeight != null) {
+        ret +=
+            'Hauteur de neige fraiches: ${displayData.snowNewHeight!.toStringSnowHeigth()}cm\n';
+      }
+
+      return ret;
+    } else {
+      return '';
     }
-    if (displayData.snowHeight != null) {
-      ret +=
-          'Hauteur de neige: ${displayData.snowHeight!.toStringSnowHeigth()}cm\n';
-    }
-    if (displayData.snowNewHeight != null) {
-      ret +=
-          'Hauteur de neige fraiches: ${displayData.snowNewHeight!.toStringSnowHeigth()}cm\n';
-    }
-
-    return ret;
   }
 
   @override
-  Widget build(BuildContext context) {
-    final dataIsNotEmpty = ref.watch(dataListProvider).isNotEmpty;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final displayData = ref.watch(_currentIndexDataProvider);
+    final station = ref.watch(currentStationProvider);
     final isFavorite = ref.watch(
-      _isFavoriteProvider(widget.station.id),
+      _isFavoriteProvider(station.id),
     );
 
     return Scaffold(
@@ -110,10 +122,10 @@ class _DataStationViewState extends ConsumerState<DataStationView> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              widget.station.name,
+              station.name,
             ),
             Text(
-              ' (${widget.station.altitude}m)',
+              ' (${station.altitude}m)',
             ),
           ],
         ),
@@ -123,19 +135,19 @@ class _DataStationViewState extends ConsumerState<DataStationView> {
             onPressed: () => ref
                 .read(favoriteStationProvider.notifier)
                 .addOrRemoveFavoriteStation(
-                  widget.station,
+                  station,
                 ),
           ),
-          if (dataIsNotEmpty)
+          if (displayData != null)
             IconButton(
               icon: const Icon(Icons.share),
               onPressed: () => Share.share(
-                _formatDataToString(),
+                _formatDataToString(ref),
               ),
             ),
         ],
       ),
-      body: dataIsNotEmpty
+      body: displayData != null
           ? const _Body()
           : const Center(child: Text('Pas de donnée pour cette station météo')),
     );
@@ -196,7 +208,7 @@ class __DataViewState extends ConsumerState<_DataView> {
 
   @override
   Widget build(BuildContext context) {
-    final data = ref.watch(dataListProvider);
+    final data = ref.watch(currentDataStationProvider);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -249,7 +261,7 @@ class _DotRow extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final number = ref.watch(dataListProvider).length;
+    final number = ref.watch(currentDataStationProvider).length;
     final currentIndex = ref.watch(_currentIndexProvider);
 
     return Row(

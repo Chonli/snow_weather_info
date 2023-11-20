@@ -6,6 +6,38 @@ part of 'view.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+String _$currentDataStationHash() =>
+    r'3617d4efbc36476f9ebac8155c4aef337411916c';
+
+/// See also [currentDataStation].
+@ProviderFor(currentDataStation)
+final currentDataStationProvider =
+    AutoDisposeProvider<List<DataStation>>.internal(
+  currentDataStation,
+  name: r'currentDataStationProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$currentDataStationHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef CurrentDataStationRef = AutoDisposeProviderRef<List<DataStation>>;
+String _$currentStationHash() => r'd60a58973507c5e6eecabb2310e673c38166b922';
+
+/// See also [currentStation].
+@ProviderFor(currentStation)
+final currentStationProvider = AutoDisposeProvider<Station>.internal(
+  currentStation,
+  name: r'currentStationProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$currentStationHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef CurrentStationRef = AutoDisposeProviderRef<Station>;
 String _$isFavoriteHash() => r'f27bfede422a682fa1c315541dffe6f7f7c009fe';
 
 /// Copied from Dart SDK
@@ -155,22 +187,7 @@ class _IsFavoriteProviderElement extends AutoDisposeProviderElement<bool>
   int get id => (origin as _IsFavoriteProvider).id;
 }
 
-String _$dataListHash() => r'9b5d0c940e89b92d078311985ef34054dec91e34';
-
-/// See also [DataList].
-@ProviderFor(DataList)
-final dataListProvider =
-    AutoDisposeNotifierProvider<DataList, List<DataStation>>.internal(
-  DataList.new,
-  name: r'dataListProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$dataListHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$DataList = AutoDisposeNotifier<List<DataStation>>;
-String _$currentIndexHash() => r'1337ee5127d36cb29455cd2d38c368ae860cd27e';
+String _$currentIndexHash() => r'6e74376bced0377c27a8aa641601ddf61c2fc918';
 
 /// See also [_CurrentIndex].
 @ProviderFor(_CurrentIndex)
@@ -185,5 +202,21 @@ final _currentIndexProvider =
 );
 
 typedef _$CurrentIndex = AutoDisposeNotifier<int>;
+String _$currentIndexDataHash() => r'6d0706ce4ef8930cd56a2c79b479bb1ace21973a';
+
+/// See also [_CurrentIndexData].
+@ProviderFor(_CurrentIndexData)
+final _currentIndexDataProvider =
+    AutoDisposeNotifierProvider<_CurrentIndexData, DataStation?>.internal(
+  _CurrentIndexData.new,
+  name: r'_currentIndexDataProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$currentIndexDataHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$CurrentIndexData = AutoDisposeNotifier<DataStation?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

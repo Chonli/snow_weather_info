@@ -37,6 +37,7 @@ dependencies:
     git:
       url: https://github.com/Chonli/webfeed.git
       ref: feature/geo-rss-2
+  path: ^1.8.3
 
 dev_dependencies:
   flutter_test:

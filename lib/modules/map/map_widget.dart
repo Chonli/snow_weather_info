@@ -100,16 +100,21 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
             height: 50,
             point: station.position,
             child: MapMaker(
-              icon: const Icon(Icons.place),
-              color: _stationColor,
-              lastSnowHeight: station.lastSnowHeight,
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute<Widget>(
-                  builder: (context) => DataStationView(station: station),
-                ),
-              ),
-            ),
+                icon: const Icon(Icons.place),
+                color: _stationColor,
+                lastSnowHeight: station.lastSnowHeight,
+                onPressed: () {
+                  ref
+                      .read(currentMapLocProvider.notifier)
+                      .setLocation(station.position);
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute<Widget>(
+                      builder: (context) => DataStationView(station: station),
+                    ),
+                  );
+                }),
           ),
         );
       } else {

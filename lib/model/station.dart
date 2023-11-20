@@ -24,11 +24,11 @@ class Station extends AbstractStation {
   //"Latitude": "46.341167", "Longitude": "6.708167", "ID": "07454", "Altitude": "1535", "Nom": "Bernex"
   Station(
     this.id,
-    String name,
-    LatLng position,
-    int altitude, {
-    bool hasData = false,
-  }) : super(name, position, altitude, hasData: hasData);
+    super.name,
+    super.position,
+    super.altitude, {
+    super.hasData = false,
+  });
 
   Station.fromJson(Map<String, dynamic> json)
       : id = int.parse(json['ID'] as String),
