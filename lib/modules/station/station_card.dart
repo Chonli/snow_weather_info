@@ -4,6 +4,7 @@ import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/modules/data_station/view.dart';
 import 'package:snow_weather_info/modules/map/map_widget.dart';
 import 'package:snow_weather_info/modules/nivose/nivose_page.dart';
+import 'package:snow_weather_info/provider/station_data.dart';
 
 class StationCard extends ConsumerWidget {
   const StationCard({
@@ -19,13 +20,13 @@ class StationCard extends ConsumerWidget {
     late final String snowHeigth;
 
     if (station case Station st) {
-      snowHeigth = st.hasData
-          ? ' ${(st.lastSnowHeight * 100).toStringAsFixed(0)}cm'
-          : '';
-      final color = st.hasData
+      final hasData = ref.watch(stationDataProvider.notifier).hasData(st.id);
+      snowHeigth =
+          hasData ? ' ${(st.lastSnowHeight * 100).toStringAsFixed(0)}cm' : '';
+      final color = hasData
           ? Theme.of(context).textTheme.bodyMedium?.color
           : Theme.of(context).disabledColor;
-      final font = st.hasData ? FontStyle.normal : FontStyle.italic;
+      final font = hasData ? FontStyle.normal : FontStyle.italic;
       textStyle = TextStyle(color: color, fontStyle: font);
     } else {
       snowHeigth = '';

@@ -1,36 +1,34 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:snow_weather_info/data/sources/database_helper.dart';
-import 'package:snow_weather_info/data/sources/preferences.dart';
 import 'package:snow_weather_info/data/sources/station_api.dart';
 import 'package:snow_weather_info/model/station.dart';
 
 part 'stations.g.dart';
 
-@Riverpod(keepAlive: true)
+@riverpod
 class Stations extends _$Stations {
   @override
   FutureOr<List<Station>> build() {
-    return _getStations(forceUpdate: true);
+    return ref.watch(apiStationProvider).asData?.value ?? [];
   }
 
-  Future<List<Station>> _getStations({bool forceUpdate = false}) async {
-    final stationUpdateDate = ref.read(lastStationSettingsProvider);
-    List<Station> stations =
-        await ref.watch(databaseHelperProvider).getAllStation();
-    if (forceUpdate ||
-        stations.isEmpty ||
-        stationUpdateDate.difference(DateTime.now()) >
-            const Duration(days: 15)) {
-      stations = await ref.watch(stationAPIProvider).getStation();
+  // Future<List<Station>> _getStations({bool forceUpdate = false}) async {
+  //   final stationUpdateDate = ref.read(lastStationSettingsProvider);
+  //   List<Station> stations =
+  //        ref.watch(databaseHelperProvider).getAllStation();
+  //   if (forceUpdate ||
+  //       stations.isEmpty ||
+  //       stationUpdateDate.difference(DateTime.now()) >
+  //           const Duration(days: 15)) {
+  //     stations = ref.watch(apiStationProvider).asData?.value ?? [];
 
-      await Future.forEach(
-        stations,
-        (s) => ref.watch(databaseHelperProvider).insertStation(s),
-      );
+  //     await Future.forEach(
+  //       stations,
+  //       (s) => ref.watch(databaseHelperProvider).insertStation(s),
+  //     );
 
-      ref.read(lastStationSettingsProvider.notifier).updateDate(DateTime.now());
-    }
+  //     ref.read(lastStationSettingsProvider.notifier).updateDate(DateTime.now());
+  //   }
 
-    return stations;
-  }
+  //   return stations;
+  // }
 }

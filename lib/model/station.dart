@@ -5,14 +5,12 @@ sealed class AbstractStation {
   AbstractStation(
     this.name,
     this.position,
-    this.altitude, {
-    required this.hasData,
-  });
+    this.altitude,
+  );
 
   final String name;
   final LatLng position;
   final int altitude;
-  bool hasData = false;
 
   @override
   String toString() {
@@ -26,9 +24,8 @@ class Station extends AbstractStation {
     this.id,
     super.name,
     super.position,
-    super.altitude, {
-    super.hasData = false,
-  });
+    super.altitude,
+  );
 
   Station.fromJson(Map<String, dynamic> json)
       : id = int.parse(json['ID'] as String),
@@ -39,7 +36,6 @@ class Station extends AbstractStation {
             double.parse(json['Longitude'] as String),
           ),
           int.parse(json['Altitude'] as String),
-          hasData: false,
         );
 
   Station.fromMap(Map<String, dynamic> map)
@@ -48,7 +44,6 @@ class Station extends AbstractStation {
           map[columnName] as String,
           LatLng(map[columnLatitude] as double, map[columnLongitude] as double),
           map[columnAltitude] as int,
-          hasData: false,
         );
 
   final int id;
@@ -70,14 +65,13 @@ class Station extends AbstractStation {
   }
 }
 
-const _urlBase =
-    'https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/';
-
 class Nivose extends AbstractStation {
-  Nivose(super.name, super.position, super.altitude, this.codeMF)
-      : super(hasData: false);
+  Nivose(super.name, super.position, super.altitude, this.codeMF);
 
   final String codeMF;
+
+  static const _urlBase =
+      'https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/';
 
   String get urlWeek => '$_urlBase${codeMF}S.gif';
   String get urlSeason => '$_urlBase$codeMF.gif';

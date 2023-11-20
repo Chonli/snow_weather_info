@@ -1,8 +1,8 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/data/constant_data_list.dart';
 import 'package:snow_weather_info/data/sources/preferences.dart';
+import 'package:snow_weather_info/data/sources/station_api.dart';
 import 'package:snow_weather_info/model/station.dart';
-import 'package:snow_weather_info/provider/stations.dart';
 
 part 'favorite_station.g.dart';
 
@@ -11,7 +11,7 @@ class FavoriteStation extends _$FavoriteStation {
   @override
   List<AbstractStation> build() {
     final favorites = ref.watch(favoritesStationSettingsProvider);
-    final stations = ref.watch(stationsProvider).asData?.value ?? [];
+    final stations = ref.watch(apiStationProvider).asData?.value ?? [];
     final tmpDatas = <AbstractStation>[];
 
     for (final s in stations) {

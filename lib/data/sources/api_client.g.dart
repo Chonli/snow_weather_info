@@ -1,25 +1,24 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'all_station.dart';
+part of 'api_client.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$allStationsHash() => r'9378af8ab7aa87d145ecc200451a22881e6aed5f';
+String _$apiClientHash() => r'0f0c252a0ee867aa34c2521db95ce1604d57aee2';
 
-/// See also [AllStations].
-@ProviderFor(AllStations)
-final allStationsProvider =
-    NotifierProvider<AllStations, List<AbstractStation>>.internal(
-  AllStations.new,
-  name: r'allStationsProvider',
+/// See also [apiClient].
+@ProviderFor(apiClient)
+final apiClientProvider = Provider<Client>.internal(
+  apiClient,
+  name: r'apiClientProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$allStationsHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$apiClientHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$AllStations = Notifier<List<AbstractStation>>;
+typedef ApiClientRef = ProviderRef<Client>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

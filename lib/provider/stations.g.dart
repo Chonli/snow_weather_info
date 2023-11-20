@@ -6,12 +6,12 @@ part of 'stations.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$stationsHash() => r'5f467e4b20170ebbe6c09c951b8bc4aad1e1119c';
+String _$stationsHash() => r'd7271845118dd8497ca7fda46412f4f8d9e29750';
 
 /// See also [Stations].
 @ProviderFor(Stations)
 final stationsProvider =
-    AsyncNotifierProvider<Stations, List<Station>>.internal(
+    AutoDisposeAsyncNotifierProvider<Stations, List<Station>>.internal(
   Stations.new,
   name: r'stationsProvider',
   debugGetCreateSourceHash:
@@ -20,6 +20,6 @@ final stationsProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$Stations = AsyncNotifier<List<Station>>;
+typedef _$Stations = AutoDisposeAsyncNotifier<List<Station>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

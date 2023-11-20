@@ -9,13 +9,14 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/core/notifier/location.dart';
 import 'package:snow_weather_info/core/widgets/app_web_page.dart';
 import 'package:snow_weather_info/data/constant_data_list.dart';
+import 'package:snow_weather_info/data/sources/avalanche_api.dart';
 import 'package:snow_weather_info/data/sources/preferences.dart';
 import 'package:snow_weather_info/extensions/atom_item.dart';
 import 'package:snow_weather_info/modules/data_station/view.dart';
 import 'package:snow_weather_info/modules/map/map_licence_widget.dart';
 import 'package:snow_weather_info/modules/map/map_maker.dart';
 import 'package:snow_weather_info/modules/nivose/nivose_page.dart';
-import 'package:snow_weather_info/provider/avalanche.dart';
+import 'package:snow_weather_info/provider/station_data.dart';
 import 'package:snow_weather_info/provider/stations.dart';
 
 part 'map_widget.g.dart';
@@ -93,7 +94,11 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
 
     final stations = ref.read(stationsProvider).asData?.value ?? [];
     for (var station in stations) {
-      if (station.hasData) {
+      final hasData = ref.watch(stationDataProvider.notifier).hasData(
+            station.id,
+          );
+
+      if (hasData) {
         _listStationMarker.add(
           Marker(
             width: 90,
@@ -132,7 +137,7 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
       }
     }
 
-    final feed = ref.read(avalancheFeedProvider).asData?.value;
+    final feed = ref.read(apiAvalancheProvider).asData?.value;
     feed?.items.forEach(
       (AtomItem item) {
         if (item.geo != null) {

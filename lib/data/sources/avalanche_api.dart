@@ -2,30 +2,27 @@ import 'dart:convert';
 import 'dart:developer' show log;
 
 import 'package:dart_rss/dart_rss.dart';
-import 'package:http/http.dart' as http;
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:snow_weather_info/data/sources/api_client.dart';
 
 part 'avalanche_api.g.dart';
 
 @Riverpod(keepAlive: true)
-AvalancheAPI avalancheAPI(AvalancheAPIRef ref) {
-  return AvalancheAPI();
-}
+Future<AtomFeed?> apiAvalanche(Ref ref) async {
+  AtomFeed? feed;
 
-class AvalancheAPI {
-  final client = http.Client();
-
-  Future<AtomFeed?> getAvalanche() async {
-    AtomFeed? feed;
-    try {
-      final response =
-          await client.get(Uri.parse('http://www.data-avalanche.org/feed'));
-      feed = AtomFeed.parse(utf8.decode(response.bodyBytes));
-    } catch (e) {
-      log('feed error : $e');
-      throw Exception(e);
-    }
-
-    return feed;
+  try {
+    final client = ref.watch(apiClientProvider);
+    final response =
+        await client.get(Uri.parse('http://www.data-avalanche.org/feed'));
+    feed = AtomFeed.parse(utf8.decode(response.bodyBytes));
+  } catch (e) {
+    log('feed error : $e');
+    throw Exception(e);
   }
+
+  log('donwload avalanche ok');
+
+  return feed;
 }
