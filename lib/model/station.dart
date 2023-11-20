@@ -47,7 +47,6 @@ class Station extends AbstractStation {
         );
 
   final int id;
-  double lastSnowHeight = 0;
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

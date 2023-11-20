@@ -94,7 +94,7 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
 
     final stations = ref.read(stationsProvider).asData?.value ?? [];
     for (var station in stations) {
-      final hasData = ref.watch(stationDataProvider.notifier).hasData(
+      final hasData = ref.read(stationDataProvider.notifier).hasData(
             station.id,
           );
 
@@ -107,7 +107,10 @@ class _MapWidgetState extends ConsumerState<MapWidget> {
             child: MapMaker(
                 icon: const Icon(Icons.place),
                 color: _stationColor,
-                lastSnowHeight: station.lastSnowHeight,
+                lastSnowHeight:
+                    ref.read(stationDataProvider.notifier).lastSnowHeight(
+                          station.id,
+                        ),
                 onPressed: () {
                   ref
                       .read(currentMapLocProvider.notifier)

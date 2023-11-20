@@ -21,13 +21,6 @@ class StationData extends _$StationData {
           )
           .toList();
       mapDataStation[s.id] = listOfData;
-
-      if (listOfData.isNotEmpty) {
-        final dataSt = listOfData.firstWhereOrNull((d) => d.snowHeight != null);
-        s.lastSnowHeight = dataSt?.snowHeight ?? 0;
-      } else {
-        s.lastSnowHeight = 0.0;
-      }
     }
 
     return mapDataStation;
@@ -39,5 +32,14 @@ class StationData extends _$StationData {
 
   bool hasData(int id) {
     return state.asData?.value[id]?.isNotEmpty ?? false;
+  }
+
+  double lastSnowHeight(int id) {
+    return state.asData?.value[id]
+            ?.firstWhereOrNull(
+              (d) => d.snowHeight != null,
+            )
+            ?.snowHeight ??
+        0.0;
   }
 }
