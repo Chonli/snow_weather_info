@@ -35,12 +35,16 @@ class _CurrentIndex extends _$CurrentIndex {
   }
 }
 
-@riverpod
+@Riverpod(dependencies: [currentDataStation])
 class _CurrentIndexData extends _$CurrentIndexData {
   @override
   DataStation? build() {
     final index = ref.watch(_currentIndexProvider);
-    return ref.watch(currentDataStationProvider)[index];
+    try {
+      return ref.watch(currentDataStationProvider)[index];
+    } on RangeError catch (_) {
+      return null;
+    }
   }
 }
 

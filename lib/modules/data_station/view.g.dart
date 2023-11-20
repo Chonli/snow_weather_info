@@ -202,7 +202,7 @@ final _currentIndexProvider =
 );
 
 typedef _$CurrentIndex = AutoDisposeNotifier<int>;
-String _$currentIndexDataHash() => r'6d0706ce4ef8930cd56a2c79b479bb1ace21973a';
+String _$currentIndexDataHash() => r'cdbf1535bea2a08c23e75353e4338e4b9bcb87f5';
 
 /// See also [_CurrentIndexData].
 @ProviderFor(_CurrentIndexData)
@@ -213,8 +213,11 @@ final _currentIndexDataProvider =
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
       : _$currentIndexDataHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
+  dependencies: <ProviderOrFamily>[currentDataStationProvider],
+  allTransitiveDependencies: <ProviderOrFamily>{
+    currentDataStationProvider,
+    ...?currentDataStationProvider.allTransitiveDependencies
+  },
 );
 
 typedef _$CurrentIndexData = AutoDisposeNotifier<DataStation?>;
