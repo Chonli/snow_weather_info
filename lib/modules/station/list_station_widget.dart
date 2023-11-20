@@ -3,10 +3,12 @@ import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/core/widgets/app_sticky_header_view.dart';
+import 'package:snow_weather_info/data/sources/preferences.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/modules/station/station_card.dart';
 import 'package:snow_weather_info/provider/all_station.dart';
 import 'package:snow_weather_info/provider/favorite_station.dart';
+import 'package:snow_weather_info/provider/station_data.dart';
 
 part 'list_station_widget.g.dart';
 
@@ -28,8 +30,14 @@ class _FilteredSations extends _$FilteredSations {
   Map<String, List<AbstractStation>> build() {
     final allStations = ref.watch(allStationsProvider);
     final search = ref.watch(_searchProvider);
+    final showNoDataStation = ref.watch(showNoDataStationSettingsProvider);
 
     final stations = allStations
+        .where((station) =>
+            showNoDataStation ||
+            station is Nivose ||
+            (station is Station &&
+                ref.watch(stationDataProvider.notifier).hasData(station.id)))
         .where(
           (station) =>
               search.isEmpty ||
