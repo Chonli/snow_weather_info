@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:snow_weather_info/extensions/double.dart';
 import 'package:snow_weather_info/model/data_station.dart';
 import 'package:snow_weather_info/modules/data_station/view.dart';
 
@@ -9,9 +10,7 @@ class DataStationChart extends ConsumerWidget {
     super.key,
   });
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final List<DataStation> datas = ref.watch(currentDataStationProvider);
+  LineChartData _getTempData(List<DataStation> datas) {
     final tempData = <FlSpot>[];
 
     for (var data in datas) {
@@ -23,12 +22,102 @@ class DataStationChart extends ConsumerWidget {
       );
     }
 
-    final temperatureLineData = LineChartBarData(spots: tempData);
-    final dataChart = LineChartData(lineBarsData: [
-      temperatureLineData,
-    ]);
+    final temperatureLineData = LineChartBarData(
+      spots: tempData,
+      isCurved: true,
+      color: Colors.red,
+    );
 
-    return LineChart(dataChart);
+    return LineChartData(
+      lineBarsData: [
+        temperatureLineData,
+      ],
+      titlesData: FlTitlesData(
+        bottomTitles: _bottomTitles(temperatureLineData),
+        topTitles: _noTitlesWidget(),
+        rightTitles: _noTitlesWidget(),
+      ),
+    );
+  }
+
+  LineChartData _getSnowData(List<DataStation> datas) {
+    final tempData = <FlSpot>[];
+
+    for (var data in datas) {
+      tempData.add(
+        FlSpot(
+          data.date.millisecondsSinceEpoch.toDouble(),
+          data.snowHeight?.toCm ?? 0,
+        ),
+      );
+    }
+
+    // TODO: center when only one data
+
+    final snowLineData = LineChartBarData(
+      spots: tempData,
+      isCurved: true,
+      color: Colors.blue.shade300,
+    );
+
+    return LineChartData(
+      lineBarsData: [
+        snowLineData,
+      ],
+      minY: 0,
+      maxY: snowLineData.mostTopSpot.y + 10,
+      titlesData: FlTitlesData(
+        bottomTitles: _bottomTitles(snowLineData),
+        topTitles: _noTitlesWidget(),
+        rightTitles: _noTitlesWidget(),
+      ),
+    );
+  }
+
+  AxisTitles _bottomTitles(LineChartBarData data) {
+    late double? interval;
+    if (data.spots.length > 1) {
+      interval = data.mostRightSpot.x - data.mostLeftSpot.x;
+    } else {
+      interval = data.spots.firstOrNull?.x;
+    }
+    return AxisTitles(
+      sideTitles: SideTitles(
+        interval: interval,
+        showTitles: true,
+        getTitlesWidget: (value, meta) {
+          return Text(value.toDate);
+        },
+      ),
+    );
+  }
+
+  AxisTitles _noTitlesWidget() {
+    return const AxisTitles(sideTitles: SideTitles());
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final datas = ref.watch(currentDataStationProvider);
+    const graphPadding = EdgeInsets.only(right: 40, top: 40);
+
+    return Column(
+      children: [
+        Container(
+          height: 300,
+          padding: graphPadding,
+          child: LineChart(_getSnowData(datas)),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Container(
+          height: 300,
+          padding: graphPadding,
+          child: LineChart(_getTempData(datas)),
+        ),
+      ],
+    );
 
     // final List<TimeSeriesData> tsdatasnow = [];
     // final List<TimeSeriesData> tsdatanewsnow = [];

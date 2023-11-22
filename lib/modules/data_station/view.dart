@@ -94,16 +94,15 @@ class _InnerView extends ConsumerWidget {
           "Station ${station.name} (${station.altitude}m) au ${DateFormat('dd-MM-yyyy à kk:mm').format(displayData.date)}\n";
 
       if (displayData.temperature != null) {
-        ret +=
-            'Température: ${displayData.temperature!.toStringTemperature()}\n';
+        ret += 'Température: ${displayData.temperature!.toStringTemperature}\n';
       }
       if (displayData.snowHeight != null) {
         ret +=
-            'Hauteur de neige: ${displayData.snowHeight!.toStringSnowHeigth()}cm\n';
+            'Hauteur de neige: ${displayData.snowHeight!.toStringSnowHeigth}\n';
       }
       if (displayData.snowNewHeight != null) {
         ret +=
-            'Hauteur de neige fraiches: ${displayData.snowNewHeight!.toStringSnowHeigth()}cm\n';
+            'Hauteur de neige fraiches: ${displayData.snowNewHeight!.toStringSnowHeigth}\n';
       }
 
       return ret;
@@ -120,40 +119,43 @@ class _InnerView extends ConsumerWidget {
       _isFavoriteProvider(station.id),
     );
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              station.name,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                station.name,
+              ),
+              Text(
+                ' (${station.altitude}m)',
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
+              onPressed: () => ref
+                  .read(favoriteStationProvider.notifier)
+                  .addOrRemoveFavoriteStation(
+                    station,
+                  ),
             ),
-            Text(
-              ' (${station.altitude}m)',
-            ),
+            if (displayData != null)
+              IconButton(
+                icon: const Icon(Icons.share),
+                onPressed: () => Share.share(
+                  _formatDataToString(ref),
+                ),
+              ),
           ],
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
-            onPressed: () => ref
-                .read(favoriteStationProvider.notifier)
-                .addOrRemoveFavoriteStation(
-                  station,
-                ),
-          ),
-          if (displayData != null)
-            IconButton(
-              icon: const Icon(Icons.share),
-              onPressed: () => Share.share(
-                _formatDataToString(ref),
-              ),
-            ),
-        ],
+        body: displayData != null
+            ? const _Body()
+            : const Center(
+                child: Text('Pas de donnée pour cette station météo')),
       ),
-      body: displayData != null
-          ? const _Body()
-          : const Center(child: Text('Pas de donnée pour cette station météo')),
     );
   }
 }
@@ -166,16 +168,16 @@ class _Body extends StatelessWidget {
     return Container(
       color: Theme.of(context).colorScheme.background,
       child: Column(
-        children: <Widget>[
-          Expanded(
-            child: ListView(
-              primary: true,
-              shrinkWrap: true,
-              children: const [
-                _DataView(),
-                _DotRow(),
-                DataStationChart(),
-              ],
+        children: [
+          const Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  _DataView(),
+                  _DotRow(),
+                  DataStationChart(),
+                ],
+              ),
             ),
           ),
           Container(

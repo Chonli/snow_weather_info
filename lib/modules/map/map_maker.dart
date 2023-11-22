@@ -24,7 +24,7 @@ class MapMaker extends StatelessWidget {
             left: 42,
             bottom: 0,
             child: Text(
-              lastSnowHeight!.toStringSnowHeigth(),
+              lastSnowHeight!.toStringSnowHeigth,
               style: TextStyle(color: color),
             ),
           ),
