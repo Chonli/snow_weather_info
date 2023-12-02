@@ -13,7 +13,7 @@ import 'package:snow_weather_info/provider/station_data.dart';
 
 part 'view.g.dart';
 
-@riverpod
+@Riverpod(dependencies: [])
 List<DataStation> currentDataStation(Ref ref) {
   throw UnimplementedError();
 }

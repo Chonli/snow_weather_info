@@ -132,42 +132,44 @@ class _HomePageState extends ConsumerState<HomePage>
   Future<void> _openAboutDialog(BuildContext context) async {
     final packageInfo = await PackageInfo.fromPlatform();
 
-    showDialog<AboutDialog>(
-      context: context,
-      builder: (BuildContext context) {
-        return AboutDialog(
-          applicationName: 'Info Neige',
-          applicationVersion:
-              'version: ${packageInfo.version}+${packageInfo.buildNumber}',
-          applicationIcon: Image.asset(
-            'assets/icon/icon.png',
-            width: 42,
-            height: 42,
-          ),
-          applicationLegalese: 'MIT',
-          children: <Widget>[
-            const Padding(padding: EdgeInsets.all(5)),
-            Text(
-              'Développeur: Chonli',
-              style: TextStyle(
-                color: Theme.of(context).textTheme.bodyMedium?.color,
-              ),
+    if (context.mounted) {
+      showDialog<AboutDialog>(
+        context: context,
+        builder: (BuildContext context) {
+          return AboutDialog(
+            applicationName: 'Info Neige',
+            applicationVersion:
+                'version: ${packageInfo.version}+${packageInfo.buildNumber}',
+            applicationIcon: Image.asset(
+              'assets/icon/icon.png',
+              width: 42,
+              height: 42,
             ),
-            const Padding(padding: EdgeInsets.all(5)),
-            InkWell(
-              onTap: () => url.launchUrl(
-                Uri.parse('https://github.com/Chonli/snow_weather_info'),
-              ),
-              child: Text(
-                'Lien vers le projet',
+            applicationLegalese: 'MIT',
+            children: <Widget>[
+              const Padding(padding: EdgeInsets.all(5)),
+              Text(
+                'Développeur: Chonli',
                 style: TextStyle(
-                  color: Theme.of(context).textTheme.bodyLarge?.color,
+                  color: Theme.of(context).textTheme.bodyMedium?.color,
                 ),
               ),
-            ),
-          ],
-        );
-      },
-    );
+              const Padding(padding: EdgeInsets.all(5)),
+              InkWell(
+                onTap: () => url.launchUrl(
+                  Uri.parse('https://github.com/Chonli/snow_weather_info'),
+                ),
+                child: Text(
+                  'Lien vers le projet',
+                  style: TextStyle(
+                    color: Theme.of(context).textTheme.bodyLarge?.color,
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 }

@@ -7,7 +7,7 @@ part of 'view.dart';
 // **************************************************************************
 
 String _$currentDataStationHash() =>
-    r'3617d4efbc36476f9ebac8155c4aef337411916c';
+    r'8030f6f30ebb0b4de5b64599e07ba630fc438e75';
 
 /// See also [currentDataStation].
 @ProviderFor(currentDataStation)
@@ -18,8 +18,8 @@ final currentDataStationProvider =
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
       : _$currentDataStationHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
+  dependencies: const <ProviderOrFamily>[],
+  allTransitiveDependencies: const <ProviderOrFamily>{},
 );
 
 typedef CurrentDataStationRef = AutoDisposeProviderRef<List<DataStation>>;

@@ -10,7 +10,7 @@ class UserLocation extends _$UserLocation {
 
   @override
   FutureOr<LatLng?> build() {
-    return updateLocation();
+    return null;
   }
 
   Future<LatLng?> updateLocation() async {
@@ -38,9 +38,12 @@ class UserLocation extends _$UserLocation {
     final safeLatitude = locationData.latitude;
     final safeLongitude = locationData.longitude;
     if (safeLatitude != null && safeLongitude != null) {
-      return LatLng(safeLatitude, safeLongitude);
+      final location = LatLng(safeLatitude, safeLongitude);
+      state = AsyncData(location);
+      return location;
     }
 
+    state = const AsyncData(null);
     return null;
   }
 }
