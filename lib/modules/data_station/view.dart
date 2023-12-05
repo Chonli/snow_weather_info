@@ -167,9 +167,9 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Theme.of(context).colorScheme.background,
-      child: Column(
+      child: const Column(
         children: [
-          const Expanded(
+          Expanded(
             child: SingleChildScrollView(
               child: Column(
                 children: [
@@ -180,12 +180,11 @@ class _Body extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            color: Theme.of(context).primaryColor,
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10),
             child: Text(
               'Informations créées à partir de données de Météo-France',
               style: TextStyle(
-                color: Theme.of(context).textTheme.titleLarge?.color,
                 fontSize: 14,
               ),
             ),

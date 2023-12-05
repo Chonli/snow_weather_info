@@ -5,6 +5,10 @@ import 'package:snow_weather_info/extensions/double.dart';
 import 'package:snow_weather_info/model/data_station.dart';
 import 'package:snow_weather_info/modules/data_station/view.dart';
 
+final _snowColor = Colors.blue.shade600;
+final _snowHeightColor = Colors.blue.shade300.withOpacity(0.5);
+const _tempColor = Colors.red;
+
 class DataStationChart extends ConsumerWidget {
   const DataStationChart({
     super.key,
@@ -13,6 +17,8 @@ class DataStationChart extends ConsumerWidget {
 
   LineChartData _getTempData(List<DataStation> datas) {
     final tempData = <FlSpot>[];
+    final minTempData = <FlSpot>[];
+    final maxTempData = <FlSpot>[];
     final min = datas.firstOrNull?.date.millisecondsSinceEpoch.toDouble() ?? 0;
     final max = datas.lastOrNull?.date.millisecondsSinceEpoch.toDouble() ?? 0;
 
@@ -23,20 +29,65 @@ class DataStationChart extends ConsumerWidget {
           data.temperature ?? 0,
         ),
       );
+
+      final minTemp = data.temperatureMin24;
+      if (minTemp != null) {
+        minTempData.add(
+          FlSpot(
+            data.date.millisecondsSinceEpoch.toDouble(),
+            minTemp,
+          ),
+        );
+      }
+      final maxTemp = data.temperatureMax24;
+      if (maxTemp != null) {
+        maxTempData.add(
+          FlSpot(
+            data.date.millisecondsSinceEpoch.toDouble(),
+            maxTemp,
+          ),
+        );
+      }
     }
 
     final temperatureLineData = LineChartBarData(
       spots: tempData,
       isCurved: true,
-      color: Colors.red,
+      color: _tempColor,
+    );
+    final temperatureMaxLineData = LineChartBarData(
+      spots: minTempData,
+      isCurved: true,
+      show: false,
+      dotData: const FlDotData(show: false),
+    );
+    final temperatureMinLineData = LineChartBarData(
+      spots: maxTempData,
+      isCurved: true,
+      show: false,
+      dotData: const FlDotData(show: false),
     );
 
     return LineChartData(
       lineBarsData: [
         temperatureLineData,
+        temperatureMaxLineData,
+        temperatureMinLineData,
       ],
       minX: min - _xOffset,
       maxX: max + _xOffset,
+      betweenBarsData: [
+        BetweenBarsData(
+          fromIndex: 0,
+          toIndex: 1,
+          color: _tempColor.withOpacity(0.5),
+        ),
+        BetweenBarsData(
+          fromIndex: 0,
+          toIndex: 2,
+          color: _tempColor.withOpacity(0.5),
+        )
+      ],
       titlesData: FlTitlesData(
         bottomTitles: _bottomTitles(temperatureLineData),
         topTitles: _noTitlesWidget(),
@@ -77,11 +128,10 @@ class DataStationChart extends ConsumerWidget {
       }
     }
 
-    // TODO: center when only one data
     final snowLineData = LineChartBarData(
       spots: tempData,
       isCurved: true,
-      color: Colors.blue.shade600,
+      color: _snowColor,
     );
 
     final snowHeightLineData = tempHeightData.map(
@@ -89,7 +139,7 @@ class DataStationChart extends ConsumerWidget {
         spots: d,
         barWidth: 20,
         dotData: const FlDotData(show: false),
-        color: Colors.blue.shade300.withOpacity(0.8),
+        color: _snowHeightColor,
       ),
     );
 
@@ -158,12 +208,63 @@ class DataStationChart extends ConsumerWidget {
         const SizedBox(
           height: 10,
         ),
+        _LegendChart(
+          color: _snowColor,
+          label: 'Neige',
+        ),
+        _LegendChart(
+          color: _snowHeightColor,
+          label: 'Neige fraîche',
+        ),
+        const SizedBox(
+          height: 10,
+        ),
         Container(
           height: 300,
           padding: graphPadding,
           child: LineChart(_getTempData(datas)),
         ),
+        const SizedBox(
+          height: 10,
+        ),
+        const _LegendChart(
+          color: _tempColor,
+          label: 'Température',
+        ),
+        const SizedBox(
+          height: 10,
+        ),
       ],
+    );
+  }
+}
+
+class _LegendChart extends StatelessWidget {
+  const _LegendChart({
+    required this.color,
+    required this.label,
+  });
+
+  final String label;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 12,
+            height: 12,
+            child: ColoredBox(color: color),
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          Text(label),
+        ],
+      ),
     );
   }
 }

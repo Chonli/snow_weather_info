@@ -68,7 +68,7 @@ class CardDataStation extends StatelessWidget {
 }
 
 class _LineCard extends StatelessWidget {
-  const _LineCard(this.text1, this.text2, {super.key});
+  const _LineCard(this.text1, this.text2);
 
   final String text1;
   final String text2;

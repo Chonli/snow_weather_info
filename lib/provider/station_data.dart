@@ -10,8 +10,8 @@ part 'station_data.g.dart';
 class StationData extends _$StationData {
   @override
   FutureOr<Map<int, List<DataStation>>> build() async {
-    final stations = ref.watch(apiStationProvider).asData?.value ?? [];
-    final stationDatas = ref.watch(apiStationDataProvider).asData?.value ?? [];
+    final stations = await ref.watch(apiStationProvider.future);
+    final stationDatas = await ref.watch(apiStationDataProvider.future);
     final mapDataStation = <int, List<DataStation>>{};
 
     for (final s in stations) {
