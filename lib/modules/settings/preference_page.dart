@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snow_weather_info/data/sources/preferences.dart';
-import 'package:snow_weather_info/extensions/theme_mode.dart';
 
 class PreferencePage extends ConsumerWidget {
   const PreferencePage({
@@ -15,71 +14,57 @@ class PreferencePage extends ConsumerWidget {
         title: const Text('Préférences'),
       ),
       body: Center(
-        child: Container(
-          margin: const EdgeInsets.all(10),
-          child: ListView(
-            children: [
-              PreferenceRow(
-                text: "Thème de l'application",
-                widget: DropdownButton<ThemeMode>(
-                  value: ref.watch(themeModeSettingsProvider),
-                  onChanged: (mode) {
-                    if (mode != null) {
-                      ref
-                          .read(themeModeSettingsProvider.notifier)
-                          .updateThemeMode(mode);
-                    }
-                  },
-                  items: ThemeMode.values
-                      .map<DropdownMenuItem<ThemeMode>>(
-                        (e) => DropdownMenuItem(
-                          value: e,
-                          child: Text(e.displayTitle),
-                        ),
-                      )
-                      .toList(),
-                ),
+        child: ListView(
+          children: [
+            const Padding(
+              padding: EdgeInsets.all(15),
+              child: Text(
+                "Thème de l'application",
               ),
-              SwitchListTile(
-                title: const Text('Afficher les stations sans données: '),
-                value: ref.watch(showNoDataStationSettingsProvider),
-                onChanged: (_) => ref
-                    .read(showNoDataStationSettingsProvider.notifier)
-                    .update(),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: SegmentedButton<ThemeMode>(
+                segments: const <ButtonSegment<ThemeMode>>[
+                  ButtonSegment<ThemeMode>(
+                    value: ThemeMode.system,
+                    label: Text('System'),
+                    icon: Icon(Icons.calendar_view_day),
+                  ),
+                  ButtonSegment<ThemeMode>(
+                    value: ThemeMode.light,
+                    label: Text('Light'),
+                    icon: Icon(Icons.calendar_view_week),
+                  ),
+                  ButtonSegment<ThemeMode>(
+                    value: ThemeMode.dark,
+                    label: Text('Dark'),
+                    icon: Icon(Icons.calendar_view_month),
+                  ),
+                ],
+                selected: {ref.watch(themeModeSettingsProvider)},
+                onSelectionChanged: (mode) {
+                  ref
+                      .read(themeModeSettingsProvider.notifier)
+                      .updateThemeMode(mode.first);
+                },
               ),
-              SwitchListTile(
-                title: const Text('Regrouper les icones de la carte: '),
-                value: ref.watch(showClusterLayerSettingsProvider),
-                onChanged: (_) => ref
-                    .read(showClusterLayerSettingsProvider.notifier)
-                    .update(),
-              ),
-            ],
-          ),
+            ),
+            SwitchListTile(
+              title: const Text('Afficher les stations sans données: '),
+              value: ref.watch(showNoDataStationSettingsProvider),
+              onChanged: (_) =>
+                  ref.read(showNoDataStationSettingsProvider.notifier).update(),
+            ),
+            SwitchListTile(
+              title: const Text('Regrouper les icones de la carte: '),
+              value: ref.watch(showClusterLayerSettingsProvider),
+              onChanged: (_) =>
+                  ref.read(showClusterLayerSettingsProvider.notifier).update(),
+            ),
+          ],
         ),
       ),
-    );
-  }
-}
-
-class PreferenceRow extends StatelessWidget {
-  const PreferenceRow({
-    super.key,
-    required this.text,
-    required this.widget,
-  });
-
-  final String text;
-  final Widget widget;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Text('$text: '),
-        widget,
-      ],
     );
   }
 }
