@@ -1,37 +1,36 @@
-import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class LocationNotifier extends ChangeNotifier {
+part 'location.g.dart';
+
+@riverpod
+class UserLocation extends _$UserLocation {
   final _location = Location();
 
-  LatLng? _userLocation;
-  LatLng? get userLocation => _userLocation;
-  set userLocation(LatLng? value) {
-    if (_userLocation != value) {
-      _userLocation = value;
-      notifyListeners();
-    }
+  @override
+  FutureOr<LatLng?> build() {
+    return null;
   }
 
-  Future<void> updateLocation() async {
+  Future<LatLng?> updateLocation() async {
     bool serviceEnabled = await _location.serviceEnabled();
     if (!serviceEnabled) {
       serviceEnabled = await _location.requestService();
       if (!serviceEnabled) {
-        return;
+        return null;
       }
     }
 
     PermissionStatus permissionGranted = await _location.hasPermission();
     if (permissionGranted == PermissionStatus.deniedForever) {
-      return;
+      return null;
     }
 
     if (permissionGranted == PermissionStatus.denied) {
       permissionGranted = await _location.requestPermission();
       if (permissionGranted != PermissionStatus.granted) {
-        return;
+        return null;
       }
     }
 
@@ -39,7 +38,12 @@ class LocationNotifier extends ChangeNotifier {
     final safeLatitude = locationData.latitude;
     final safeLongitude = locationData.longitude;
     if (safeLatitude != null && safeLongitude != null) {
-      userLocation = LatLng(safeLatitude, safeLongitude);
+      final location = LatLng(safeLatitude, safeLongitude);
+      state = AsyncData(location);
+      return location;
     }
+
+    state = const AsyncData(null);
+    return null;
   }
 }

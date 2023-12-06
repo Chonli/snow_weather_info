@@ -24,15 +24,12 @@ const columnSnowNewHeight = 'snowNewHeight';
 const _databaseName = 'database.db';
 const _databaseVersion = 1;
 
+//TODO: Reuse in future version
 class DatabaseHelper {
   Database? _database;
 
   Future<Database> get database async {
-    final database = _database;
-    if (database != null) {
-      return database;
-    }
-    _database = await _initDatabase();
+    _database ??= await _initDatabase();
 
     return _database!;
   }

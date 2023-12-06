@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
-import 'package:provider/provider.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snow_weather_info/core/widgets/app_sticky_header_view.dart';
 import 'package:snow_weather_info/core/widgets/app_web_page.dart';
-import 'package:snow_weather_info/data/data_notifier.dart';
+import 'package:snow_weather_info/data/constant_data_list.dart';
 import 'package:snow_weather_info/model/avalanche_bulletin.dart';
+import 'package:snow_weather_info/provider/favorite_bera.dart';
 
 class BERAMassifListView extends StatelessWidget {
   const BERAMassifListView({
@@ -25,15 +26,13 @@ class BERAMassifListView extends StatelessWidget {
   }
 }
 
-class _ListFavoriteView extends StatelessWidget {
-  const _ListFavoriteView({
-    super.key,
-  });
+class _ListFavoriteView extends ConsumerWidget {
+  const _ListFavoriteView();
 
   @override
-  Widget build(BuildContext context) {
-    final favorites = context.select<DataNotifier, List<AvalancheBulletin>>(
-      (n) => n.favoritesBERA,
+  Widget build(BuildContext context, WidgetRef ref) {
+    final favorites = ref.watch(
+      favoriteBeraProvider,
     );
 
     if (favorites.isEmpty) {
@@ -56,19 +55,20 @@ class _ListFavoriteView extends StatelessWidget {
   }
 }
 
-class _ListByMassifView extends StatelessWidget {
+class _ListByMassifView extends ConsumerWidget {
   const _ListByMassifView({
-    super.key,
     required this.mountain,
   });
 
   final Mountain mountain;
 
   @override
-  Widget build(BuildContext context) {
-    final list = context.select<DataNotifier, List<AvalancheBulletin>>(
-      (n) => n.avalancheBulletins.where((b) => b.mountain == mountain).toList(),
-    );
+  Widget build(BuildContext context, WidgetRef ref) {
+    final list = ConstantDatalist.listAvalancheBulletin
+        .where(
+          (b) => b.mountain == mountain,
+        )
+        .toList();
     list.sort((a, b) => a.massifName.compareTo(b.massifName));
 
     return SliverStickyHeader(
@@ -115,19 +115,17 @@ class _CardMassif extends StatelessWidget {
   }
 }
 
-class _BERAView extends StatelessWidget {
+class _BERAView extends ConsumerWidget {
   const _BERAView({
-    super.key,
     required this.avalancheBulletin,
   });
 
   final AvalancheBulletin avalancheBulletin;
 
   @override
-  Widget build(BuildContext context) {
-    final isFavorite = context.select<DataNotifier, bool>(
-      (n) => n.favoritesBERA.contains(avalancheBulletin),
-    );
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isFavorite =
+        ref.watch(favoriteBeraProvider).contains(avalancheBulletin);
 
     return AppWebPage(
       title: avalancheBulletin.massifName,
@@ -135,7 +133,7 @@ class _BERAView extends StatelessWidget {
       canShare: true,
       isFavorite: isFavorite,
       onFavorite: () {
-        context.read<DataNotifier>().addOrRemoveFavoriteBERA(
+        ref.read(favoriteBeraProvider.notifier).addOrRemoveFavoriteBERA(
               avalancheBulletin,
             );
       },

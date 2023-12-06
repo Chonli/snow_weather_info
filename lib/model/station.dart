@@ -1,18 +1,16 @@
 import 'package:latlong2/latlong.dart';
 import 'package:snow_weather_info/data/sources/database_helper.dart';
 
-abstract class AbstractStation {
+sealed class AbstractStation {
   AbstractStation(
     this.name,
     this.position,
-    this.altitude, {
-    required this.hasData,
-  });
+    this.altitude,
+  );
 
   final String name;
   final LatLng position;
   final int altitude;
-  bool hasData = false;
 
   @override
   String toString() {
@@ -24,11 +22,10 @@ class Station extends AbstractStation {
   //"Latitude": "46.341167", "Longitude": "6.708167", "ID": "07454", "Altitude": "1535", "Nom": "Bernex"
   Station(
     this.id,
-    String name,
-    LatLng position,
-    int altitude, {
-    bool hasData = false,
-  }) : super(name, position, altitude, hasData: hasData);
+    super.name,
+    super.position,
+    super.altitude,
+  );
 
   Station.fromJson(Map<String, dynamic> json)
       : id = int.parse(json['ID'] as String),
@@ -39,7 +36,6 @@ class Station extends AbstractStation {
             double.parse(json['Longitude'] as String),
           ),
           int.parse(json['Altitude'] as String),
-          hasData: false,
         );
 
   Station.fromMap(Map<String, dynamic> map)
@@ -48,11 +44,9 @@ class Station extends AbstractStation {
           map[columnName] as String,
           LatLng(map[columnLatitude] as double, map[columnLongitude] as double),
           map[columnAltitude] as int,
-          hasData: false,
         );
 
   final int id;
-  double lastSnowHeight = 0;
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -70,14 +64,13 @@ class Station extends AbstractStation {
   }
 }
 
-const _urlBase =
-    'https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/';
-
 class Nivose extends AbstractStation {
-  Nivose(super.name, super.position, super.altitude, this.codeMF)
-      : super(hasData: false);
+  Nivose(super.name, super.position, super.altitude, this.codeMF);
 
   final String codeMF;
+
+  static const _urlBase =
+      'https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/';
 
   String get urlWeek => '$_urlBase${codeMF}S.gif';
   String get urlSeason => '$_urlBase$codeMF.gif';

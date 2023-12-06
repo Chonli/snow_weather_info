@@ -1,88 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:snow_weather_info/core/notifier/location.dart';
-import 'package:snow_weather_info/core/notifier/preference.dart';
-import 'package:snow_weather_info/core/theme/app_theme.dart';
-import 'package:snow_weather_info/data/data_notifier.dart';
-import 'package:snow_weather_info/data/repositories/stations.dart';
-import 'package:snow_weather_info/data/sources/avalanche_api.dart';
-import 'package:snow_weather_info/data/sources/database_helper.dart';
 import 'package:snow_weather_info/data/sources/preferences.dart';
-import 'package:snow_weather_info/data/sources/station_api.dart';
-import 'package:snow_weather_info/ui/home_page.dart';
+import 'package:snow_weather_info/modules/home/home_page.dart';
+import 'package:snow_weather_info/provider/station_data.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = await SharedPreferences.getInstance();
 
-  runApp(MyApp(
-    preferences: prefs,
+  runApp(ProviderScope(
+    overrides: [
+      sharedPreferencesProvider.overrideWithValue(prefs),
+    ],
+    child: const MyApp(),
   ));
 }
 
 const _title = 'Info Neige';
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({
     super.key,
-    required this.preferences,
   });
 
-  final SharedPreferences preferences;
-
   @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        Provider<DatabaseHelper>(create: (_) => DatabaseHelper()),
-        Provider<AvalancheAPI>(create: (_) => AvalancheAPI()),
-        Provider<Preferences>(create: (_) => Preferences(preferences)),
-        Provider<StationAPI>(create: (_) => StationAPI()),
-        ProxyProvider0<StationsRepository>(
-          update: (context, old) => StationsRepository.update(
-            context.watch<StationAPI>(),
-            context.watch<DatabaseHelper>(),
-            context.watch<Preferences>(),
-            old,
-          ),
-        ),
-        ChangeNotifierProxyProvider0<PreferenceNotifier>(
-          create: (_) => PreferenceNotifier(),
-          update: (context, old) => old!
-            ..preferences = context.watch<Preferences>()
-            ..init(),
-        ),
-        ChangeNotifierProvider<LocationNotifier>(
-          create: (_) => LocationNotifier(),
-        ),
-        ChangeNotifierProxyProvider0<DataNotifier>(
-          create: (_) => DataNotifier(),
-          update: (context, old) => old!
-            ..avalancheAPI = context.watch<AvalancheAPI>()
-            ..stationAPI = context.watch<StationAPI>()
-            ..preferences = context.watch<Preferences>()
-            ..databaseHelper = context.watch<DatabaseHelper>()
-            ..stationsRepository = context.watch<StationsRepository>()
-            ..initData(),
-        ),
-      ],
-      child: Consumer<PreferenceNotifier>(
-        builder: (context, PreferenceNotifier notifier, child) {
-          return MaterialApp(
-            title: _title,
-            theme: AppTheme.ligthTheme,
-            darkTheme: AppTheme.darkTheme,
-            themeMode: notifier.themeMode,
-            home: const MyHomePage(title: _title),
-          );
-        },
+  Widget build(BuildContext context, WidgetRef ref) {
+    return MaterialApp(
+      title: _title,
+      theme: ThemeData(
+        colorSchemeSeed: Colors.blueAccent,
       ),
+      darkTheme: ThemeData(
+        colorSchemeSeed: Colors.blue.shade800,
+        brightness: Brightness.dark,
+      ),
+      themeMode: ref.watch(themeModeSettingsProvider),
+      home: const MyHomePage(title: _title),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends ConsumerWidget {
   const MyHomePage({
     super.key,
     required this.title,
@@ -91,19 +50,15 @@ class MyHomePage extends StatelessWidget {
   final String title;
 
   @override
-  Widget build(BuildContext context) {
-    final loading = context.select(
-      (DataNotifier n) => n.loading,
-    );
+  Widget build(BuildContext context, WidgetRef ref) {
+    final loading = ref.watch(stationDataProvider.select((n) => n.isLoading));
 
     return loading ? const _LoadingPage() : HomePage(title: title);
   }
 }
 
 class _LoadingPage extends StatelessWidget {
-  const _LoadingPage({
-    super.key,
-  });
+  const _LoadingPage();
 
   @override
   Widget build(BuildContext context) {

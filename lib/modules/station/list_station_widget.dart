@@ -1,43 +1,80 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
-import 'package:provider/provider.dart';
-import 'package:snow_weather_info/core/notifier/preference.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/core/widgets/app_sticky_header_view.dart';
-import 'package:snow_weather_info/data/data_notifier.dart';
-import 'package:snow_weather_info/modules/station/notifier.dart';
+import 'package:snow_weather_info/data/sources/preferences.dart';
+import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/modules/station/station_card.dart';
+import 'package:snow_weather_info/provider/all_station.dart';
+import 'package:snow_weather_info/provider/favorite_station.dart';
+import 'package:snow_weather_info/provider/station_data.dart';
 
-class ListStationWidget extends StatelessWidget {
+part 'list_station_widget.g.dart';
+
+@riverpod
+class _Search extends _$Search {
+  @override
+  String build() {
+    return '';
+  }
+
+  void search(String value) {
+    state = value;
+  }
+}
+
+@riverpod
+class _FilteredSations extends _$FilteredSations {
+  @override
+  Map<String, List<AbstractStation>> build() {
+    final allStations = ref.watch(allStationsProvider);
+    final search = ref.watch(_searchProvider);
+    final showNoDataStation = ref.watch(showNoDataStationSettingsProvider);
+
+    final stations = allStations
+        .where((station) =>
+            showNoDataStation ||
+            station is Nivose ||
+            (station is Station &&
+                ref.watch(stationDataProvider.notifier).hasData(station.id)))
+        .where(
+          (station) =>
+              search.isEmpty ||
+              station.name.toLowerCase().contains(
+                    search.toLowerCase(),
+                  ),
+        )
+        .toList()
+      ..sort(
+        (a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()),
+      );
+
+    final tmpGroupList = <String, List<AbstractStation>>{};
+    for (final s in stations) {
+      if (tmpGroupList[s.name[0]] == null) {
+        tmpGroupList[s.name[0]] = <AbstractStation>[];
+      }
+
+      tmpGroupList[s.name[0]]?.add(s);
+    }
+
+    //sort keys
+    return Map.fromEntries(
+      tmpGroupList.entries.toList()..sort(((a, b) => a.key.compareTo(b.key))),
+    );
+  }
+}
+
+class ListStationWidget extends ConsumerWidget {
   const ListStationWidget({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProxyProvider0<StationNotifier>(
-          create: (_) => StationNotifier(),
-          update: (context, old) => old!
-            ..dataNotifier = context.watch<DataNotifier>()
-            ..displayNoDataStation =
-                context.watch<PreferenceNotifier>().viewNoDataStation
-            ..init(),
-        ),
-      ],
-      child: const _InnerWidget(),
-    );
-  }
-}
-
-class _InnerWidget extends StatelessWidget {
-  const _InnerWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final notifier = context.watch<StationNotifier>();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final filteredSations = ref.watch(_filteredSationsProvider);
+    final favoriteStation = ref.watch(favoriteStationProvider);
 
     return CustomScrollView(
       slivers: [
@@ -47,7 +84,7 @@ class _InnerWidget extends StatelessWidget {
             padding: const EdgeInsets.all(8),
             child: TextField(
               onChanged: (value) {
-                context.read<StationNotifier>().search(value);
+                ref.read(_searchProvider.notifier).search(value);
               },
               decoration: const InputDecoration(
                 labelText: 'Recherche',
@@ -63,22 +100,21 @@ class _InnerWidget extends StatelessWidget {
           ),
         ),
         // favorite
-        if (notifier.favoriteStations.isNotEmpty)
+        if (favoriteStation.isNotEmpty)
           SliverStickyHeader(
             header: AppStickyHeaderView(
-              text: notifier.favoriteStations.length == 1
-                  ? 'Favorite'
-                  : 'Favorites',
+              text: favoriteStation.length == 1 ? 'Favorite' : 'Favorites',
             ),
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate(
-                (context, index) =>
-                    StationCard(station: notifier.favoriteStations[index]),
-                childCount: notifier.favoriteStations.length,
+                (context, index) => StationCard(
+                  station: favoriteStation[index],
+                ),
+                childCount: favoriteStation.length,
               ),
             ),
           ),
-        ...notifier.stations.entries.map(
+        ...filteredSations.entries.map(
           (e) => SliverStickyHeader(
             header: AppStickyHeaderView(text: e.key),
             sliver: SliverList(

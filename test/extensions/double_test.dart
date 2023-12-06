@@ -6,9 +6,9 @@ void main() {
     'Double extensions, verifiy toStringSnowHeigth and toStringTemperature',
     () {
       const htSnow = 3.123456;
-      expect(htSnow.toStringSnowHeigth(), '312.3cm');
+      expect(htSnow.toStringSnowHeigth, '312.3cm');
       const temp = 3.123;
-      expect(temp.toStringTemperature(), '3.1°C');
+      expect(temp.toStringTemperature, '3.1°C');
     },
   );
 }

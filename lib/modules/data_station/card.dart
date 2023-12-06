@@ -24,32 +24,32 @@ class CardDataStation extends StatelessWidget {
           if (data.temperature != null)
             _LineCard(
               'Température :',
-              ' ${data.temperature!.toStringTemperature()}',
+              ' ${data.temperature!.toStringTemperature}',
             ),
           if (data.temperatureMin24 != null)
             _LineCard(
               'Température Min 24h :',
-              ' ${data.temperatureMin24!.toStringTemperature()}',
+              ' ${data.temperatureMin24!.toStringTemperature}',
             ),
           if (data.temperatureMax24 != null)
             _LineCard(
               'Température Max 24h :',
-              ' ${data.temperatureMax24!.toStringTemperature()}',
+              ' ${data.temperatureMax24!.toStringTemperature}',
             ),
           if (data.temperatureSnow != null)
             _LineCard(
               'Température du sol:',
-              ' ${data.temperatureSnow!.toStringTemperature()}',
+              ' ${data.temperatureSnow!.toStringTemperature}',
             ),
           if (data.snowHeight != null)
             _LineCard(
               'Hauteur de neige :',
-              ' ${data.snowHeight!.toStringSnowHeigth()}',
+              ' ${data.snowHeight!.toStringSnowHeigth}',
             ),
           if (data.snowNewHeight != null)
             _LineCard(
               'Hauteur de neige fraiches :',
-              ' ${data.snowNewHeight!.toStringSnowHeigth()}',
+              ' ${data.snowNewHeight!.toStringSnowHeigth}',
             ),
           if (data.directionWind != null)
             _LineCard(
@@ -68,7 +68,7 @@ class CardDataStation extends StatelessWidget {
 }
 
 class _LineCard extends StatelessWidget {
-  const _LineCard(this.text1, this.text2, {super.key});
+  const _LineCard(this.text1, this.text2);
 
   final String text1;
   final String text2;

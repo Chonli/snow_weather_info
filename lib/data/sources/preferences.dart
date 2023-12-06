@@ -1,51 +1,34 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+part 'preferences.g.dart';
 
 const _lastStationPrefs = 'lastStationPrefs';
 const _lastStationDataPrefs = 'lastStationDataPrefs';
 const _favoritesStationPrefs = 'favoritesStationPrefs';
 const _favoritesBERAPrefs = 'favoritesBERAPrefs';
 const _themeModePrefs = 'themeModePrefs';
-const _viewNoDataStationPrefs = 'viewNoDataStationPrefs';
+const _showNoDataStationPrefs = 'showNoDataStationPrefs';
 const _showClusterLayerPrefs = 'showClusterLayerPrefs';
 
-class Preferences {
-  Preferences(this.preferences);
+@Riverpod(keepAlive: true)
+SharedPreferences sharedPreferences(SharedPreferencesRef ref) {
+  throw UnimplementedError();
+}
 
-  final SharedPreferences preferences;
-
-  DateTime get lastStationDataDate => DateTime.parse(
-        preferences.getString(_lastStationDataPrefs) ?? '19700101',
-      );
-  DateTime get lastStationDate => DateTime.parse(
-        preferences.getString(_lastStationPrefs) ?? DateTime.now().toString(),
-      );
-  List<String> get favoritesStations =>
-      preferences.getStringList(_favoritesStationPrefs) ?? [];
-
-  void setLastStationDataDate(DateTime lastStationData) {
-    preferences.setString(_lastStationDataPrefs, lastStationData.toString());
+@Riverpod(keepAlive: true)
+class ThemeModeSettings extends _$ThemeModeSettings {
+  @override
+  ThemeMode build() {
+    return _themeMode;
   }
 
-  void setLastStationDate(DateTime lastStation) {
-    preferences.setString(_lastStationPrefs, lastStation.toString());
-  }
+  SharedPreferences get _preference => ref.watch(sharedPreferencesProvider);
 
-  void updateFavoritesStations(List<String> favorites) {
-    preferences.setStringList(_favoritesStationPrefs, favorites);
-  }
-
-  // BERA
-  List<String> get favoritesBERA =>
-      preferences.getStringList(_favoritesBERAPrefs) ?? [];
-
-  void updateFavoritesBERA(List<String> favorites) {
-    preferences.setStringList(_favoritesBERAPrefs, favorites);
-  }
-
-  //Themes
-  ThemeMode get themeMode {
-    final index = preferences.getInt(_themeModePrefs);
+  ThemeMode get _themeMode {
+    final index = _preference.getInt(_themeModePrefs);
     if (index != null) {
       return ThemeMode.values[index];
     }
@@ -53,23 +36,132 @@ class Preferences {
     return ThemeMode.system;
   }
 
-  void setThemeMode(ThemeMode themeMode) {
-    preferences.setInt(_themeModePrefs, themeMode.index);
+  set _themeMode(ThemeMode themeMode) {
+    _preference.setInt(_themeModePrefs, themeMode.index);
   }
 
-  //views data station
-  bool get viewNoDataStation =>
-      preferences.getBool(_viewNoDataStationPrefs) ?? true;
+  void updateThemeMode(ThemeMode mode) {
+    if (state != mode) {
+      state = mode;
+      _themeMode = mode;
+    }
+  }
+}
 
-  void setViewNoDataStation({required bool viewNoDataStation}) {
-    preferences.setBool(_viewNoDataStationPrefs, viewNoDataStation);
+@Riverpod(keepAlive: true)
+class LastStationDataSettings extends _$LastStationDataSettings {
+  @override
+  DateTime build() {
+    return _lastStationDataDate;
   }
 
-  //views data station
-  bool get showClusterLayer =>
-      preferences.getBool(_showClusterLayerPrefs) ?? false;
+  SharedPreferences get _preference => ref.watch(sharedPreferencesProvider);
 
-  void setShowClusterLayer({required bool showClusterLayer}) {
-    preferences.setBool(_showClusterLayerPrefs, showClusterLayer);
+  DateTime get _lastStationDataDate => DateTime.parse(
+        _preference.getString(_lastStationDataPrefs) ?? '19700101',
+      );
+
+  void updateDate(DateTime lastDate) {
+    if (state != lastDate) {
+      state = lastDate;
+      _preference.setString(_lastStationDataPrefs, lastDate.toString());
+    }
+  }
+}
+
+@Riverpod(keepAlive: true)
+class LastStationSettings extends _$LastStationSettings {
+  @override
+  DateTime build() {
+    return _lastStationDate;
+  }
+
+  SharedPreferences get _preference => ref.watch(sharedPreferencesProvider);
+
+  DateTime get _lastStationDate => DateTime.parse(
+        _preference.getString(_lastStationPrefs) ?? '19700101',
+      );
+
+  void updateDate(DateTime lastDate) {
+    if (state.difference(lastDate) > const Duration(days: 1)) {
+      state = lastDate;
+      _preference.setString(_lastStationPrefs, lastDate.toString());
+    }
+  }
+}
+
+@Riverpod(keepAlive: true)
+class FavoritesStationSettings extends _$FavoritesStationSettings {
+  @override
+  List<String> build() {
+    return _favoritesStations;
+  }
+
+  SharedPreferences get _preference => ref.watch(sharedPreferencesProvider);
+
+  List<String> get _favoritesStations =>
+      _preference.getStringList(_favoritesStationPrefs) ?? [];
+
+  void update(List<String> favorites) {
+    if (!listEquals(state, favorites)) {
+      state = favorites;
+      _preference.setStringList(_favoritesStationPrefs, favorites);
+    }
+  }
+}
+
+@Riverpod(keepAlive: true)
+class FavoritesBERASettings extends _$FavoritesBERASettings {
+  @override
+  List<String> build() {
+    return _favoritesStations;
+  }
+
+  SharedPreferences get _preference => ref.watch(sharedPreferencesProvider);
+
+  List<String> get _favoritesStations =>
+      _preference.getStringList(_favoritesBERAPrefs) ?? [];
+
+  void update(List<String> favorites) {
+    if (!listEquals(state, favorites)) {
+      state = favorites;
+      _preference.setStringList(_favoritesBERAPrefs, favorites);
+    }
+  }
+}
+
+@Riverpod(keepAlive: true)
+class ShowNoDataStationSettings extends _$ShowNoDataStationSettings {
+  @override
+  bool build() {
+    return _showNoDataStation;
+  }
+
+  SharedPreferences get _preference => ref.watch(sharedPreferencesProvider);
+
+  bool get _showNoDataStation =>
+      _preference.getBool(_showNoDataStationPrefs) ?? true;
+
+  void update() {
+    state = !state;
+    _preference.setBool(_showNoDataStationPrefs, state);
+  }
+}
+
+@Riverpod(keepAlive: true)
+class ShowClusterLayerSettings extends _$ShowClusterLayerSettings {
+  @override
+  bool build() {
+    return _showClusterLayer;
+  }
+
+  SharedPreferences get _preference => ref.watch(sharedPreferencesProvider);
+
+  bool get _showClusterLayer =>
+      _preference.getBool(_showClusterLayerPrefs) ?? false;
+
+  void update() {
+    state = !state;
+    _preference.setBool(_showClusterLayerPrefs, state);
   }
 }

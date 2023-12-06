@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/modules/data_station/view.dart';
-import 'package:snow_weather_info/ui/nivose_page.dart';
+import 'package:snow_weather_info/modules/map/map_widget.dart';
+import 'package:snow_weather_info/modules/nivose/nivose_page.dart';
+import 'package:snow_weather_info/provider/station_data.dart';
 
-class StationCard extends StatelessWidget {
+class StationCard extends ConsumerWidget {
   const StationCard({
     super.key,
     required this.station,
@@ -12,22 +15,28 @@ class StationCard extends StatelessWidget {
   final AbstractStation station;
 
   @override
-  Widget build(BuildContext context) {
-    var _textStyle = TextStyle(
-      color: Theme.of(context).textTheme.bodyText1?.color,
-      fontStyle: FontStyle.normal,
-    );
-    var snowHeigth = '';
-    if (station is Station) {
-      final st = station as Station;
-      snowHeigth = st.hasData
-          ? ' ${(st.lastSnowHeight * 100).toStringAsFixed(0)}cm'
-          : '';
-      final _color = st.hasData
-          ? Theme.of(context).textTheme.bodyText2?.color
+  Widget build(BuildContext context, WidgetRef ref) {
+    late final TextStyle textStyle;
+    late final String snowHeigth;
+
+    if (station case Station st) {
+      final hasData = ref.watch(stationDataProvider.notifier).hasData(st.id);
+      final lastSnowHeight =
+          ref.watch(stationDataProvider.notifier).lastSnowHeight(st.id);
+
+      snowHeigth =
+          hasData ? ' ${(lastSnowHeight * 100).toStringAsFixed(0)}cm' : '';
+      final color = hasData
+          ? Theme.of(context).textTheme.bodyMedium?.color
           : Theme.of(context).disabledColor;
-      final _font = st.hasData ? FontStyle.normal : FontStyle.italic;
-      _textStyle = TextStyle(color: _color, fontStyle: _font);
+      final font = hasData ? FontStyle.normal : FontStyle.italic;
+      textStyle = TextStyle(color: color, fontStyle: font);
+    } else {
+      snowHeigth = '';
+      textStyle = TextStyle(
+        color: Theme.of(context).colorScheme.primary,
+        fontStyle: FontStyle.normal,
+      );
     }
 
     return Card(
@@ -37,33 +46,38 @@ class StationCard extends StatelessWidget {
       ),
       elevation: 5,
       child: ListTile(
-        title: Text(
-          station.name,
-          style: _textStyle,
-        ),
-        isThreeLine: true,
-        trailing: snowHeigth.isNotEmpty
-            ? Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Icon(Icons.ac_unit),
-                  Text(snowHeigth),
-                ],
-              )
-            : null,
-        subtitle: Text(
-          '${station.altitude}m \nLatLng(${station.position.latitude},${station.position.longitude})',
-          style: _textStyle,
-        ),
-        onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute<Widget>(
-            builder: (context) => station is Station
-                ? DataStationView(station: station as Station)
-                : NivosePage(nivose: station as Nivose),
+          title: Text(
+            station.name,
+            style: textStyle,
           ),
-        ),
-      ),
+          isThreeLine: true,
+          trailing: snowHeigth.isNotEmpty
+              ? Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.ac_unit),
+                    Text(snowHeigth),
+                  ],
+                )
+              : null,
+          subtitle: Text(
+            '${station.altitude}m \nLatLng(${station.position.latitude},${station.position.longitude})',
+            style: textStyle,
+          ),
+          onTap: () {
+            ref
+                .read(currentMapLocProvider.notifier)
+                .setLocation(station.position);
+
+            Navigator.push(
+              context,
+              MaterialPageRoute<Widget>(
+                builder: (context) => station is Station
+                    ? DataStationView(station: station as Station)
+                    : NivosePage(nivose: station as Nivose),
+              ),
+            );
+          }),
     );
   }
 }

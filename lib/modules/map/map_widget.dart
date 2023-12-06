@@ -1,35 +1,74 @@
-// import 'package:user_location/user_location.dart';
 import 'package:dart_rss/dart_rss.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:provider/provider.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/core/notifier/location.dart';
-import 'package:snow_weather_info/core/notifier/preference.dart';
 import 'package:snow_weather_info/core/widgets/app_web_page.dart';
-import 'package:snow_weather_info/data/data_notifier.dart';
+import 'package:snow_weather_info/data/constant_data_list.dart';
+import 'package:snow_weather_info/data/sources/avalanche_api.dart';
+import 'package:snow_weather_info/data/sources/preferences.dart';
 import 'package:snow_weather_info/extensions/atom_item.dart';
+import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/modules/data_station/view.dart';
 import 'package:snow_weather_info/modules/map/map_licence_widget.dart';
 import 'package:snow_weather_info/modules/map/map_maker.dart';
-import 'package:snow_weather_info/ui/nivose_page.dart';
+import 'package:snow_weather_info/modules/nivose/nivose_page.dart';
+import 'package:snow_weather_info/provider/station_data.dart';
+import 'package:snow_weather_info/provider/stations.dart';
 
-final nivoseColor = Colors.blue.shade900;
-const stationColor = Colors.black;
-const stationNoDataColor = Colors.grey;
-const avalancheColor = Colors.orange;
+part 'map_widget.g.dart';
 
-class MapWidget extends StatefulWidget {
-  const MapWidget({
-    super.key,
-  });
+final _nivoseColor = Colors.blue.shade900;
+const _stationColor = Colors.black;
+const _stationNoDataColor = Colors.grey;
+const _avalancheColor = Colors.orange;
 
+@riverpod
+class CurrentMapLoc extends _$CurrentMapLoc {
   @override
-  _MapWidgetState createState() => _MapWidgetState();
+  LatLng build() {
+    return const LatLng(45.05, 6.3);
+  }
+
+  void setLocation(LatLng value) {
+    state = value;
+  }
 }
 
-class _MapWidgetState extends State<MapWidget> {
+class MapWidget extends ConsumerWidget {
+  const MapWidget({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final stations = ref.watch(stationsProvider).asData?.value ?? [];
+    final feeds = ref.watch(apiAvalancheProvider).asData?.value;
+
+    return _InnerView(
+      stations: stations,
+      feeds: feeds,
+    );
+  }
+}
+
+class _InnerView extends ConsumerStatefulWidget {
+  const _InnerView({
+    required this.stations,
+    this.feeds,
+  });
+
+  final List<Station> stations;
+  final AtomFeed? feeds;
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => __InnerViewState();
+}
+
+class __InnerViewState extends ConsumerState<_InnerView> {
   final _mapController = MapController();
   final _listStationMarker = <Marker>[];
   final _listNivoseMarker = <Marker>[];
@@ -39,8 +78,22 @@ class _MapWidgetState extends State<MapWidget> {
   @override
   void initState() {
     super.initState();
-    _updateUserLocation();
-    _initMakerList();
+    _updateMakerList();
+    ServicesBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _updateUserLocation();
+      }
+    });
+  }
+
+  @override
+  void didUpdateWidget(covariant _InnerView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.feeds != widget.feeds ||
+        !listEquals(oldWidget.stations, widget.stations)) {
+      _updateMakerList();
+    }
   }
 
   @override
@@ -49,81 +102,89 @@ class _MapWidgetState extends State<MapWidget> {
     super.dispose();
   }
 
-  void _initMakerList() {
-    final nivoses = context.read<DataNotifier>().nivoses;
+  void _updateMakerList() {
+    final nivoses = ConstantDatalist.listNivose;
 
-    nivoses.forEach(
-      (nivose) {
-        _listNivoseMarker.add(
-          Marker(
-            width: 90,
-            height: 50,
-            point: nivose.position,
-            builder: (ctx) => MapMaker(
-              icon: const Icon(Icons.place),
-              color: nivoseColor,
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute<Widget>(
-                  builder: (context) => NivosePage(nivose: nivose),
-                ),
+    for (var nivose in nivoses) {
+      _listNivoseMarker.add(
+        Marker(
+          width: 90,
+          height: 50,
+          point: nivose.position,
+          child: MapMaker(
+            icon: const Icon(Icons.place),
+            color: _nivoseColor,
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute<Widget>(
+                builder: (context) => NivosePage(nivose: nivose),
               ),
             ),
           ),
-        );
-      },
-    );
+        ),
+      );
+    }
 
-    final stations = context.read<DataNotifier>().stations;
-    stations.forEach(
-      (station) {
-        if (station.hasData) {
-          _listStationMarker.add(
-            Marker(
-              width: 90,
-              height: 50,
-              point: station.position,
-              builder: (ctx) => MapMaker(
+    for (var station in widget.stations) {
+      final dataProvider = ref.read(stationDataProvider.notifier);
+      final hasData = dataProvider.hasData(
+        station.id,
+      );
+
+      if (hasData) {
+        _listStationMarker.add(
+          Marker(
+            width: 90,
+            height: 50,
+            point: station.position,
+            child: MapMaker(
                 icon: const Icon(Icons.place),
-                color: stationColor,
-                lastSnowHeight: station.lastSnowHeight,
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute<Widget>(
-                    builder: (context) => DataStationView(station: station),
-                  ),
+                color: _stationColor,
+                lastSnowHeight: dataProvider.lastSnowHeight(
+                  station.id,
                 ),
-              ),
-            ),
-          );
-        } else {
-          _listStationNoDataMarker.add(
-            Marker(
-              width: 90,
-              height: 50,
-              point: station.position,
-              builder: (ctx) => const MapMaker(
-                icon: Icon(Icons.place),
-                color: stationNoDataColor,
-              ),
-            ),
-          );
-        }
-      },
-    );
+                onPressed: () {
+                  ref
+                      .read(currentMapLocProvider.notifier)
+                      .setLocation(station.position);
 
-    final feed = context.read<DataNotifier>().avalancheFeed;
-    feed?.items.forEach(
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute<Widget>(
+                      builder: (context) => DataStationView(station: station),
+                    ),
+                  );
+                }),
+          ),
+        );
+      } else {
+        _listStationNoDataMarker.add(
+          Marker(
+            width: 90,
+            height: 50,
+            point: station.position,
+            child: const MapMaker(
+              icon: Icon(Icons.place),
+              color: _stationNoDataColor,
+            ),
+          ),
+        );
+      }
+    }
+
+    widget.feeds?.items.forEach(
       (AtomItem item) {
-        if (item.geo != null) {
+        final lat = item.geo?.lat;
+        final long = item.geo?.long;
+        if (lat != null && long != null) {
           _listAvalancheMarker.add(
             Marker(
               width: 90,
               height: 50,
-              point: LatLng(item.geo?.lat ?? 0, item.geo?.long ?? 0),
-              builder: (ctx) => MapMaker(
+              point: LatLng(lat, long),
+              child: MapMaker(
                 icon: const Icon(Icons.ac_unit),
-                color: avalancheColor,
+                color: _avalancheColor,
                 onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute<Widget>(
@@ -143,9 +204,12 @@ class _MapWidgetState extends State<MapWidget> {
   }
 
   Future<void> _updateUserLocation() async {
-    final notifier = context.read<LocationNotifier>();
-    await notifier.updateLocation();
-    final userLocation = notifier.userLocation;
+    final userLocation = await ref
+        .read(
+          userLocationProvider.notifier,
+        )
+        .updateLocation();
+
     if (userLocation != null) {
       _mapController.move(userLocation, 10);
     }
@@ -153,75 +217,57 @@ class _MapWidgetState extends State<MapWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final currentMapLoc = context.select<DataNotifier, LatLng>(
-      (n) => n.currentMapLoc,
-    );
-    final showNoDataStations = context.select<PreferenceNotifier, bool>(
-      (n) => n.viewNoDataStation,
-    );
-
-    final userLocation = context.select<LocationNotifier, LatLng?>(
-      (n) => n.userLocation,
-    );
+    final currentMapLoc = ref.watch(currentMapLocProvider);
+    final showNoDataStations = ref.watch(showNoDataStationSettingsProvider);
+    final userLocation = ref.watch(userLocationProvider).asData?.value;
+    final showClusterLayer = ref.watch(showClusterLayerSettingsProvider);
 
     return Stack(
       children: [
         FlutterMap(
           mapController: _mapController,
           options: MapOptions(
-            center: userLocation ?? currentMapLoc,
-            zoom: 10,
+            initialCenter: userLocation ?? currentMapLoc,
+            initialZoom: 10,
             maxZoom: 16,
             minZoom: 8,
           ),
-          nonRotatedChildren: <Widget>[
-            Positioned(
-              top: 20,
-              right: 20,
-              child: FloatingActionButton(
-                backgroundColor: Colors.grey,
-                onPressed: () => _updateUserLocation(),
-                child: const Icon(
-                  Icons.gps_fixed_rounded,
-                  size: 28,
-                ),
-              ),
-            ),
-            AttributionWidget(
-              attributionBuilder: (context) => const MapLicenceWidget(),
-            ),
-          ],
           children: [
             TileLayer(
               urlTemplate: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
               subdomains: const ['a', 'b', 'c'],
             ),
+            const MapLicenceWidget(),
             if (_listStationMarker.isNotEmpty)
-              MakerLayer(
+              _MakerLayer(
                 markers: _listStationMarker,
-                color: stationColor,
+                color: _stationColor,
+                showClusterLayer: showClusterLayer,
               ),
             if (_listStationNoDataMarker.isNotEmpty && showNoDataStations)
-              MakerLayer(
+              _MakerLayer(
                 markers: _listStationNoDataMarker,
-                color: stationNoDataColor,
+                color: _stationNoDataColor,
+                showClusterLayer: showClusterLayer,
               ),
             if (_listNivoseMarker.isNotEmpty)
-              MakerLayer(
+              _MakerLayer(
                 markers: _listNivoseMarker,
-                color: nivoseColor,
+                color: _nivoseColor,
+                showClusterLayer: showClusterLayer,
               ),
             if (_listAvalancheMarker.isNotEmpty)
-              MakerLayer(
+              _MakerLayer(
                 markers: _listAvalancheMarker,
-                color: avalancheColor,
+                color: _avalancheColor,
+                showClusterLayer: showClusterLayer,
               ),
             if (userLocation != null)
               MarkerLayer(
                 markers: [
                   Marker(
                     point: userLocation,
-                    builder: (context) => const Icon(
+                    child: const Icon(
                       Icons.person_pin,
                       color: Colors.blue,
                       size: 32,
@@ -231,32 +277,36 @@ class _MapWidgetState extends State<MapWidget> {
               ),
           ],
         ),
-        const Positioned(
-          bottom: 0,
-          right: 0,
-          child: MapLicenceWidget(),
+        Positioned(
+          top: 20,
+          right: 20,
+          child: FloatingActionButton(
+            backgroundColor: Colors.grey,
+            onPressed: () => _updateUserLocation(),
+            child: const Icon(
+              Icons.gps_fixed_rounded,
+              size: 28,
+            ),
+          ),
         ),
       ],
     );
   }
 }
 
-class MakerLayer extends StatelessWidget {
-  const MakerLayer({
-    super.key,
+class _MakerLayer extends StatelessWidget {
+  const _MakerLayer({
     required this.markers,
     required this.color,
+    required this.showClusterLayer,
   });
 
   final List<Marker> markers;
   final Color color;
+  final bool showClusterLayer;
 
   @override
   Widget build(BuildContext context) {
-    final showClusterLayer = context.select<PreferenceNotifier, bool>(
-      (n) => n.showClusterLayer,
-    );
-
     return showClusterLayer
         ? MarkerClusterLayerWidget(
             options: MarkerClusterLayerOptions(

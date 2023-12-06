@@ -1,40 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:package_info/package_info.dart';
-import 'package:provider/provider.dart';
-import 'package:snow_weather_info/data/data_notifier.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/modules/avalanche/view.dart';
 import 'package:snow_weather_info/modules/bera/view.dart';
 import 'package:snow_weather_info/modules/map/map_widget.dart';
+import 'package:snow_weather_info/modules/settings/preference_page.dart';
 import 'package:snow_weather_info/modules/station/list_station_widget.dart';
-import 'package:snow_weather_info/ui/preference_page.dart';
 import 'package:url_launcher/url_launcher.dart' as url;
 
-class HomePage extends StatefulWidget {
+part 'home_page.g.dart';
+
+@Riverpod(keepAlive: false)
+class _CurrentTabIndex extends _$CurrentTabIndex {
+  @override
+  int build() {
+    return 0;
+  }
+
+  void setIndex(int index) {
+    state = index;
+  }
+}
+
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({
     super.key,
     required this.title,
   });
+
   final String title;
 
   @override
-  _HomePageState createState() => _HomePageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
+class _HomePageState extends ConsumerState<HomePage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    final notifier = context.read<DataNotifier>();
+    final index = ref.read(_currentTabIndexProvider);
     _tabController = TabController(
       vsync: this,
       length: 4,
-      initialIndex: notifier.currentIndexTab,
+      initialIndex: index,
     );
     _tabController.addListener(() {
-      notifier.currentIndexTab = _tabController.index;
+      ref.read(_currentTabIndexProvider.notifier).setIndex(
+            _tabController.index,
+          );
     });
   }
 
@@ -67,7 +84,7 @@ class _HomePageState extends State<HomePage>
                   break;
               }
             },
-            itemBuilder: (BuildContext context) => <PopupMenuItem<int>>[
+            itemBuilder: (context) => <PopupMenuItem<int>>[
               const PopupMenuItem(
                 value: 0,
                 child: ListTile(
@@ -115,42 +132,44 @@ class _HomePageState extends State<HomePage>
   Future<void> _openAboutDialog(BuildContext context) async {
     final packageInfo = await PackageInfo.fromPlatform();
 
-    showDialog<AboutDialog>(
-      context: context,
-      builder: (BuildContext context) {
-        return AboutDialog(
-          applicationName: 'Info Neige',
-          applicationVersion:
-              'version: ${packageInfo.version}+${packageInfo.buildNumber}',
-          applicationIcon: Image.asset(
-            'assets/icon/icon.png',
-            width: 42,
-            height: 42,
-          ),
-          applicationLegalese: 'MIT',
-          children: <Widget>[
-            const Padding(padding: EdgeInsets.all(5)),
-            Text(
-              'Développeur: Chonli',
-              style: TextStyle(
-                color: Theme.of(context).textTheme.bodyText2?.color,
-              ),
+    if (context.mounted) {
+      showDialog<AboutDialog>(
+        context: context,
+        builder: (BuildContext context) {
+          return AboutDialog(
+            applicationName: 'Info Neige',
+            applicationVersion:
+                'version: ${packageInfo.version}+${packageInfo.buildNumber}',
+            applicationIcon: Image.asset(
+              'assets/icon/icon.png',
+              width: 42,
+              height: 42,
             ),
-            const Padding(padding: EdgeInsets.all(5)),
-            InkWell(
-              onTap: () => url.launchUrl(
-                Uri.parse('https://github.com/Chonli/snow_weather_info'),
-              ),
-              child: Text(
-                'Lien vers le projet',
+            applicationLegalese: 'MIT',
+            children: <Widget>[
+              const Padding(padding: EdgeInsets.all(5)),
+              Text(
+                'Développeur: Chonli',
                 style: TextStyle(
-                  color: Theme.of(context).textTheme.bodyText1?.color,
+                  color: Theme.of(context).textTheme.bodyMedium?.color,
                 ),
               ),
-            ),
-          ],
-        );
-      },
-    );
+              const Padding(padding: EdgeInsets.all(5)),
+              InkWell(
+                onTap: () => url.launchUrl(
+                  Uri.parse('https://github.com/Chonli/snow_weather_info'),
+                ),
+                child: Text(
+                  'Lien vers le projet',
+                  style: TextStyle(
+                    color: Theme.of(context).textTheme.bodyLarge?.color,
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 }
