@@ -45,7 +45,7 @@ android {
     defaultConfig {
         applicationId "com.chonli.snow_weather_info"
         minSdkVersion 21
-        targetSdkVersion 33
+        targetSdkVersion 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
