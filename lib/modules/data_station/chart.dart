@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:snow_weather_info/extensions/chart.dart';
 import 'package:snow_weather_info/extensions/double.dart';
 import 'package:snow_weather_info/model/data_station.dart';
 import 'package:snow_weather_info/modules/data_station/view.dart';
@@ -101,8 +104,10 @@ class DataStationChart extends ConsumerWidget {
   ) {
     final tempData = <FlSpot>[];
     final List<List<FlSpot>> tempHeightData = [];
-    final min = datas.firstOrNull?.date.millisecondsSinceEpoch.toDouble() ?? 0;
-    final max = datas.lastOrNull?.date.millisecondsSinceEpoch.toDouble() ?? 0;
+    final minDate =
+        datas.firstOrNull?.date.millisecondsSinceEpoch.toDouble() ?? 0;
+    final maxDate =
+        datas.lastOrNull?.date.millisecondsSinceEpoch.toDouble() ?? 0;
 
     for (final data in datas) {
       final x = data.date.millisecondsSinceEpoch.toDouble();
@@ -143,15 +148,17 @@ class DataStationChart extends ConsumerWidget {
       ),
     );
 
-    final maxY = snowLineData.mostTopSpot.y + 10;
+    final maxHeight = snowHeightLineData.safeTopMostY;
+
+    final maxY = max(maxHeight, snowLineData.mostTopSpot.y) + 10;
 
     return LineChartData(
       lineBarsData: [
         snowLineData,
         ...snowHeightLineData,
       ],
-      minX: min - _xOffset,
-      maxX: max + _xOffset,
+      minX: minDate - _xOffset,
+      maxX: maxDate + _xOffset,
       minY: 0,
       maxY: maxY,
       titlesData: FlTitlesData(
