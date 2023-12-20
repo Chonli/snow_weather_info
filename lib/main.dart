@@ -9,12 +9,14 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = await SharedPreferences.getInstance();
 
-  runApp(ProviderScope(
-    overrides: [
-      sharedPreferencesProvider.overrideWithValue(prefs),
-    ],
-    child: const MyApp(),
-  ));
+  runApp(
+    ProviderScope(
+      overrides: [
+        sharedPreferencesProvider.overrideWithValue(prefs),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 const _title = 'Info Neige';
@@ -43,8 +45,8 @@ class MyApp extends ConsumerWidget {
 
 class MyHomePage extends ConsumerWidget {
   const MyHomePage({
-    super.key,
     required this.title,
+    super.key,
   });
 
   final String title;

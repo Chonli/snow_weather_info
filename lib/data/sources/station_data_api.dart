@@ -66,7 +66,7 @@ Future<List<DataStation>> _decodeStationData(String data, Ref ref) async {
 
     return <DataStation>[];
   } on Exception catch (e) {
-    log("Parse csv error: $e");
+    log('Parse csv error: $e');
 
     return <DataStation>[];
   }

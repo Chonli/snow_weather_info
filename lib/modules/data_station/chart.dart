@@ -25,7 +25,7 @@ class DataStationChart extends ConsumerWidget {
     final min = datas.firstOrNull?.date.millisecondsSinceEpoch.toDouble() ?? 0;
     final max = datas.lastOrNull?.date.millisecondsSinceEpoch.toDouble() ?? 0;
 
-    for (var data in datas) {
+    for (final data in datas) {
       tempData.add(
         FlSpot(
           data.date.millisecondsSinceEpoch.toDouble(),
@@ -89,7 +89,7 @@ class DataStationChart extends ConsumerWidget {
           fromIndex: 0,
           toIndex: 2,
           color: _tempColor.withOpacity(0.5),
-        )
+        ),
       ],
       titlesData: FlTitlesData(
         bottomTitles: _bottomTitles(temperatureLineData),
@@ -168,10 +168,8 @@ class DataStationChart extends ConsumerWidget {
       ),
       borderData: FlBorderData(
         border: const Border(
-          top: BorderSide.none,
-          right: BorderSide.none,
-          left: BorderSide(width: 1),
-          bottom: BorderSide(width: 1),
+          left: BorderSide(),
+          bottom: BorderSide(),
         ),
       ),
     );
@@ -196,7 +194,7 @@ class DataStationChart extends ConsumerWidget {
   }
 
   AxisTitles _noTitlesWidget() {
-    return const AxisTitles(sideTitles: SideTitles());
+    return const AxisTitles();
   }
 
   @override

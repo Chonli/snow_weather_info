@@ -18,6 +18,7 @@ class _CurrentTabIndex extends _$CurrentTabIndex {
     return 0;
   }
 
+  // ignore: use_setters_to_change_properties
   void setIndex(int index) {
     state = index;
   }
@@ -25,8 +26,8 @@ class _CurrentTabIndex extends _$CurrentTabIndex {
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({
-    super.key,
     required this.title,
+    super.key,
   });
 
   final String title;
@@ -72,16 +73,14 @@ class _HomePageState extends ConsumerState<HomePage>
             onSelected: (int value) async {
               switch (value) {
                 case 0:
-                  Navigator.push(
+                  await Navigator.push(
                     context,
                     MaterialPageRoute<Widget>(
                       builder: (context) => const PreferencePage(),
                     ),
                   );
-                  break;
                 case 1:
-                  _openAboutDialog(context);
-                  break;
+                  await _openAboutDialog(context);
               }
             },
             itemBuilder: (context) => <PopupMenuItem<int>>[
@@ -133,7 +132,7 @@ class _HomePageState extends ConsumerState<HomePage>
     final packageInfo = await PackageInfo.fromPlatform();
 
     if (context.mounted) {
-      showDialog<AboutDialog>(
+      await showDialog<AboutDialog>(
         context: context,
         builder: (BuildContext context) {
           return AboutDialog(

@@ -5,13 +5,13 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class AppWebPage extends StatefulWidget {
   const AppWebPage({
-    super.key,
     required this.title,
     required this.url,
     this.canIsOpen = false,
     this.canShare = false,
     this.isFavorite = false,
     this.onFavorite,
+    super.key,
   });
 
   final String title;
@@ -44,7 +44,7 @@ class _AppWebPageState extends State<AppWebPage> {
               onPressed: () async {
                 final uri = Uri.parse(widget.url);
                 if (await web.canLaunchUrl(uri)) {
-                  web.launchUrl(uri);
+                  await web.launchUrl(uri);
                 }
               },
             ),

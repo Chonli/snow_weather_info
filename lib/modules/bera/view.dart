@@ -68,8 +68,8 @@ class _ListByMassifView extends ConsumerWidget {
         .where(
           (b) => b.mountain == mountain,
         )
-        .toList();
-    list.sort((a, b) => a.massifName.compareTo(b.massifName));
+        .toList()
+      ..sort((a, b) => a.massifName.compareTo(b.massifName));
 
     return SliverStickyHeader(
       header: AppStickyHeaderView(

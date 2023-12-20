@@ -38,7 +38,7 @@ final currentStationProvider = AutoDisposeProvider<Station>.internal(
 );
 
 typedef CurrentStationRef = AutoDisposeProviderRef<Station>;
-String _$isFavoriteHash() => r'f27bfede422a682fa1c315541dffe6f7f7c009fe';
+String _$isFavoriteHash() => r'1d151df11f5f8621cb4d3dd4c9a87706f6743feb';
 
 /// Copied from Dart SDK
 class _SystemHash {

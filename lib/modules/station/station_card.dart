@@ -8,8 +8,8 @@ import 'package:snow_weather_info/provider/station_data.dart';
 
 class StationCard extends ConsumerWidget {
   const StationCard({
-    super.key,
     required this.station,
+    super.key,
   });
 
   final AbstractStation station;
@@ -19,7 +19,7 @@ class StationCard extends ConsumerWidget {
     late final TextStyle textStyle;
     late final String snowHeigth;
 
-    if (station case Station st) {
+    if (station case final Station st) {
       final hasData = ref.watch(stationDataProvider.notifier).hasData(st.id);
       final lastSnowHeight =
           ref.watch(stationDataProvider.notifier).lastSnowHeight(st.id);
@@ -46,38 +46,39 @@ class StationCard extends ConsumerWidget {
       ),
       elevation: 5,
       child: ListTile(
-          title: Text(
-            station.name,
-            style: textStyle,
-          ),
-          isThreeLine: true,
-          trailing: snowHeigth.isNotEmpty
-              ? Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Icon(Icons.ac_unit),
-                    Text(snowHeigth),
-                  ],
-                )
-              : null,
-          subtitle: Text(
-            '${station.altitude}m \nLatLng(${station.position.latitude},${station.position.longitude})',
-            style: textStyle,
-          ),
-          onTap: () {
-            ref
-                .read(currentMapLocProvider.notifier)
-                .setLocation(station.position);
+        title: Text(
+          station.name,
+          style: textStyle,
+        ),
+        isThreeLine: true,
+        trailing: snowHeigth.isNotEmpty
+            ? Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.ac_unit),
+                  Text(snowHeigth),
+                ],
+              )
+            : null,
+        subtitle: Text(
+          '${station.altitude}m \nLatLng(${station.position.latitude},${station.position.longitude})',
+          style: textStyle,
+        ),
+        onTap: () {
+          ref
+              .read(currentMapLocProvider.notifier)
+              .setLocation(station.position);
 
-            Navigator.push(
-              context,
-              MaterialPageRoute<Widget>(
-                builder: (context) => station is Station
-                    ? DataStationView(station: station as Station)
-                    : NivosePage(nivose: station as Nivose),
-              ),
-            );
-          }),
+          Navigator.push(
+            context,
+            MaterialPageRoute<Widget>(
+              builder: (context) => station is Station
+                  ? DataStationView(station: station as Station)
+                  : NivosePage(nivose: station as Nivose),
+            ),
+          );
+        },
+      ),
     );
   }
 }

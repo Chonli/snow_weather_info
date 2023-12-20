@@ -20,7 +20,7 @@ final _searchProvider = AutoDisposeNotifierProvider<_Search, String>.internal(
 );
 
 typedef _$Search = AutoDisposeNotifier<String>;
-String _$filteredSationsHash() => r'ac83a87847d5fdb47c47cd58ff29649aee1edaa4';
+String _$filteredSationsHash() => r'36e71d6782f264fcc3525fd485ec2b3e4337ae69';
 
 /// See also [_FilteredSations].
 @ProviderFor(_FilteredSations)

@@ -33,11 +33,13 @@ class _FilteredSations extends _$FilteredSations {
     final showNoDataStation = ref.watch(showNoDataStationSettingsProvider);
 
     final stations = allStations
-        .where((station) =>
-            showNoDataStation ||
-            station is Nivose ||
-            (station is Station &&
-                ref.watch(stationDataProvider.notifier).hasData(station.id)))
+        .where(
+          (station) =>
+              showNoDataStation ||
+              station is Nivose ||
+              (station is Station &&
+                  ref.watch(stationDataProvider.notifier).hasData(station.id)),
+        )
         .where(
           (station) =>
               search.isEmpty ||
@@ -61,7 +63,7 @@ class _FilteredSations extends _$FilteredSations {
 
     //sort keys
     return Map.fromEntries(
-      tmpGroupList.entries.toList()..sort(((a, b) => a.key.compareTo(b.key))),
+      tmpGroupList.entries.toList()..sort((a, b) => a.key.compareTo(b.key)),
     );
   }
 }

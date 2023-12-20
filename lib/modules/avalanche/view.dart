@@ -80,7 +80,7 @@ class AvalancheListWidget extends ConsumerWidget {
       ),
       error: (_, __) => const Padding(
         padding: EdgeInsets.all(20),
-        child: Text("Erreur lors du chargement des données"),
+        child: Text('Erreur lors du chargement des données'),
       ),
     );
   }

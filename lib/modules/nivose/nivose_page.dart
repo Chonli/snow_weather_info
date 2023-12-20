@@ -15,7 +15,7 @@ bool _isFavorite(Ref ref, String codeMF) {
 
   return stations.any(
     (element) => switch (element) {
-      Nivose nivose => nivose.codeMF == codeMF,
+      final Nivose nivose => nivose.codeMF == codeMF,
       _ => false,
     },
   );
@@ -23,8 +23,8 @@ bool _isFavorite(Ref ref, String codeMF) {
 
 class NivosePage extends ConsumerStatefulWidget {
   const NivosePage({
-    super.key,
     required this.nivose,
+    super.key,
   });
   final Nivose nivose;
 

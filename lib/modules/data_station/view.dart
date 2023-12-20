@@ -30,6 +30,7 @@ class _CurrentIndex extends _$CurrentIndex {
     return 0;
   }
 
+  // ignore: use_setters_to_change_properties
   void setIndex(int index) {
     state = index;
   }
@@ -42,6 +43,7 @@ class _CurrentIndexData extends _$CurrentIndexData {
     final index = ref.watch(_currentIndexProvider);
     try {
       return ref.watch(currentDataStationProvider)[index];
+      // ignore: avoid_catching_errors
     } on RangeError catch (_) {
       return null;
     }
@@ -53,7 +55,7 @@ bool _isFavorite(Ref ref, int id) {
   final favorites = ref.watch(favoriteStationProvider);
   return favorites.any(
     (element) => switch (element) {
-      Station st => st.id == id,
+      final Station st => st.id == id,
       _ => false,
     },
   );
@@ -61,8 +63,8 @@ bool _isFavorite(Ref ref, int id) {
 
 class DataStationView extends ConsumerWidget {
   const DataStationView({
-    super.key,
     required this.station,
+    super.key,
   });
   final Station station;
 
@@ -154,7 +156,8 @@ class _InnerView extends ConsumerWidget {
         body: displayData != null
             ? const _Body()
             : const Center(
-                child: Text('Pas de donnée pour cette station météo')),
+                child: Text('Pas de donnée pour cette station météo'),
+              ),
       ),
     );
   }
@@ -165,7 +168,7 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return ColoredBox(
       color: Theme.of(context).colorScheme.background,
       child: const Column(
         children: [
@@ -228,7 +231,7 @@ class __DataViewState extends ConsumerState<_DataView> {
             }
           },
           icon: const Icon(Icons.arrow_back_ios),
-          padding: const EdgeInsets.all(0),
+          padding: EdgeInsets.zero,
         ),
         Expanded(
           child: SizedBox(
@@ -254,7 +257,7 @@ class __DataViewState extends ConsumerState<_DataView> {
             }
           },
           icon: const Icon(Icons.arrow_forward_ios),
-          padding: const EdgeInsets.all(0),
+          padding: EdgeInsets.zero,
         ),
       ],
     );

@@ -6,7 +6,7 @@ part of 'nivose_page.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$isFavoriteHash() => r'91cd1d0f5a487a4282f20f07f4456d720409dc4b';
+String _$isFavoriteHash() => r'640e830f46ed2b550d16bf1aec74eae6d8d05a83';
 
 /// Copied from Dart SDK
 class _SystemHash {

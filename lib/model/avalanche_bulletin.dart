@@ -1,9 +1,16 @@
-class AvalancheBulletin {
-  const AvalancheBulletin(this.massifName, this.url, this.mountain);
+// ignore_for_file: public_member_api_docs
 
-  final String massifName;
-  final String url;
-  final Mountain mountain;
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'avalanche_bulletin.freezed.dart';
+
+@freezed
+abstract class AvalancheBulletin with _$AvalancheBulletin {
+  const factory AvalancheBulletin({
+    required String massifName,
+    required String url,
+    required Mountain mountain,
+  }) = _AvalancheBulletin;
 }
 
 enum Mountain {
@@ -16,21 +23,12 @@ enum Mountain {
 
 extension MountainExtension on Mountain {
   String displayName() {
-    switch (this) {
-      case Mountain.alpesNord:
-        return 'Alpes du Nord';
-
-      case Mountain.alpesSud:
-        return 'Alpes du Sud';
-
-      case Mountain.corse:
-        return 'Corse';
-
-      case Mountain.pyrenees:
-        return 'Pyrenées';
-
-      default:
-        return 'Tous';
-    }
+    return switch (this) {
+      Mountain.alpesNord => 'Alpes du Nord',
+      Mountain.alpesSud => 'Alpes du Sud',
+      Mountain.corse => 'Corse',
+      Mountain.pyrenees => 'Pyrenées',
+      _ => 'Tous'
+    };
   }
 }

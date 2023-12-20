@@ -35,6 +35,7 @@ class CurrentMapLoc extends _$CurrentMapLoc {
     return const LatLng(45.05, 6.3);
   }
 
+  // ignore: use_setters_to_change_properties
   void setLocation(LatLng value) {
     state = value;
   }
@@ -105,7 +106,7 @@ class __InnerViewState extends ConsumerState<_InnerView> {
   void _updateMakerList() {
     final nivoses = ConstantDatalist.listNivose;
 
-    for (var nivose in nivoses) {
+    for (final nivose in nivoses) {
       _listNivoseMarker.add(
         Marker(
           width: 90,
@@ -125,7 +126,7 @@ class __InnerViewState extends ConsumerState<_InnerView> {
       );
     }
 
-    for (var station in widget.stations) {
+    for (final station in widget.stations) {
       final dataProvider = ref.read(stationDataProvider.notifier);
       final hasData = dataProvider.hasData(
         station.id,
@@ -138,23 +139,24 @@ class __InnerViewState extends ConsumerState<_InnerView> {
             height: 50,
             point: station.position,
             child: MapMaker(
-                icon: const Icon(Icons.place),
-                color: _stationColor,
-                lastSnowHeight: dataProvider.lastSnowHeight(
-                  station.id,
-                ),
-                onPressed: () {
-                  ref
-                      .read(currentMapLocProvider.notifier)
-                      .setLocation(station.position);
+              icon: const Icon(Icons.place),
+              color: _stationColor,
+              lastSnowHeight: dataProvider.lastSnowHeight(
+                station.id,
+              ),
+              onPressed: () {
+                ref
+                    .read(currentMapLocProvider.notifier)
+                    .setLocation(station.position);
 
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute<Widget>(
-                      builder: (context) => DataStationView(station: station),
-                    ),
-                  );
-                }),
+                Navigator.push(
+                  context,
+                  MaterialPageRoute<Widget>(
+                    builder: (context) => DataStationView(station: station),
+                  ),
+                );
+              },
+            ),
           ),
         );
       } else {
@@ -235,7 +237,6 @@ class __InnerViewState extends ConsumerState<_InnerView> {
           children: [
             TileLayer(
               urlTemplate: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
-              subdomains: const ['a', 'b', 'c'],
             ),
             const MapLicenceWidget(),
             if (_listStationMarker.isNotEmpty)
@@ -282,7 +283,7 @@ class __InnerViewState extends ConsumerState<_InnerView> {
           right: 20,
           child: FloatingActionButton(
             backgroundColor: Colors.grey,
-            onPressed: () => _updateUserLocation(),
+            onPressed: _updateUserLocation,
             child: const Icon(
               Icons.gps_fixed_rounded,
               size: 28,

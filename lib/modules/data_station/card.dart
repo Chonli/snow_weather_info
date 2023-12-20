@@ -5,8 +5,8 @@ import 'package:snow_weather_info/model/data_station.dart';
 
 class CardDataStation extends StatelessWidget {
   const CardDataStation({
-    super.key,
     required this.data,
+    super.key,
   });
 
   final DataStation data;

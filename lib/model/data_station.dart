@@ -1,81 +1,79 @@
-import 'package:snow_weather_info/data/sources/database_helper.dart';
+// ignore_for_file: avoid_dynamic_calls
+
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:snow_weather_info/extensions/string.dart';
 
-const double kelvin = -273.15;
+part 'data_station.freezed.dart';
 
-class DataStation {
-  DataStation();
+const kelvin = -273.15;
 
-  DataStation.fromList(List<dynamic> data) {
-    _id = int.parse(data[0] as String);
-    _date = DateTime.parse(
-      '${(data[1]).substring(0, 8)}T${(data[1]).substring(8)}',
-    );
-    _temperature = (data[5] as String?).parseDouble(addValue: kelvin);
-    _temperatureMin24 = (data[19] as String?).parseDouble(addValue: kelvin);
-    _temperatureMax24 = (data[21] as String?).parseDouble(addValue: kelvin);
-    _temperatureSnow = (data[28] as String?).parseDouble(addValue: kelvin);
-    _speedWind = (data[4] as String?).parseDouble();
-    _directionWind = (data[3] as String?).parseDouble();
-    _snowHeight = (data[22] as String?).parseDouble();
-    _snowNewHeight = (data[23] as String?).parseDouble();
-  }
+@freezed
+class DataStation with _$DataStation {
+  const factory DataStation({
+    required DateTime date,
+    @Default(0) int id,
+    double? temperature,
+    double? temperatureMin24,
+    double? temperatureMax24,
+    double? temperatureSnow,
+    double? speedWind,
+    double? directionWind,
+    double? snowHeight,
+    double? snowNewHeight,
+  }) = _DataStation;
 
-  DataStation.fromMap(Map<String, dynamic> map) {
-    _id = map[columnIdStation] as int;
-    _date = DateTime.parse(map[columnDate] as String);
-    _temperature = map[columnTemperature] as double?;
-    _temperatureMin24 = map[columnTemperatureMin24] as double?;
-    _temperatureMax24 = map[columnTemperatureMax24] as double?;
-    _temperatureSnow = map[columnTemperatureSnow] as double?;
-    _snowHeight = map[columnSnowHeight] as double?;
-    _snowNewHeight = map[columnSnowNewHeight] as double?;
-    _speedWind = map[columnSpeedWind] as double?;
-    _directionWind = map[columnDirectionWind] as double?;
-  }
+  factory DataStation.fromList(List<dynamic> data) => DataStation(
+        id: int.parse(data[0] as String),
+        date: DateTime.parse(
+          '${data[1].substring(0, 8)}T${data[1].substring(8)}',
+        ),
+        temperature: (data[5] as String?).parseDouble(addValue: kelvin),
+        temperatureMin24: (data[19] as String?).parseDouble(addValue: kelvin),
+        temperatureMax24: (data[21] as String?).parseDouble(addValue: kelvin),
+        temperatureSnow: (data[28] as String?).parseDouble(addValue: kelvin),
+        speedWind: (data[4] as String?).parseDouble(),
+        directionWind: (data[3] as String?).parseDouble(),
+        snowHeight: (data[22] as String?).parseDouble(),
+        snowNewHeight: (data[23] as String?).parseDouble(),
+      );
 
-  int _id = 0;
-  DateTime _date = DateTime.fromMillisecondsSinceEpoch(0);
-  double? _temperature;
-  double? _temperatureMin24;
-  double? _temperatureMax24;
-  double? _temperatureSnow;
-  double? _speedWind;
-  double? _directionWind;
-  double? _snowHeight;
-  double? _snowNewHeight;
+  // factory DataStation.fromMap(Map<String, dynamic> map) => DataStation(
+  //       id: map[columnIdStation] as int,
+  //       date: DateTime.parse(map[columnDate] as String),
+  //       temperature: map[columnTemperature] as double?,
+  //       temperatureMin24: map[columnTemperatureMin24] as double?,
+  //       temperatureMax24: map[columnTemperatureMax24] as double?,
+  //       temperatureSnow: map[columnTemperatureSnow] as double?,
+  //       snowHeight: map[columnSnowHeight] as double?,
+  //       snowNewHeight: map[columnSnowNewHeight] as double?,
+  //       speedWind: map[columnSpeedWind] as double?,
+  //       directionWind: map[columnDirectionWind] as double?,
+  //     );
 
-  int get id => _id;
-  DateTime get date => _date;
-  double? get temperature => _temperature;
-  double? get temperatureMin24 => _temperatureMin24;
-  double? get temperatureMax24 => _temperatureMax24;
-  double? get temperatureSnow => _temperatureSnow;
-  double? get speedWind => _speedWind;
-  double? get directionWind => _directionWind;
-  double? get snowHeight => _snowHeight;
-  double? get snowNewHeight => _snowNewHeight;
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      columnIdStation: _id,
-      columnDate: _date.toIso8601String(),
-      columnTemperature: _temperature,
-      columnTemperatureMin24: _temperatureMin24,
-      columnTemperatureMax24: _temperatureMax24,
-      columnTemperatureSnow: _temperatureSnow,
-      columnSpeedWind: _speedWind,
-      columnDirectionWind: _directionWind,
-      columnSnowHeight: _snowHeight,
-      columnSnowNewHeight: _snowNewHeight,
-    };
-  }
+  // Map<String, dynamic> toMap() {
+  //   return <String, dynamic>{
+  //     columnIdStation: id,
+  //     columnDate: date.toIso8601String(),
+  //     columnTemperature: temperature,
+  //     columnTemperatureMin24: temperatureMin24,
+  //     columnTemperatureMax24: temperatureMax24,
+  //     columnTemperatureSnow: temperatureSnow,
+  //     columnSpeedWind: speedWind,
+  //     columnDirectionWind: directionWind,
+  //     columnSnowHeight: snowHeight,
+  //     columnSnowNewHeight: snowNewHeight,
+  //   };
+  // }
 
   @override
   String toString() {
-    return '$_id : $_temperature °C $_speedWind m/s, $_snowHeight m';
+    return '$id : $temperature °C $speedWind m/s, $snowHeight m';
   }
 }
+
+
+
+
 /*
 0 = "numer_sta"
 1 = "date"

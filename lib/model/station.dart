@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs
+
 import 'package:latlong2/latlong.dart';
 import 'package:snow_weather_info/data/sources/database_helper.dart';
 
@@ -14,12 +16,13 @@ sealed class AbstractStation {
 
   @override
   String toString() {
-    return '$name: $altitude m (${position.toString()})';
+    return '$name: $altitude m ($position)';
   }
 }
 
 class Station extends AbstractStation {
-  //"Latitude": "46.341167", "Longitude": "6.708167", "ID": "07454", "Altitude": "1535", "Nom": "Bernex"
+  //"Latitude": "46.341167", "Longitude": "6.708167", "ID": "07454",
+  //"Altitude": "1535", "Nom": "Bernex"
   Station(
     this.id,
     super.name,
