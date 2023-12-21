@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:snow_weather_info/model/mountain.dart';
 
 part 'avalanche_bulletin.freezed.dart';
 
@@ -11,24 +12,4 @@ abstract class AvalancheBulletin with _$AvalancheBulletin {
     required int beraNumber,
     required Mountain mountain,
   }) = _AvalancheBulletin;
-}
-
-enum Mountain {
-  all,
-  alpesNord,
-  alpesSud,
-  corse,
-  pyrenees,
-}
-
-extension MountainExtension on Mountain {
-  String displayName() {
-    return switch (this) {
-      Mountain.alpesNord => 'Alpes du Nord',
-      Mountain.alpesSud => 'Alpes du Sud',
-      Mountain.corse => 'Corse',
-      Mountain.pyrenees => 'Pyrenées',
-      _ => 'Tous'
-    };
-  }
 }

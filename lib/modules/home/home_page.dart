@@ -7,6 +7,7 @@ import 'package:snow_weather_info/modules/bera/view.dart';
 import 'package:snow_weather_info/modules/map/map_widget.dart';
 import 'package:snow_weather_info/modules/settings/preference_page.dart';
 import 'package:snow_weather_info/modules/station/list_station_widget.dart';
+import 'package:snow_weather_info/modules/webcam/view.dart';
 import 'package:url_launcher/url_launcher.dart' as url;
 
 part 'home_page.g.dart';
@@ -46,7 +47,7 @@ class _HomePageState extends ConsumerState<HomePage>
     final index = ref.read(_currentTabIndexProvider);
     _tabController = TabController(
       vsync: this,
-      length: 4,
+      length: 5,
       initialIndex: index,
     );
     _tabController.addListener(() {
@@ -111,6 +112,7 @@ class _HomePageState extends ConsumerState<HomePage>
             Tab(text: 'Carte', icon: Icon(Icons.map)),
             Tab(text: 'Avalanches', icon: Icon(Icons.rss_feed)),
             Tab(text: 'BERA', icon: Icon(Icons.ac_unit)),
+            Tab(text: 'Webcam', icon: Icon(Icons.camera)),
           ],
         ),
       ),
@@ -123,6 +125,7 @@ class _HomePageState extends ConsumerState<HomePage>
           MapWidget(),
           AvalancheListWidget(),
           BERAMassifListView(),
+          WebcamListView(),
         ],
       ),
     );
