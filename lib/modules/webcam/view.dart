@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snow_weather_info/core/widgets/app_sticky_header_view.dart';
 import 'package:snow_weather_info/data/constant_data_list.dart';
 import 'package:snow_weather_info/model/mountain.dart';
 import 'package:snow_weather_info/model/ski_resort.dart';
-import 'package:snow_weather_info/modules/webcam/webcams_resort.dart';
+import 'package:snow_weather_info/router/router.dart';
 
 class WebcamListView extends StatelessWidget {
   const WebcamListView({
@@ -31,6 +32,7 @@ class _ListFavoriteView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // TODO(chonli): Add favorites ski resort
     // final favorites = ref.watch(
     //   favoriteBeraProvider,
     // );
@@ -100,16 +102,10 @@ class _CardMassif extends StatelessWidget {
       elevation: 5,
       child: ListTile(
         title: Text(resort.name),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute<Widget>(
-              builder: (context) => WebcamsForResortView(
-                resort: resort,
-              ),
-            ),
-          );
-        },
+        onTap: () => context.goNamed(
+          AppRoute.detailResort.name,
+          extra: resort,
+        ),
       ),
     );
   }

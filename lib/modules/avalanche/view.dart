@@ -1,9 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:snow_weather_info/core/widgets/app_web_page.dart';
 import 'package:snow_weather_info/data/sources/avalanche_api.dart';
 import 'package:snow_weather_info/extensions/atom_item.dart';
+import 'package:snow_weather_info/router/router.dart';
 import 'package:url_launcher/url_launcher.dart' as url;
 
 class AvalancheListWidget extends ConsumerWidget {
@@ -51,16 +52,10 @@ class AvalancheListWidget extends ConsumerWidget {
                       ),
                       trailing: item.url.isNotEmpty
                           ? const Icon(Icons.navigate_next)
-                          : const SizedBox(),
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute<Widget>(
-                          builder: (context) => AppWebPage(
-                            title: item.shortTitle,
-                            url: item.url,
-                            canIsOpen: true,
-                          ),
-                        ),
+                          : const SizedBox.shrink(),
+                      onTap: () => context.goNamed(
+                        AppRoute.detailAv.name,
+                        extra: item,
                       ),
                     ),
                   );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snow_weather_info/core/widgets/app_sticky_header_view.dart';
 import 'package:snow_weather_info/data/constant_data_list.dart';
@@ -7,6 +8,7 @@ import 'package:snow_weather_info/model/avalanche_bulletin.dart';
 import 'package:snow_weather_info/model/mountain.dart';
 import 'package:snow_weather_info/modules/bera/detail.dart';
 import 'package:snow_weather_info/provider/favorite_bera.dart';
+import 'package:snow_weather_info/router/router.dart';
 
 class BERAMassifListView extends StatelessWidget {
   const BERAMassifListView({
@@ -101,16 +103,10 @@ class _CardMassif extends StatelessWidget {
       elevation: 5,
       child: ListTile(
         title: Text(avalancheBulletin.massifName),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute<Widget>(
-              builder: (context) => BERADetailPage(
-                avalancheBulletin: avalancheBulletin,
-              ),
-            ),
-          );
-        },
+        onTap: () => context.goNamed(
+          AppRoute.detailBera.name,
+          extra: avalancheBulletin,
+        ),
       ),
     );
   }

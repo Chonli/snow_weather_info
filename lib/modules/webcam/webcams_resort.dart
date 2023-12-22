@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:snow_weather_info/model/ski_resort.dart';
 import 'package:snow_weather_info/model/webcam.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 class WebcamsForResortView extends StatelessWidget {
   const WebcamsForResortView({
@@ -112,10 +112,17 @@ class _WebMedia extends StatelessWidget {
       return Image.network(url);
     }
 
-    return WebView(
-      initialUrl: url,
-      javascriptMode: JavascriptMode.unrestricted,
-      navigationDelegate: (_) => NavigationDecision.prevent,
+    return InAppWebView(
+      initialUrlRequest: URLRequest(
+        url: WebUri(
+          url,
+        ),
+      ),
+      initialSettings: InAppWebViewSettings(
+        useShouldOverrideUrlLoading: true,
+      ),
+      shouldOverrideUrlLoading: (controller, navigationAction) async =>
+          NavigationActionPolicy.CANCEL,
     );
   }
 }
