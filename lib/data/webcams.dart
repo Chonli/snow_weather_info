@@ -514,6 +514,43 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      name: 'Col de Porte',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Chamechaude',
+          url: 'https://www.skaping.com/grenoble/col-de-porte',
+        ),
+        WebCam(
+          name: 'La Prairie',
+          url: 'https://www.skaping.com/col-de-porte/ski-alpin',
+        ),
+        WebCam(
+          name: 'Stade de Biathlon',
+          url: 'https://www.skaping.com/col-de-porte/biathlon',
+        ),
+        WebCam(
+          name: 'Le Sappey-en Chartreuse',
+          url: 'https://www.skaping.com/sappey-en-chartreuse',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: '7 Laux',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Secteur Débutant du Plan',
+          url: 'https://www.skaping.com/les7laux/prapoutel/sommetdesbouquetins',
+        ),
+        WebCam(
+          name: 'Sommet de l’Oursiere',
+          url: 'https://www.skaping.com/les7laux/pleynet/oursiere',
+        ),
+      ],
+    ),
+    // TODO(Chonli): La plagne
+    SkiResort(
       name: 'Corrençon/Villard de Lans',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -697,6 +734,97 @@ abstract class ConstSkiResorts {
           name: 'Flaine 1600',
           url:
               'https://app.webcam-hd.com/grand-massif/grand-massif_flaine-1600',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'La Clusaz',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'La Bergerie',
+          url: 'https://app.webcam-hd.com/la-clusaz/la-bergerie',
+        ),
+        WebCam(
+          name: 'Col de Balme',
+          url: 'https://app.webcam-hd.com/la-clusaz/col-de-balme',
+        ),
+        WebCam(
+          name: 'Snow Park',
+          url: 'https://app.webcam-hd.com/la-clusaz/snow-park',
+        ),
+        WebCam(
+          name: "L'Etale",
+          url: 'https://app.webcam-hd.com/la-clusaz/massif-etale',
+        ),
+        WebCam(
+          name: 'Départ du Télécabine',
+          url: 'https://app.webcam-hd.com/la-clusaz/balme',
+        ),
+        WebCam(
+          name: 'Beauregard',
+          url: 'https://app.webcam-hd.com/la-clusaz/beauregard',
+        ),
+        WebCam(
+          name: 'Bossonnet',
+          url: 'https://app.webcam-hd.com/la-clusaz/bossonnet',
+        ),
+        WebCam(
+          name: 'Transval des Juments',
+          url: 'https://app.webcam-hd.com/la-clusaz/etale',
+        ),
+        WebCam(
+          name: 'Place du Village',
+          url: 'https://app.webcam-hd.com/la-clusaz/place-du-village',
+        ),
+        WebCam(
+          name: 'Espace Nordique des Confins',
+          url: 'https://www.skaping.com/la-clusaz/espace-nordique',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'La Grave',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Col des Ruillans',
+          url: 'https://www.skaping.com/lagrave/3200m',
+        ),
+        WebCam(
+          name: "Gare de Peyrou d'Amont",
+          url: 'https://www.skaping.com/lagrave/2400m',
+        ),
+        WebCam(
+          name: 'Hôtel Castillan',
+          url: 'https://www.skaping.com/la-grave/hotel-castillan',
+        ),
+        WebCam(
+          name: "Domaine nordique de Villar d'Arène",
+          url: 'https://www.skaping.com/villar-d-arene/arsine',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'La Norma',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Front de Neige',
+          url: 'https://pv.viewsurf.com/522/La-Norma',
+        ),
+        WebCam(
+          name: 'Secteur Repose',
+          url: 'https://pv.viewsurf.com/664/La-Norma',
+        ),
+        WebCam(
+          name: 'Le Mélezet',
+          url:
+              'https://broadcast.viewsurf.com/fd636352c71a4b86c626e1ffef30a84e/capture/18606/playEmbed',
+        ),
+        WebCam(
+          name: 'Télésiège du Carrelet',
+          url: 'https://www.skaping.com/la-norma/carrelet',
         ),
       ],
     ),
@@ -1058,6 +1186,29 @@ abstract class ConstSkiResorts {
         WebCam(
           name: 'Lac Chambon',
           url: 'https://app.webcam-hd.com/sancy/lac-de-chambon',
+        ),
+      ],
+    ),
+    // Vosges
+    SkiResort(
+      name: 'La Bresse Hohneck',
+      mountain: Mountain.vosges,
+      webcams: [
+        WebCam(
+          name: 'Front de Neige',
+          url: 'https://www.skaping.com/labresse/front-de-neige',
+        ),
+        WebCam(
+          name: 'Hohneck',
+          url: 'https://www.skaping.com/labresse/hohneck',
+        ),
+        WebCam(
+          name: 'Haut de Vologne',
+          url: 'https://www.skaping.com/labresse/haut-de-vologne',
+        ),
+        WebCam(
+          name: "Haut d'Artimont",
+          url: 'https://app.webcam-hd.com/labresse/sommet-tsd4',
         ),
       ],
     ),

@@ -6,6 +6,7 @@ enum Mountain {
   jura,
   massifCentral,
   pyrenees,
+  vosges,
 }
 
 extension MountainExtension on Mountain {
@@ -17,6 +18,7 @@ extension MountainExtension on Mountain {
       Mountain.jura => 'Jura',
       Mountain.massifCentral => 'Massif Central',
       Mountain.pyrenees => 'Pyrenées',
+      Mountain.vosges => 'Vosges',
       _ => 'Tous'
     };
   }

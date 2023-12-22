@@ -37,10 +37,11 @@ class WebcamListView extends ConsumerWidget {
         _ListFavoriteView(),
         _ListByMassifView(mountain: Mountain.alpesNord),
         _ListByMassifView(mountain: Mountain.alpesSud),
-        //_ListByMassifView(mountain: Mountain.corse),
+        _ListByMassifView(mountain: Mountain.corse),
         _ListByMassifView(mountain: Mountain.jura),
         _ListByMassifView(mountain: Mountain.massifCentral),
         _ListByMassifView(mountain: Mountain.pyrenees),
+        _ListByMassifView(mountain: Mountain.vosges),
       ],
     );
   }
