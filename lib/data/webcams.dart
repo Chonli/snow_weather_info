@@ -672,6 +672,34 @@ abstract class ConstSkiResorts {
         ),
       ],
     ),
+    SkiResort(
+      name: 'Flaine',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Desert Blanc',
+          url: 'https://www.skaping.com/flaine/desert-blanc',
+        ),
+        WebCam(
+          name: 'Veret',
+          url: 'https://www.skaping.com/flaine/veret',
+        ),
+        WebCam(
+          name: 'Platieres',
+          url:
+              'https://app.webcam-hd.com/grand-massif/grand-massif_flaine-grandes-platieres',
+        ),
+        WebCam(
+          name: 'Aup de Veran',
+          url: 'https://app.webcam-hd.com/grand-massif/aup-de-veran',
+        ),
+        WebCam(
+          name: 'Flaine 1600',
+          url:
+              'https://app.webcam-hd.com/grand-massif/grand-massif_flaine-1600',
+        ),
+      ],
+    ),
     // Alpes du sud
     SkiResort(
       name: 'Ancelle',
@@ -880,6 +908,109 @@ abstract class ConstSkiResorts {
           name: "Pont d'Espagne",
           url:
               'https://pv.viewsurf.com/354/Cauterets-Pont-d-Espagne?i=NzIwODp1bmRlZmluZWQ',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Gourette',
+      mountain: Mountain.pyrenees,
+      webcams: [
+        WebCam(
+          name: 'Plateau de Bézou',
+          url:
+              'https://visionenvironnement.quanteec.com/embeded/embeded.html?uuid=8b6a2241-9319-4b4f-746c-7561-6665-64-8763-4f05ee30599bd&type=live&analyticsID=visionenvironnement',
+        ),
+        WebCam(
+          name: 'Col de l’Aubisque',
+          url:
+              'https://visionenvironnement.quanteec.com/embeded/embeded.html?uuid=8b6a2241-9319-4b4f-746c-7561-6665-64-8763-4f05ee30599bd&type=live&analyticsID=visionenvironnement',
+        ),
+        WebCam(
+          name: 'Secteur Cotch',
+          url:
+              'https://visionenvironnement.quanteec.com/embeded/embeded.html?uuid=5e634399-feb1-42bf-746c-7561-6665-64-941c-1579904f37ffd&type=live&analyticsID=visionenvironnement',
+        ),
+        WebCam(
+          name: 'Secteur Pène Blanque',
+          url:
+              'https://visionenvironnement.quanteec.com/embeded/embeded.html?uuid=54c71fab-a095-4557-746c-7561-6665-64-af95-d3f480434881d&type=live&analyticsID=visionenvironnement',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'La Mongie/Barèges',
+      mountain: Mountain.pyrenees,
+      webcams: [
+        WebCam(
+          name: 'Col du Tourmalet',
+          url: 'https://www.skaping.com/grandtourmalet/coldutourmalet',
+        ),
+        WebCam(
+          name: '4 Termes',
+          url: 'https://www.skaping.com/grandtourmalet/lamongie4termes',
+        ),
+        WebCam(
+          name: 'Liaison - Barèges La Mongie',
+          url: 'https://www.skaping.com/grandtourmalet/liaison/video',
+        ),
+        WebCam(
+          name: 'Pourteilh',
+          url: 'https://www.skaping.com/grandtourmalet/lamongiepourteilh/video',
+        ),
+        WebCam(
+          name: 'Barèges - Tourmalet',
+          url: 'https://www.skaping.com/grandtourmalet/baregestourmalet',
+        ),
+        WebCam(
+          name: 'La Mongie - Village',
+          url: 'https://www.skaping.com/grandtourmalet/lamongievillage',
+        ),
+        WebCam(
+          name: 'La Laquette',
+          url: 'https://www.skaping.com/grandtourmalet/laquette',
+        ),
+        WebCam(
+          name: 'Sapins',
+          url: 'https://www.skaping.com/grandtourmalet/sapins',
+        ),
+        WebCam(
+          name: 'La Mongie - Tourmalet',
+          url: 'https://www.skaping.com/grandtourmalet/lamongietourmalet',
+        ),
+        WebCam(
+          name: 'Tournaboup',
+          url: 'https://www.skaping.com/grandtourmalet/baregestournaboup/video',
+        ),
+        WebCam(
+          name: 'Lienz',
+          url: 'https://www.skaping.com/grandtourmalet/baregeslienz/video',
+        ),
+      ],
+    ),
+    // Jura
+    SkiResort(
+      name: 'Les Rousses',
+      mountain: Mountain.jura,
+      webcams: [
+        WebCam(
+          name: 'Les Tuffes',
+          url: 'https://app.webcam-hd.com/les-rousses/les-tuffes',
+        ),
+        WebCam(
+          name: 'Les Jouvencelles',
+          url: 'https://app.webcam-hd.com/les-rousses/jouvencelles-ts',
+        ),
+        WebCam(
+          name: 'La Dôle',
+          url: 'https://app.webcam-hd.com/les-rousses/massif-de-dole',
+        ),
+        WebCam(
+          name: 'Le Balancier',
+          url: 'https://app.webcam-hd.com/les-rousses/porte-balancier',
+        ),
+        WebCam(
+          name: 'La Serra',
+          url: 'https://app.webcam-hd.com/les-rousses/la-serra',
         ),
       ],
     ),

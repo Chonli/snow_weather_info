@@ -42,6 +42,7 @@ GoRouter router(RouterRef ref) {
         builder: (context, state) => const SplashSreenPage(),
       ),
       GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
         path: AppRoute.setting.path,
         name: AppRoute.setting.name,
         builder: (context, state) => const PreferencePage(),

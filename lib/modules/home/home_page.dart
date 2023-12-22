@@ -76,7 +76,7 @@ class _TitleBar extends StatelessWidget implements PreferredSizeWidget {
           offset: const Offset(0, 40),
           onSelected: (_MenuItem value) async {
             return switch (value) {
-              _MenuItem.setting => context.goNamed(AppRoute.setting.name),
+              _MenuItem.setting => context.pushNamed(AppRoute.setting.name),
               _MenuItem.about => await _openAboutDialog(context),
             };
           },

@@ -3,8 +3,9 @@ enum Mountain {
   alpesNord,
   alpesSud,
   corse,
-  pyrenees,
+  jura,
   massifCentral,
+  pyrenees,
 }
 
 extension MountainExtension on Mountain {
@@ -13,8 +14,9 @@ extension MountainExtension on Mountain {
       Mountain.alpesNord => 'Alpes du Nord',
       Mountain.alpesSud => 'Alpes du Sud',
       Mountain.corse => 'Corse',
-      Mountain.pyrenees => 'Pyrenées',
+      Mountain.jura => 'Jura',
       Mountain.massifCentral => 'Massif Central',
+      Mountain.pyrenees => 'Pyrenées',
       _ => 'Tous'
     };
   }
