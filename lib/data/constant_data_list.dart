@@ -1,9 +1,7 @@
 import 'package:latlong2/latlong.dart';
 import 'package:snow_weather_info/model/avalanche_bulletin.dart';
 import 'package:snow_weather_info/model/mountain.dart';
-import 'package:snow_weather_info/model/ski_resort.dart';
 import 'package:snow_weather_info/model/station.dart';
-import 'package:snow_weather_info/model/webcam.dart';
 
 abstract class ConstantDatalist {
   ConstantDatalist._();
@@ -372,76 +370,6 @@ abstract class ConstantDatalist {
       massifName: 'Cerdagne-Canigou',
       beraNumber: 74,
       mountain: Mountain.pyrenees,
-    ),
-  ];
-
-  static final webcamsByResort = [
-    SkiResort(
-      name: 'Abondance',
-      mountain: Mountain.alpesNord,
-      webcams: [
-        WebCam(
-          name: 'TC Essert',
-          url: 'https://srv02.trinum.com/ibox/ftpcam/ot-peva_tc-essert.jpg',
-        ),
-      ],
-    ),
-    SkiResort(
-      name: 'Aillons Margeriaz',
-      mountain: Mountain.alpesNord,
-      webcams: [
-        WebCam(
-          name: 'Sommet Des Biolles',
-          url: 'https://app.webcam-hd.com/aillons-margeriaz/les-biolles',
-        ),
-        WebCam(
-          name: "Tapis P'TIOU",
-          url: 'https://www.skaping.com/les-aillons/margeriaz',
-        ),
-        WebCam(
-          name: "Centre d'accueil",
-          url: 'https://www.skaping.com/aillons-margeriaz/1000',
-        ),
-        WebCam(
-          name: 'Les crêtes',
-          url: 'https://www.skaping.com/aillons-margeriaz/roc-de-margeriaz',
-        ),
-      ],
-    ),
-    SkiResort(
-      name: 'Chamrousse',
-      mountain: Mountain.alpesNord,
-      webcams: [
-        WebCam(
-          name: 'La Croix de Chamrousse',
-          url: 'https://www.skaping.com/chamrousse/la-croix',
-        ),
-        WebCam(
-          name: 'Les Crêtes',
-          url: 'https://www.skaping.com/chamrousse/les-cretes',
-        ),
-        WebCam(
-          name: 'Sommet Casserousse',
-          url: 'https://www.skaping.com/chamrousse/panorama-casserousse',
-        ),
-        WebCam(
-          name: 'Roche Béranger',
-          url: 'https://www.skaping.com/chamrousse/roche-beranger',
-        ),
-        WebCam(
-          name: 'Chamrousse 1800',
-          url:
-              'http://static.meteo-chamrousse.com/webcam/webcam-chamrousse.jpg',
-        ),
-        WebCam(
-          name: 'Le Recoin',
-          url: 'https://www.skaping.com/chamrousse/recoin/video',
-        ),
-        WebCam(
-          name: "L'Arselle",
-          url: 'https://www.chamrousse.com/webcams/Plateau_Arselle_000.jpg',
-        ),
-      ],
     ),
   ];
 }

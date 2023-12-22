@@ -4,6 +4,7 @@ enum Mountain {
   alpesSud,
   corse,
   pyrenees,
+  massifCentral,
 }
 
 extension MountainExtension on Mountain {
@@ -13,6 +14,7 @@ extension MountainExtension on Mountain {
       Mountain.alpesSud => 'Alpes du Sud',
       Mountain.corse => 'Corse',
       Mountain.pyrenees => 'Pyrenées',
+      Mountain.massifCentral => 'Massif Central',
       _ => 'Tous'
     };
   }
