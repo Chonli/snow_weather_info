@@ -323,6 +323,120 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      name: 'Bessans',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Le Carreley',
+          url: 'https://m.webcam-hd.com/bessans/carreley',
+        ),
+        WebCam(
+          name: 'Saignière',
+          url: 'https://m.webcam-hd.com/bessans/relais',
+        ),
+        WebCam(
+          name: 'La Bessannaise',
+          url: 'https://m.webcam-hd.com/bessans/bessannaise',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Bessans',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Le Carreley',
+          url: 'https://m.webcam-hd.com/bessans/carreley',
+        ),
+        WebCam(
+          name: 'Saignière',
+          url: 'https://m.webcam-hd.com/bessans/relais',
+        ),
+        WebCam(
+          name: 'La Bessannaise',
+          url: 'https://m.webcam-hd.com/bessans/bessannaise',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Bonneval sur Arc',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Le Vallonnet',
+          url:
+              'https://broadcast.viewsurf.com/7c939fabfe29bbdb9f2762b3b3392e2e/capture/13304/playEmbed',
+        ),
+        WebCam(
+          name: 'Andagne',
+          url:
+              'https://broadcast.viewsurf.com/c15529eba71115c84591e2d981d58762/capture/10720/playEmbed',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Vallée de Chamonix',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Chamonix',
+          url: 'https://www.skaping.com/chamonix-mont-blanc',
+        ),
+        WebCam(
+          name: 'Aiguille du midi',
+          url: 'https://www.skaping.com/chamonix/aiguille-du-midi',
+        ),
+        WebCam(
+          name: 'Flégère 1900m',
+          url: 'https://www.skaping.com/chamonix-flegere-G1',
+        ),
+        WebCam(
+          name: 'Flégère 2396m',
+          url: 'https://www.skaping.com/chamonix/flegere',
+        ),
+        WebCam(
+          name: 'Montenvers',
+          url: 'https://www.compagniedumontblanc.fr/webcam/CMM1VUEHOTELHD.jpg',
+        ),
+        WebCam(
+          name: 'Mer de Glace',
+          url: 'https://www.compagniedumontblanc.fr/webcam/cmm1vuegrotteHD.jpg',
+        ),
+        WebCam(
+          name: 'Grands Montets',
+          url:
+              'https://www.compagniedumontblanc.fr/webcam/AGM-Sommet-retour-pendant.jpg',
+        ),
+        WebCam(
+          name: 'Grands Montets - Espace débutant',
+          url:
+              'https://www.compagniedumontblanc.fr/webcam/AGM1_Espace_Debutant.jpg',
+        ),
+        WebCam(
+          name: 'Grands Montets - Bochard',
+          url:
+              'https://www.compagniedumontblanc.fr/webcam/AGM-VueBochardHD.jpg',
+        ),
+        WebCam(
+          name: 'Tour - Vallorcine - Autanes',
+          url: 'https://www.compagniedumontblanc.fr/webcam/autannes2HD.jpg',
+        ),
+        WebCam(
+          name: 'Tour - Vallorcine - Gare Amont',
+          url: 'https://www.compagniedumontblanc.fr/webcam/g2vallorcine.jpg',
+        ),
+        WebCam(
+          name: 'Tour - Vallorcine - Domaine',
+          url:
+              'https://www.compagniedumontblanc.fr/webcam/blm1vuedomaineHD.jpg',
+        ),
+        WebCam(
+          name: 'Tour - Vallorcine - Vue Vallée',
+          url: 'https://www.compagniedumontblanc.fr/webcam/blm1vuevalleeHD.jpg',
+        ),
+      ],
+    ),
+    SkiResort(
       name: 'Chamrousse',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -354,6 +468,207 @@ abstract class ConstSkiResorts {
         WebCam(
           name: "L'Arselle",
           url: 'https://www.chamrousse.com/webcams/Plateau_Arselle_000.jpg',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Combloux/Megève',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Sommet Combloux',
+          url: 'https://www.skaping.com/combloux/sommet',
+        ),
+        WebCam(
+          name: 'La Giettaz',
+          url: 'https://www.skaping.com/la-giettaz/sommet',
+        ),
+        WebCam(
+          name: 'Le Jaillet',
+          url: 'https://www.skaping.com/jaillet/sommet',
+        ),
+        WebCam(
+          name: 'Lac d’Arbois',
+          url: 'https://m.webcam-hd.com/evasion/lac-arbois',
+        ),
+        WebCam(
+          name: 'Fontaine',
+          url: 'https://m.webcam-hd.com/evasion/fontaine',
+        ),
+        WebCam(
+          name: 'Mont d’Arbois',
+          url: 'https://m.webcam-hd.com:443/evasion/mont-arbois',
+        ),
+        WebCam(
+          name: 'Rochebrune',
+          url: 'https://m.webcam-hd.com:443/evasion/rochebrune',
+        ),
+        WebCam(
+          name: 'La Livraz',
+          url: 'https://app.webcam-hd.com/megeve/la-livraz',
+        ),
+        WebCam(
+          name: 'Altiport',
+          url: 'https://app.webcam-hd.com/megeve/altiport',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Corrençon/Villard de Lans',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Altitude 2000',
+          url: 'https://live.neos360.com/villard_de_lans/webcam/Altitude-2000',
+        ),
+        WebCam(
+          name: 'Refuge des Crêtes',
+          url: 'https://live.neos360.com/villard_de_lans/webcam/Refuge.jpg',
+        ),
+        WebCam(
+          name: 'Colline des Bains',
+          url: 'https://app.webcam-hd.com/villard-de-lans/colline-des-bains',
+        ),
+        WebCam(
+          name: 'Lac Pré des Preys',
+          url:
+              'https://live.neos360.com/villard_de_lans/webcam/Pre_des_preys.jpg',
+        ),
+        WebCam(
+          name: 'Bois Barbu',
+          url: 'https://app.webcam-hd.com/villard-de-lans/Bois_barbu',
+        ),
+        WebCam(
+          name: 'Village Villard',
+          url: 'https://app.webcam-hd.com/villard-de-lans/village',
+        ),
+        WebCam(
+          name: 'Les hauts plateaux',
+          url: 'https://app.webcam-hd.com/correncon-en-vercors/plateau',
+        ),
+        WebCam(
+          name: 'Pas de tir',
+          url: 'https://app.webcam-hd.com/correncon-en-vercors/stand-de-tir',
+        ),
+        WebCam(
+          name: 'Hameau des Rambins',
+          url: 'https://app.webcam-hd.com/correncon-en-vercors/rambins',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: '3 Vallées',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Courchevel - La Saulire',
+          url: 'https://www.skaping.com/courchevel/saulire',
+        ),
+        WebCam(
+          name: 'Courchevel - Le Signal',
+          url: 'https://courchevel.roundshot.com/signal/',
+        ),
+        WebCam(
+          name: 'Courchevel - Les Chenus',
+          url: 'https://www.skaping.com/courchevel/chenus',
+        ),
+        WebCam(
+          name: 'Courchevel - Bouc Blanc',
+          url: 'https://www.skaping.com/courchevel/bouc-blanc',
+        ),
+        WebCam(
+          name: 'Courchevel - La Croisette',
+          url: 'https://www.skaping.com/courchevel/la-croisette',
+        ),
+        WebCam(
+          name: 'Col de la Loze',
+          url:
+              'https://app.webcam-hd.com/courchevel-meribel/courchevel-meribel_col-de-la-loze',
+        ),
+        WebCam(
+          name: 'Méribel - Tougnète',
+          url: 'https://app.webcam-hd.com/meribel/meribel_tougnete',
+        ),
+        WebCam(
+          name: 'Méribel - Mont Vallon',
+          url: 'https://www.skaping.com/meribel/mont-vallon',
+        ),
+        WebCam(
+          name: 'Méribel - Bouquetin',
+          url: 'https://app.webcam-hd.com/meribel/bouquetin',
+        ),
+        WebCam(
+          name: 'Méribel - Versant Saulire',
+          url: 'https://app.webcam-hd.com/meribel/meribel_versant-saulire',
+        ),
+        WebCam(
+          name: 'Méribel - Mottaret Centre',
+          url:
+              'https://app.webcam-hd.com/meribel/meribel-mottaret_front-de-neige',
+        ),
+        WebCam(
+          name: 'Méribel - Chaudanne',
+          url: 'https://app.webcam-hd.com/meribel/meribel_chaudanne',
+        ),
+        WebCam(
+          name: 'Les Menuires -  La Masse',
+          url: 'https://www.skaping.com/les-menuires/la-masse',
+        ),
+        WebCam(
+          name: 'Les Menuires - Le Roc des 3 Marches',
+          url: 'https://lesmenuires.roundshot.com/',
+        ),
+        WebCam(
+          name: 'Les Menuires - Les Enverses',
+          url: 'https://www.skaping.com/les-menuires/les-enverses',
+        ),
+        WebCam(
+          name: 'Les Menuires - Lac du Lou',
+          url: 'https://www.skaping.com/les-menuires/lac-du-lou',
+        ),
+        WebCam(
+          name: 'Les Menuires -  La Croisette',
+          url: 'https://www.skaping.com/lesmenuires/croisette',
+        ),
+        WebCam(
+          name: 'Les Menuires - Le Clocher',
+          url: 'https://www.skaping.com/les-menuires/clocher',
+        ),
+        WebCam(
+          name: 'Saint-Martin-de-Belleville',
+          url: 'https://www.skaping.com/saintmartindebelleville/village',
+        ),
+        WebCam(
+          name: 'Val Thorens -  Funitel de Thorens',
+          url: 'https://www.skaping.com/valthorens/funitelthorens',
+        ),
+        WebCam(
+          name: 'Val Thorens - Funitel 3 Vallées',
+          url: 'https://www.skaping.com/valthorens/3vallees',
+        ),
+        WebCam(
+          name: 'Val Thorens - Boismint',
+          url: 'https://www.skaping.com/valthorens/boismint',
+        ),
+        WebCam(
+          name: 'Val Thorens - Lac Blanc',
+          url: 'https://www.skaping.com/valthorens/stade',
+        ),
+        WebCam(
+          name: 'Val Thorens - Station',
+          url: 'https://www.skaping.com/valthorens/station',
+        ),
+        WebCam(
+          name: 'Val Thorens - La Maison',
+          url: 'https://www.skaping.com/valthorens/lamaison',
+        ),
+        WebCam(
+          name: 'La Cime Caron',
+          url: 'https://app.webcam-hd.com/val-thorens/cime-caron',
+        ),
+        WebCam(
+          name: 'Orelle - Plan Bouchet',
+          url: 'https://app.webcam-hd.com/orelle/sommet-orelle',
         ),
       ],
     ),
@@ -401,6 +716,34 @@ abstract class ConstSkiResorts {
         WebCam(
           name: 'Village',
           url: 'https://www.trinum.com/ibox/ftpcam/mega_auron_village.jpg',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Chaillol',
+      mountain: Mountain.alpesSud,
+      webcams: [
+        WebCam(
+          name: 'Clot Chenu',
+          url: 'https://app.webcam-hd.com/chaillol/sommet-clot-chenu',
+        ),
+        WebCam(
+          name: 'Piste Clot Chenu',
+          url: 'https://app.webcam-hd.com/chaillol/piste-clot-chenu',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Chabanon',
+      mountain: Mountain.alpesSud,
+      webcams: [
+        WebCam(
+          name: 'Chabanon',
+          url: 'https://app.webcam-hd.com/chabanon/chabanon',
+        ),
+        WebCam(
+          name: 'Sommet des Monges',
+          url: 'https://app.webcam-hd.com/chabanon/sommet-des-monges',
         ),
       ],
     ),
@@ -517,6 +860,73 @@ abstract class ConstSkiResorts {
         WebCam(
           name: 'Teso',
           url: 'https://baqueira.roundshot.com/teso/',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Cauterets',
+      mountain: Mountain.pyrenees,
+      webcams: [
+        WebCam(
+          name: 'Terrasse du Lys 1800m',
+          url: 'https://www.skaping.com/cauterets/cirque-du-lys/panorama',
+        ),
+        WebCam(
+          name: 'Crêtes  2400m',
+          url:
+              'https://pv.viewsurf.com/1434/Cauterets-Le-Lys?i=NTc5ODp1bmRlZmluZWQ',
+        ),
+        WebCam(
+          name: "Pont d'Espagne",
+          url:
+              'https://pv.viewsurf.com/354/Cauterets-Pont-d-Espagne?i=NzIwODp1bmRlZmluZWQ',
+        ),
+      ],
+    ),
+    // Massif Central
+    SkiResort(
+      name: 'Besse/Mont-Dore',
+      mountain: Mountain.massifCentral,
+      webcams: [
+        WebCam(
+          name: 'Besse - Haut',
+          url: 'https://app.webcam-hd.com/sancy/superbesse-haut',
+        ),
+        WebCam(
+          name: 'Besse - Bas',
+          url: 'https://app.webcam-hd.com/sancy/superbesse-ecole',
+        ),
+        WebCam(
+          name: 'Besse - Front Neige',
+          url: 'https://youtu.be/XWmQtBOaSXQ',
+        ),
+        WebCam(
+          name: 'Mont-Dore - Sommet',
+          url: 'https://app.webcam-hd.com/sancy/mont-dore-sommet-station',
+        ),
+        WebCam(
+          name: 'Mont-Dore - Bas',
+          url: 'https://app.webcam-hd.com/sancy/mont-dore-bas-station',
+        ),
+        WebCam(
+          name: 'Chastreix',
+          url: 'https://app.webcam-hd.com/sancy/mont-dore-bas-station',
+        ),
+        WebCam(
+          name: 'Besse - Pertuyzat',
+          url: 'https://app.webcam-hd.com/sancy/domaine-nordique-pertuyzat',
+        ),
+        WebCam(
+          name: "La Tour d'Auvergne - La Stèle",
+          url: 'https://app.webcam-hd.com/sancy/domaine-nordique-la-stele',
+        ),
+        WebCam(
+          name: 'Château de Murol',
+          url: 'https://app.webcam-hd.com/murol/chateau-de-murol',
+        ),
+        WebCam(
+          name: 'Lac Chambon',
+          url: 'https://app.webcam-hd.com/sancy/lac-de-chambon',
         ),
       ],
     ),
