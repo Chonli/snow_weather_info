@@ -30,18 +30,39 @@ class WebcamListView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const CustomScrollView(
+    return CustomScrollView(
       slivers: [
         // recherche
-        _SearchBarView(),
-        _ListFavoriteView(),
-        _ListByMassifView(mountain: Mountain.alpesNord),
-        _ListByMassifView(mountain: Mountain.alpesSud),
-        _ListByMassifView(mountain: Mountain.corse),
-        _ListByMassifView(mountain: Mountain.jura),
-        _ListByMassifView(mountain: Mountain.massifCentral),
-        _ListByMassifView(mountain: Mountain.pyrenees),
-        _ListByMassifView(mountain: Mountain.vosges),
+        const _SearchBarView(),
+        const _ListFavoriteView(),
+        _ListByMassifView(
+          mountain: Mountain.alpesNord,
+          skiResorts: ConstSkiResorts.webcamsNord,
+        ),
+        _ListByMassifView(
+          mountain: Mountain.alpesSud,
+          skiResorts: ConstSkiResorts.webcamsSud,
+        ),
+        _ListByMassifView(
+          mountain: Mountain.corse,
+          skiResorts: ConstSkiResorts.webcamsCorse,
+        ),
+        _ListByMassifView(
+          mountain: Mountain.jura,
+          skiResorts: ConstSkiResorts.webcamsJura,
+        ),
+        _ListByMassifView(
+          mountain: Mountain.massifCentral,
+          skiResorts: ConstSkiResorts.webcamsCentral,
+        ),
+        _ListByMassifView(
+          mountain: Mountain.pyrenees,
+          skiResorts: ConstSkiResorts.webcamsPyrenees,
+        ),
+        _ListByMassifView(
+          mountain: Mountain.vosges,
+          skiResorts: ConstSkiResorts.webcamsVosges,
+        ),
       ],
     );
   }
@@ -80,17 +101,16 @@ class _ListFavoriteView extends ConsumerWidget {
 class _ListByMassifView extends ConsumerWidget {
   const _ListByMassifView({
     required this.mountain,
+    required this.skiResorts,
   });
 
   final Mountain mountain;
+  final List<SkiResort> skiResorts;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final search = ref.watch(_searchProvider);
-    final list = ConstSkiResorts.webcamsByResort
-        .where(
-          (b) => b.mountain == mountain,
-        )
+    final list = skiResorts
         .where(
           (station) =>
               search.isEmpty ||

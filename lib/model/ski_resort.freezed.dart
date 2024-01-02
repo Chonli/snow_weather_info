@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$SkiResort {
   String get name => throw _privateConstructorUsedError;
   Mountain get mountain => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
   List<WebCam> get webcams => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,7 +31,11 @@ abstract class $SkiResortCopyWith<$Res> {
   factory $SkiResortCopyWith(SkiResort value, $Res Function(SkiResort) then) =
       _$SkiResortCopyWithImpl<$Res, SkiResort>;
   @useResult
-  $Res call({String name, Mountain mountain, List<WebCam> webcams});
+  $Res call(
+      {String name,
+      Mountain mountain,
+      String? description,
+      List<WebCam> webcams});
 }
 
 /// @nodoc
@@ -48,6 +53,7 @@ class _$SkiResortCopyWithImpl<$Res, $Val extends SkiResort>
   $Res call({
     Object? name = null,
     Object? mountain = null,
+    Object? description = freezed,
     Object? webcams = null,
   }) {
     return _then(_value.copyWith(
@@ -59,6 +65,10 @@ class _$SkiResortCopyWithImpl<$Res, $Val extends SkiResort>
           ? _value.mountain
           : mountain // ignore: cast_nullable_to_non_nullable
               as Mountain,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
       webcams: null == webcams
           ? _value.webcams
           : webcams // ignore: cast_nullable_to_non_nullable
@@ -75,7 +85,11 @@ abstract class _$$SkiResortImplCopyWith<$Res>
       __$$SkiResortImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, Mountain mountain, List<WebCam> webcams});
+  $Res call(
+      {String name,
+      Mountain mountain,
+      String? description,
+      List<WebCam> webcams});
 }
 
 /// @nodoc
@@ -91,6 +105,7 @@ class __$$SkiResortImplCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
     Object? mountain = null,
+    Object? description = freezed,
     Object? webcams = null,
   }) {
     return _then(_$SkiResortImpl(
@@ -102,6 +117,10 @@ class __$$SkiResortImplCopyWithImpl<$Res>
           ? _value.mountain
           : mountain // ignore: cast_nullable_to_non_nullable
               as Mountain,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
       webcams: null == webcams
           ? _value._webcams
           : webcams // ignore: cast_nullable_to_non_nullable
@@ -116,6 +135,7 @@ class _$SkiResortImpl implements _SkiResort {
   _$SkiResortImpl(
       {required this.name,
       required this.mountain,
+      this.description,
       final List<WebCam> webcams = const []})
       : _webcams = webcams;
 
@@ -123,6 +143,8 @@ class _$SkiResortImpl implements _SkiResort {
   final String name;
   @override
   final Mountain mountain;
+  @override
+  final String? description;
   final List<WebCam> _webcams;
   @override
   @JsonKey()
@@ -134,7 +156,7 @@ class _$SkiResortImpl implements _SkiResort {
 
   @override
   String toString() {
-    return 'SkiResort(name: $name, mountain: $mountain, webcams: $webcams)';
+    return 'SkiResort(name: $name, mountain: $mountain, description: $description, webcams: $webcams)';
   }
 
   @override
@@ -145,11 +167,13 @@ class _$SkiResortImpl implements _SkiResort {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.mountain, mountain) ||
                 other.mountain == mountain) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
             const DeepCollectionEquality().equals(other._webcams, _webcams));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, name, mountain,
+  int get hashCode => Object.hash(runtimeType, name, mountain, description,
       const DeepCollectionEquality().hash(_webcams));
 
   @JsonKey(ignore: true)
@@ -163,12 +187,15 @@ abstract class _SkiResort implements SkiResort {
   factory _SkiResort(
       {required final String name,
       required final Mountain mountain,
+      final String? description,
       final List<WebCam> webcams}) = _$SkiResortImpl;
 
   @override
   String get name;
   @override
   Mountain get mountain;
+  @override
+  String? get description;
   @override
   List<WebCam> get webcams;
   @override

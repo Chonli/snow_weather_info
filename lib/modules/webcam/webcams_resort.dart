@@ -109,7 +109,11 @@ class _WebMedia extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (url.endsWith('.jpg')) {
-      return Image.network(url);
+      return InteractiveViewer(
+        minScale: 0.5,
+        maxScale: 5,
+        child: Image.network(url),
+      );
     }
 
     return InAppWebView(

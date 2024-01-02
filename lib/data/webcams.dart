@@ -4,6 +4,16 @@ import 'package:snow_weather_info/model/webcam.dart';
 
 abstract class ConstSkiResorts {
   static final webcamsByResort = [
+    ...webcamsNord,
+    ...webcamsSud,
+    ...webcamsPyrenees,
+    ...webcamsCorse,
+    ...webcamsCentral,
+    ...webcamsJura,
+    ...webcamsVosges,
+  ];
+
+  static final webcamsNord = [
     // Alpes du nord
     SkiResort(
       name: 'Abondance',
@@ -828,6 +838,86 @@ abstract class ConstSkiResorts {
         ),
       ],
     ),
+    SkiResort(
+      name: 'La Plagne',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Roche de Mio',
+          url:
+              'https://app.webcam-hd.com/webcam-station-la-plagne/roche-de-mio',
+        ),
+        WebCam(
+          name: 'Live 3000',
+          url: 'https://app.webcam-hd.com/webcam-station-la-plagne/live-3000',
+        ),
+        WebCam(
+          name: 'Montchavin',
+          url: 'https://app.webcam-hd.com/webcam-station-la-plagne/montchavin',
+        ),
+        WebCam(
+          name: 'Bellecote',
+          url: 'https://app.webcam-hd.com/webcam-station-la-plagne/Bellecote',
+        ),
+        WebCam(
+          name: 'Bergerie',
+          url: 'https://app.webcam-hd.com/webcam-station-la-plagne/bergerie',
+        ),
+        WebCam(
+          name: 'Colorado',
+          url: 'https://app.webcam-hd.com/webcam-station-la-plagne/colorado',
+        ),
+        WebCam(
+          name: 'Grande Rochette',
+          url:
+              'https://app.webcam-hd.com/webcam-station-la-plagne/grande-rochette',
+        ),
+        WebCam(
+          name: 'Becoin',
+          url: 'https://app.webcam-hd.com/webcam-station-la-plagne/becoin',
+        ),
+        WebCam(
+          name: 'Aime 2000',
+          url: 'https://app.webcam-hd.com/webcam-station-la-plagne/Aime-2000',
+        ),
+        WebCam(
+          name: 'Fornelet',
+          url:
+              'https://app.webcam-hd.com/webcam-station-la-plagne/webcam-montalbert-fornelet',
+        ),
+        WebCam(
+          name: 'Montalbert',
+          url: 'https://laplagne.roundshot.com/montalbert/#/',
+        ),
+        WebCam(
+          name: 'Montalbert: Front de Neige',
+          url: 'https://app.webcam-hd.com/webcam-station-la-plagne/montalbert',
+        ),
+        WebCam(
+          name: 'Montchavin Télébuffette',
+          url:
+              'https://app.webcam-hd.com/webcam-station-la-plagne/montchavin-telebuffette',
+        ),
+        WebCam(
+          name: 'Sommet Bijolin',
+          url:
+              'https://app.webcam-hd.com/webcam-station-la-plagne/montchavin-bijolin',
+        ),
+        WebCam(
+          name: 'La Rossa',
+          url:
+              'https://app.webcam-hd.com/webcam-station-la-plagne/champagny-la-rossa',
+        ),
+        WebCam(
+          name: 'Champagny Village',
+          url:
+              'https://app.webcam-hd.com/webcam-station-champagny/webcam-champagny-village',
+        ),
+      ],
+    ),
+  ];
+
+  static final webcamsSud = [
     // Alpes du sud
     SkiResort(
       name: 'Ancelle',
@@ -948,6 +1038,9 @@ abstract class ConstSkiResorts {
         ),
       ],
     ),
+  ];
+
+  static final webcamsPyrenees = [
     // Pyrenees
     SkiResort(
       name: 'Astún',
@@ -1066,6 +1159,69 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      name: 'Font Romeu',
+      mountain: Mountain.pyrenees,
+      webcams: [
+        WebCam(
+          name: 'La Calme',
+          url: 'https://app.webcam-hd.com/font-romeu/calme-sud',
+        ),
+        WebCam(
+          name: 'Les Airelles',
+          url: 'https://m.webcam-hd.com/font-romeu/pied-de-piste',
+        ),
+        WebCam(
+          name: 'Gallinera',
+          url:
+              'https://visionenvironnement.quanteec.com/embeded/embeded.html?uuid=ce354013-59bd-46b8-746c-7561-6665-64-9886-b78bf7a37e88d&type=live&analyticsID=visionenvironnement?rel=0&showinfo=0&autoplay=1&playsinline=1&enablejsapi=1&mute=1&modestbranding=1',
+        ),
+        WebCam(
+          name: 'Front de Neige',
+          url:
+              'https://app.webcam-hd.com/font-romeu/pyrenees-2000-front-de-neige',
+        ),
+        WebCam(
+          name: 'Roc de la Calme',
+          url: 'https://m.webcam-hd.com/font-romeu/roc-de-la-calme',
+        ),
+        WebCam(
+          name: 'Snowpark',
+          url:
+              'https://platforms5.joada.net/embeded/embeded.html?uuid=aa728682-90fd-4b88-3331-3230-6d61-63-b6ad-2b5c949d5235d&type=vod&liveicon=0&vsheader=1&tz=Europe/Paris&tsp=1704199504&titletext=',
+        ),
+        WebCam(
+          name: "Zoom Cambre d'Aze",
+          url:
+              'https://www.webcam-hd.com/images/font-romeu_roc-de-la-calme/zooms/font-romeu_roc-de-la-calme8.jpg',
+        ),
+        WebCam(
+          name: 'Zoom Pic Canigou',
+          url:
+              'https://www.webcam-hd.com/images/font-romeu_roc-de-la-calme/zooms/font-romeu_roc-de-la-calme6.jpg',
+        ),
+        WebCam(
+          name: 'Zoom Col Midja',
+          url:
+              'https://www.webcam-hd.com/images/font-romeu_roc-de-la-calme/zooms/font-romeu_roc-de-la-calme5.jpg',
+        ),
+        WebCam(
+          name: 'Zoom Puigmal',
+          url:
+              'https://www.webcam-hd.com/images/font-romeu_roc-de-la-calme/zooms/font-romeu_roc-de-la-calme9.jpg',
+        ),
+        WebCam(
+          name: 'Zoom Pics Péric',
+          url:
+              'https://www.webcam-hd.com/images/font-romeu_roc-de-la-calme/zooms/font-romeu_roc-de-la-calme4.jpg',
+        ),
+        WebCam(
+          name: 'Zoom Pic Carlit',
+          url:
+              'https://www.webcam-hd.com/images/font-romeu_roc-de-la-calme/zooms/font-romeu_roc-de-la-calme2.jpg',
+        ),
+      ],
+    ),
+    SkiResort(
       name: 'La Mongie/Barèges',
       mountain: Mountain.pyrenees,
       webcams: [
@@ -1115,6 +1271,42 @@ abstract class ConstSkiResorts {
         ),
       ],
     ),
+    SkiResort(
+      name: 'La Pierre Saint-Martin',
+      mountain: Mountain.pyrenees,
+      webcams: [
+        WebCam(
+          name: 'Front de neige',
+          url:
+              'https://pv.viewsurf.com/1850/La-Pierre-Saint-Martin-Front-de-Neige',
+        ),
+        WebCam(
+          name: 'Secteur haut, Arlas',
+          url:
+              'https://pv.viewsurf.com/1854/La-Pierre-Saint-Martin-4-Secteur-Horizon',
+        ),
+        WebCam(
+          name: "Restaurant d'Altitude",
+          url:
+              'https://pv.viewsurf.com/1784/La-Pierre-Saint-Martin-4-Secteur-Horizon',
+        ),
+        WebCam(
+          name: 'Espace Nordique',
+          url:
+              'https://pv.viewsurf.com/1852/La-Pierre-Saint-Martin-4-Secteur-Horizon',
+        ),
+        WebCam(
+          name: 'Secteur haut, Panoramique',
+          url:
+              'https://visionenvironnement.quanteec.com/embeded/embeded.html?uuid=1b381ced-db6f-438f-746c-7561-6665-64-b88e-e28d153a5434d&type=live&analyticsID=visionenvironnement',
+        ),
+      ],
+    ),
+  ];
+
+  static final webcamsCorse = <SkiResort>[];
+
+  static final webcamsJura = [
     // Jura
     SkiResort(
       name: 'Les Rousses',
@@ -1142,6 +1334,9 @@ abstract class ConstSkiResorts {
         ),
       ],
     ),
+  ];
+
+  static final webcamsCentral = [
     // Massif Central
     SkiResort(
       name: 'Besse/Mont-Dore',
@@ -1189,6 +1384,9 @@ abstract class ConstSkiResorts {
         ),
       ],
     ),
+  ];
+
+  static final webcamsVosges = [
     // Vosges
     SkiResort(
       name: 'La Bresse Hohneck',

@@ -9,6 +9,7 @@ abstract class SkiResort with _$SkiResort {
   factory SkiResort({
     required String name,
     required Mountain mountain,
+    String? description,
     @Default([]) List<WebCam> webcams,
   }) = _SkiResort;
 }
