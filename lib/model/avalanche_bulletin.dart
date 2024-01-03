@@ -8,7 +8,7 @@ part 'avalanche_bulletin.freezed.dart';
 abstract class AvalancheBulletin with _$AvalancheBulletin {
   const factory AvalancheBulletin({
     required String massifName,
-    required String url,
+    required int beraNumber,
     required Mountain mountain,
   }) = _AvalancheBulletin;
 }

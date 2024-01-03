@@ -5,6 +5,7 @@ import 'package:snow_weather_info/core/widgets/app_sticky_header_view.dart';
 import 'package:snow_weather_info/core/widgets/app_web_page.dart';
 import 'package:snow_weather_info/data/constant_data_list.dart';
 import 'package:snow_weather_info/model/avalanche_bulletin.dart';
+import 'package:snow_weather_info/modules/bera/detail.dart';
 import 'package:snow_weather_info/provider/favorite_bera.dart';
 
 class BERAMassifListView extends StatelessWidget {
@@ -104,39 +105,13 @@ class _CardMassif extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute<Widget>(
-              builder: (context) => _BERAView(
+              builder: (context) => BERADetailPage(
                 avalancheBulletin: avalancheBulletin,
               ),
             ),
           );
         },
       ),
-    );
-  }
-}
-
-class _BERAView extends ConsumerWidget {
-  const _BERAView({
-    required this.avalancheBulletin,
-  });
-
-  final AvalancheBulletin avalancheBulletin;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final isFavorite =
-        ref.watch(favoriteBeraProvider).contains(avalancheBulletin);
-
-    return AppWebPage(
-      title: avalancheBulletin.massifName,
-      url: avalancheBulletin.url,
-      canShare: true,
-      isFavorite: isFavorite,
-      onFavorite: () {
-        ref.read(favoriteBeraProvider.notifier).addOrRemoveFavoriteBERA(
-              avalancheBulletin,
-            );
-      },
     );
   }
 }

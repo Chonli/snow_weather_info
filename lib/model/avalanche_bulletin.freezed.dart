@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$AvalancheBulletin {
   String get massifName => throw _privateConstructorUsedError;
-  String get url => throw _privateConstructorUsedError;
+  int get beraNumber => throw _privateConstructorUsedError;
   Mountain get mountain => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -31,7 +31,7 @@ abstract class $AvalancheBulletinCopyWith<$Res> {
           AvalancheBulletin value, $Res Function(AvalancheBulletin) then) =
       _$AvalancheBulletinCopyWithImpl<$Res, AvalancheBulletin>;
   @useResult
-  $Res call({String massifName, String url, Mountain mountain});
+  $Res call({String massifName, int beraNumber, Mountain mountain});
 }
 
 /// @nodoc
@@ -48,7 +48,7 @@ class _$AvalancheBulletinCopyWithImpl<$Res, $Val extends AvalancheBulletin>
   @override
   $Res call({
     Object? massifName = null,
-    Object? url = null,
+    Object? beraNumber = null,
     Object? mountain = null,
   }) {
     return _then(_value.copyWith(
@@ -56,10 +56,10 @@ class _$AvalancheBulletinCopyWithImpl<$Res, $Val extends AvalancheBulletin>
           ? _value.massifName
           : massifName // ignore: cast_nullable_to_non_nullable
               as String,
-      url: null == url
-          ? _value.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as String,
+      beraNumber: null == beraNumber
+          ? _value.beraNumber
+          : beraNumber // ignore: cast_nullable_to_non_nullable
+              as int,
       mountain: null == mountain
           ? _value.mountain
           : mountain // ignore: cast_nullable_to_non_nullable
@@ -76,7 +76,7 @@ abstract class _$$AvalancheBulletinImplCopyWith<$Res>
       __$$AvalancheBulletinImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String massifName, String url, Mountain mountain});
+  $Res call({String massifName, int beraNumber, Mountain mountain});
 }
 
 /// @nodoc
@@ -91,7 +91,7 @@ class __$$AvalancheBulletinImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? massifName = null,
-    Object? url = null,
+    Object? beraNumber = null,
     Object? mountain = null,
   }) {
     return _then(_$AvalancheBulletinImpl(
@@ -99,10 +99,10 @@ class __$$AvalancheBulletinImplCopyWithImpl<$Res>
           ? _value.massifName
           : massifName // ignore: cast_nullable_to_non_nullable
               as String,
-      url: null == url
-          ? _value.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as String,
+      beraNumber: null == beraNumber
+          ? _value.beraNumber
+          : beraNumber // ignore: cast_nullable_to_non_nullable
+              as int,
       mountain: null == mountain
           ? _value.mountain
           : mountain // ignore: cast_nullable_to_non_nullable
@@ -115,18 +115,20 @@ class __$$AvalancheBulletinImplCopyWithImpl<$Res>
 
 class _$AvalancheBulletinImpl implements _AvalancheBulletin {
   const _$AvalancheBulletinImpl(
-      {required this.massifName, required this.url, required this.mountain});
+      {required this.massifName,
+      required this.beraNumber,
+      required this.mountain});
 
   @override
   final String massifName;
   @override
-  final String url;
+  final int beraNumber;
   @override
   final Mountain mountain;
 
   @override
   String toString() {
-    return 'AvalancheBulletin(massifName: $massifName, url: $url, mountain: $mountain)';
+    return 'AvalancheBulletin(massifName: $massifName, beraNumber: $beraNumber, mountain: $mountain)';
   }
 
   @override
@@ -136,13 +138,15 @@ class _$AvalancheBulletinImpl implements _AvalancheBulletin {
             other is _$AvalancheBulletinImpl &&
             (identical(other.massifName, massifName) ||
                 other.massifName == massifName) &&
-            (identical(other.url, url) || other.url == url) &&
+            (identical(other.beraNumber, beraNumber) ||
+                other.beraNumber == beraNumber) &&
             (identical(other.mountain, mountain) ||
                 other.mountain == mountain));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, massifName, url, mountain);
+  int get hashCode =>
+      Object.hash(runtimeType, massifName, beraNumber, mountain);
 
   @JsonKey(ignore: true)
   @override
@@ -155,13 +159,13 @@ class _$AvalancheBulletinImpl implements _AvalancheBulletin {
 abstract class _AvalancheBulletin implements AvalancheBulletin {
   const factory _AvalancheBulletin(
       {required final String massifName,
-      required final String url,
+      required final int beraNumber,
       required final Mountain mountain}) = _$AvalancheBulletinImpl;
 
   @override
   String get massifName;
   @override
-  String get url;
+  int get beraNumber;
   @override
   Mountain get mountain;
   @override
