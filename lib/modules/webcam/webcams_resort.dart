@@ -91,9 +91,7 @@ class _WebcamDialog extends StatelessWidget {
           name,
         ),
       ),
-      body: Center(
-        child: _WebMedia(url: url),
-      ),
+      body: _WebMedia(url: url),
     );
   }
 }
@@ -112,7 +110,10 @@ class _WebMedia extends StatelessWidget {
       return InteractiveViewer(
         minScale: 0.5,
         maxScale: 5,
-        child: Image.network(url),
+        clipBehavior: Clip.none,
+        child: Center(
+          child: Image.network(url),
+        ),
       );
     }
 
