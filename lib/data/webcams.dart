@@ -793,28 +793,7 @@ abstract class ConstSkiResorts {
         ),
       ],
     ),
-    SkiResort(
-      name: 'La Grave',
-      mountain: Mountain.alpesNord,
-      webcams: [
-        WebCam(
-          name: 'Col des Ruillans',
-          url: 'https://www.skaping.com/lagrave/3200m',
-        ),
-        WebCam(
-          name: "Gare de Peyrou d'Amont",
-          url: 'https://www.skaping.com/lagrave/2400m',
-        ),
-        WebCam(
-          name: 'Hôtel Castillan',
-          url: 'https://www.skaping.com/la-grave/hotel-castillan',
-        ),
-        WebCam(
-          name: "Domaine nordique de Villar d'Arène",
-          url: 'https://www.skaping.com/villar-d-arene/arsine',
-        ),
-      ],
-    ),
+
     SkiResort(
       name: 'La Norma',
       mountain: Mountain.alpesNord,
@@ -909,9 +888,189 @@ abstract class ConstSkiResorts {
               'https://app.webcam-hd.com/webcam-station-la-plagne/champagny-la-rossa',
         ),
         WebCam(
+          name: 'Champagny Site Nordique',
+          url:
+              'https://app.webcam-hd.com/webcam-station-champagny/champagny-le-haut',
+        ),
+        WebCam(
           name: 'Champagny Village',
           url:
               'https://app.webcam-hd.com/webcam-station-champagny/webcam-champagny-village',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'La Rosière',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: "Plan de l'Arc",
+          url: 'https://app.webcam-hd.com/la-rosiere/plan-de-l-arc',
+        ),
+        WebCam(
+          name: 'Golf',
+          url: 'https://app.webcam-hd.com/la-rosiere/golf',
+        ),
+        WebCam(
+          name: 'Mont Valaisan',
+          url: 'https://app.webcam-hd.com/la-rosiere/mont-valaisan',
+        ),
+        WebCam(
+          name: 'Le Fort',
+          url: 'https://app.webcam-hd.com/la-rosiere/traversette',
+        ),
+        WebCam(
+          name: 'Chalet le Montana',
+          url:
+              'https://app.webcam-hd.com/rosiere-montana/chalets-les-clarines-le-montana',
+        ),
+        WebCam(
+          name: 'Front de Neige',
+          url: 'https://app.webcam-hd.com/la-rosiere/maison-du-ski',
+        ),
+        WebCam(
+          name: 'Plan du Repos',
+          url: 'https://app.webcam-hd.com/la-rosiere/plan-du-repos',
+        ),
+        WebCam(
+          name: 'Les Suches',
+          url: 'https://www.lovevda.it/Media/Cache/Webcam/big_lathuile.jpg',
+        ),
+        WebCam(
+          name: "Jardin d'enfants",
+          url: 'https://www.larosiere.net/webcam/chalet-planica/',
+        ),
+      ],
+    ),
+
+    SkiResort(
+      name: 'Val Cenis',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Téléski du Pont Noir',
+          url: 'https://app.webcam-hd.com/valcenis/tk-pont-noir',
+        ),
+        WebCam(
+          name: 'Replat des Canons',
+          url: 'https://app.webcam-hd.com/valcenis/replat-des-canons',
+        ),
+        WebCam(
+          name: 'Sommet du Solert',
+          url: 'https://app.webcam-hd.com/valcenis/sommet-solert',
+        ),
+        WebCam(
+          name: 'La Met',
+          url: 'https://app.webcam-hd.com/valcenis/la-met',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: "Collet d'Allevard",
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Les Plagnes',
+          url: 'https://www.skaping.com/collet-d-allevard/sommet',
+        ),
+        WebCam(
+          name: 'Super Collet',
+          url: 'https://webcams.lecollet.com/imageSC.jpg',
+        ),
+        WebCam(
+          name: "Chamois D'or",
+          url: 'https://webcams.lecollet.com/image.jpg',
+        ),
+        WebCam(
+          name: 'Claran',
+          url: 'https://webcams.lecollet.com/imageCLARAN.jpg',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Les Sybelles',
+      description:
+          'La Toussuire, Le Corbier, Saint-Sorlin-d’Arves, Saint-Jean-d’Arves, Les Bottières et Saint-Colomban des Villard',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'La Toussuire - Front de Neige',
+          url: 'https://www.skaping.com/la-toussuire/front-de-neige',
+        ),
+        WebCam(
+          name: 'Les Lutins',
+          url: 'https://www.skaping.com/latoussuire/les-lutins',
+        ),
+        WebCam(
+          name: 'Chaput',
+          url: 'https://www.skaping.com/latoussuire/chaput',
+        ),
+        WebCam(
+          name: 'Pierre du Turc',
+          url: 'https://www.skaping.com/latoussuire/pierre-du-turc',
+        ),
+        WebCam(
+          name: 'Ouillon',
+          url: 'https://www.skaping.com/les-sybelles/ouillon',
+        ),
+        WebCam(
+          name: 'Pointe du Corbier',
+          url: 'https://app.webcam-hd.com/le-corbier/pointe',
+        ),
+        WebCam(
+          name: 'Le Corbier - Front de Neige',
+          url: 'https://www.skaping.com/le-corbier/front-de-neige',
+        ),
+        WebCam(
+          name: 'Saint Colomban des Villards',
+          url: 'https://cms2.lumiplan.pro/lumiplan/api/webcam/156/NORMAL',
+        ),
+        WebCam(
+          name: "Saint-Jean-d'Arves - Vue station",
+          url: 'https://pv.viewsurf.com/1316/Saint-Jean-d-Arves',
+        ),
+        WebCam(
+          name: 'Chalets de la Balme',
+          url: 'https://pv.viewsurf.com/?id=58',
+        ),
+        WebCam(
+          name: 'Les 3 Lacs',
+          url:
+              'https://www.skaping.com/les-sybelles/saint-sorlin-d-arves/le-rouet',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Le Grand Bornand',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Village 1000m',
+          url: 'https://www.skaping.com/le-grand-bornand/village',
+        ),
+        WebCam(
+          name: 'Le Maroly 1750m',
+          url: 'https://www.skaping.com/le-grand-bornand/terresrouges',
+        ),
+        WebCam(
+          name: 'Mont Lachat 2100m',
+          url: 'https://www.skaping.com/le-grand-bornand/mont-lachat',
+        ),
+        WebCam(
+          name: 'Chinaillon 1300m',
+          url: 'https://www.skaping.com/le-grand-bornand/chinaillon',
+        ),
+        WebCam(
+          name: 'La Taverne 1550m',
+          url: 'https://www.skaping.com/le-grand-bornand/taverne',
+        ),
+        WebCam(
+          name: 'SnowPark du Maroly 1650m',
+          url: 'https://app.webcam-hd.com/grand-bornand/maroly',
+        ),
+        WebCam(
+          name: 'Lormay 1200m',
+          url: 'https://www.skaping.com/le-grand-bornand/auberge-nordique',
         ),
       ],
     ),
@@ -934,6 +1093,138 @@ abstract class ConstSkiResorts {
         WebCam(
           name: 'Sommet Zenith',
           url: 'https://app.webcam-hd.com/champsaur-valgaudemar/ancelle-zenith',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Orcières',
+      mountain: Mountain.alpesSud,
+      webcams: [
+        WebCam(
+          name: 'Front de Neige',
+          url: 'https://m.webcam-hd.com/orcieres-1850/front-de-neige',
+        ),
+        WebCam(
+          name: 'Le Drouvet',
+          url: 'https://m.webcam-hd.com/orcieres-1850/le-drouvet',
+        ),
+        WebCam(
+          name: 'Estaris',
+          url: 'https://m.webcam-hd.com/orcieres-1850/sommet-estaris',
+        ),
+        WebCam(
+          name: 'Rocherousse',
+          url: 'https://www.skaping.com/orcieres/plateau-de-rocherousse',
+        ),
+        WebCam(
+          name: 'La Favue',
+          url: 'https://www.skaping.com/orcieres/la-favue/panorama',
+        ),
+        WebCam(
+          name: 'Base de Loisirs',
+          url: 'https://app.webcam-hd.com/Orcieres/base-de-loisirs',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Saint Léger les Mélèzes',
+      mountain: Mountain.alpesSud,
+      webcams: [
+        WebCam(
+          name: 'Les Mélèzes',
+          url: 'https://app.webcam-hd.com/st-leger/les-melezes',
+        ),
+        WebCam(
+          name: 'Front de Neige',
+          url: 'https://app.webcam-hd.com/st-leger/front-de-neige',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Gap Bayard',
+      mountain: Mountain.alpesSud,
+      webcams: [
+        WebCam(
+          name: 'Départ des pistes',
+          url:
+              'https://broadcast.viewsurf.com/7afdba9cdba9a355aa95f0d16e4ea1a6/capture/18884/playEmbed',
+        ),
+        WebCam(
+          name: 'Gap Bayard',
+          url:
+              'https://broadcast.viewsurf.com/7afdba9cdba9a355aa95f0d16e4ea1a6/capture/18882/playEmbed',
+        ),
+        WebCam(
+          name: 'Arrivée de la piste Golf',
+          url:
+              'https://broadcast.viewsurf.com/7afdba9cdba9a355aa95f0d16e4ea1a6/capture/18886/playEmbed',
+        ),
+        WebCam(
+          name: 'Stade de neige',
+          url:
+              'https://broadcast.viewsurf.com/7afdba9cdba9a355aa95f0d16e4ea1a6/capture/18888/playEmbed',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Laye',
+      mountain: Mountain.alpesSud,
+      webcams: [
+        WebCam(
+          name: 'Front de Neige',
+          url: 'https://app.webcam-hd.com/laye/front-de-neige',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Valgaudemar',
+      mountain: Mountain.alpesSud,
+      webcams: [
+        WebCam(
+          name: 'Prairie de Jamivoï et fond de vallée',
+          url:
+              'https://broadcast.viewsurf.com/7afdba9cdba9a355aa95f0d16e4ea1a6/capture/18880/playEmbed',
+        ),
+        WebCam(
+          name: 'La Chapelle en Valgaudemar',
+          url:
+              'https://broadcast.viewsurf.com/7afdba9cdba9a355aa95f0d16e4ea1a6/capture/18876/playEmbed',
+        ),
+        WebCam(
+          name: 'Panoramique',
+          url:
+              'https://broadcast.viewsurf.com/7afdba9cdba9a355aa95f0d16e4ea1a6/capture/18878/playEmbed',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Dévoluy',
+      description: 'Superdévoluy et La Joue du Loup',
+      mountain: Mountain.alpesSud,
+      webcams: [
+        WebCam(
+          name: 'Télésiège du Génépy',
+          url: 'https://app.webcam-hd.com/superdevoluy/sommet-domaine-skiable',
+        ),
+        WebCam(
+          name: 'Télémix des Fontettes',
+          url: 'https://app.webcam-hd.com/superdevoluy/fontettes',
+        ),
+        WebCam(
+          name: 'Front de Neige de Superdévoluy',
+          url: 'https://app.webcam-hd.com/superdevoluy/village',
+        ),
+        WebCam(
+          name: 'Front de Neige de La Joue du Loup',
+          url: 'https://app.webcam-hd.com/superdevoluy/la-joue-du-loup',
+        ),
+        WebCam(
+          name: 'Col du Festre',
+          url: 'https://pv.viewsurf.com/?id=252&i=NjkwMjp1bmRlZmluZWQ',
+        ),
+        WebCam(
+          name: 'Base de Loisirs de Superdévoluy',
+          url: 'https://pv.viewsurf.com/?id=404&i=NjkwNDp1bmRlZmluZWQ',
         ),
       ],
     ),
@@ -994,6 +1285,54 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      name: 'La Grave',
+      mountain: Mountain.alpesSud,
+      webcams: [
+        WebCam(
+          name: 'Col des Ruillans',
+          url: 'https://www.skaping.com/lagrave/3200m',
+        ),
+        WebCam(
+          name: "Gare de Peyrou d'Amont",
+          url: 'https://www.skaping.com/lagrave/2400m',
+        ),
+        WebCam(
+          name: 'Hôtel Castillan',
+          url: 'https://www.skaping.com/la-grave/hotel-castillan',
+        ),
+        WebCam(
+          name: "Domaine nordique de Villar d'Arène",
+          url: 'https://www.skaping.com/villar-d-arene/arsine',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Sauze',
+      mountain: Mountain.alpesSud,
+      webcams: [
+        WebCam(
+          name: 'Le Brec',
+          url: 'https://pv.viewsurf.com/1932/Le-Brec',
+        ),
+        WebCam(
+          name: 'Sauze 1700 - Piste',
+          url: 'https://pv.viewsurf.com/1936/Le-Sauze-1700',
+        ),
+        WebCam(
+          name: 'Sauze 1700 - Station',
+          url: 'https://pv.viewsurf.com/1936/Le-Sauze-1700',
+        ),
+        WebCam(
+          name: 'La Savonnette',
+          url: 'https://pv.viewsurf.com/1928/La-Savonnette',
+        ),
+        WebCam(
+          name: 'Vue depuis Barcelonnette',
+          url: 'https://pv.viewsurf.com/1602/Barcelonnette',
+        ),
+      ],
+    ),
+    SkiResort(
       name: 'Isola 2000',
       mountain: Mountain.alpesSud,
       webcams: [
@@ -1035,6 +1374,24 @@ abstract class ConstSkiResorts {
           name: 'Village',
           url:
               'https://www.trinum.com/ibox/ftpcam/mega_st-dalmas-le-selvage_mairie.jpg',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Le Grand Puy',
+      mountain: Mountain.alpesSud,
+      webcams: [
+        WebCam(
+          name: 'Les Planes',
+          url: 'http://app.webcam-hd.com/grand-puy/planes',
+        ),
+        WebCam(
+          name: 'Front de Neige',
+          url: 'http://app.webcam-hd.com/grand-puy/front-de-neige',
+        ),
+        WebCam(
+          name: 'Espace Débutant',
+          url: 'http://app.webcam-hd.com/grand-puy/espace-debutant',
         ),
       ],
     ),
@@ -1304,7 +1661,47 @@ abstract class ConstSkiResorts {
     ),
   ];
 
-  static final webcamsCorse = <SkiResort>[];
+  static final webcamsCorse = <SkiResort>[
+    SkiResort(
+      name: 'Ghisoni',
+      mountain: Mountain.corse,
+      webcams: [
+        WebCam(
+          name: 'Petra Niella',
+          url: 'https://www.ghisoni.corsica/media/webcams/webcam1.jpg',
+        ),
+        WebCam(
+          name: 'Départ U Capaghjolu',
+          url: 'https://www.ghisoni.corsica/media/webcams/webcam2.jpg',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: "Bastelica (Val d'Ese)",
+      mountain: Mountain.corse,
+      webcams: [
+        WebCam(
+          name: 'Axis',
+          url: 'http://defi2a.alwaysdata.net/ese/sauve_cam_axis.jpg',
+        ),
+        WebCam(
+          name: 'Dahua',
+          url: 'http://defi2a.alwaysdata.net/ese/sauve_cam_dahua.jpg',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Asco',
+      mountain: Mountain.corse,
+      webcams: [
+        WebCam(
+          name: 'Asco',
+          url:
+              'https://asco.corsica/catalog_repository/UserFiles/Image/cam/asco.jpg',
+        ),
+      ],
+    ),
+  ];
 
   static final webcamsJura = [
     // Jura
@@ -1381,6 +1778,33 @@ abstract class ConstSkiResorts {
         WebCam(
           name: 'Lac Chambon',
           url: 'https://app.webcam-hd.com/sancy/lac-de-chambon',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Le Lioran',
+      mountain: Mountain.massifCentral,
+      webcams: [
+        WebCam(
+          name: 'Centre station',
+          url: 'https://app.webcam-hd.com/lioran/lioran_station',
+        ),
+        WebCam(
+          name: "Font d'Alagnon",
+          url: 'https://app.webcam-hd.com/lioran/lioran_font-d-alagnon',
+        ),
+        WebCam(
+          name: 'Sommet - Combe',
+          url: 'https://app.webcam-hd.com/lioran/lioran_combe',
+        ),
+        WebCam(
+          name: 'Versant - Plomb',
+          url: 'https://app.webcam-hd.com/lioran/lioran_versant-plomb',
+        ),
+        WebCam(
+          name: 'Prat de Bouc',
+          url:
+              'https://www.vision-environnement.com/live/modules/timelapse/capture/pratdebouc.jpg',
         ),
       ],
     ),
