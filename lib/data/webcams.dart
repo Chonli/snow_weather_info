@@ -59,6 +59,8 @@ abstract class ConstSkiResorts {
     ),
     SkiResort(
       name: "Alpe d'huez",
+      description:
+          "Alpe d'huez, Auris en Oisans, La Garde, Le Freney d'Oisans, Oz en Oisans, Vaujany et Villard-Reculas",
       mountain: Mountain.alpesNord,
       webcams: [
         WebCam(
@@ -107,6 +109,7 @@ abstract class ConstSkiResorts {
         ),
       ],
     ),
+
     SkiResort(
       name: 'Alpe du Grand Serre',
       mountain: Mountain.alpesNord,
@@ -989,6 +992,7 @@ abstract class ConstSkiResorts {
     ),
     SkiResort(
       name: 'Les Arcs',
+      description: 'Les Arcs, Peisey, Vallandry',
       mountain: Mountain.alpesNord,
       webcams: [
         WebCam(
@@ -1060,6 +1064,36 @@ abstract class ConstSkiResorts {
         WebCam(
           name: "Cool Zone de l'Oasis",
           url: 'https://m.webcam-hd.com/lescarroz/oasis',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Saint Gervais',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: "L'épaule - 2100m",
+          url: 'https://app.webcam-hd.com/st-gervais/epaule',
+        ),
+        WebCam(
+          name: "Le Mont d'Arbois - 1840 m",
+          url: 'https://app.webcam-hd.com/st-gervais/freddy',
+        ),
+        WebCam(
+          name: 'Le Bettex - 1400 m',
+          url: 'https://app.webcam-hd.com/st-gervais/bettex',
+        ),
+        WebCam(
+          name: 'Le Plateau de la Croix - 1450m',
+          url: 'http://app.webcam-hd.com/st-gervais/plateau-de-la-croix',
+        ),
+        WebCam(
+          name: 'Saint Nicolas de Véroce - 1200m',
+          url: 'https://app.webcam-hd.com/st-gervais/st-nicolas-de-veroce',
+        ),
+        WebCam(
+          name: 'Saint-Gervais - 850m',
+          url: 'https://app.webcam-hd.com/st-gervais/maison-st-gervais',
         ),
       ],
     ),
@@ -1241,6 +1275,7 @@ abstract class ConstSkiResorts {
     ),
     SkiResort(
       name: 'Val Cenis',
+      description: 'Lanslevillard, Lanslebourg, Termignon',
       mountain: Mountain.alpesNord,
       webcams: [
         WebCam(
@@ -1371,6 +1406,76 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      name: 'Notre Dame de Bellecombe',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Ban Rouge – 1983m',
+          url: 'https://m.webcam-hd.com/val-d-arly/ban-rouge',
+        ),
+        WebCam(
+          name: 'Le Mont Rond – 1350m',
+          url: 'https://m.webcam-hd.com/val-d-arly-ot/ndb-mont-rond',
+        ),
+        WebCam(
+          name: 'Le Centre village – 1150m',
+          url: 'https://m.webcam-hd.com/val-d-arly-ot/village',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Sainte Foy la Tarentaise',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: ' Sommet Aiguille (2620m)',
+          url: 'https://app.webcam-hd.com/ste-foy-tarentaise/sommet-aiguille',
+        ),
+        WebCam(
+          name: 'TSD de La Marquise (2425m)',
+          url: 'https://app.webcam-hd.com/ste-foy-tarentaise/ts-de-la-marquise',
+        ),
+        WebCam(
+          name: 'Piste de Plan Bois (1770m)',
+          url: 'https://app.webcam-hd.com/ste-foy-tarentaise/plan-bois',
+        ),
+        WebCam(
+          name: 'Front de Neige (1550m)',
+          url: 'https://app.webcam-hd.com/ste-foy-tarentaise/front-de-neige',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Plateau des Pettites Roches',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Dent de Crolles depuis St Hilaire',
+          url:
+              'https://www.sthilair-parapente.com/foscamDentCrolles/FoscamCamera_00626ED84FB0/webcam/image1.jpg',
+        ),
+        WebCam(
+          name: 'Col Marcieu',
+          url: 'https://webcams.les7laux.com/col-de-marcieu/webcam1.jpg',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Saint Francois de Longchamp',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Frêne',
+          url: 'https://www.skaping.com/saint-francois-longchamp/le-frene',
+        ),
+        WebCam(
+          name: 'Station',
+          url:
+              'https://app.webcam-hd.com/st_francois_longchamp/st_francois_village',
+        ),
+      ],
+    ),
+    SkiResort(
       name: 'Les saisies',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -1409,6 +1514,87 @@ abstract class ConstSkiResorts {
         WebCam(
           name: 'Bisanne 1500',
           url: 'https://app.webcam-hd.com/les-saisies/bisanne-1500',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Praz de Lys Sommand',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Parking',
+          url: 'https://app.webcam-hd.com/praz_lys_sommand/parking',
+        ),
+        WebCam(
+          name: 'Roy',
+          url: 'https://app.webcam-hd.com/praz_lys_sommand/roy',
+        ),
+        WebCam(
+          name: 'Chevaly',
+          url: 'https://app.webcam-hd.com/praz_lys_sommand/chevaly',
+        ),
+        WebCam(
+          name: 'Haut Fleury',
+          url: 'https://app.webcam-hd.com/praz_lys_sommand/haut_fleury',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Praz sur Arly',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Front de Neige',
+          url: 'https://m.webcam-hd.com/val-d-arly/depart-des-pistes',
+        ),
+        WebCam(
+          name: 'Cret du Midi',
+          url: 'https://m.webcam-hd.com/val-d-arly/cret-du-midi',
+        ),
+        WebCam(
+          name: 'Ban Rouge',
+          url: 'https://m.webcam-hd.com/val-d-arly/ban-rouge',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Morillon/Sixt-Fer-à-Cheval/Samoëns',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Morillon 1100m',
+          url:
+              'https://app.webcam-hd.com/grand-massif/grand-massif_morillon-1100',
+        ),
+        WebCam(
+          name: 'Morillon – Biollaires',
+          url:
+              'https://app.webcam-hd.com/grand-massif/grand-massif_morillon-biollaires',
+        ),
+        WebCam(
+          name: 'Morillon – Sairon',
+          url: 'https://app.webcam-hd.com/grand-massif/sairon',
+        ),
+        WebCam(
+          name: 'Sixt – Feulatière',
+          url: 'https://app.webcam-hd.com/grand-massif/feulatiere',
+        ),
+        WebCam(
+          name: 'Cirque du Fer à Cheval',
+          url: 'https://m.webcam-hd.com/vallee-haut-giffre/sixt-fer-a-cheval',
+        ),
+        WebCam(
+          name: 'Col de Joux Plane',
+          url: 'https://www.skaping.com/samoens/col-de-joux-plane',
+        ),
+        WebCam(
+          name: 'Morillon – Lac Bleu',
+          url: 'https://app.webcam-hd.com/vallee-haut-giffre/morillon-lac-bleu',
+        ),
+        WebCam(
+          name: 'Tête des Saix',
+          url:
+              'https://app.webcam-hd.com/grand-massif/grand-massif_samoens-tete-des-saix',
         ),
       ],
     ),
@@ -1609,6 +1795,38 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      name: 'Puy Saint Vincent',
+      mountain: Mountain.alpesSud,
+      webcams: [
+        WebCam(
+          name: '1600m',
+          url: 'https://youtu.be/ysSRemi4LsE',
+        ),
+        WebCam(
+          name: '2000m',
+          url: 'https://youtu.be/bXZgCXIZBrQ',
+        ),
+        WebCam(
+          name: 'Crête des Bans',
+          url: 'https://www.vision-environnement.com/live/player/psv2700.php',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Réallon',
+      mountain: Mountain.alpesSud,
+      webcams: [
+        WebCam(
+          name: 'Front de Neige',
+          url: 'https://m.webcam-hd.com/reallon/reallon-front-de-neige',
+        ),
+        WebCam(
+          name: 'Chabrières',
+          url: 'https://m.webcam-hd.com/reallon/reallon_chabrieres',
+        ),
+      ],
+    ),
+    SkiResort(
       name: 'Chabanon',
       mountain: Mountain.alpesSud,
       webcams: [
@@ -1659,6 +1877,79 @@ abstract class ConstSkiResorts {
         WebCam(
           name: 'Front de Neige',
           url: 'https://pv.viewsurf.com/1300/Les-Orres',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Montgenèvre',
+      mountain: Mountain.alpesSud,
+      webcams: [
+        WebCam(
+          name: 'Eglise',
+          url: 'https://app.webcam-hd.com/montgenevre/eglise',
+        ),
+        WebCam(
+          name: 'Front de neige – 1860m',
+          url: 'https://app.webcam-hd.com/montgenevre/front-de-neige',
+        ),
+        WebCam(
+          name: 'Luge Monty Express – 1860m',
+          url: 'https://app.webcam-hd.com/montgenevre/mur-d-escalade',
+        ),
+        WebCam(
+          name: 'Sommet des Gondrans – 2460m',
+          url: 'https://app.webcam-hd.com/montgenevre/sommet-des-gondrans',
+        ),
+        WebCam(
+          name: 'Sommet du Rocher de l’aigle – 2595m',
+          url: 'https://app.webcam-hd.com/montgenevre/ts-aigle',
+        ),
+        WebCam(
+          name: 'Sommet de Serre Thibaud – 2550m',
+          url: 'https://app.webcam-hd.com/montgenevre/serre-thibaud',
+        ),
+        WebCam(
+          name: 'Sommet TS Chalvet – 2580m',
+          url: 'https://app.webcam-hd.com/montgenevre/sommet-chalvet',
+        ),
+        WebCam(
+          name: 'Sommet TS brousset – 2190m',
+          url: 'https://app.webcam-hd.com/montgenevre/ts-brousset',
+        ),
+        WebCam(
+          name: 'Sommet TS Crête – 2465m',
+          url: 'https://app.webcam-hd.com/montgenevre/sommet-ts-crete',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Briançon/Serre Chevalier/Monetier',
+      mountain: Mountain.alpesSud,
+      webcams: [
+        WebCam(
+          name: 'Cucumelle',
+          url: 'https://www.skaping.com/serre-chevalier/cucumelle',
+        ),
+        WebCam(
+          name: 'Cole du Lautaret',
+          url: 'https://www.skaping.com/serrechevalier/coldulautaret',
+        ),
+        WebCam(
+          name: 'Monetier (2176m)',
+          url: 'https://www.skaping.com/serrechevalier/monetier',
+        ),
+        WebCam(
+          name: 'Col du Prorel',
+          url: 'https://app.webcam-hd.com/serrechevalier/col-du-prorel',
+        ),
+        WebCam(
+          name: 'Col du Galibier',
+          url: 'https://www.skaping.com/valloire/galibier',
+        ),
+        WebCam(
+          name: 'Chalet Cosy',
+          url:
+              'https://platforms5.joada.net/embeded/embeded.html?uuid=5476aa5e-c59a-448a-3236-3630-6d61-63-b894-6ddd1c4cbac4d&type=live&liveicon=1&vsheader=1&tz=Europe/Paris',
         ),
       ],
     ),
@@ -1807,6 +2098,112 @@ abstract class ConstSkiResorts {
         ),
       ],
     ),
+    SkiResort(
+      name: 'Allos',
+      mountain: Mountain.alpesSud,
+      webcams: [
+        WebCam(
+          name: 'La Foux - Marin Pascal',
+          url: 'https://app.webcam-hd.com/valdallos/sommet-marin-pascal',
+        ),
+        WebCam(
+          name: "La Foux quartier de l'Ubac",
+          url: 'https://app.webcam-hd.com/valdallos/front-de-neige',
+        ),
+        WebCam(
+          name: 'La Foux - Observatoire',
+          url: 'https://app.webcam-hd.com/valdallos/observatoire',
+        ),
+        WebCam(
+          name: 'Le Seignus - Front de Neige',
+          url: 'https://app.webcam-hd.com/valdallos/seignus-bas',
+        ),
+        WebCam(
+          name: 'Le Seignus - Clos Bertrand',
+          url: 'https://app.webcam-hd.com/valdallos/seignus-haut',
+        ),
+        WebCam(
+          name: 'Le Village',
+          url: 'https://app.webcam-hd.com/valdallos/village',
+        ),
+        WebCam(
+          name: 'Le Village & Le Seignus',
+          url: 'https://app.webcam-hd.com/valdallos/champons',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Pra Loup',
+      mountain: Mountain.alpesSud,
+      webcams: [
+        WebCam(
+          name: 'Station',
+          url: 'https://www.skaping.com/pra-loup/station',
+        ),
+        WebCam(
+          name: 'Clos du Serre',
+          url: 'https://www.skaping.com/pra-loup/molanes',
+        ),
+        WebCam(
+          name: 'Peguieou',
+          url: 'https://www.skaping.com/pra-loup/peguieou',
+        ),
+        WebCam(
+          name: 'Costebelle',
+          url: 'https://app.webcam-hd.com/pra-loup/costebelle',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Vars/Risoul',
+      mountain: Mountain.alpesSud,
+      webcams: [
+        WebCam(
+          name: 'Speed Master',
+          url: 'https://www.skaping.com/vars/speed-master',
+        ),
+        WebCam(
+          name: 'La Mayt',
+          url: 'https://www.skaping.com/vars/mayt',
+        ),
+        WebCam(
+          name: 'Col de Crévoux',
+          url: 'https://www.skaping.com/vars/col-de-crevoux',
+        ),
+        WebCam(
+          name: 'Télémix de Chabrières',
+          url: 'https://www.skaping.com/vars/chabrieres',
+        ),
+        WebCam(
+          name: 'Luge du Caribou',
+          url: 'https://app.webcam-hd.com/vars/luge-du-caribou',
+        ),
+        WebCam(
+          name: 'Sainte-Marie',
+          url: 'https://app.webcam-hd.com/vars/sainte-marie',
+        ),
+        WebCam(
+          name: 'Front de neige des Claux',
+          url: 'https://youtu.be/_iDeHxqe86U',
+        ),
+        WebCam(
+          name: 'Pointe du Razis',
+          url: 'https://www.skaping.com/risoul/pointe-du-razis',
+        ),
+        WebCam(
+          name: 'Pré du Bois',
+          url: 'https://m.webcam-hd.com/risoul/pre-du-bois',
+        ),
+        WebCam(
+          name: 'Front de Neige',
+          url: 'https://m.webcam-hd.com/risoul/risoul_front',
+        ),
+        WebCam(
+          name: 'Homme de Pierre',
+          url: 'https://m.webcam-hd.com/risoul/homme-de-pierre',
+        ),
+      ],
+    ),
   ];
 
   static final webcamsPyrenees = [
@@ -1924,6 +2321,140 @@ abstract class ConstSkiResorts {
           name: 'Secteur Pène Blanque',
           url:
               'https://visionenvironnement.quanteec.com/embeded/embeded.html?uuid=54c71fab-a095-4557-746c-7561-6665-64-af95-d3f480434881d&type=live&analyticsID=visionenvironnement',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Andorre',
+      description: 'Canillo, Pal Arinsal, Arcalis, Pas de la Casa, Grandvalira',
+      mountain: Mountain.pyrenees,
+      webcams: [
+        WebCam(
+          name: 'Arinsal - La Tossa',
+          url:
+              'https://sts002.feratel.co.at/streams/stsstore001/1/15035_65982ed5-dac0Vid.mp4?dcsdesign=feratel4',
+        ),
+        WebCam(
+          name: 'Arinsal - Port Negre',
+          url:
+              'https://sts116.feratel.co.at/streams/stsstore102/1/15036_65982b6f-dc4bVid.mp4?dcsdesign=feratel4',
+        ),
+        WebCam(
+          name: 'Arinsal - Igloo',
+          url:
+              'https://sts102.feratel.co.at/streams/stsstore103/1/15037_659825ee-e275Vid.mp4?dcsdesign=feratel4',
+        ),
+        WebCam(
+          name: 'Pal - La Caubella',
+          url:
+              'https://sts001.feratel.co.at/streams/stsstore003/1/15040_659838bc-0445Vid.mp4?dcsdesign=feratel4',
+        ),
+        WebCam(
+          name: 'Pal - Pla de la Cot',
+          url:
+              'https://sts004.feratel.co.at/streams/stsstore004/1/15085_65982f4d-2fb6Vid.mp4?dcsdesign=feratel4',
+        ),
+        WebCam(
+          name: 'Pal - Coll de la Botella',
+          url:
+              'https://sts103.feratel.co.at/streams/stsstore105/1/15086_65983000-5c26Vid.mp4?dcsdesign=feratel4',
+        ),
+        WebCam(
+          name: 'Ordino Arcalís - Cap de la Coma',
+          url:
+              'http://sts110.feratel.co.at/streams/stsstore103/1/15030_6598324c-04d0Vid.mp4?dcsdesign=WTP_andorramania.com',
+        ),
+        WebCam(
+          name: 'Ordino Arcalís - La Coma',
+          url:
+              'http://sts007.feratel.co.at/streams/stsstore001/1/15031_6598305c-5888Vid.mp4?dcsdesign=WTP_andorramania.com',
+        ),
+        WebCam(
+          name: 'Canillo - El Forn',
+          url:
+              'https://sts051.feratel.co.at/streams/stsstore052/1/15065_65982b44-fd33Vid.mp4?dcsdesign=WTP_feratel.com',
+        ),
+        WebCam(
+          name: 'El Tarter',
+          url:
+              'http://sts101.feratel.co.at/streams/stsstore105/1/15045_65982f5b-418bVid.mp4?dcsdesign=WTP_andorramania.com',
+        ),
+        WebCam(
+          name: 'Grau Roig',
+          url:
+              'http://sts002.feratel.co.at/streams/stsstore001/1/15050_65982ff2-5d07Vid.mp4?dcsdesign=WTP_andorramania.com',
+        ),
+        WebCam(
+          name: 'Pas de la Casa',
+          url:
+              'http://sts010.feratel.co.at/streams/stsstore005/1/15055_659830e2-3b59Vid.mp4?dcsdesign=WTP_andorramania.com',
+        ),
+        WebCam(
+          name: 'Espiolets',
+          url:
+              'http://sts116.feratel.co.at/streams/stsstore104/1/15060_65982ee4-d324Vid.mp4?dcsdesign=WTP_andorramania.com',
+        ),
+        WebCam(
+          name: 'Cortals',
+          url:
+              'http://sts015.feratel.co.at/streams/stsstore004/1/15090_65982fb6-b333Vid.mp4?dcsdesign=WTP_andorramania.com',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Peyragudes',
+      mountain: Mountain.pyrenees,
+      webcams: [
+        WebCam(
+          name: 'Belvédère',
+          url: 'https://www.skaping.com/peyragudes/belvedere',
+        ),
+        WebCam(
+          name: 'Cap de Pales - 2115m',
+          url: 'https://www.skaping.com/peyragudes/cap-de-pales',
+        ),
+        WebCam(
+          name: 'Serias - 1600m',
+          url: 'https://www.skaping.com/peyragudes/serias',
+        ),
+        WebCam(
+          name: 'Serre-Doumenge',
+          url: 'https://www.skaping.com/peyragudes/serre-doumenge',
+        ),
+        WebCam(
+          name: 'Peyresourde - 1600m',
+          url: 'https://www.skaping.com/peyragudes/peyresourde',
+        ),
+        WebCam(
+          name: 'Les Agudes',
+          url: 'https://www.skaping.com/peyragudes/les-agudes',
+        ),
+        WebCam(
+          name: 'Tour de Genos - 900m',
+          url: 'https://www.skaping.com/loudenvielle/tour-de-genos',
+        ),
+        WebCam(
+          name: 'Sérias',
+          url: 'https://pv.viewsurf.com/1796/Peyragudes-Serias',
+        ),
+        WebCam(
+          name: 'Arrivée du Serre Doumenge',
+          url: 'https://pv.viewsurf.com/1794/Peyragudes-Station',
+        ),
+        WebCam(
+          name: 'Arrivée',
+          url:
+              'https://pv.viewsurf.com/1794/Peyragudes-Station?i=Njg0MDp1bmRlZmluZWQ',
+        ),
+        WebCam(
+          name: 'Sommet',
+          url:
+              'https://pv.viewsurf.com/1794/Peyragudes-Station?i=Njg1Mjp1bmRlZmluZWQ',
+        ),
+        WebCam(
+          name: 'Télésièges',
+          url:
+              'https://pv.viewsurf.com/1794/Peyragudes-Station?i=Njg1NDp1bmRlZmluZWQ',
         ),
       ],
     ),
@@ -2120,6 +2651,64 @@ abstract class ConstSkiResorts {
         WebCam(
           name: 'Le Plateau',
           url: 'https://live.neos360.com/luchon/plateau/',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Piau Engaly',
+      mountain: Mountain.pyrenees,
+      webcams: [
+        WebCam(
+          name: 'Lac Oredon',
+          url: 'https://www.skaping.com/neouvielle/lac-oredon',
+        ),
+        WebCam(
+          name: 'Espace débutants - 1850m',
+          url: 'https://pv.viewsurf.com/1630/Piau-Engaly-1850m?i=NjMyMDo',
+        ),
+        WebCam(
+          name: 'Panoramique HD - 2200m',
+          url: 'https://pv.viewsurf.com/448/Piau-Engaly-2200m?i=MjkyNDo',
+        ),
+        WebCam(
+          name: 'Pic de Piau - 2696m',
+          url: 'https://pv.viewsurf.com/448/Piau-Engaly-2200m?i=MjkyODo',
+        ),
+        WebCam(
+          name: 'Vallée de Badet - 2200m',
+          url: 'https://pv.viewsurf.com/448/Piau-Engaly-2200m?i=MjkzMjo',
+        ),
+        WebCam(
+          name: 'Combe de Piau - 2200m',
+          url: 'https://pv.viewsurf.com/448/Piau-Engaly-2200m?i=Mzg0Njo',
+        ),
+        WebCam(
+          name: 'Panoramique HD - 1850m',
+          url: 'https://pv.viewsurf.com/1630/Piau-Engaly-1850m?i=NjMyNDo',
+        ),
+        WebCam(
+          name: 'TSD Engaly - 2200m',
+          url: 'https://pv.viewsurf.com/448/Piau-Engaly-2200m?i=MjkzMDo',
+        ),
+        WebCam(
+          name: 'TSD Pic de Piau - 1850m',
+          url: 'https://pv.viewsurf.com/1630/Piau-Engaly-1850m?i=NjMyODo',
+        ),
+        WebCam(
+          name: 'Snowpark - 1850m',
+          url: 'https://pv.viewsurf.com/1630/Piau-Engaly-1850m?i=NjMyNjo',
+        ),
+        WebCam(
+          name: 'Le Col - 1850m',
+          url: 'https://pv.viewsurf.com/1630/Piau-Engaly-1850m?i=NjMyMjo',
+        ),
+        WebCam(
+          name: 'Campbielh - 1850m',
+          url: 'https://pv.viewsurf.com/448/Piau-Engaly-2200m?i=MjkyNjo',
+        ),
+        WebCam(
+          name: 'Balnéo - 1850m',
+          url: 'https://pv.viewsurf.com/1630/Piau-Engaly-1850m?i=NjMxODo',
         ),
       ],
     ),
