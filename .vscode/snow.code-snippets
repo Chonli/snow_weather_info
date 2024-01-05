@@ -1,0 +1,30 @@
+{
+    "SkiResort": {
+        "scope": "dart",
+        "prefix": "skiResort",
+        "description": "Init SkiResort",
+        "body": [
+            "SkiResort(",
+            "name: '',",
+            "mountain: Mountain.,",
+            "webcams: [",
+                "WebCam(",
+                "    name: '',",
+                "    url: '',",
+                "),",
+            "],",
+          "),",          
+        ],
+    },
+    "WebCam": {
+        "scope": "dart",
+        "prefix": "webcam",
+        "description": "Init Webcam",
+        "body": [
+            "WebCam(",
+            "    name: '',",
+            "    url: '',",
+            "),",
+        ],
+    },
+}

@@ -386,10 +386,11 @@ abstract class ConstSkiResorts {
     ),
     SkiResort(
       name: 'Vallée de Chamonix',
+      description: 'Argentière, Chamonix, Le Tour, Les Houches, Vallorcine',
       mountain: Mountain.alpesNord,
       webcams: [
         WebCam(
-          name: 'Chamonix',
+          name: 'Chamonix Village',
           url: 'https://www.skaping.com/chamonix-mont-blanc',
         ),
         WebCam(
@@ -403,6 +404,10 @@ abstract class ConstSkiResorts {
         WebCam(
           name: 'Flégère 2396m',
           url: 'https://www.skaping.com/chamonix/flegere',
+        ),
+        WebCam(
+          name: 'Plateau de Lognan',
+          url: 'https://www.skaping.com/chamonix/plateau-de-lognan',
         ),
         WebCam(
           name: 'Montenvers',
@@ -443,6 +448,14 @@ abstract class ConstSkiResorts {
         WebCam(
           name: 'Tour - Vallorcine - Vue Vallée',
           url: 'https://www.compagniedumontblanc.fr/webcam/blm1vuevalleeHD.jpg',
+        ),
+        WebCam(
+          name: 'Les Houches - Prarion 1850m',
+          url: 'https://chamonix.panomax.com/houches',
+        ),
+        WebCam(
+          name: 'Les Houches - Village 1000m',
+          url: 'https://www.skaping.com/chamonix/les-houches',
         ),
       ],
     ),
@@ -559,7 +572,6 @@ abstract class ConstSkiResorts {
         ),
       ],
     ),
-    // TODO(Chonli): La plagne
     SkiResort(
       name: 'Corrençon/Villard de Lans',
       mountain: Mountain.alpesNord,
@@ -793,7 +805,6 @@ abstract class ConstSkiResorts {
         ),
       ],
     ),
-
     SkiResort(
       name: 'La Norma',
       mountain: Mountain.alpesNord,
@@ -942,7 +953,292 @@ abstract class ConstSkiResorts {
         ),
       ],
     ),
-
+    SkiResort(
+      name: 'Les 2 Alpes',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Glacier à 3400m',
+          url: 'https://www.skaping.com/les2alpes/3400m',
+        ),
+        WebCam(
+          name: 'Glacier à 3200m',
+          url: 'https://www.skaping.com/les2alpes/3200m',
+        ),
+        WebCam(
+          name: 'Toura à 2600m',
+          url: 'https://www.skaping.com/les2alpes/2600m',
+        ),
+        WebCam(
+          name: 'Bellecombe à 2700m',
+          url: 'https://www.skaping.com/les2alpes/bellecombe',
+        ),
+        WebCam(
+          name: 'Super Diable à 2900m',
+          url: 'https://www.skaping.com/les2alpes/super-diable',
+        ),
+        WebCam(
+          name: 'Les Crêtes à 2100m',
+          url: 'https://www.skaping.com/les2alpes/grande-aiguille',
+        ),
+        WebCam(
+          name: 'Vallée Blanche à 2100m',
+          url: 'https://www.skaping.com/les2alpes/vallee-blanche',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Les Arcs',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Arcabulle',
+          url: 'https://m.webcam-hd.com/lesarcs/arcabulle',
+        ),
+        WebCam(
+          name: 'Arpette',
+          url: 'https://app.webcam-hd.com/lesarcs/arpette',
+        ),
+        WebCam(
+          name: 'Aiguille Rouge',
+          url: 'https://m.webcam-hd.com/lesarcs/aiguille-rouge',
+        ),
+        WebCam(
+          name: 'Mont Blanc',
+          url: 'https://m.webcam-hd.com/lesarcs/mont-blanc',
+        ),
+        WebCam(
+          name: 'Snowpark',
+          url: 'https://m.webcam-hd.com/lesarcs/snowpark',
+        ),
+        WebCam(
+          name: 'Arc 1800',
+          url: 'https://m.webcam-hd.com/lesarcs/mille8',
+        ),
+        WebCam(
+          name: 'Grizzly',
+          url: 'https://m.webcam-hd.com/lesarcs/grizzly',
+        ),
+        WebCam(
+          name: 'Vanoise Express',
+          url: 'https://m.webcam-hd.com/lesarcs/vanoise-express',
+        ),
+        WebCam(
+          name: 'Varet',
+          url: 'https://app.webcam-hd.com/lesarcs/varet',
+        ),
+        WebCam(
+          name: 'Arc 1950',
+          url: 'https://app.webcam-hd.com/arc-1950-le-village/arc-1950-village',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Les Carroz',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Télécabine de la Kédeuze – 1754m',
+          url: 'https://m.webcam-hd.com/lescarroz/arrivee-telecabine',
+        ),
+        WebCam(
+          name: 'Front de neige – 1160m',
+          url: 'https://app.webcam-hd.com/lescarroz/front-de-neige',
+        ),
+        WebCam(
+          name: 'Tête des Saix – 2100m',
+          url: 'https://m.webcam-hd.com/lescarroz/carroz-2100',
+        ),
+        WebCam(
+          name: 'Les Molliets – 1500m',
+          url: 'https://app.webcam-hd.com/lescarroz/les-molliets-1500',
+        ),
+        WebCam(
+          name: 'Village – 1140m',
+          url: 'https://app.webcam-hd.com/lescarroz/vue-village',
+        ),
+        WebCam(
+          name: "Cool Zone de l'Oasis",
+          url: 'https://m.webcam-hd.com/lescarroz/oasis',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Les Contamines Montjoie',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Signal 1800m',
+          url: 'https://www.lescontamines.net/panorama/signalhd.html',
+        ),
+        WebCam(
+          name: 'Col du Joly 1989m',
+          url: 'https://www.lescontamines.net/panorama/col.html',
+        ),
+        WebCam(
+          name: 'Ruelle 1650m',
+          url: 'https://www.lescontamines.net/panorama/ruellehd.html',
+        ),
+        WebCam(
+          name: 'Téléski du Nivorin',
+          url: 'https://www.lescontamines.net/camera/nivorin.jpg',
+        ),
+        WebCam(
+          name: 'TC Gorge Parking',
+          url: 'https://www.lescontamines.net/camera/gorgeparking.jpg',
+        ),
+        WebCam(
+          name: 'Téléski des Loyers',
+          url: 'https://www.lescontamines.net/camera/loyers.jpg',
+        ),
+        WebCam(
+          name: 'Secteur Montjoie',
+          url: 'https://www.lescontamines.net/camera/etape.jpg',
+        ),
+        WebCam(
+          name: 'Vorachère',
+          url: 'https://www.lescontamines.net/camera/vorachere.jpg',
+        ),
+        WebCam(
+          name: "Lac de l'Etape",
+          url: 'https://www.lescontamines.net/camera/etape-lac.jpg',
+        ),
+        WebCam(
+          name: 'File TSD Bûche Croisée',
+          url: 'https://www.lescontamines.net/camera/filebuche.jpg',
+        ),
+        WebCam(
+          name: 'TSD Bûche Croisée',
+          url: 'https://www.lescontamines.net/camera/cambuche.jpg',
+        ),
+        WebCam(
+          name: 'Départ TSD Bûche Croisée',
+          url: 'https://www.lescontamines.net/camera/departbuche.jpg',
+        ),
+        WebCam(
+          name: 'Signal Panorama',
+          url: 'https://www.lescontamines.net/camera/pano2.jpg',
+        ),
+        WebCam(
+          name: 'Aiguille de Roselette',
+          url: 'https://www.lescontamines.net/camera/aigroselette.jpg',
+        ),
+        WebCam(
+          name: 'Aiguille Croche',
+          url: 'https://www.lescontamines.net/camera/aiguillecroche.jpg',
+        ),
+        WebCam(
+          name: 'Rebans Supérieurs',
+          url: 'https://www.lescontamines.net/camera/arrtkveleray.jpg',
+        ),
+        WebCam(
+          name: 'Bleue des Coins',
+          url: 'https://www.lescontamines.net/camera/arrtsdnantrouge.jpg',
+        ),
+        WebCam(
+          name: 'TSD Tierces',
+          url: 'https://www.lescontamines.net/camera/arrtsdtierces.jpg',
+        ),
+        WebCam(
+          name: 'TC Ruelle',
+          url: 'https://www.lescontamines.net/camera/belleville.jpg',
+        ),
+        WebCam(
+          name: 'Bleue de la Croix',
+          url: 'https://www.lescontamines.net/camera/bleuedelacroix.jpg',
+        ),
+        WebCam(
+          name: '',
+          url: 'https://www.lescontamines.net/camera/boulevard.jpg',
+        ),
+        WebCam(
+          name: 'TSF Aiguille Croche',
+          url: 'https://www.lescontamines.net/camera/camaiguille.jpg',
+        ),
+        WebCam(
+          name: 'TK Véleray',
+          url: 'https://www.lescontamines.net/camera/deptkveleray.jpg',
+        ),
+        WebCam(
+          name: 'TSD Nant Rouge',
+          url: 'https://www.lescontamines.net/camera/deptsdnantrouge.jpg',
+        ),
+        WebCam(
+          name: 'Rouge des Tierces',
+          url: 'https://www.lescontamines.net/camera/deptsdtierces.jpg',
+        ),
+        WebCam(
+          name: 'Jonction',
+          url: 'https://www.lescontamines.net/camera/jonction.jpg',
+        ),
+        WebCam(
+          name: 'Panoramique du Col du Joly',
+          url: 'https://www.lescontamines.net/camera/panocol.jpg',
+        ),
+        WebCam(
+          name: 'Décollage Parapente',
+          url: 'https://www.lescontamines.net/camera/parapente.jpg',
+        ),
+        WebCam(
+          name: 'Rouge des Plans',
+          url: 'https://www.lescontamines.net/camera/rougedesplans.jpg',
+        ),
+        WebCam(
+          name: 'Rouge du Choton',
+          url: 'https://www.lescontamines.net/camera/rougeduchoton.jpg',
+        ),
+        WebCam(
+          name: 'Rouge de Nant Rouge',
+          url: 'https://www.lescontamines.net/camera/rougenantrouge.jpg',
+        ),
+        WebCam(
+          name: 'Ruelle',
+          url: 'https://www.lescontamines.net/camera/ruelle.jpg',
+        ),
+        WebCam(
+          name: 'Télécorde des Feux',
+          url: 'https://www.lescontamines.net/camera/telecorde.jpg',
+        ),
+        WebCam(
+          name: 'Secteur des Tierces',
+          url: 'https://www.lescontamines.net/camera/tierces.jpg',
+        ),
+        WebCam(
+          name: 'TK Choton',
+          url: 'https://www.lescontamines.net/camera/tkchoton.jpg',
+        ),
+        WebCam(
+          name: 'TK des Pierres Blanches',
+          url: 'https://www.lescontamines.net/camera/tkpierresblanches.jpg',
+        ),
+        WebCam(
+          name: 'TK Roselette',
+          url: 'https://www.lescontamines.net/camera/tkroselette.jpg',
+        ),
+        WebCam(
+          name: 'TK Signal',
+          url: 'https://www.lescontamines.net/camera/tksignal.jpg',
+        ),
+        WebCam(
+          name: 'TSD Col du Joly',
+          url: 'https://www.lescontamines.net/camera/tsdcol.jpg',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Les Karellis',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Front de Neige',
+          url: 'https://www.youtube.com/embed/2qc7Ty6ITtk?autoplay=1&mute=1',
+        ),
+        WebCam(
+          name: 'Vinouve',
+          url: 'https://app.webcam-hd.com/les-karellis/vinouve',
+        ),
+      ],
+    ),
     SkiResort(
       name: 'Val Cenis',
       mountain: Mountain.alpesNord,
@@ -1071,6 +1367,48 @@ abstract class ConstSkiResorts {
         WebCam(
           name: 'Lormay 1200m',
           url: 'https://www.skaping.com/le-grand-bornand/auberge-nordique',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Les saisies',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Hauteluce Chozal',
+          url: 'https://app.webcam-hd.com/les-saisies/hauteluce-chozal',
+        ),
+        WebCam(
+          name: 'Espace Erwin Eckl (1650m)',
+          url: 'https://app.webcam-hd.com/les-saisies/espace-erwineckl',
+        ),
+        WebCam(
+          name: 'Mont Bisanne (1940m)',
+          url: 'https://app.webcam-hd.com/les-saisies/bisanne-panoramique-2000',
+        ),
+        WebCam(
+          name: 'Les Chardons (1650m)',
+          url: 'https://app.webcam-hd.com/les-saisies/boetet',
+        ),
+        WebCam(
+          name: 'Bellasta (2050m)',
+          url: 'https://app.webcam-hd.com/les-saisies/bellasta',
+        ),
+        WebCam(
+          name: 'Espace ski de fond',
+          url: 'https://app.webcam-hd.com/les-saisies/nordique',
+        ),
+        WebCam(
+          name: 'Centre Station (1650m)',
+          url: 'https://app.webcam-hd.com/les-saisies/centre-station',
+        ),
+        WebCam(
+          name: 'Hauteluce ORTF (1150m)',
+          url: 'https://app.webcam-hd.com/les-saisies/hauteluce-mtblanc',
+        ),
+        WebCam(
+          name: 'Bisanne 1500',
+          url: 'https://app.webcam-hd.com/les-saisies/bisanne-1500',
         ),
       ],
     ),
@@ -1307,6 +1645,24 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      name: 'Les Orres',
+      mountain: Mountain.alpesSud,
+      webcams: [
+        WebCam(
+          name: 'Au sommet de Pousterle (2530m)',
+          url: 'https://www.skaping.com/les-orres/pousterle',
+        ),
+        WebCam(
+          name: 'Au sommet des Crêtes (2658m)',
+          url: 'https://pv.viewsurf.com/666/Les-Orres',
+        ),
+        WebCam(
+          name: 'Front de Neige',
+          url: 'https://pv.viewsurf.com/1300/Les-Orres',
+        ),
+      ],
+    ),
+    SkiResort(
       name: 'Sauze',
       mountain: Mountain.alpesSud,
       webcams: [
@@ -1374,6 +1730,62 @@ abstract class ConstSkiResorts {
           name: 'Village',
           url:
               'https://www.trinum.com/ibox/ftpcam/mega_st-dalmas-le-selvage_mairie.jpg',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Queyras',
+      description: 'Abriès, Arvieux, Ceillac, Ristolas, Moulines, Saint-Véran',
+      mountain: Mountain.alpesSud,
+      webcams: [
+        WebCam(
+          name: "L'Echalp",
+          url:
+              'https://pv.viewsurf.com/390/Abries-Ristolas-L-Echalp?i=MjUzNDp1bmRlZmluZWQ',
+        ),
+        WebCam(
+          name: 'Roche Ecroulé',
+          url:
+              'https://pv.viewsurf.com/390/Abries-Ristolas-L-Echalp?i=MjQ2NDp1bmRlZmluZWQ',
+        ),
+        WebCam(
+          name: 'Arvieux - Espace-Nordique',
+          url:
+              'https://pv.viewsurf.com/1010/Espace-Nordique-du-Queyras-Arvieux?i=NDc1NDp1bmRlZmluZWQ',
+        ),
+        WebCam(
+          name: 'Ceillac - Espace-Nordique',
+          url:
+              'https://pv.viewsurf.com/1232/Espace-Nordique-du-Queyras-Ceillac?i=NTI3NDp1bmRlZmluZWQ',
+        ),
+        WebCam(
+          name: 'Molines - Espace-Nordique',
+          url:
+              'https://pv.viewsurf.com/1140/Espace-Nordique-du-Queyras-Molines-Saint-Veran?i=NTAyNjp1bmRlZmluZWQ',
+        ),
+        WebCam(
+          name: 'Abries',
+          url: 'https://live.neos360.com/queyras/fixes/abries.jpg',
+        ),
+        WebCam(
+          name: 'Arvieux',
+          url: 'https://live.neos360.com/queyras/fixes/arvieux.jpg',
+        ),
+        WebCam(
+          name: 'Ceillac',
+          url: 'https://live.neos360.com/queyras/fixes/ceillac.jpg',
+        ),
+        WebCam(
+          name: 'Molines',
+          url: 'https://live.neos360.com/queyras/fixes/molines.jpg',
+        ),
+        WebCam(
+          name: 'Aiguilles',
+          url: 'https://live.neos360.com/queyras/fixes/aiguilles.jpg',
+        ),
+        WebCam(
+          name: 'Saint Veran',
+          url: 'https://live.neos360.com/queyras/fixes/veran.jpg',
         ),
       ],
     ),
@@ -1579,6 +1991,30 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      name: 'Les Angles',
+      mountain: Mountain.pyrenees,
+      webcams: [
+        WebCam(
+          name: 'Panoramique',
+          url: 'https://pv.viewsurf.com/668/Les-Angles-vue-panoramique',
+        ),
+        WebCam(
+          name: 'Plateau de Bigorre',
+          url: 'https://pv.viewsurf.com/1736/Les-Angles-Plateau-de-Bigorre',
+        ),
+        WebCam(
+          name: 'Angles Bas de Station',
+          url:
+              'https://pv.viewsurf.com/1734/Les-Angles-vue-du-bas-de-la-station',
+        ),
+        WebCam(
+          name: "Roc d'Aude",
+          url:
+              'https://broadcast.viewsurf.com/cb35437407edec2c3234c09c927cbfd2/capture/16148/playEmbed',
+        ),
+      ],
+    ),
+    SkiResort(
       name: 'La Mongie/Barèges',
       mountain: Mountain.pyrenees,
       webcams: [
@@ -1659,6 +2095,34 @@ abstract class ConstSkiResorts {
         ),
       ],
     ),
+    SkiResort(
+      name: 'Luz Ardiden',
+      mountain: Mountain.pyrenees,
+      webcams: [
+        WebCam(
+          name: 'Pourtere',
+          url: 'https://www.skaping.com/luz-ardiden/pourtere',
+        ),
+        WebCam(
+          name: 'Aulian',
+          url: 'https://www.skaping.com/luz-ardiden/aulian',
+        ),
+        WebCam(
+          name: 'Bederet',
+          url: 'https://www.skaping.com/luz-ardiden/bederet',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Luchon Superbagnères',
+      mountain: Mountain.pyrenees,
+      webcams: [
+        WebCam(
+          name: 'Le Plateau',
+          url: 'https://live.neos360.com/luchon/plateau/',
+        ),
+      ],
+    ),
   ];
 
   static final webcamsCorse = <SkiResort>[
@@ -1728,6 +2192,59 @@ abstract class ConstSkiResorts {
         WebCam(
           name: 'La Serra',
           url: 'https://app.webcam-hd.com/les-rousses/la-serra',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Mont Jura',
+      mountain: Mountain.jura,
+      webcams: [
+        WebCam(
+          name: 'Telecabine Fierney',
+          url: 'https://app.webcam-hd.com/mont-jura/telecabine-crozet',
+        ),
+        WebCam(
+          name: 'Menthières',
+          url: 'https://app.webcam-hd.com/mont-jura/menthieres',
+        ),
+        WebCam(
+          name: 'La Faucille',
+          url:
+              'https://app.webcam-hd.com/mont-jura/la-faucille-coeur-de-station',
+        ),
+        WebCam(
+          name: 'La Vattay',
+          url: 'https://app.webcam-hd.com/mont-jura/la-vattay',
+        ),
+        WebCam(
+          name: 'Petit Mont rond 1540m',
+          url: 'https://app.webcam-hd.com/mont-jura/la-faucille-1540',
+        ),
+        WebCam(
+          name: 'Sommet Station - Monthoisey',
+          url: 'https://www.skaping.com/montsjura/monthoisey',
+        ),
+        WebCam(
+          name: 'Lélex Catheline 1450m',
+          url: 'https://app.webcam-hd.com/mont-jura/catheline',
+        ),
+        WebCam(
+          name: 'Col de la Faucille 1323m',
+          url: 'https://m.webcam-hd.com/ain/col-de-la-faucille',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Métabief',
+      mountain: Mountain.jura,
+      webcams: [
+        WebCam(
+          name: 'Front de Neige',
+          url: 'https://app.webcam-hd.com/orex_metabief/front-de-neige',
+        ),
+        WebCam(
+          name: 'Sommet Morond',
+          url: 'https://app.webcam-hd.com/orex_metabief/morond',
         ),
       ],
     ),
