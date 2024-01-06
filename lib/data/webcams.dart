@@ -1461,7 +1461,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
-      name: 'Saint Francois de Longchamp',
+      name: 'Saint Francois de Longchamp/Valmorel',
       mountain: Mountain.alpesNord,
       webcams: [
         WebCam(
@@ -1472,6 +1472,30 @@ abstract class ConstSkiResorts {
           name: 'Station',
           url:
               'https://app.webcam-hd.com/st_francois_longchamp/st_francois_village',
+        ),
+        WebCam(
+          name: 'Biollene',
+          url: 'https://app.webcam-hd.com/valmorel/biollene',
+        ),
+        WebCam(
+          name: 'Lanchettes',
+          url: 'https://app.webcam-hd.com/valmorel/lanchettes',
+        ),
+        WebCam(
+          name: 'Valmorel Village',
+          url: 'https://app.webcam-hd.com/valmorel/village',
+        ),
+        WebCam(
+          name: 'Combelouviere',
+          url: 'https://app.webcam-hd.com/valmorel/sommet-combelouviere',
+        ),
+        WebCam(
+          name: 'Doucy',
+          url: 'https://app.webcam-hd.com/valmorel/doucy-combelouviere',
+        ),
+        WebCam(
+          name: 'Col du Mottet',
+          url: 'https://www.skaping.com/valmorel/col-du-mottet',
         ),
       ],
     ),
@@ -1595,6 +1619,140 @@ abstract class ConstSkiResorts {
           name: 'Tête des Saix',
           url:
               'https://app.webcam-hd.com/grand-massif/grand-massif_samoens-tete-des-saix',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Thollon-les-Mémises',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Front de Neige',
+          url: 'https://app.webcam-hd.com/thollon-les-memises/front-de-neige',
+        ),
+        WebCam(
+          name: 'Sommet Parchet',
+          url: 'https://app.webcam-hd.com/thollon-les-memises/sommet-parchet',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Tignes',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: '1800',
+          url: 'https://tignes.roundshot.com/1800/#/',
+        ),
+        WebCam(
+          name: 'Chaudannes',
+          url: 'https://tignes.roundshot.com/chaudannes/#/',
+        ),
+        WebCam(
+          name: 'Bord du Lac',
+          url: 'https://tignes.roundshot.com/lac/#/',
+        ),
+        WebCam(
+          name: 'Brévières',
+          url: 'https://tignes.roundshot.com/brevieres/#/',
+        ),
+        WebCam(
+          name: '',
+          url: 'https://tignes.roundshot.com/snowpark/#/',
+        ),
+        WebCam(
+          name: 'Val Claret',
+          url: 'https://tignes.roundshot.com/val-claret/#/',
+        ),
+        WebCam(
+          name: 'Tovière',
+          url: 'https://tignes.roundshot.com/toviere/#/',
+        ),
+        WebCam(
+          name: '',
+          url: 'https://tignes.roundshot.com/grande-motte/#/',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: "Val d'Isère",
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Village',
+          url: 'https://valdisere.roundshot.com/village/#/',
+        ),
+        WebCam(
+          name: 'Front de Neige',
+          url: 'https://valdisere.roundshot.com/#/',
+        ),
+        WebCam(
+          name: 'Crete des Lessieres',
+          url: 'https://valdisere.roundshot.com/crete-des-lessieres/#/',
+        ),
+        WebCam(
+          name: 'Glacier du Pisaillas',
+          url: 'https://valdisere.roundshot.com/glacier-du-pisaillas/#/',
+        ),
+        WebCam(
+          name: 'Snowpark',
+          url: 'https://valdisere.roundshot.com/snowpark/#/',
+        ),
+        WebCam(
+          name: 'Bellevarde',
+          url: 'https://valdisere.roundshot.com/bellevarde/#/',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Valfréjus',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'TC Arrondaz',
+          url: 'https://www.skaping.com/valfrejus/tc-arrondaz',
+        ),
+        WebCam(
+          name: 'Plateau Arrondaz',
+          url: 'https://www.skaping.com/valfrejus/arrondaz',
+        ),
+        WebCam(
+          name: 'Punta Bagna',
+          url: 'https://www.skaping.com/valfrejus/puntabagna',
+        ),
+      ],
+    ),
+    SkiResort(
+      name: 'Valloire/Val Menier',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Poingt Ravier',
+          url: 'https://www.skaping.com/valloire/poingt_ravier',
+        ),
+        WebCam(
+          name: 'Galibier',
+          url: 'https://www.skaping.com/valloire/galibier',
+        ),
+        WebCam(
+          name: 'Crey du Quart',
+          url: 'https://www.skaping.com/valloire/crey-du-quart',
+        ),
+        WebCam(
+          name: 'Sandoniere',
+          url: 'https://www.skaping.com/Valmeinier/sandoniere',
+        ),
+        WebCam(
+          name: 'Setaz',
+          url: 'https://valloire.roundshot.com/setaz/',
+        ),
+        WebCam(
+          name: 'Moneul Crey du Quart',
+          url: 'https://valmeinier.roundshot.com/moneul-creyduquart/',
+        ),
+        WebCam(
+          name: 'Les Jeux',
+          url: 'https://valmeinier.roundshot.com/lesjeux/',
         ),
       ],
     ),
