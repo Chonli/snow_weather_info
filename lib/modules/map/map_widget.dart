@@ -4,22 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/core/notifier/location.dart';
-import 'package:snow_weather_info/core/widgets/app_web_page.dart';
 import 'package:snow_weather_info/data/constant_data_list.dart';
 import 'package:snow_weather_info/data/sources/avalanche_api.dart';
 import 'package:snow_weather_info/data/sources/preferences.dart';
-import 'package:snow_weather_info/extensions/atom_item.dart';
 import 'package:snow_weather_info/model/station.dart';
-import 'package:snow_weather_info/modules/data_station/view.dart';
 import 'package:snow_weather_info/modules/map/map_licence_widget.dart';
 import 'package:snow_weather_info/modules/map/map_maker.dart';
-import 'package:snow_weather_info/modules/nivose/nivose_page.dart';
 import 'package:snow_weather_info/provider/station_data.dart';
 import 'package:snow_weather_info/provider/stations.dart';
+import 'package:snow_weather_info/router/router.dart';
 
 part 'map_widget.g.dart';
 
@@ -115,12 +113,16 @@ class __InnerViewState extends ConsumerState<_InnerView> {
           child: MapMaker(
             icon: const Icon(Icons.place),
             color: _nivoseColor,
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute<Widget>(
-                builder: (context) => NivosePage(nivose: nivose),
-              ),
-            ),
+            onPressed: () {
+              ref
+                  .read(currentMapLocProvider.notifier)
+                  .setLocation(nivose.position);
+
+              context.goNamed(
+                AppRoute.detailMapSt.name,
+                extra: nivose,
+              );
+            },
           ),
         ),
       );
@@ -149,11 +151,9 @@ class __InnerViewState extends ConsumerState<_InnerView> {
                     .read(currentMapLocProvider.notifier)
                     .setLocation(station.position);
 
-                Navigator.push(
-                  context,
-                  MaterialPageRoute<Widget>(
-                    builder: (context) => DataStationView(station: station),
-                  ),
+                context.goNamed(
+                  AppRoute.detailMapSt.name,
+                  extra: station,
                 );
               },
             ),
@@ -187,16 +187,16 @@ class __InnerViewState extends ConsumerState<_InnerView> {
               child: MapMaker(
                 icon: const Icon(Icons.ac_unit),
                 color: _avalancheColor,
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute<Widget>(
-                    builder: (context) => AppWebPage(
-                      title: item.shortTitle,
-                      url: item.url,
-                      canIsOpen: true,
-                    ),
-                  ),
-                ),
+                onPressed: () {
+                  ref
+                      .read(currentMapLocProvider.notifier)
+                      .setLocation(LatLng(lat, long));
+
+                  context.goNamed(
+                    AppRoute.detailMapAv.name,
+                    extra: item,
+                  );
+                },
               ),
             ),
           );

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snow_weather_info/model/station.dart';
-import 'package:snow_weather_info/modules/data_station/view.dart';
 import 'package:snow_weather_info/modules/map/map_widget.dart';
-import 'package:snow_weather_info/modules/nivose/nivose_page.dart';
 import 'package:snow_weather_info/provider/station_data.dart';
+import 'package:snow_weather_info/router/router.dart';
 
 class StationCard extends ConsumerWidget {
   const StationCard({
@@ -69,13 +69,9 @@ class StationCard extends ConsumerWidget {
               .read(currentMapLocProvider.notifier)
               .setLocation(station.position);
 
-          Navigator.push(
-            context,
-            MaterialPageRoute<Widget>(
-              builder: (context) => station is Station
-                  ? DataStationView(station: station as Station)
-                  : NivosePage(nivose: station as Nivose),
-            ),
+          context.goNamed(
+            AppRoute.detailSt.name,
+            extra: station,
           );
         },
       ),

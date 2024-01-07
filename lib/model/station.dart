@@ -68,7 +68,12 @@ class Station extends AbstractStation {
 }
 
 class Nivose extends AbstractStation {
-  Nivose(super.name, super.position, super.altitude, this.codeMF);
+  Nivose(
+    super.name,
+    super.position,
+    super.altitude,
+    this.codeMF,
+  );
 
   final String codeMF;
 

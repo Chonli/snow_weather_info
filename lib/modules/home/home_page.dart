@@ -1,130 +1,103 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:package_info/package_info.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:snow_weather_info/modules/avalanche/view.dart';
-import 'package:snow_weather_info/modules/bera/view.dart';
-import 'package:snow_weather_info/modules/map/map_widget.dart';
-import 'package:snow_weather_info/modules/settings/preference_page.dart';
-import 'package:snow_weather_info/modules/station/list_station_widget.dart';
+import 'package:snow_weather_info/core/const.dart';
+import 'package:snow_weather_info/router/router.dart';
 import 'package:url_launcher/url_launcher.dart' as url;
 
-part 'home_page.g.dart';
-
-@Riverpod(keepAlive: false)
-class _CurrentTabIndex extends _$CurrentTabIndex {
-  @override
-  int build() {
-    return 0;
-  }
-
-  // ignore: use_setters_to_change_properties
-  void setIndex(int index) {
-    state = index;
-  }
-}
-
-class HomePage extends ConsumerStatefulWidget {
+class HomePage extends ConsumerWidget {
   const HomePage({
-    required this.title,
+    required this.navigationShell,
     super.key,
   });
 
-  final String title;
+  final StatefulNavigationShell navigationShell;
+
+  void _goBranch(int index) {
+    navigationShell.goBranch(
+      index,
+      initialLocation: index == navigationShell.currentIndex,
+    );
+  }
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _HomePageState();
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Scaffold(
+      appBar: const _TitleBar(),
+      body: navigationShell,
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
+        currentIndex: navigationShell.currentIndex,
+        onTap: _goBranch,
+        items: const [
+          BottomNavigationBarItem(
+            label: 'Stations',
+            icon: Icon(Icons.list),
+          ),
+          BottomNavigationBarItem(
+            label: 'Carte',
+            icon: Icon(Icons.map),
+          ),
+          BottomNavigationBarItem(
+            label: 'Avalanches',
+            icon: Icon(Icons.rss_feed),
+          ),
+          BottomNavigationBarItem(
+            label: 'BERA',
+            icon: Icon(Icons.ac_unit),
+          ),
+          BottomNavigationBarItem(
+            label: 'Webcam',
+            icon: Icon(Icons.camera),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
-class _HomePageState extends ConsumerState<HomePage>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
+enum _MenuItem {
+  setting,
+  about,
+}
 
-  @override
-  void initState() {
-    super.initState();
-    final index = ref.read(_currentTabIndexProvider);
-    _tabController = TabController(
-      vsync: this,
-      length: 4,
-      initialIndex: index,
-    );
-    _tabController.addListener(() {
-      ref.read(_currentTabIndexProvider.notifier).setIndex(
-            _tabController.index,
-          );
-    });
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
+class _TitleBar extends StatelessWidget implements PreferredSizeWidget {
+  const _TitleBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        actions: <Widget>[
-          PopupMenuButton<int>(
-            offset: const Offset(0, 40),
-            onSelected: (int value) async {
-              switch (value) {
-                case 0:
-                  await Navigator.push(
-                    context,
-                    MaterialPageRoute<Widget>(
-                      builder: (context) => const PreferencePage(),
-                    ),
-                  );
-                case 1:
-                  await _openAboutDialog(context);
-              }
-            },
-            itemBuilder: (context) => <PopupMenuItem<int>>[
-              const PopupMenuItem(
-                value: 0,
-                child: ListTile(
-                  leading: Icon(Icons.settings),
-                  title: Text('Préférences...'),
-                ),
+    return AppBar(
+      title: const Text(AppConst.title),
+      actions: <Widget>[
+        PopupMenuButton<_MenuItem>(
+          offset: const Offset(0, 40),
+          onSelected: (_MenuItem value) async {
+            return switch (value) {
+              _MenuItem.setting => context.pushNamed(AppRoute.setting.name),
+              _MenuItem.about => await _openAboutDialog(context),
+            };
+          },
+          itemBuilder: (context) => <PopupMenuItem<_MenuItem>>[
+            const PopupMenuItem(
+              value: _MenuItem.setting,
+              child: ListTile(
+                leading: Icon(Icons.settings),
+                title: Text('Préférences...'),
               ),
-              const PopupMenuItem(
-                value: 1,
-                child: ListTile(
-                  leading: Icon(Icons.info_outline),
-                  title: Text('A propos...'),
-                ),
+            ),
+            const PopupMenuItem(
+              value: _MenuItem.about,
+              child: ListTile(
+                leading: Icon(Icons.info_outline),
+                title: Text('A propos...'),
               ),
-            ],
-          ),
-        ],
-        bottom: TabBar(
-          key: const PageStorageKey('tab_key'),
-          controller: _tabController,
-          isScrollable: true,
-          indicatorColor: Theme.of(context).primaryColor,
-          tabs: const [
-            Tab(text: 'Stations', icon: Icon(Icons.list)),
-            Tab(text: 'Carte', icon: Icon(Icons.map)),
-            Tab(text: 'Avalanches', icon: Icon(Icons.rss_feed)),
-            Tab(text: 'BERA', icon: Icon(Icons.ac_unit)),
+            ),
           ],
         ),
-      ),
-      body: TabBarView(
-        key: const PageStorageKey('tab_key'),
-        controller: _tabController,
-        physics: const NeverScrollableScrollPhysics(),
-        children: const [
-          ListStationWidget(),
-          MapWidget(),
-          AvalancheListWidget(),
-          BERAMassifListView(),
-        ],
-      ),
+      ],
     );
   }
 
@@ -171,4 +144,7 @@ class _HomePageState extends ConsumerState<HomePage>
       );
     }
   }
+
+  @override
+  Size get preferredSize => const Size(double.infinity, kToolbarHeight);
 }

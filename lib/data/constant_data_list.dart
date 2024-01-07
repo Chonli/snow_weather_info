@@ -1,5 +1,6 @@
 import 'package:latlong2/latlong.dart';
 import 'package:snow_weather_info/model/avalanche_bulletin.dart';
+import 'package:snow_weather_info/model/mountain.dart';
 import 'package:snow_weather_info/model/station.dart';
 
 abstract class ConstantDatalist {
