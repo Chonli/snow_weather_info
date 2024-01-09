@@ -2,6 +2,8 @@ import 'package:snow_weather_info/model/mountain.dart';
 import 'package:snow_weather_info/model/ski_resort.dart';
 import 'package:snow_weather_info/model/webcam.dart';
 
+//last id: 94
+
 abstract class ConstSkiResorts {
   static final webcamsByResort = [
     ...webcamsNord,
@@ -14,8 +16,9 @@ abstract class ConstSkiResorts {
   ];
 
   static final webcamsNord = [
-    // Alpes du nord
+// Alpes du nord
     SkiResort(
+      id: 0,
       name: 'Abondance',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -26,6 +29,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 1,
       name: 'Aillons Margeriaz',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -48,6 +52,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 2,
       name: 'Albiez',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -58,6 +63,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 3,
       name: "Alpe d'huez",
       description:
           "Alpe d'huez, Auris en Oisans, La Garde, Le Freney d'Oisans, Oz en Oisans, Vaujany et Villard-Reculas",
@@ -109,8 +115,8 @@ abstract class ConstSkiResorts {
         ),
       ],
     ),
-
     SkiResort(
+      id: 4,
       name: 'Alpe du Grand Serre',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -133,6 +139,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 5,
       name: 'Areches Beaufort',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -155,6 +162,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 6,
       name: 'Aussois',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -178,6 +186,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 7,
       name: 'Autrans Méaudre',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -219,6 +228,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 8,
       name: 'Portes du Soleil',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -322,6 +332,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 9,
       name: 'Bernex',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -336,6 +347,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 10,
       name: 'Bessans',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -354,6 +366,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 11,
       name: 'Bessans',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -372,6 +385,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 12,
       name: 'Bonneval sur Arc',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -388,6 +402,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 13,
       name: 'Vallée de Chamonix',
       description: 'Argentière, Chamonix, Le Tour, Les Houches, Vallorcine',
       mountain: Mountain.alpesNord,
@@ -463,6 +478,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 14,
       name: 'Chamrousse',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -498,6 +514,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 15,
       name: 'Combloux/Megève',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -540,6 +557,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 16,
       name: 'Col de Porte',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -562,6 +580,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 17,
       name: '7 Laux',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -576,6 +595,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 18,
       name: 'Corrençon/Villard de Lans',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -619,6 +639,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 19,
       name: '3 Vallées',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -673,7 +694,7 @@ abstract class ConstSkiResorts {
           url: 'https://app.webcam-hd.com/meribel/meribel_chaudanne',
         ),
         WebCam(
-          name: 'Les Menuires -  La Masse',
+          name: 'Les Menuires - La Masse',
           url: 'https://www.skaping.com/les-menuires/la-masse',
         ),
         WebCam(
@@ -689,7 +710,7 @@ abstract class ConstSkiResorts {
           url: 'https://www.skaping.com/les-menuires/lac-du-lou',
         ),
         WebCam(
-          name: 'Les Menuires -  La Croisette',
+          name: 'Les Menuires - La Croisette',
           url: 'https://www.skaping.com/lesmenuires/croisette',
         ),
         WebCam(
@@ -701,7 +722,7 @@ abstract class ConstSkiResorts {
           url: 'https://www.skaping.com/saintmartindebelleville/village',
         ),
         WebCam(
-          name: 'Val Thorens -  Funitel de Thorens',
+          name: 'Val Thorens - Funitel de Thorens',
           url: 'https://www.skaping.com/valthorens/funitelthorens',
         ),
         WebCam(
@@ -735,6 +756,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 20,
       name: 'Flaine',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -763,6 +785,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 21,
       name: 'La Clusaz',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -809,6 +832,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 22,
       name: 'La Norma',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -832,6 +856,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 23,
       name: 'La Plagne',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -914,6 +939,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 24,
       name: 'La Rosière',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -957,6 +983,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 25,
       name: 'Les 2 Alpes',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -991,6 +1018,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 26,
       name: 'Les Arcs',
       description: 'Les Arcs, Peisey, Vallandry',
       mountain: Mountain.alpesNord,
@@ -1038,6 +1066,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 27,
       name: 'Les Carroz',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -1068,6 +1097,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 28,
       name: 'Saint Gervais',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -1098,6 +1128,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 29,
       name: 'Les Contamines Montjoie',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -1260,6 +1291,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 30,
       name: 'Les Karellis',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -1274,6 +1306,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 31,
       name: 'Val Cenis',
       description: 'Lanslevillard, Lanslebourg, Termignon',
       mountain: Mountain.alpesNord,
@@ -1297,6 +1330,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 32,
       name: "Collet d'Allevard",
       mountain: Mountain.alpesNord,
       webcams: [
@@ -1319,6 +1353,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 33,
       name: 'Les Sybelles',
       description:
           'La Toussuire, Le Corbier, Saint-Sorlin-d’Arves, Saint-Jean-d’Arves, Les Bottières et Saint-Colomban des Villard',
@@ -1372,6 +1407,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 34,
       name: 'Le Grand Bornand',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -1406,6 +1442,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 35,
       name: 'Notre Dame de Bellecombe',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -1424,6 +1461,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 36,
       name: 'Sainte Foy la Tarentaise',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -1446,6 +1484,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 37,
       name: 'Plateau des Pettites Roches',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -1461,6 +1500,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 38,
       name: 'Saint Francois de Longchamp/Valmorel',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -1500,6 +1540,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 39,
       name: 'Les saisies',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -1542,6 +1583,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 40,
       name: 'Praz de Lys Sommand',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -1564,6 +1606,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 41,
       name: 'Praz sur Arly',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -1582,6 +1625,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 42,
       name: 'Morillon/Sixt-Fer-à-Cheval/Samoëns',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -1623,6 +1667,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 43,
       name: 'Thollon-les-Mémises',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -1637,6 +1682,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 44,
       name: 'Tignes',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -1675,6 +1721,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 45,
       name: "Val d'Isère",
       mountain: Mountain.alpesNord,
       webcams: [
@@ -1705,6 +1752,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 46,
       name: 'Valfréjus',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -1723,6 +1771,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 47,
       name: 'Valloire/Val Menier',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -1759,8 +1808,9 @@ abstract class ConstSkiResorts {
   ];
 
   static final webcamsSud = [
-    // Alpes du sud
+// Alpes du sud
     SkiResort(
+      id: 48,
       name: 'Ancelle',
       mountain: Mountain.alpesSud,
       webcams: [
@@ -1779,6 +1829,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 49,
       name: 'Orcières',
       mountain: Mountain.alpesSud,
       webcams: [
@@ -1809,6 +1860,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 50,
       name: 'Saint Léger les Mélèzes',
       mountain: Mountain.alpesSud,
       webcams: [
@@ -1823,6 +1875,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 51,
       name: 'Gap Bayard',
       mountain: Mountain.alpesSud,
       webcams: [
@@ -1849,6 +1902,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 52,
       name: 'Laye',
       mountain: Mountain.alpesSud,
       webcams: [
@@ -1859,6 +1913,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 53,
       name: 'Valgaudemar',
       mountain: Mountain.alpesSud,
       webcams: [
@@ -1880,6 +1935,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 54,
       name: 'Dévoluy',
       description: 'Superdévoluy et La Joue du Loup',
       mountain: Mountain.alpesSud,
@@ -1911,6 +1967,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 55,
       name: 'Auron',
       mountain: Mountain.alpesSud,
       webcams: [
@@ -1939,6 +1996,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 56,
       name: 'Chaillol',
       mountain: Mountain.alpesSud,
       webcams: [
@@ -1953,6 +2011,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 57,
       name: 'Puy Saint Vincent',
       mountain: Mountain.alpesSud,
       webcams: [
@@ -1971,6 +2030,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 58,
       name: 'Réallon',
       mountain: Mountain.alpesSud,
       webcams: [
@@ -1985,6 +2045,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 59,
       name: 'Chabanon',
       mountain: Mountain.alpesSud,
       webcams: [
@@ -1999,6 +2060,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 60,
       name: 'La Grave',
       mountain: Mountain.alpesSud,
       webcams: [
@@ -2021,6 +2083,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 61,
       name: 'Les Orres',
       mountain: Mountain.alpesSud,
       webcams: [
@@ -2039,6 +2102,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 62,
       name: 'Montgenèvre',
       mountain: Mountain.alpesSud,
       webcams: [
@@ -2081,6 +2145,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 63,
       name: 'Briançon/Serre Chevalier/Monetier',
       mountain: Mountain.alpesSud,
       webcams: [
@@ -2112,6 +2177,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 64,
       name: 'Sauze',
       mountain: Mountain.alpesSud,
       webcams: [
@@ -2138,6 +2204,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 65,
       name: 'Isola 2000',
       mountain: Mountain.alpesSud,
       webcams: [
@@ -2172,6 +2239,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 66,
       name: 'Saint Dalmas le Selvage',
       mountain: Mountain.alpesSud,
       webcams: [
@@ -2183,6 +2251,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 67,
       name: 'Queyras',
       description: 'Abriès, Arvieux, Ceillac, Ristolas, Moulines, Saint-Véran',
       mountain: Mountain.alpesSud,
@@ -2239,6 +2308,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 68,
       name: 'Le Grand Puy',
       mountain: Mountain.alpesSud,
       webcams: [
@@ -2257,6 +2327,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 69,
       name: 'Allos',
       mountain: Mountain.alpesSud,
       webcams: [
@@ -2291,6 +2362,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 70,
       name: 'Pra Loup',
       mountain: Mountain.alpesSud,
       webcams: [
@@ -2313,6 +2385,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 71,
       name: 'Vars/Risoul',
       mountain: Mountain.alpesSud,
       webcams: [
@@ -2365,8 +2438,9 @@ abstract class ConstSkiResorts {
   ];
 
   static final webcamsPyrenees = [
-    // Pyrenees
+// Pyrenees
     SkiResort(
+      id: 72,
       name: 'Astún',
       mountain: Mountain.pyrenees,
       webcams: [
@@ -2397,6 +2471,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 73,
       name: 'Ax 3 Domaines',
       mountain: Mountain.pyrenees,
       webcams: [
@@ -2419,6 +2494,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 74,
       name: 'Baqueira - Beret',
       mountain: Mountain.pyrenees,
       webcams: [
@@ -2437,6 +2513,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 75,
       name: 'Cauterets',
       mountain: Mountain.pyrenees,
       webcams: [
@@ -2445,7 +2522,7 @@ abstract class ConstSkiResorts {
           url: 'https://www.skaping.com/cauterets/cirque-du-lys/panorama',
         ),
         WebCam(
-          name: 'Crêtes  2400m',
+          name: 'Crêtes 2400m',
           url:
               'https://pv.viewsurf.com/1434/Cauterets-Le-Lys?i=NTc5ODp1bmRlZmluZWQ',
         ),
@@ -2457,6 +2534,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 76,
       name: 'Gourette',
       mountain: Mountain.pyrenees,
       webcams: [
@@ -2483,6 +2561,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 77,
       name: 'Andorre',
       description: 'Canillo, Pal Arinsal, Arcalis, Pas de la Casa, Grandvalira',
       mountain: Mountain.pyrenees,
@@ -2560,6 +2639,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 78,
       name: 'Peyragudes',
       mountain: Mountain.pyrenees,
       webcams: [
@@ -2617,6 +2697,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 79,
       name: 'Font Romeu',
       mountain: Mountain.pyrenees,
       webcams: [
@@ -2680,6 +2761,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 80,
       name: 'Les Angles',
       mountain: Mountain.pyrenees,
       webcams: [
@@ -2704,6 +2786,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 81,
       name: 'La Mongie/Barèges',
       mountain: Mountain.pyrenees,
       webcams: [
@@ -2754,6 +2837,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 82,
       name: 'La Pierre Saint-Martin',
       mountain: Mountain.pyrenees,
       webcams: [
@@ -2785,6 +2869,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 83,
       name: 'Luz Ardiden',
       mountain: Mountain.pyrenees,
       webcams: [
@@ -2803,6 +2888,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 84,
       name: 'Luchon Superbagnères',
       mountain: Mountain.pyrenees,
       webcams: [
@@ -2813,6 +2899,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 85,
       name: 'Piau Engaly',
       mountain: Mountain.pyrenees,
       webcams: [
@@ -2874,6 +2961,7 @@ abstract class ConstSkiResorts {
 
   static final webcamsCorse = <SkiResort>[
     SkiResort(
+      id: 86,
       name: 'Ghisoni',
       mountain: Mountain.corse,
       webcams: [
@@ -2888,6 +2976,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 87,
       name: "Bastelica (Val d'Ese)",
       mountain: Mountain.corse,
       webcams: [
@@ -2902,6 +2991,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 88,
       name: 'Asco',
       mountain: Mountain.corse,
       webcams: [
@@ -2915,8 +3005,9 @@ abstract class ConstSkiResorts {
   ];
 
   static final webcamsJura = [
-    // Jura
+// Jura
     SkiResort(
+      id: 89,
       name: 'Les Rousses',
       mountain: Mountain.jura,
       webcams: [
@@ -2943,6 +3034,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 90,
       name: 'Mont Jura',
       mountain: Mountain.jura,
       webcams: [
@@ -2982,6 +3074,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 91,
       name: 'Métabief',
       mountain: Mountain.jura,
       webcams: [
@@ -2998,8 +3091,9 @@ abstract class ConstSkiResorts {
   ];
 
   static final webcamsCentral = [
-    // Massif Central
+// Massif Central
     SkiResort(
+      id: 92,
       name: 'Besse/Mont-Dore',
       mountain: Mountain.massifCentral,
       webcams: [
@@ -3046,6 +3140,7 @@ abstract class ConstSkiResorts {
       ],
     ),
     SkiResort(
+      id: 93,
       name: 'Le Lioran',
       mountain: Mountain.massifCentral,
       webcams: [
@@ -3075,8 +3170,9 @@ abstract class ConstSkiResorts {
   ];
 
   static final webcamsVosges = [
-    // Vosges
+// Vosges
     SkiResort(
+      id: 94,
       name: 'La Bresse Hohneck',
       mountain: Mountain.vosges,
       webcams: [

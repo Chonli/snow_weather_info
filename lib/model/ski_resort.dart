@@ -7,6 +7,7 @@ part 'ski_resort.freezed.dart';
 @freezed
 abstract class SkiResort with _$SkiResort {
   factory SkiResort({
+    required int id,
     required String name,
     required Mountain mountain,
     String? description,

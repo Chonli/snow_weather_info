@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SkiResort {
+  int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   Mountain get mountain => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
@@ -32,7 +33,8 @@ abstract class $SkiResortCopyWith<$Res> {
       _$SkiResortCopyWithImpl<$Res, SkiResort>;
   @useResult
   $Res call(
-      {String name,
+      {int id,
+      String name,
       Mountain mountain,
       String? description,
       List<WebCam> webcams});
@@ -51,12 +53,17 @@ class _$SkiResortCopyWithImpl<$Res, $Val extends SkiResort>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? name = null,
     Object? mountain = null,
     Object? description = freezed,
     Object? webcams = null,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -86,7 +93,8 @@ abstract class _$$SkiResortImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String name,
+      {int id,
+      String name,
       Mountain mountain,
       String? description,
       List<WebCam> webcams});
@@ -103,12 +111,17 @@ class __$$SkiResortImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? name = null,
     Object? mountain = null,
     Object? description = freezed,
     Object? webcams = null,
   }) {
     return _then(_$SkiResortImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -133,12 +146,15 @@ class __$$SkiResortImplCopyWithImpl<$Res>
 
 class _$SkiResortImpl implements _SkiResort {
   _$SkiResortImpl(
-      {required this.name,
+      {required this.id,
+      required this.name,
       required this.mountain,
       this.description,
       final List<WebCam> webcams = const []})
       : _webcams = webcams;
 
+  @override
+  final int id;
   @override
   final String name;
   @override
@@ -156,7 +172,7 @@ class _$SkiResortImpl implements _SkiResort {
 
   @override
   String toString() {
-    return 'SkiResort(name: $name, mountain: $mountain, description: $description, webcams: $webcams)';
+    return 'SkiResort(id: $id, name: $name, mountain: $mountain, description: $description, webcams: $webcams)';
   }
 
   @override
@@ -164,6 +180,7 @@ class _$SkiResortImpl implements _SkiResort {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SkiResortImpl &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.mountain, mountain) ||
                 other.mountain == mountain) &&
@@ -173,7 +190,7 @@ class _$SkiResortImpl implements _SkiResort {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, name, mountain, description,
+  int get hashCode => Object.hash(runtimeType, id, name, mountain, description,
       const DeepCollectionEquality().hash(_webcams));
 
   @JsonKey(ignore: true)
@@ -185,11 +202,14 @@ class _$SkiResortImpl implements _SkiResort {
 
 abstract class _SkiResort implements SkiResort {
   factory _SkiResort(
-      {required final String name,
+      {required final int id,
+      required final String name,
       required final Mountain mountain,
       final String? description,
       final List<WebCam> webcams}) = _$SkiResortImpl;
 
+  @override
+  int get id;
   @override
   String get name;
   @override
