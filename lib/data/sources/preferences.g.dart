@@ -88,6 +88,23 @@ final favoritesStationSettingsProvider =
 );
 
 typedef _$FavoritesStationSettings = Notifier<List<String>>;
+String _$favoritesSkiResortSettingsHash() =>
+    r'e267cf13d5da54b939713822d10626d34f24464d';
+
+/// See also [FavoritesSkiResortSettings].
+@ProviderFor(FavoritesSkiResortSettings)
+final favoritesSkiResortSettingsProvider =
+    NotifierProvider<FavoritesSkiResortSettings, List<int>>.internal(
+  FavoritesSkiResortSettings.new,
+  name: r'favoritesSkiResortSettingsProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$favoritesSkiResortSettingsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$FavoritesSkiResortSettings = Notifier<List<int>>;
 String _$favoritesBERASettingsHash() =>
     r'fae0e555c2ed965494d055085abe2ded4603b9f4';
 

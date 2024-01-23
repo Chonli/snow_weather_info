@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snow_weather_info/model/ski_resort.dart';
 import 'package:snow_weather_info/model/webcam.dart';
+import 'package:snow_weather_info/modules/webcam/favorite_notifier.dart';
 
-class WebcamsForResortView extends StatelessWidget {
+class WebcamsForResortView extends ConsumerWidget {
   const WebcamsForResortView({
     required this.resort,
     super.key,
@@ -12,12 +14,26 @@ class WebcamsForResortView extends StatelessWidget {
   final SkiResort resort;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isFavorite = ref.watch(favoriteSkiResortProvider).contains(resort);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
           resort.name,
         ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              isFavorite ? Icons.favorite : Icons.favorite_border,
+            ),
+            onPressed: () => ref
+                .read(favoriteSkiResortProvider.notifier)
+                .addOrRemoveFavorite(
+                  resort,
+                ),
+          ),
+        ],
       ),
       body: ListView(
         children: [
@@ -106,7 +122,7 @@ class _WebMedia extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (url.endsWith('.jpg')) {
+    if (url.endsWith('.jpg') || url.endsWith('.png')) {
       return InteractiveViewer(
         minScale: 0.5,
         maxScale: 5,

@@ -39,9 +39,9 @@ class _BeraTokenHeader extends _$BeraTokenHeader {
                   .contains('https://rpcache-aa.meteofrance.com') &&
               request.method == 'GET' &&
               request.headers != null) {
-            print('Header found');
             state = request.headers!;
           }
+          return null;
         },
       );
 

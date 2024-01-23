@@ -6,7 +6,7 @@ part of 'detail.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$pdfControllerHash() => r'0c835a63e18cd841d1d953ddcab78c5291a6470b';
+String _$pdfControllerHash() => r'd44e0853f31b71f120ff19c2c98d963746a798fc';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -156,7 +156,7 @@ class _PdfControllerProviderElement
   int get beraNumber => (origin as _PdfControllerProvider).beraNumber;
 }
 
-String _$beraTokenHeaderHash() => r'ad1ac6a0eeb2c8e2c5d4f82be9aa6755383762b9';
+String _$beraTokenHeaderHash() => r'0bbe438278a0b8d7c53812ad2a6373dff7ac4f30';
 
 /// See also [_BeraTokenHeader].
 @ProviderFor(_BeraTokenHeader)

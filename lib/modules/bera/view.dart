@@ -6,7 +6,6 @@ import 'package:snow_weather_info/core/widgets/app_sticky_header_view.dart';
 import 'package:snow_weather_info/data/constant_data_list.dart';
 import 'package:snow_weather_info/model/avalanche_bulletin.dart';
 import 'package:snow_weather_info/model/mountain.dart';
-import 'package:snow_weather_info/modules/bera/detail.dart';
 import 'package:snow_weather_info/provider/favorite_bera.dart';
 import 'package:snow_weather_info/router/router.dart';
 
@@ -46,7 +45,7 @@ class _ListFavoriteView extends ConsumerWidget {
 
     return SliverStickyHeader(
       header: AppStickyHeaderView(
-        text: favorites.length == 1 ? 'Favorite' : 'Favorites',
+        text: favorites.length == 1 ? 'Favori' : 'Favoris',
       ),
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(

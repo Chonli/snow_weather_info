@@ -105,7 +105,7 @@ class ListStationWidget extends ConsumerWidget {
         if (favoriteStation.isNotEmpty)
           SliverStickyHeader(
             header: AppStickyHeaderView(
-              text: favoriteStation.length == 1 ? 'Favorite' : 'Favorites',
+              text: favoriteStation.length == 1 ? 'Favori' : 'Favoris',
             ),
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate(

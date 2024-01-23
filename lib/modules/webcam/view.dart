@@ -7,6 +7,7 @@ import 'package:snow_weather_info/core/widgets/app_sticky_header_view.dart';
 import 'package:snow_weather_info/data/webcams.dart';
 import 'package:snow_weather_info/model/mountain.dart';
 import 'package:snow_weather_info/model/ski_resort.dart';
+import 'package:snow_weather_info/modules/webcam/favorite_notifier.dart';
 import 'package:snow_weather_info/router/router.dart';
 
 part 'view.g.dart';
@@ -73,28 +74,27 @@ class _ListFavoriteView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // TODO(chonli): Add favorites ski resort
-    // final favorites = ref.watch(
-    //   favoriteBeraProvider,
-    // );
-
-    // if (favorites.isEmpty) {
-    return const SliverToBoxAdapter(
-      child: SizedBox.shrink(),
+    final favorites = ref.watch(
+      favoriteSkiResortProvider,
     );
-    // }
 
-    // return SliverStickyHeader(
-    //   header: AppStickyHeaderView(
-    //     text: favorites.length == 1 ? 'Favorite' : 'Favorites',
-    //   ),
-    //   sliver: SliverList(
-    //     delegate: SliverChildBuilderDelegate(
-    //       (context, index) => _CardMassif(favorites[index]),
-    //       childCount: favorites.length,
-    //     ),
-    //   ),
-    // );
+    if (favorites.isEmpty) {
+      return const SliverToBoxAdapter(
+        child: SizedBox.shrink(),
+      );
+    }
+
+    return SliverStickyHeader(
+      header: AppStickyHeaderView(
+        text: favorites.length == 1 ? 'Favori' : 'Favoris',
+      ),
+      sliver: SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (context, index) => _CardSkiResort(favorites[index]),
+          childCount: favorites.length,
+        ),
+      ),
+    );
   }
 }
 
@@ -131,7 +131,7 @@ class _ListByMassifView extends ConsumerWidget {
       ),
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
-          (context, index) => _CardMassif(list[index]),
+          (context, index) => _CardSkiResort(list[index]),
           childCount: list.length,
         ),
       ),
@@ -139,8 +139,8 @@ class _ListByMassifView extends ConsumerWidget {
   }
 }
 
-class _CardMassif extends StatelessWidget {
-  const _CardMassif(this.resort);
+class _CardSkiResort extends StatelessWidget {
+  const _CardSkiResort(this.resort);
 
   final SkiResort resort;
 

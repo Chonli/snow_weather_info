@@ -8,6 +8,8 @@ part 'preferences.g.dart';
 const _lastStationPrefs = 'lastStationPrefs';
 const _lastStationDataPrefs = 'lastStationDataPrefs';
 const _favoritesStationPrefs = 'favoritesStationPrefs';
+
+const _favoritesSkiResortPrefs = 'favoritesSkiResortPrefs';
 const _favoritesBERAPrefs = 'favoritesBERAPrefs';
 const _themeModePrefs = 'themeModePrefs';
 const _showNoDataStationPrefs = 'showNoDataStationPrefs';
@@ -106,6 +108,33 @@ class FavoritesStationSettings extends _$FavoritesStationSettings {
     if (!listEquals(state, favorites)) {
       state = favorites;
       _preference.setStringList(_favoritesStationPrefs, favorites);
+    }
+  }
+}
+
+@Riverpod(keepAlive: true)
+class FavoritesSkiResortSettings extends _$FavoritesSkiResortSettings {
+  @override
+  List<int> build() {
+    return _favoritesSkiResort;
+  }
+
+  SharedPreferences get _preference => ref.watch(sharedPreferencesProvider);
+
+  List<int> get _favoritesSkiResort =>
+      _preference
+          .getStringList(_favoritesSkiResortPrefs)
+          ?.map(int.parse)
+          .toList() ??
+      [];
+
+  void update(List<int> favorites) {
+    if (!listEquals(state, favorites)) {
+      state = favorites;
+      _preference.setStringList(
+        _favoritesSkiResortPrefs,
+        favorites.map((e) => e.toString()).toList(),
+      );
     }
   }
 }
