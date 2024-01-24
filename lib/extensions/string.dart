@@ -10,4 +10,13 @@ extension StringNullExtension on String? {
 
     return data;
   }
+
+  bool safeSearch(String search) {
+    return switch (this) {
+      final String value => value.toLowerCase().contains(
+            search.toLowerCase(),
+          ),
+      _ => false,
+    };
+  }
 }

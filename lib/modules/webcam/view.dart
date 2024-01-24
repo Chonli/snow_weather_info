@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/core/widgets/app_sticky_header_view.dart';
 import 'package:snow_weather_info/data/webcams.dart';
+import 'package:snow_weather_info/extensions/string.dart';
 import 'package:snow_weather_info/model/mountain.dart';
 import 'package:snow_weather_info/model/ski_resort.dart';
 import 'package:snow_weather_info/modules/webcam/favorite_notifier.dart';
@@ -114,9 +115,12 @@ class _ListByMassifView extends ConsumerWidget {
         .where(
           (station) =>
               search.isEmpty ||
-              station.name.toLowerCase().contains(
-                    search.toLowerCase(),
-                  ),
+              station.name.safeSearch(
+                search.toLowerCase(),
+              ) ||
+              station.description.safeSearch(
+                search.toLowerCase(),
+              ),
         )
         .toList()
       ..sort((a, b) => a.name.compareTo(b.name));
@@ -146,6 +150,8 @@ class _CardSkiResort extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final description = resort.description;
+
     return Card(
       margin: const EdgeInsets.all(8),
       shape: RoundedRectangleBorder(
@@ -154,6 +160,7 @@ class _CardSkiResort extends StatelessWidget {
       elevation: 5,
       child: ListTile(
         title: Text(resort.name),
+        subtitle: description != null ? Text(description) : null,
         onTap: () => context.goNamed(
           AppRoute.detailResort.name,
           extra: resort,

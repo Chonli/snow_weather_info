@@ -2,7 +2,7 @@ import 'package:snow_weather_info/model/mountain.dart';
 import 'package:snow_weather_info/model/ski_resort.dart';
 import 'package:snow_weather_info/model/webcam.dart';
 
-//last id: 94
+//last id: 100
 
 abstract class ConstSkiResorts {
   static final webcamsByResort = [
@@ -99,7 +99,7 @@ abstract class ConstSkiResorts {
         ),
         WebCam(
           name: "L'Herpie",
-          url: 'https://youtu.be/7SheNmPKU9E',
+          url: 'https://www.youtube.com/embed/7SheNmPKU9E?autoplay=1&mute=1',
         ),
         WebCam(
           name: 'Alpette',
@@ -348,25 +348,6 @@ abstract class ConstSkiResorts {
     ),
     SkiResort(
       id: 10,
-      name: 'Bessans',
-      mountain: Mountain.alpesNord,
-      webcams: [
-        WebCam(
-          name: 'Le Carreley',
-          url: 'https://m.webcam-hd.com/bessans/carreley',
-        ),
-        WebCam(
-          name: 'Saignière',
-          url: 'https://m.webcam-hd.com/bessans/relais',
-        ),
-        WebCam(
-          name: 'La Bessannaise',
-          url: 'https://m.webcam-hd.com/bessans/bessannaise',
-        ),
-      ],
-    ),
-    SkiResort(
-      id: 11,
       name: 'Bessans',
       mountain: Mountain.alpesNord,
       webcams: [
@@ -1137,12 +1118,8 @@ abstract class ConstSkiResorts {
           url: 'https://www.lescontamines.net/panorama/signalhd.html',
         ),
         WebCam(
-          name: 'Col du Joly 1989m',
-          url: 'https://www.lescontamines.net/panorama/col.html',
-        ),
-        WebCam(
           name: 'Ruelle 1650m',
-          url: 'https://www.lescontamines.net/panorama/ruellehd.html',
+          url: 'https://www.lescontamines.net/camera/ruellehd.jpg',
         ),
         WebCam(
           name: 'Téléski du Nivorin',
@@ -1441,25 +1418,7 @@ abstract class ConstSkiResorts {
         ),
       ],
     ),
-    SkiResort(
-      id: 35,
-      name: 'Notre Dame de Bellecombe',
-      mountain: Mountain.alpesNord,
-      webcams: [
-        WebCam(
-          name: 'Ban Rouge – 1983m',
-          url: 'https://m.webcam-hd.com/val-d-arly/ban-rouge',
-        ),
-        WebCam(
-          name: 'Le Mont Rond – 1350m',
-          url: 'https://m.webcam-hd.com/val-d-arly-ot/ndb-mont-rond',
-        ),
-        WebCam(
-          name: 'Le Centre village – 1150m',
-          url: 'https://m.webcam-hd.com/val-d-arly-ot/village',
-        ),
-      ],
-    ),
+
     SkiResort(
       id: 36,
       name: 'Sainte Foy la Tarentaise',
@@ -1607,11 +1566,12 @@ abstract class ConstSkiResorts {
     ),
     SkiResort(
       id: 41,
-      name: 'Praz sur Arly',
+      name: "Val d'arly",
+      description: 'Praz sur Arly, Notre Dame de Bellecombe',
       mountain: Mountain.alpesNord,
       webcams: [
         WebCam(
-          name: 'Front de Neige',
+          name: 'Praz Front de Neige',
           url: 'https://m.webcam-hd.com/val-d-arly/depart-des-pistes',
         ),
         WebCam(
@@ -1619,8 +1579,16 @@ abstract class ConstSkiResorts {
           url: 'https://m.webcam-hd.com/val-d-arly/cret-du-midi',
         ),
         WebCam(
-          name: 'Ban Rouge',
+          name: 'Ban Rouge – 1983m',
           url: 'https://m.webcam-hd.com/val-d-arly/ban-rouge',
+        ),
+        WebCam(
+          name: 'Le Mont Rond – 1350m',
+          url: 'https://m.webcam-hd.com/val-d-arly-ot/ndb-mont-rond',
+        ),
+        WebCam(
+          name: 'NDB Le Centre village – 1150m',
+          url: 'https://m.webcam-hd.com/val-d-arly-ot/village',
         ),
       ],
     ),
@@ -1802,6 +1770,94 @@ abstract class ConstSkiResorts {
         WebCam(
           name: 'Les Jeux',
           url: 'https://valmeinier.roundshot.com/lesjeux/',
+        ),
+      ],
+    ),
+    SkiResort(
+      id: 95,
+      name: 'Gresse en Vercors',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'La Station',
+          url: 'https://app.webcam-hd.com/gresse-en-vercors/grand-veymont',
+        ),
+      ],
+    ),
+    SkiResort(
+      id: 96,
+      name: 'Herbouilly',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Station',
+          url: 'https://app.webcam-hd.com/la-drome/la-drome_herbouilly',
+        ),
+        WebCam(
+          name: 'Parking',
+          url: 'https://geo.ladrome.fr/cameras/herbouilly/herbouilly.jpg',
+        ),
+      ],
+    ),
+    SkiResort(
+      id: 97,
+      name: "Font d'Urle",
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Parking',
+          url: 'https://app.webcam-hd.com/la-drome/font-d-urle',
+        ),
+        WebCam(
+          name: 'Front de Neige',
+          url: 'https://app.webcam-hd.com/la-drome/font-d-urle-front-de-neige',
+        ),
+        WebCam(
+          name: 'Domaine Nordique',
+          url: 'https://app.webcam-hd.com/la-drome/ski-de-fond',
+        ),
+      ],
+    ),
+    SkiResort(
+      id: 98,
+      name: 'Col de Rousset',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Haut du Télésiège',
+          url: 'https://app.webcam-hd.com/la-drome/col-du-rousset',
+        ),
+        WebCam(
+          name: 'Front de Neige',
+          url: 'https://app.webcam-hd.com/la-drome/front-de-neige-rousset',
+        ),
+      ],
+    ),
+    SkiResort(
+      id: 99,
+      name: 'Rencurel/Les Coulmes',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Le Belvédère',
+          url:
+              'https://coulmes-vercors.com/wp-content/uploads/webcam-belvedere/webcam-belvedere.jpg',
+        ),
+        WebCam(
+          name: 'Foyer de ski',
+          url:
+              'https://coulmes-vercors.com/wp-content/uploads/webcam-foyer/webcam-foyer.jpg',
+        ),
+      ],
+    ),
+    SkiResort(
+      id: 100,
+      name: 'Grand Echaillon',
+      mountain: Mountain.alpesNord,
+      webcams: [
+        WebCam(
+          name: 'Station',
+          url: 'https://app.webcam-hd.com/la-drome/grand-echaillon',
         ),
       ],
     ),
@@ -2017,11 +2073,13 @@ abstract class ConstSkiResorts {
       webcams: [
         WebCam(
           name: '1600m',
-          url: 'https://youtu.be/ysSRemi4LsE',
+          url:
+              'https://www.youtube.com/embed/ysSRemi4LsE?si=Xmw8dpyqxzulzLEC?autoplay=1&mute=1',
         ),
         WebCam(
           name: '2000m',
-          url: 'https://youtu.be/bXZgCXIZBrQ',
+          url:
+              'https://www.youtube.com/embed/25W1dH4gXAw?si=h0ICgf0o-rwo6Uhx?autoplay=1&mute=1',
         ),
         WebCam(
           name: 'Crête des Bans',
@@ -2415,7 +2473,7 @@ abstract class ConstSkiResorts {
         ),
         WebCam(
           name: 'Front de neige des Claux',
-          url: 'https://youtu.be/_iDeHxqe86U',
+          url: 'https://www.youtube.com/embed/_iDeHxqe86U?autoplay=1&mute=1',
         ),
         WebCam(
           name: 'Pointe du Razis',
@@ -2957,6 +3015,33 @@ abstract class ConstSkiResorts {
         ),
       ],
     ),
+    SkiResort(
+      id: 11,
+      name: 'Valberg',
+      mountain: Mountain.alpesSud,
+      webcams: [
+        WebCam(
+          name: 'Panoramique Centre Station',
+          url: 'https://app.webcam-hd.com/valberg/leysin',
+        ),
+        WebCam(
+          name: 'Village',
+          url: 'https://m.webcam-hd.com/valberg/valberg_village',
+        ),
+        WebCam(
+          name: 'Ancolies',
+          url: 'https://app.webcam-hd.com/valberg/ancolie',
+        ),
+        WebCam(
+          name: 'Sommet des Eguilles',
+          url: 'https://m.webcam-hd.com/valberg/sommet-tete-des-eguilles',
+        ),
+        WebCam(
+          name: 'Domaine nordique de Beuil-Les Launes',
+          url: 'https://app.webcam-hd.com/valberg/nordique_des_launes',
+        ),
+      ],
+    ),
   ];
 
   static final webcamsCorse = <SkiResort>[
@@ -3107,7 +3192,7 @@ abstract class ConstSkiResorts {
         ),
         WebCam(
           name: 'Besse - Front Neige',
-          url: 'https://youtu.be/XWmQtBOaSXQ',
+          url: 'https://www.youtube.com/embed/XWmQtBOaSXQ?autoplay=1&mute=1',
         ),
         WebCam(
           name: 'Mont-Dore - Sommet',
@@ -3191,6 +3276,33 @@ abstract class ConstSkiResorts {
         WebCam(
           name: "Haut d'Artimont",
           url: 'https://app.webcam-hd.com/labresse/sommet-tsd4',
+        ),
+      ],
+    ),
+    SkiResort(
+      id: 35,
+      name: 'Le Champ du Feu',
+      mountain: Mountain.vosges,
+      webcams: [
+        WebCam(
+          name: 'Front de Neige',
+          url: 'https://www.lechampdufeu.com/images/cam/cam1.jpg',
+        ),
+        WebCam(
+          name: 'TK Rocher',
+          url: 'https://www.lechampdufeu.com/images/cam/cam2.jpg',
+        ),
+        WebCam(
+          name: 'TK Chapelle',
+          url: 'https://www.lechampdufeu.com/images/cam/cam3.jpg',
+        ),
+        WebCam(
+          name: 'Ext Toit 1',
+          url: 'https://www.lechampdufeu.com/images/cam/cam4.jpg',
+        ),
+        WebCam(
+          name: 'Ext Toit 2',
+          url: 'https://www.lechampdufeu.com/images/cam/cam5.jpg',
         ),
       ],
     ),
