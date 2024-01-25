@@ -104,6 +104,7 @@ class __InnerViewState extends ConsumerState<_InnerView> {
   void _updateMakerList() {
     final nivoses = ConstantDatalist.listNivose;
 
+    _listNivoseMarker.clear();
     for (final nivose in nivoses) {
       _listNivoseMarker.add(
         Marker(
@@ -128,8 +129,10 @@ class __InnerViewState extends ConsumerState<_InnerView> {
       );
     }
 
+    _listStationMarker.clear();
+    _listStationNoDataMarker.clear();
+    final dataProvider = ref.read(stationDataProvider.notifier);
     for (final station in widget.stations) {
-      final dataProvider = ref.read(stationDataProvider.notifier);
       final hasData = dataProvider.hasData(
         station.id,
       );
@@ -174,6 +177,7 @@ class __InnerViewState extends ConsumerState<_InnerView> {
       }
     }
 
+    _listAvalancheMarker.clear();
     widget.feeds?.items.forEach(
       (AtomItem item) {
         final lat = item.geo?.lat;
@@ -215,6 +219,13 @@ class __InnerViewState extends ConsumerState<_InnerView> {
     if (userLocation != null) {
       _mapController.move(userLocation, 10);
     }
+  }
+
+  Future<void> _showMapSettings() {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) => const _MapSettingDialog(),
+    );
   }
 
   @override
@@ -279,13 +290,23 @@ class __InnerViewState extends ConsumerState<_InnerView> {
           ],
         ),
         Positioned(
-          top: 20,
+          top: 80,
           right: 20,
           child: FloatingActionButton(
-            backgroundColor: Colors.grey,
             onPressed: _updateUserLocation,
             child: const Icon(
               Icons.gps_fixed_rounded,
+              size: 28,
+            ),
+          ),
+        ),
+        Positioned(
+          top: 10,
+          right: 20,
+          child: FloatingActionButton(
+            onPressed: _showMapSettings,
+            child: const Icon(
+              Icons.settings_outlined,
               size: 28,
             ),
           ),
@@ -334,5 +355,45 @@ class _MakerLayer extends StatelessWidget {
             ),
           )
         : MarkerLayer(markers: markers);
+  }
+}
+
+class _MapSettingDialog extends ConsumerWidget {
+  const _MapSettingDialog({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Dialog(
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Text('Parmètres de la carte'),
+            const SizedBox(height: 12),
+            SwitchListTile(
+              title: const Text('Afficher les stations sans données: '),
+              value: ref.watch(showNoDataStationSettingsProvider),
+              onChanged: (_) =>
+                  ref.read(showNoDataStationSettingsProvider.notifier).update(),
+            ),
+            SwitchListTile(
+              title: const Text('Regrouper les icones de la carte: '),
+              value: ref.watch(showClusterLayerSettingsProvider),
+              onChanged: (_) =>
+                  ref.read(showClusterLayerSettingsProvider.notifier).update(),
+            ),
+            const SizedBox(height: 12),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Fermé'),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

@@ -2082,6 +2082,10 @@ abstract class ConstSkiResorts {
               'https://www.youtube.com/embed/25W1dH4gXAw?si=h0ICgf0o-rwo6Uhx?autoplay=1&mute=1',
         ),
         WebCam(
+          name: 'Sommet de la Station',
+          url: 'https://www.youtube.com/embed/fn9tjsNtfKc?si=EeRK1dC5RpkbiHDu',
+        ),
+        WebCam(
           name: 'Crête des Bans',
           url: 'https://www.vision-environnement.com/live/player/psv2700.php',
         ),

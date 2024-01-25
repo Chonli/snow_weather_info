@@ -19,6 +19,7 @@ mixin _$SkiResort {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   Mountain get mountain => throw _privateConstructorUsedError;
+  LatLng? get position => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   List<WebCam> get webcams => throw _privateConstructorUsedError;
 
@@ -36,6 +37,7 @@ abstract class $SkiResortCopyWith<$Res> {
       {int id,
       String name,
       Mountain mountain,
+      LatLng? position,
       String? description,
       List<WebCam> webcams});
 }
@@ -56,6 +58,7 @@ class _$SkiResortCopyWithImpl<$Res, $Val extends SkiResort>
     Object? id = null,
     Object? name = null,
     Object? mountain = null,
+    Object? position = freezed,
     Object? description = freezed,
     Object? webcams = null,
   }) {
@@ -72,6 +75,10 @@ class _$SkiResortCopyWithImpl<$Res, $Val extends SkiResort>
           ? _value.mountain
           : mountain // ignore: cast_nullable_to_non_nullable
               as Mountain,
+      position: freezed == position
+          ? _value.position
+          : position // ignore: cast_nullable_to_non_nullable
+              as LatLng?,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -96,6 +103,7 @@ abstract class _$$SkiResortImplCopyWith<$Res>
       {int id,
       String name,
       Mountain mountain,
+      LatLng? position,
       String? description,
       List<WebCam> webcams});
 }
@@ -114,6 +122,7 @@ class __$$SkiResortImplCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
     Object? mountain = null,
+    Object? position = freezed,
     Object? description = freezed,
     Object? webcams = null,
   }) {
@@ -130,6 +139,10 @@ class __$$SkiResortImplCopyWithImpl<$Res>
           ? _value.mountain
           : mountain // ignore: cast_nullable_to_non_nullable
               as Mountain,
+      position: freezed == position
+          ? _value.position
+          : position // ignore: cast_nullable_to_non_nullable
+              as LatLng?,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -149,6 +162,7 @@ class _$SkiResortImpl implements _SkiResort {
       {required this.id,
       required this.name,
       required this.mountain,
+      this.position,
       this.description,
       final List<WebCam> webcams = const []})
       : _webcams = webcams;
@@ -159,6 +173,8 @@ class _$SkiResortImpl implements _SkiResort {
   final String name;
   @override
   final Mountain mountain;
+  @override
+  final LatLng? position;
   @override
   final String? description;
   final List<WebCam> _webcams;
@@ -172,7 +188,7 @@ class _$SkiResortImpl implements _SkiResort {
 
   @override
   String toString() {
-    return 'SkiResort(id: $id, name: $name, mountain: $mountain, description: $description, webcams: $webcams)';
+    return 'SkiResort(id: $id, name: $name, mountain: $mountain, position: $position, description: $description, webcams: $webcams)';
   }
 
   @override
@@ -184,14 +200,16 @@ class _$SkiResortImpl implements _SkiResort {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.mountain, mountain) ||
                 other.mountain == mountain) &&
+            (identical(other.position, position) ||
+                other.position == position) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             const DeepCollectionEquality().equals(other._webcams, _webcams));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, mountain, description,
-      const DeepCollectionEquality().hash(_webcams));
+  int get hashCode => Object.hash(runtimeType, id, name, mountain, position,
+      description, const DeepCollectionEquality().hash(_webcams));
 
   @JsonKey(ignore: true)
   @override
@@ -205,6 +223,7 @@ abstract class _SkiResort implements SkiResort {
       {required final int id,
       required final String name,
       required final Mountain mountain,
+      final LatLng? position,
       final String? description,
       final List<WebCam> webcams}) = _$SkiResortImpl;
 
@@ -214,6 +233,8 @@ abstract class _SkiResort implements SkiResort {
   String get name;
   @override
   Mountain get mountain;
+  @override
+  LatLng? get position;
   @override
   String? get description;
   @override
