@@ -10,9 +10,9 @@ class SplashSreenPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen(
-      stationDataProvider.select((n) => n.isLoading),
+      stationDataProvider,
       (previous, next) {
-        if (next == false) {
+        if (next is! AsyncLoading) {
           context.goNamed(AppRoute.stations.name);
         }
       },

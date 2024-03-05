@@ -2,7 +2,7 @@ import 'package:snow_weather_info/model/mountain.dart';
 import 'package:snow_weather_info/model/ski_resort.dart';
 import 'package:snow_weather_info/model/webcam.dart';
 
-//last id: 100
+//last id: 101
 
 abstract class ConstSkiResorts {
   static final webcamsByResort = [
@@ -2631,72 +2631,72 @@ abstract class ConstSkiResorts {
         WebCam(
           name: 'Arinsal - La Tossa',
           url:
-              'https://sts002.feratel.co.at/streams/stsstore001/1/15035_65982ed5-dac0Vid.mp4?dcsdesign=feratel4',
+              'http://webtv.feratel.com/webtv/?cam=15035&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0',
         ),
         WebCam(
           name: 'Arinsal - Port Negre',
           url:
-              'https://sts116.feratel.co.at/streams/stsstore102/1/15036_65982b6f-dc4bVid.mp4?dcsdesign=feratel4',
+              'http://webtv.feratel.com/webtv/?cam=15035&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0',
         ),
         WebCam(
           name: 'Arinsal - Igloo',
           url:
-              'https://sts102.feratel.co.at/streams/stsstore103/1/15037_659825ee-e275Vid.mp4?dcsdesign=feratel4',
+              'http://webtv.feratel.com/webtv/?cam=15037&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0',
         ),
         WebCam(
           name: 'Pal - La Caubella',
           url:
-              'https://sts001.feratel.co.at/streams/stsstore003/1/15040_659838bc-0445Vid.mp4?dcsdesign=feratel4',
+              'http://webtv.feratel.com/webtv/?cam=15040&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0',
         ),
         WebCam(
           name: 'Pal - Pla de la Cot',
           url:
-              'https://sts004.feratel.co.at/streams/stsstore004/1/15085_65982f4d-2fb6Vid.mp4?dcsdesign=feratel4',
+              'http://webtv.feratel.com/webtv/?cam=15085&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0',
         ),
         WebCam(
           name: 'Pal - Coll de la Botella',
           url:
-              'https://sts103.feratel.co.at/streams/stsstore105/1/15086_65983000-5c26Vid.mp4?dcsdesign=feratel4',
+              'http://webtv.feratel.com/webtv/?cam=15086&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0',
         ),
         WebCam(
           name: 'Ordino Arcalís - Cap de la Coma',
           url:
-              'http://sts110.feratel.co.at/streams/stsstore103/1/15030_6598324c-04d0Vid.mp4?dcsdesign=WTP_andorramania.com',
+              'http://webtv.feratel.com/webtv/?cam=15030&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0',
         ),
         WebCam(
           name: 'Ordino Arcalís - La Coma',
           url:
-              'http://sts007.feratel.co.at/streams/stsstore001/1/15031_6598305c-5888Vid.mp4?dcsdesign=WTP_andorramania.com',
+              'http://webtv.feratel.com/webtv/?cam=15031&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0',
         ),
         WebCam(
           name: 'Canillo - El Forn',
           url:
-              'https://sts051.feratel.co.at/streams/stsstore052/1/15065_65982b44-fd33Vid.mp4?dcsdesign=WTP_feratel.com',
+              'http://webtv.feratel.com/webtv/?cam=15065&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0',
         ),
         WebCam(
           name: 'El Tarter',
           url:
-              'http://sts101.feratel.co.at/streams/stsstore105/1/15045_65982f5b-418bVid.mp4?dcsdesign=WTP_andorramania.com',
+              'http://webtv.feratel.com/webtv/?cam=15045&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0',
         ),
         WebCam(
           name: 'Grau Roig',
           url:
-              'http://sts002.feratel.co.at/streams/stsstore001/1/15050_65982ff2-5d07Vid.mp4?dcsdesign=WTP_andorramania.com',
+              'http://webtv.feratel.com/webtv/?cam=15050&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0',
         ),
         WebCam(
           name: 'Pas de la Casa',
           url:
-              'http://sts010.feratel.co.at/streams/stsstore005/1/15055_659830e2-3b59Vid.mp4?dcsdesign=WTP_andorramania.com',
+              'http://webtv.feratel.com/webtv/?cam=15055&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0',
         ),
         WebCam(
           name: 'Espiolets',
           url:
-              'http://sts116.feratel.co.at/streams/stsstore104/1/15060_65982ee4-d324Vid.mp4?dcsdesign=WTP_andorramania.com',
+              'http://webtv.feratel.com/webtv/?cam=15060&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0',
         ),
         WebCam(
           name: 'Cortals',
           url:
-              'http://sts015.feratel.co.at/streams/stsstore004/1/15090_65982fb6-b333Vid.mp4?dcsdesign=WTP_andorramania.com',
+              'http://webtv.feratel.com/webtv/?cam=15090&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0',
         ),
       ],
     ),
@@ -2905,23 +2905,20 @@ abstract class ConstSkiResorts {
       webcams: [
         WebCam(
           name: 'Front de neige',
-          url:
-              'https://pv.viewsurf.com/1850/La-Pierre-Saint-Martin-Front-de-Neige',
+          url: 'https://vision-environnement.com/live/player/psm-ha0.php',
         ),
         WebCam(
           name: 'Secteur haut, Arlas',
-          url:
-              'https://pv.viewsurf.com/1854/La-Pierre-Saint-Martin-4-Secteur-Horizon',
+          url: 'https://vision-environnement.com/live/player/psm-p0.php',
         ),
         WebCam(
           name: "Restaurant d'Altitude",
           url:
-              'https://pv.viewsurf.com/1784/La-Pierre-Saint-Martin-4-Secteur-Horizon',
+              'https://vision-environnement.com/live/player/psm-palombiere0.php',
         ),
         WebCam(
           name: 'Espace Nordique',
-          url:
-              'https://pv.viewsurf.com/1852/La-Pierre-Saint-Martin-4-Secteur-Horizon',
+          url: 'https://vision-environnement.com/live/player/psm-en0.php',
         ),
         WebCam(
           name: 'Secteur haut, Panoramique',
@@ -3256,6 +3253,17 @@ abstract class ConstSkiResorts {
         ),
       ],
     ),
+    SkiResort(
+      id: 101,
+      name: 'Croix de Bauzon',
+      mountain: Mountain.massifCentral,
+      webcams: [
+        WebCam(
+          name: 'Station',
+          url: 'https://g0.ipcamlive.com/player/player.php?alias=6395af074a957',
+        ),
+      ],
+    ),
   ];
 
   static final webcamsVosges = [
@@ -3271,11 +3279,11 @@ abstract class ConstSkiResorts {
         ),
         WebCam(
           name: 'Hohneck',
-          url: 'https://www.skaping.com/labresse/hohneck',
+          url: 'https://www.skaping.com/la-bresse/hohneck',
         ),
         WebCam(
           name: 'Haut de Vologne',
-          url: 'https://www.skaping.com/labresse/haut-de-vologne',
+          url: 'https://www.skaping.com/la-bresse/haut-de-vologne',
         ),
         WebCam(
           name: "Haut d'Artimont",
