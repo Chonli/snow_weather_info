@@ -93,7 +93,6 @@ class _WebcamDialog extends StatelessWidget {
   const _WebcamDialog({
     required this.url,
     required this.name,
-    super.key,
   });
 
   final String url;
@@ -115,7 +114,6 @@ class _WebcamDialog extends StatelessWidget {
 class _WebMedia extends StatelessWidget {
   const _WebMedia({
     required this.url,
-    super.key,
   });
 
   final String url;

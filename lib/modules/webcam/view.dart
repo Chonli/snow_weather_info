@@ -131,7 +131,7 @@ class _ListByMassifView extends ConsumerWidget {
 
     return SliverStickyHeader(
       header: AppStickyHeaderView(
-        text: mountain.displayName(),
+        text: mountain.displayName,
       ),
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
@@ -171,7 +171,7 @@ class _CardSkiResort extends StatelessWidget {
 }
 
 class _SearchBarView extends ConsumerWidget {
-  const _SearchBarView({super.key});
+  const _SearchBarView();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
