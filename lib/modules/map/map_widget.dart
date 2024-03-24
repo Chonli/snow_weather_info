@@ -359,7 +359,7 @@ class _MakerLayer extends StatelessWidget {
 }
 
 class _MapSettingDialog extends ConsumerWidget {
-  const _MapSettingDialog({super.key});
+  const _MapSettingDialog();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -2,12 +2,41 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/core/widgets/app_sticky_header_view.dart';
 import 'package:snow_weather_info/data/constant_data_list.dart';
 import 'package:snow_weather_info/model/avalanche_bulletin.dart';
 import 'package:snow_weather_info/model/mountain.dart';
 import 'package:snow_weather_info/provider/favorite_bera.dart';
 import 'package:snow_weather_info/router/router.dart';
+
+part 'view.g.dart';
+
+@riverpod
+class _MassifFilter extends _$MassifFilter {
+  @override
+  List<Mountain> build() {
+    return [Mountain.all];
+  }
+
+  void update(Mountain mountain) {
+    final tmpDatas = [...state];
+
+    if (mountain == Mountain.all) {
+      state = [Mountain.all];
+    } else {
+      if (tmpDatas.contains(mountain)) {
+        tmpDatas.remove(mountain);
+      } else {
+        tmpDatas.add(mountain);
+      }
+
+      tmpDatas.remove(Mountain.all);
+
+      state = tmpDatas;
+    }
+  }
+}
 
 class BERAMassifListView extends StatelessWidget {
   const BERAMassifListView({
@@ -16,14 +45,53 @@ class BERAMassifListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CustomScrollView(
-      slivers: [
-        _ListFavoriteView(),
-        _ListByMassifView(mountain: Mountain.alpesNord),
-        _ListByMassifView(mountain: Mountain.alpesSud),
-        _ListByMassifView(mountain: Mountain.corse),
-        _ListByMassifView(mountain: Mountain.pyrenees),
+    return const Column(
+      children: [
+        _MassifFilterView(),
+        Expanded(
+          child: CustomScrollView(
+            slivers: [
+              _ListFavoriteView(),
+              _ListByMassifView(mountain: Mountain.alpesNord),
+              _ListByMassifView(mountain: Mountain.alpesSud),
+              _ListByMassifView(mountain: Mountain.corse),
+              _ListByMassifView(mountain: Mountain.pyrenees),
+            ],
+          ),
+        ),
       ],
+    );
+  }
+}
+
+class _MassifFilterView extends ConsumerWidget {
+  const _MassifFilterView();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final filters = ref.watch(_massifFilterProvider);
+
+    return Wrap(
+      children: [
+        Mountain.all,
+        Mountain.alpesNord,
+        Mountain.alpesSud,
+        Mountain.corse,
+        Mountain.pyrenees,
+      ]
+          .map(
+            (mountain) => Padding(
+              padding: const EdgeInsets.only(right: 5),
+              child: ChoiceChip(
+                label: Text(mountain.displayName),
+                selected: filters.contains(mountain),
+                onSelected: (_) {
+                  ref.read(_massifFilterProvider.notifier).update(mountain);
+                },
+              ),
+            ),
+          )
+          .toList(),
     );
   }
 }
@@ -66,6 +134,12 @@ class _ListByMassifView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final filters = ref.watch(_massifFilterProvider);
+
+    if (!filters.any((m) => m == Mountain.all || m == mountain)) {
+      return const SliverToBoxAdapter();
+    }
+
     final list = ConstantDatalist.listAvalancheBulletin
         .where(
           (b) => b.mountain == mountain,
@@ -75,7 +149,7 @@ class _ListByMassifView extends ConsumerWidget {
 
     return SliverStickyHeader(
       header: AppStickyHeaderView(
-        text: mountain.displayName(),
+        text: mountain.displayName,
       ),
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(

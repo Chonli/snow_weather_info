@@ -67,8 +67,6 @@ FutureOr<PdfController?> _pdfController(Ref ref, int beraNumber) async {
     headers: headers,
   );
 
-  print('response: ${response.statusCode}');
-
   if (response.statusCode != 200) {
     await ref
         .read(_beraTokenHeaderProvider.notifier)

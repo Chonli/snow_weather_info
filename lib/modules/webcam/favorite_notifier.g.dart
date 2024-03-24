@@ -6,7 +6,7 @@ part of 'favorite_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$favoriteSkiResortHash() => r'062f212cdcb3586cda4b1ed9fb4ee8c627773e66';
+String _$favoriteSkiResortHash() => r'413336bd140d7024b4398e391a026c45870e20ff';
 
 /// See also [FavoriteSkiResort].
 @ProviderFor(FavoriteSkiResort)

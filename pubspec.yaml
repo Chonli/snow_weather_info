@@ -2,7 +2,7 @@ name: snow_weather_info
 description: A application to display french snow weather beacon informations
 publish_to: none
 
-version: 2.1.2+32
+version: 2.2.0+33
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
@@ -25,7 +25,7 @@ dependencies:
   flutter_sticky_header: ^0.6.5
   freezed_annotation: ^2.4.1
   go_router: ^13.2.0
-  hooks_riverpod: ^2.4.10
+  hooks_riverpod: ^2.5.1
   http: ^1.2.1
   intl: any
   json_annotation: ^4.8.1

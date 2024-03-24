@@ -10,7 +10,7 @@ enum Mountain {
 }
 
 extension MountainExtension on Mountain {
-  String displayName() {
+  String get displayName {
     return switch (this) {
       Mountain.alpesNord => 'Alpes du Nord',
       Mountain.alpesSud => 'Alpes du Sud',

@@ -573,6 +573,11 @@ abstract class ConstSkiResorts {
           name: 'Sommet de l’Oursiere',
           url: 'https://www.skaping.com/les7laux/pleynet/oursiere',
         ),
+        WebCam(
+          name: 'Lac Crozet',
+          url:
+              'https://images-webcams.windy.com/43/1655994043/current/full/1655994043.jpg',
+        ),
       ],
     ),
     SkiResort(
@@ -2497,6 +2502,33 @@ abstract class ConstSkiResorts {
         ),
       ],
     ),
+    SkiResort(
+      id: 11,
+      name: 'Valberg',
+      mountain: Mountain.alpesSud,
+      webcams: [
+        WebCam(
+          name: 'Panoramique Centre Station',
+          url: 'https://app.webcam-hd.com/valberg/leysin',
+        ),
+        WebCam(
+          name: 'Village',
+          url: 'https://m.webcam-hd.com/valberg/valberg_village',
+        ),
+        WebCam(
+          name: 'Ancolies',
+          url: 'https://app.webcam-hd.com/valberg/ancolie',
+        ),
+        WebCam(
+          name: 'Sommet des Eguilles',
+          url: 'https://m.webcam-hd.com/valberg/sommet-tete-des-eguilles',
+        ),
+        WebCam(
+          name: 'Domaine nordique de Beuil-Les Launes',
+          url: 'https://app.webcam-hd.com/valberg/nordique_des_launes',
+        ),
+      ],
+    ),
   ];
 
   static final webcamsPyrenees = [
@@ -3013,33 +3045,6 @@ abstract class ConstSkiResorts {
         WebCam(
           name: 'Balnéo - 1850m',
           url: 'https://pv.viewsurf.com/1630/Piau-Engaly-1850m?i=NjMxODo',
-        ),
-      ],
-    ),
-    SkiResort(
-      id: 11,
-      name: 'Valberg',
-      mountain: Mountain.alpesSud,
-      webcams: [
-        WebCam(
-          name: 'Panoramique Centre Station',
-          url: 'https://app.webcam-hd.com/valberg/leysin',
-        ),
-        WebCam(
-          name: 'Village',
-          url: 'https://m.webcam-hd.com/valberg/valberg_village',
-        ),
-        WebCam(
-          name: 'Ancolies',
-          url: 'https://app.webcam-hd.com/valberg/ancolie',
-        ),
-        WebCam(
-          name: 'Sommet des Eguilles',
-          url: 'https://m.webcam-hd.com/valberg/sommet-tete-des-eguilles',
-        ),
-        WebCam(
-          name: 'Domaine nordique de Beuil-Les Launes',
-          url: 'https://app.webcam-hd.com/valberg/nordique_des_launes',
         ),
       ],
     ),

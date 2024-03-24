@@ -65,7 +65,7 @@ enum _MenuItem {
 }
 
 class _TitleBar extends StatelessWidget implements PreferredSizeWidget {
-  const _TitleBar({super.key});
+  const _TitleBar();
 
   @override
   Widget build(BuildContext context) {
