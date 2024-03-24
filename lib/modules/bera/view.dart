@@ -19,8 +19,6 @@ class _MassifFilter extends _$MassifFilter {
     return [Mountain.all];
   }
 
-  bool isSelected(Mountain mountain) => state.contains(mountain);
-
   void update(Mountain mountain) {
     final tmpDatas = [...state];
 
@@ -47,14 +45,20 @@ class BERAMassifListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CustomScrollView(
-      slivers: [
+    return const Column(
+      children: [
         _MassifFilterView(),
-        _ListFavoriteView(),
-        _ListByMassifView(mountain: Mountain.alpesNord),
-        _ListByMassifView(mountain: Mountain.alpesSud),
-        _ListByMassifView(mountain: Mountain.corse),
-        _ListByMassifView(mountain: Mountain.pyrenees),
+        Expanded(
+          child: CustomScrollView(
+            slivers: [
+              _ListFavoriteView(),
+              _ListByMassifView(mountain: Mountain.alpesNord),
+              _ListByMassifView(mountain: Mountain.alpesSud),
+              _ListByMassifView(mountain: Mountain.corse),
+              _ListByMassifView(mountain: Mountain.pyrenees),
+            ],
+          ),
+        ),
       ],
     );
   }
@@ -65,7 +69,7 @@ class _MassifFilterView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final filters = ref.read(_massifFilterProvider.notifier);
+    final filters = ref.watch(_massifFilterProvider);
 
     return Wrap(
       children: [
@@ -76,12 +80,15 @@ class _MassifFilterView extends ConsumerWidget {
         Mountain.pyrenees,
       ]
           .map(
-            (mountain) => ChoiceChip(
-              label: Text(mountain.displayName),
-              selected: filters.isSelected(mountain),
-              onSelected: (_) {
-                filters.update(mountain);
-              },
+            (mountain) => Padding(
+              padding: const EdgeInsets.only(right: 5),
+              child: ChoiceChip(
+                label: Text(mountain.displayName),
+                selected: filters.contains(mountain),
+                onSelected: (_) {
+                  ref.read(_massifFilterProvider.notifier).update(mountain);
+                },
+              ),
             ),
           )
           .toList(),
@@ -127,6 +134,12 @@ class _ListByMassifView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final filters = ref.watch(_massifFilterProvider);
+
+    if (!filters.any((m) => m == Mountain.all || m == mountain)) {
+      return const SliverToBoxAdapter();
+    }
+
     final list = ConstantDatalist.listAvalancheBulletin
         .where(
           (b) => b.mountain == mountain,
