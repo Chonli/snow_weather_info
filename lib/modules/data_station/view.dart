@@ -169,7 +169,7 @@ class _Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ColoredBox(
-      color: Theme.of(context).colorScheme.background,
+      color: Theme.of(context).colorScheme.surface,
       child: const Column(
         children: [
           Expanded(

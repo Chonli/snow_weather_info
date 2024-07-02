@@ -18,18 +18,21 @@ class UserLocation extends _$UserLocation {
     if (!serviceEnabled) {
       serviceEnabled = await _location.requestService();
       if (!serviceEnabled) {
+        state = const AsyncData(null);
         return null;
       }
     }
 
     PermissionStatus permissionGranted = await _location.hasPermission();
     if (permissionGranted == PermissionStatus.deniedForever) {
+      state = const AsyncData(null);
       return null;
     }
 
     if (permissionGranted == PermissionStatus.denied) {
       permissionGranted = await _location.requestPermission();
       if (permissionGranted != PermissionStatus.granted) {
+        state = const AsyncData(null);
         return null;
       }
     }

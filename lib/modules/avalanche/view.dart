@@ -90,7 +90,7 @@ class _AttributionWidget extends StatelessWidget {
     final bodyText1Color = Theme.of(context).textTheme.bodyLarge?.color;
 
     return ColoredBox(
-      color: Theme.of(context).colorScheme.background,
+      color: Theme.of(context).colorScheme.surface,
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: RichText(
