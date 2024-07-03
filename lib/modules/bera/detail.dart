@@ -67,6 +67,10 @@ FutureOr<PdfController?> _pdfController(Ref ref, int beraNumber) async {
     headers: headers,
   );
 
+  if (response.statusCode == 404) {
+    throw Exception('No BERA found');
+  }
+
   if (response.statusCode != 200) {
     await ref
         .read(_beraTokenHeaderProvider.notifier)
@@ -118,7 +122,9 @@ class BERADetailPage extends ConsumerWidget {
         AsyncData(:final PdfController value) => _PdfView(
             value,
           ),
-        AsyncError() => const Text('Erreur de chargement'),
+        AsyncError() => const Center(
+            child: Text('Erreur: pas de BERA trouvé'),
+          ),
         _ => const Center(
             child: CircularProgressIndicator(),
           ),
