@@ -38,7 +38,6 @@ dependencies:
   share_plus: ^10.1.2
   shared_preferences: ^2.2.2
   smooth_page_indicator: ^1.2.0
-  sqflite: ^2.3.2
   url_launcher: ^6.3.0
 
 dev_dependencies:
@@ -48,7 +47,10 @@ dev_dependencies:
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
-  riverpod_generator: ^2.4.3
+  freezed: ^2.4.7
+  json_serializable: ^6.8.0
+  riverpod_generator: ^2.3.11
+  riverpod_lint: ^2.3.13
   very_good_analysis: ^6.0.0
 
 flutter:

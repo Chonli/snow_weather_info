@@ -1,4 +1,6 @@
-import 'package:sqflite/sqflite.dart';
+import 'package:flutter/foundation.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:sembast/sembast.dart';
 
 const tableStation = 'station';
 const tableStationData = 'stationData';
@@ -21,22 +23,88 @@ const columnSnowNewHeight = 'snowNewHeight';
 const _databaseName = 'database.db';
 const _databaseVersion = 1;
 
+part 'database_helper.g.dart';
+
+typedef Serializer<T> = Object Function(T value);
+typedef Deserializer<T> = T Function(Object value);
+
+Object _defaultSerialize<T>(T value) => value as Object;
+T _defaultDeserialize<T>(Object value) => value as T;
+
+@Riverpod(keepAlive: true)
+DatabaseHelper databaseHelper(DatabaseHelperRef ref) {
+  throw UnimplementedError();
+}
+
 // TODO(chonli): Reuse in future version
 class DatabaseHelper {
-  Database? _database;
+  DatabaseHelper(this.database);
+  final Database database;
 
-  // Future<Database> get database async {
-  //   _database ??= await _initDatabase();
+   LocalData<T> load<T>({
+    required String key,
+    Serializer<T>? serialize,
+    Deserializer<T>? deserialize,
+    T? defaultValue,
+    AsyncCallback? onSaved,
+  }) {
+    return LocalData<T>(
+      database,
+      StoreRef.main().record(key),
+      serialize,
+      deserialize,
+      defaultValue,
+      onSaved,
+    );
+  }
 
-  //   return _database!;
-  // }
+}
 
-  // Future<Database> _initDatabase() async {
-  //   final pathFolder = await getDatabasesPath();
-  //   final path = p.join(pathFolder, _databaseName);
 
-  //   return openDatabase(path, version: _databaseVersion, onCreate: _onCreate);
-  // }
+
+class LocalData<T> {
+  LocalData(
+    this._db,
+    this._record,
+    Serializer<T>? serialize,
+    Deserializer<T>? deserialize,
+    this.defaultValue,
+    this.onSaved,
+  )   : assert(
+          serialize == null && deserialize == null ||
+              serialize != null && deserialize != null,
+          'serialize and deserialize should be set at the same time',
+        ),
+        _serialize = serialize ?? _defaultSerialize,
+        _deserialize = deserialize ?? _defaultDeserialize;
+
+  final Database _db;
+  final RecordRef _record;
+  final Serializer<T> _serialize;
+  final Deserializer<T> _deserialize;
+  final T? defaultValue;
+  final AsyncCallback? onSaved;
+
+  Future<T?> read() async {
+    final value = await _record.get(_db) ?? defaultValue;
+
+    return value == null ? null : _deserialize(value);
+  }
+
+  Future<void> save(T? value) async {
+    if (value == null && _record.existsSync(_db)) {
+      await _record.delete(_db);
+    } else if (value != null) {
+      final data = _serialize(value);
+      await _record.put(_db, data);
+    }
+    await onSaved?.call();
+  }
+}
+
+ 
+
+
 
   // Future<void> _onCreate(Database db, int version) async {
   //   await db.execute('''
@@ -163,4 +231,4 @@ class DatabaseHelper {
   //     ],
   //   );
   // }
-}
+
