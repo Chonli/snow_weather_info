@@ -20,7 +20,9 @@ mixin _$AvalancheBulletin {
   int get beraNumber => throw _privateConstructorUsedError;
   Mountain get mountain => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AvalancheBulletin
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AvalancheBulletinCopyWith<AvalancheBulletin> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -44,6 +46,8 @@ class _$AvalancheBulletinCopyWithImpl<$Res, $Val extends AvalancheBulletin>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AvalancheBulletin
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -87,6 +91,8 @@ class __$$AvalancheBulletinImplCopyWithImpl<$Res>
       $Res Function(_$AvalancheBulletinImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AvalancheBulletin
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -148,7 +154,9 @@ class _$AvalancheBulletinImpl implements _AvalancheBulletin {
   int get hashCode =>
       Object.hash(runtimeType, massifName, beraNumber, mountain);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AvalancheBulletin
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AvalancheBulletinImplCopyWith<_$AvalancheBulletinImpl> get copyWith =>
@@ -168,8 +176,11 @@ abstract class _AvalancheBulletin implements AvalancheBulletin {
   int get beraNumber;
   @override
   Mountain get mountain;
+
+  /// Create a copy of AvalancheBulletin
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AvalancheBulletinImplCopyWith<_$AvalancheBulletinImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

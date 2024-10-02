@@ -27,7 +27,9 @@ mixin _$DataStation {
   double? get snowHeight => throw _privateConstructorUsedError;
   double? get snowNewHeight => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DataStation
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $DataStationCopyWith<DataStation> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -61,6 +63,8 @@ class _$DataStationCopyWithImpl<$Res, $Val extends DataStation>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of DataStation
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -149,6 +153,8 @@ class __$$DataStationImplCopyWithImpl<$Res>
       _$DataStationImpl _value, $Res Function(_$DataStationImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DataStation
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -284,7 +290,9 @@ class _$DataStationImpl implements _DataStation {
       snowHeight,
       snowNewHeight);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DataStation
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DataStationImplCopyWith<_$DataStationImpl> get copyWith =>
@@ -324,8 +332,11 @@ abstract class _DataStation implements DataStation {
   double? get snowHeight;
   @override
   double? get snowNewHeight;
+
+  /// Create a copy of DataStation
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DataStationImplCopyWith<_$DataStationImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

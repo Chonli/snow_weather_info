@@ -23,7 +23,9 @@ mixin _$SkiResort {
   String? get description => throw _privateConstructorUsedError;
   List<WebCam> get webcams => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SkiResort
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SkiResortCopyWith<SkiResort> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -52,6 +54,8 @@ class _$SkiResortCopyWithImpl<$Res, $Val extends SkiResort>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SkiResort
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -116,6 +120,8 @@ class __$$SkiResortImplCopyWithImpl<$Res>
       _$SkiResortImpl _value, $Res Function(_$SkiResortImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SkiResort
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -211,7 +217,9 @@ class _$SkiResortImpl implements _SkiResort {
   int get hashCode => Object.hash(runtimeType, id, name, mountain, position,
       description, const DeepCollectionEquality().hash(_webcams));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SkiResort
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SkiResortImplCopyWith<_$SkiResortImpl> get copyWith =>
@@ -239,8 +247,11 @@ abstract class _SkiResort implements SkiResort {
   String? get description;
   @override
   List<WebCam> get webcams;
+
+  /// Create a copy of SkiResort
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SkiResortImplCopyWith<_$SkiResortImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -19,7 +19,9 @@ mixin _$WebCam {
   String get name => throw _privateConstructorUsedError;
   String get url => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of WebCam
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $WebCamCopyWith<WebCam> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -41,6 +43,8 @@ class _$WebCamCopyWithImpl<$Res, $Val extends WebCam>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of WebCam
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -78,6 +82,8 @@ class __$$WebCamImplCopyWithImpl<$Res>
       _$WebCamImpl _value, $Res Function(_$WebCamImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of WebCam
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -124,7 +130,9 @@ class _$WebCamImpl implements _WebCam {
   @override
   int get hashCode => Object.hash(runtimeType, name, url);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of WebCam
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$WebCamImplCopyWith<_$WebCamImpl> get copyWith =>
@@ -139,8 +147,11 @@ abstract class _WebCam implements WebCam {
   String get name;
   @override
   String get url;
+
+  /// Create a copy of WebCam
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$WebCamImplCopyWith<_$WebCamImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
