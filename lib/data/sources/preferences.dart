@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,7 +17,7 @@ const _showNoDataStationPrefs = 'showNoDataStationPrefs';
 const _showClusterLayerPrefs = 'showClusterLayerPrefs';
 
 @Riverpod(keepAlive: true)
-SharedPreferences sharedPreferences(SharedPreferencesRef ref) {
+SharedPreferences sharedPreferences(Ref ref) {
   throw UnimplementedError();
 }
 

@@ -1,3 +1,8 @@
+import 'package:dart_mappable/dart_mappable.dart';
+
+part 'mountain.mapper.dart';
+
+@MappableEnum()
 enum Mountain {
   all,
   alpesNord,

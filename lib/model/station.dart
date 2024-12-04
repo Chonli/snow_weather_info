@@ -1,10 +1,13 @@
 // ignore_for_file: public_member_api_docs
 
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:snow_weather_info/data/sources/database_helper.dart';
 
-sealed class AbstractStation {
-  AbstractStation(
+part 'station.mapper.dart';
+
+@MappableClass()
+sealed class AbstractStation with AbstractStationMappable {
+  const AbstractStation(
     this.name,
     this.position,
     this.altitude,
@@ -20,46 +23,47 @@ sealed class AbstractStation {
   }
 }
 
-class Station extends AbstractStation {
+@MappableClass()
+class Station extends AbstractStation with StationMappable {
   //"Latitude": "46.341167", "Longitude": "6.708167", "ID": "07454",
   //"Altitude": "1535", "Nom": "Bernex"
-  Station(
+  const Station(
     this.id,
     super.name,
     super.position,
     super.altitude,
   );
 
-  Station.fromJson(Map<String, dynamic> json)
-      : id = int.parse(json['ID'] as String),
-        super(
-          json['Nom'] as String,
-          LatLng(
-            double.parse(json['Latitude'] as String),
-            double.parse(json['Longitude'] as String),
-          ),
-          int.parse(json['Altitude'] as String),
-        );
+  factory Station.fromJson(Map<String, dynamic> json) => Station(
+        int.parse(json['ID'] as String),
+        json['Nom'] as String,
+        LatLng(
+          double.parse(json['Latitude'] as String),
+          double.parse(json['Longitude'] as String),
+        ),
+        int.parse(json['Altitude'] as String),
+      );
 
-  Station.fromMap(Map<String, dynamic> map)
-      : id = map[columnId] as int,
-        super(
-          map[columnName] as String,
-          LatLng(map[columnLatitude] as double, map[columnLongitude] as double),
-          map[columnAltitude] as int,
-        );
+  // Station.fromMap(Map<String, dynamic> map)
+  //     : id = map[columnId] as int,
+  //       super(
+  //         map[columnName] as String,
+  //         LatLng(map[columnLatitude] as double, map[columnLongitude] as double),
+  //         map[columnAltitude] as int,
+  //       );
 
   final int id;
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      columnId: id,
-      columnName: name,
-      columnLatitude: position.latitude,
-      columnLongitude: position.longitude,
-      columnAltitude: altitude,
-    };
-  }
+  // @override
+  // Map<String, dynamic> toMap() {
+  //   return <String, dynamic>{
+  //     columnId: id,
+  //     columnName: name,
+  //     columnLatitude: position.latitude,
+  //     columnLongitude: position.longitude,
+  //     columnAltitude: altitude,
+  //   };
+  // }
 
   @override
   String toString() {
@@ -67,8 +71,9 @@ class Station extends AbstractStation {
   }
 }
 
-class Nivose extends AbstractStation {
-  Nivose(
+@MappableClass()
+class Nivose extends AbstractStation with NivoseMappable {
+  const Nivose(
     super.name,
     super.position,
     super.altitude,

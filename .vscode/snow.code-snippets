@@ -1,19 +1,25 @@
 {
-    "SkiResort": {
-        "scope": "dart",
-        "prefix": "skiResort",
-        "description": "Init SkiResort",
+    "dart_mappable entity class": {
+        "prefix": "drtMap",
+        "description": "dart_mappable entity class",
         "body": [
-            "SkiResort(",
-            "name: '',",
-            "mountain: Mountain.,",
-            "webcams: [",
-                "WebCam(",
-                "    name: '',",
-                "    url: '',",
-                "),",
-            "],",
-          "),",          
+            "import 'package:dart_mappable/dart_mappable.dart';",
+            "",
+            "part '$TM_FILENAME_BASE.mapper.dart';",
+            "",
+            "@MappableClass()",
+            "class ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} with ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}Mappable {",
+            "const ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}({",
+            "});",
+            "",
+            "}",
+        ]
+    },
+    "dart_mappable part file": {
+        "prefix": "drtMapPart",
+        "description": "dart_mappable part file",
+        "body": [
+            "part '$TM_FILENAME_BASE.mapper.dart';",
         ],
     },
     "WebCam": {

@@ -1,11 +1,13 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'webcam.freezed.dart';
+part 'webcam.mapper.dart';
 
-@freezed
-abstract class WebCam with _$WebCam {
-  factory WebCam({
-    required String name,
-    required String url,
-  }) = _WebCam;
+@MappableClass()
+class WebCam with WebCamMappable {
+  WebCam({
+    required this.name,
+    required this.url,
+  });
+  final String name;
+  final String url;
 }
