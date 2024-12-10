@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:package_info/package_info.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:snow_weather_info/core/const.dart';
 import 'package:snow_weather_info/router/router.dart';
 import 'package:url_launcher/url_launcher.dart' as url;

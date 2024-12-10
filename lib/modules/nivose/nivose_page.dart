@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/modules/map/map_widget.dart';
 import 'package:snow_weather_info/provider/favorite_station.dart';

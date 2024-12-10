@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:snow_weather_info/extensions/double.dart';
 import 'package:snow_weather_info/model/data_station.dart';
 import 'package:snow_weather_info/model/station.dart';
