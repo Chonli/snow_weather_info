@@ -1,47 +1,18 @@
 import 'package:flutter/foundation.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:sembast/sembast.dart';
+import 'package:hive_ce/hive.dart';
 
-const tableStation = 'station';
-const tableStationData = 'stationData';
-const columnId = 'id';
-const columnName = 'name';
-const columnLatitude = 'latitude';
-const columnLongitude = 'longitude';
-const columnAltitude = 'altitude';
-const columnDate = 'date';
-const columnIdStation = 'idStation';
-const columnTemperature = 'temperature';
-const columnTemperatureMin24 = 'temperatureMin';
-const columnTemperatureMax24 = 'temperatureMax';
-const columnTemperatureSnow = 'temperatureSnow';
-const columnSpeedWind = 'speedWind';
-const columnDirectionWind = 'directionWind';
-const columnSnowHeight = 'snowHeight';
-const columnSnowNewHeight = 'snowNewHeight';
-
-const _databaseName = 'database.db';
-const _databaseVersion = 1;
-
-part 'database_helper.g.dart';
-
-typedef Serializer<T> = Object Function(T value);
+typedef Serializer<T> = T Function(T value);
 typedef Deserializer<T> = T Function(Object value);
 
-Object _defaultSerialize<T>(T value) => value as Object;
+T _defaultSerialize<T>(T value) => value;
 T _defaultDeserialize<T>(Object value) => value as T;
 
-@Riverpod(keepAlive: true)
-DatabaseHelper databaseHelper(DatabaseHelperRef ref) {
-  throw UnimplementedError();
-}
+class LocalDataBase<T> {
+  const LocalDataBase(this.database);
 
-// TODO(chonli): Reuse in future version
-class DatabaseHelper {
-  DatabaseHelper(this.database);
-  final Database database;
+  final Box<T> database;
 
-   LocalData<T> load<T>({
+  LocalData<T> load({
     required String key,
     Serializer<T>? serialize,
     Deserializer<T>? deserialize,
@@ -50,22 +21,17 @@ class DatabaseHelper {
   }) {
     return LocalData<T>(
       database,
-      StoreRef.main().record(key),
       serialize,
       deserialize,
       defaultValue,
       onSaved,
     );
   }
-
 }
-
-
 
 class LocalData<T> {
   LocalData(
     this._db,
-    this._record,
     Serializer<T>? serialize,
     Deserializer<T>? deserialize,
     this.defaultValue,
@@ -78,25 +44,24 @@ class LocalData<T> {
         _serialize = serialize ?? _defaultSerialize,
         _deserialize = deserialize ?? _defaultDeserialize;
 
-  final Database _db;
-  final RecordRef _record;
+  final Box<T> _db;
   final Serializer<T> _serialize;
   final Deserializer<T> _deserialize;
   final T? defaultValue;
   final AsyncCallback? onSaved;
 
   Future<T?> read() async {
-    final value = await _record.get(_db) ?? defaultValue;
+    final value = _db.get(_db) as Object? ?? defaultValue;
 
     return value == null ? null : _deserialize(value);
   }
 
   Future<void> save(T? value) async {
-    if (value == null && _record.existsSync(_db)) {
-      await _record.delete(_db);
+    if (value == null && _db.containsKey(_db)) {
+      await _db.delete(_db);
     } else if (value != null) {
       final data = _serialize(value);
-      await _record.put(_db, data);
+      await _db.put(_db, data);
     }
     await onSaved?.call();
   }

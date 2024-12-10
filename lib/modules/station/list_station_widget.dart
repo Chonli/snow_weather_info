@@ -3,7 +3,7 @@ import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/core/widgets/app_sticky_header_view.dart';
-import 'package:snow_weather_info/data/sources/preferences.dart';
+import 'package:snow_weather_info/data/sources/data/preferences.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/modules/station/station_card.dart';
 import 'package:snow_weather_info/provider/all_station.dart';
