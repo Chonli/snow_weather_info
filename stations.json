@@ -1,0 +1,512 @@
+[
+    {
+        "id": 0,
+        "name": "Abondance",
+        "url": "https://www.portesdusoleil.com/webcams/webcam-abondance/"
+    },
+    {
+        "id": 1,
+        "name": "Aillons Margeriaz",
+        "url": "https://www.aillons-margeriaz.com/webcams/"
+    },
+    {
+        "id": 2,
+        "name": "Albiez",
+        "url": "https://www.albiez.com/webcams/"
+    },
+    {
+        "id": 3,
+        "name": "Alpe d'Huez",
+        "url": "https://www.alpedhuez.com/webcams/"
+    },
+    {
+        "id": 4,
+        "name": "Alpe du Grand Serre",
+        "url": "https://www.alpedugrandserre.com/webcams/"
+    },
+    {
+        "id": 5,
+        "name": "Areches Beaufort",
+        "url": "https://www.areches-beaufort.com/webcams/"
+    },
+    {
+        "id": 6,
+        "name": "Aussois",
+        "url": "https://www.aussois.com/webcams/"
+    },
+    {
+        "id": 7,
+        "name": "Autrans Méaudre",
+        "url": "https://www.autrans-meaudre.com/webcams/"
+    },
+    {
+        "id": 8,
+        "name": "Portes du Soleil",
+        "url": "https://www.portesdusoleil.com/webcams/"
+    },
+    {
+        "id": 9,
+        "name": "Bernex",
+        "url": "https://www.bernex.com/webcams/"
+    },
+    {
+        "id": 10,
+        "name": "Bessans",
+        "url": "https://www.bessans.com/webcams/"
+    },
+    {
+        "id": 12,
+        "name": "Bonneval sur Arc",
+        "url": "https://www.bonneval-sur-arc.com/webcams/"
+    },
+    {
+        "id": 13,
+        "name": "Vallée de Chamonix",
+        "url": "https://www.chamonix.com/webcams.html"
+    },
+    {
+        "id": 14,
+        "name": "Chamrousse",
+        "url": "https://www.chamrousse.com/webcams.html"
+    },
+    {
+        "id": 15,
+        "name": "Combloux/Megève",
+        "url": "https://www.combloux.com/webcams/"
+    },
+    {
+        "id": 16,
+        "name": "Col de Porte",
+        "url": "https://www.coldeporte.com/webcams/"
+    },
+    {
+        "id": 17,
+        "name": "7 Laux",
+        "url": "https://www.les7laux.com/webcams/"
+    },
+    {
+        "id": 18,
+        "name": "Corrençon/Villard de Lans",
+        "url": "https://www.correncon-en-vercors.com/webcams/"
+    },
+    {
+        "id": 19,
+        "name": "3 Vallées",
+        "url": "https://www.les3vallees.com/webcams/"
+    },
+    {
+        "id": 20,
+        "name": "Flaine",
+        "url": "https://www.flaine.com/webcams/"
+    },
+    {
+        "id": 21,
+        "name": "La Clusaz",
+        "url": "https://www.laclusaz.com/webcams/"
+    },
+    {
+        "id": 22,
+        "name": "La Norma",
+        "url": "https://www.lanorma.com/webcams/"
+    },
+    {
+        "id": 23,
+        "name": "La Plagne",
+        "url": "https://www.la-plagne.com/webcams/"
+    },
+    {
+        "id": 24,
+        "name": "La Rosière",
+        "url": "https://www.larosiere.com/webcams/"
+    },
+    {
+        "id": 25,
+        "name": "Les 2 Alpes",
+        "url": "https://www.les2alpes.com/webcams/"
+    },
+    {
+        "id": 26,
+        "name": "Les Arcs",
+        "url": "https://www.lesarcs.com/webcams/"
+    },
+    {
+        "id": 27,
+        "name": "Les Carroz",
+        "url": "https://www.lescarroz.com/webcams/"
+    },
+    {
+        "id": 28,
+        "name": "Saint Gervais",
+        "url": "https://www.saintgervais.com/webcams/"
+    },
+    {
+        "id": 29,
+        "name": "Les Contamines Montjoie",
+        "url": "https://www.lescontamines.com/webcams/"
+    },
+    {
+        "id": 30,
+        "name": "Les Karellis",
+        "url": "https://www.leskarellis.com/webcams/"
+    },
+    {
+        "id": 31,
+        "name": "Val Cenis",
+        "url": "https://www.valcenis.com/webcams/"
+    },
+    {
+        "id": 32,
+        "name": "Collet d'Allevard",
+        "url": "https://www.lecollet.com/webcams/"
+    },
+    {
+        "id": 33,
+        "name": "Les Sybelles",
+        "url": "https://www.lessybelles.com/webcams/"
+    },
+    {
+        "id": 34,
+        "name": "Le Grand Bornand",
+        "url": "https://www.legrandbornand.com/webcams/"
+    },
+    {
+        "id": 36,
+        "name": "Sainte Foy la Tarentaise",
+        "url": "https://www.saintefoy.com/webcams/"
+    },
+    {
+        "id": 37,
+        "name": "Plateau des Petites Roches",
+        "url": "https://www.plateau-des-pettites-roches.com/webcams/"
+    },
+    {
+        "id": 38,
+        "name": "Saint François de Longchamp/Valmorel",
+        "url": "https://www.valmorel.com/webcams/"
+    },
+    {
+        "id": 39,
+        "name": "Les Saisies",
+        "url": "https://www.lessaisies.com/webcams/"
+    },
+    {
+        "id": 40,
+        "name": "Praz de Lys Sommand",
+        "url": "https://www.prazdelys.com/webcams/"
+    },
+    {
+        "id": 41,
+        "name": "Val d'Arly",
+        "url": "https://www.valdarly.com/webcams/"
+    },
+    {
+        "id": 42,
+        "name": "Morillon/Sixt-Fer-à-Cheval/Samoëns",
+        "url": "https://www.grand-massif.com/webcams/"
+    },
+    {
+        "id": 43,
+        "name": "Thollon-les-Mémises",
+        "url": "https://www.thollon.com/webcams/"
+    },
+    {
+        "id": 44,
+        "name": "Tignes",
+        "url": "https://www.tignes.net/webcams/"
+    },
+    {
+        "id": 45,
+        "name": "Val d'Isère",
+        "url": "https://www.valdisere.com/webcams/"
+    },
+    {
+        "id": 46,
+        "name": "Valfréjus",
+        "url": "https://www.valfrejus.com/webcams/"
+    },
+    {
+        "id": 47,
+        "name": "Valloire/Val Menier",
+        "url": "https://www.valloire.net/webcams/"
+    },
+    {
+        "id": 95,
+        "name": "Gresse en Vercors",
+        "url": "https://www.gresse-en-vercors.com/webcams/"
+    },
+    {
+        "id": 96,
+        "name": "Herbouilly",
+        "url": "https://www.herbouilly.com/webcams/"
+    },
+    {
+        "id": 97,
+        "name": "Font d'Urle",
+        "url": "https://www.fontdurle.com/webcams/"
+    },
+    {
+        "id": 98,
+        "name": "Col de Rousset",
+        "url": "https://www.colderousset.com/webcams/"
+    },
+    {
+        "id": 99,
+        "name": "Rencurel/Les Coulmes",
+        "url": "https://www.rencurel.com/webcams/"
+    },
+    {
+        "id": 100,
+        "name": "Grand Echaillon",
+        "url": "https://www.grandechaillon.com/webcams/"
+    },
+    {
+        "id": 48,
+        "name": "Ancelle",
+        "url": "https://www.ancelle.com/webcams/"
+    },
+    {
+        "id": 49,
+        "name": "Orcières",
+        "url": "https://www.orcieres.com/webcams/"
+    },
+    {
+        "id": 50,
+        "name": "Saint Léger les Mélèzes",
+        "url": "https://www.saintleger.com/webcams/"
+    },
+    {
+        "id": 51,
+        "name": "Gap Bayard",
+        "url": "https://www.gapbayard.com/webcams/"
+    },
+    {
+        "id": 52,
+        "name": "Laye",
+        "url": "https://www.laye.com/webcams/"
+    },
+    {
+        "id": 53,
+        "name": "Valgaudemar",
+        "url": "https://www.valgaudemar.com/webcams/"
+    },
+    {
+        "id": 54,
+        "name": "Dévoluy",
+        "url": "https://www.superdevoluy.com/webcams/"
+    },
+    {
+        "id": 55,
+        "name": "Auron",
+        "url": "https://www.auron.com/webcams/"
+    },
+    {
+        "id": 56,
+        "name": "Chaillol",
+        "url": "https://www.chaillol.com/webcams/"
+    },
+    {
+        "id": 57,
+        "name": "Puy Saint Vincent",
+        "url": "https://www.puysaintvincent.com/webcams/"
+    },
+    {
+        "id": 58,
+        "name": "Réallon",
+        "url": "https://www.reallon.com/webcams/"
+    },
+    {
+        "id": 59,
+        "name": "Chabanon",
+        "url": "https://www.chabanon.com/webcams/"
+    },
+    {
+        "id": 60,
+        "name": "La Grave",
+        "url": "https://www.lagrave.com/webcams/"
+    },
+    {
+        "id": 61,
+        "name": "Les Orres",
+        "url": "https://www.lesorres.com/webcams/"
+    },
+    {
+        "id": 62,
+        "name": "Montgenèvre",
+        "url": "https://www.montgenevre.com/webcams/"
+    },
+    {
+        "id": 63,
+        "name": "Briançon/Serre Chevalier/Monetier",
+        "url": "https://www.serrechevalier.com/webcams/"
+    },
+    {
+        "id": 64,
+        "name": "Sauze",
+        "url": "https://www.sauze.com/webcams/"
+    },
+    {
+        "id": 65,
+        "name": "Isola 2000",
+        "url": "https://www.isola2000.com/webcams/"
+    },
+    {
+        "id": 66,
+        "name": "Saint Dalmas le Selvage",
+        "url": "https://www.saintdalmas.com/webcams/"
+    },
+    {
+        "id": 67,
+        "name": "Queyras",
+        "url": "https://lequeyras.com/webcams/"
+    },
+    {
+        "id": 68,
+        "name": "Le Grand Puy",
+        "url": "https://www.grandpuy.com/webcams/"
+    },
+    {
+        "id": 69,
+        "name": "Allos",
+        "url": "https://www.valdallos.com/webcams.html"
+    },
+    {
+        "id": 70,
+        "name": "Pra Loup",
+        "url": "https://www.praloup.com/webcams/"
+    },
+    {
+        "id": 71,
+        "name": "Vars/Risoul",
+        "url": "https://www.vars.com/webcams/"
+    },
+    {
+        "id": 11,
+        "name": "Valberg",
+        "url": "https://www.valberg.com/webcams/"
+    },
+    {
+        "id": 72,
+        "name": "Astún",
+        "url": "https://www.astun.com/webcams/"
+    },
+    {
+        "id": 73,
+        "name": "Ax 3 Domaines",
+        "url": "https://www.ax3domaines.com/webcams/"
+    },
+    {
+        "id": 74,
+        "name": "Baqueira - Beret",
+        "url": "https://www.baqueira.com/webcams/"
+    },
+    {
+        "id": 75,
+        "name": "Cauterets",
+        "url": "https://www.cauterets.com/webcams/"
+    },
+    {
+        "id": 76,
+        "name": "Gourette",
+        "url": "https://www.gourette.com/webcams/"
+    },
+    {
+        "id": 77,
+        "name": "Andorre",
+        "url": "https://www.andorre.com/webcams/"
+    },
+    {
+        "id": 78,
+        "name": "Peyragudes",
+        "url": "https://www.peyragudes.com/webcams/"
+    },
+    {
+        "id": 79,
+        "name": "Font Romeu",
+        "url": "https://www.fontromeu.com/webcams/"
+    },
+    {
+        "id": 80,
+        "name": "Les Angles",
+        "url": "https://www.lesangles.com/webcams/"
+    },
+    {
+        "id": 81,
+        "name": "La Mongie/Barèges",
+        "url": "https://www.lamongie.com/webcams/"
+    },
+    {
+        "id": 82,
+        "name": "La Pierre Saint-Martin",
+        "url": "https://www.lapierrestmartin.com/webcams/"
+    },
+    {
+        "id": 83,
+        "name": "Luz Ardiden",
+        "url": "https://www.luzardiden.com/webcams/"
+    },
+    {
+        "id": 84,
+        "name": "Luchon Superbagnères",
+        "url": "https://www.luchon.com/webcams/"
+    },
+    {
+        "id": 85,
+        "name": "Piau Engaly",
+        "url": "https://www.piauengaly.com/webcams/"
+    },
+    {
+        "id": 86,
+        "name": "Ghisoni",
+        "url": "https://www.ghisoni.com/webcams/"
+    },
+    {
+        "id": 87,
+        "name": "Bastelica (Val d'Ese)",
+        "url": "https://www.bastelica.com/webcams/"
+    },
+    {
+        "id": 88,
+        "name": "Asco",
+        "url": "https://www.asco.com/webcams/"
+    },
+    {
+        "id": 89,
+        "name": "Les Rousses",
+        "url": "https://www.lesrousses.com/webcams/"
+    },
+    {
+        "id": 90,
+        "name": "Mont Jura",
+        "url": "https://www.montjura.com/webcams/"
+    },
+    {
+        "id": 91,
+        "name": "Métabief",
+        "url": "https://www.metabief.com/webcams/"
+    },
+    {
+        "id": 94,
+        "name": "La Bresse Hohneck",
+        "url": "https://www.labresse.com/webcams/"
+    },
+    {
+        "id": 35,
+        "name": "Le Champ du Feu",
+        "url": "https://www.lechampdufeu.com/webcams/"
+    },
+    {
+        "id": 92,
+        "name": "Besse/Mont-Dore",
+        "url": "https://www.besse.com/webcams/"
+    },
+    {
+        "id": 93,
+        "name": "Le Lioran",
+        "url": "https://www.lelioran.com/webcams/"
+    },
+    {
+        "id": 101,
+        "name": "Croix de Bauzon",
+        "url": "https://www.croixdebauzon.com/webcams/"
+    }
+]
