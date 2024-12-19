@@ -1,5 +1,5 @@
-import 'package:latlong2/latlong.dart';
 import 'package:snow_weather_info/model/avalanche_bulletin.dart';
+import 'package:snow_weather_info/model/coordinate.dart';
 import 'package:snow_weather_info/model/mountain.dart';
 import 'package:snow_weather_info/model/station.dart';
 
@@ -10,85 +10,85 @@ abstract class ConstantDatalist {
     //alpes nord
     const Nivose(
       'Aiguilles rouges',
-      LatLng(45.986125, 6.895937),
+      Coordinate(latitude: 45.986125, longitude: 6.895937),
       2330,
       'AIGRG',
     ),
     const Nivose(
       'Bellecote',
-      LatLng(45.48881, 6.77163),
+      Coordinate(latitude: 45.48881, longitude: 6.77163),
       3000,
       'BELLE',
     ),
     const Nivose(
       'Le Chevril',
-      LatLng(45.50179, 6.95604),
+      Coordinate(latitude: 45.50179, longitude: 6.95604),
       2560,
       'CHEVR',
     ),
     const Nivose(
       'Bonneval',
-      LatLng(45.35175, 7.05132),
+      Coordinate(latitude: 45.35175, longitude: 7.05132),
       2720,
       'BONNE',
     ),
     const Nivose(
       'Les rochilles',
-      LatLng(45.08467, 6.47127),
+      Coordinate(latitude: 45.08467, longitude: 6.47127),
       2450,
       'ROCHI',
     ),
     const Nivose(
       'Allant',
-      LatLng(45.66345, 6.21195),
+      Coordinate(latitude: 45.66345, longitude: 6.21195),
       1630,
       'ALLAN',
     ),
     const Nivose(
       'Grande Parei',
-      LatLng(45.61463, 6.64750),
+      Coordinate(latitude: 45.61463, longitude: 6.64750),
       2240,
       'PAREI',
     ),
     const Nivose(
       'Col de Porte',
-      LatLng(45.2952742, 5.7651929),
+      Coordinate(latitude: 45.2952742, longitude: 5.7651929),
       1325,
       'COLPO',
     ),
     const Nivose(
       'St Hilaire',
-      LatLng(45.31449, 5.86462),
+      Coordinate(latitude: 45.31449, longitude: 5.86462),
       1700,
       'STHIL',
     ),
     const Nivose(
       'Aigleton',
-      LatLng(45.2311598, 6.0381140),
+      Coordinate(latitude: 45.2311598, longitude: 6.0381140),
       2240,
       'AIGLE',
     ),
     const Nivose(
       'Le Gua',
-      LatLng(45.01517, 5.58951),
+      Coordinate(latitude: 45.01517, longitude: 5.58951),
       1600,
       'LEGUA',
     ),
     const Nivose(
       'Les Ecrins',
-      LatLng(44.93681, 6.34602),
+      Coordinate(latitude: 44.93681, longitude: 6.34602),
       2940,
       'ECRIN',
     ),
     const Nivose(
       'La Meije',
-      LatLng(45.01255, 6.26485),
+      Coordinate(latitude: 45.01255, longitude: 6.26485),
       3100,
       'MEIJE',
     ),
     const Nivose(
       'Galibier',
-      LatLng(45.05733, 6.37739),
+      Coordinate(latitude: 45.05733, longitude: 6.37739),
       2559,
       'GALIB',
     )
@@ -96,31 +96,31 @@ abstract class ConstantDatalist {
     ,
     const Nivose(
       'Orcières',
-      LatLng(44.71857, 6.33378),
+      Coordinate(latitude: 44.71857, longitude: 6.33378),
       2294,
       'ORCIE',
     ),
     const Nivose(
       'Col Agnel',
-      LatLng(44.68873, 6.97625),
+      Coordinate(latitude: 44.68873, longitude: 6.97625),
       2630,
       'AGNEL',
     ),
     const Nivose(
       'Restefond',
-      LatLng(44.34205, 6.79871),
+      Coordinate(latitude: 44.34205, longitude: 6.79871),
       2550,
       'RESTE',
     ),
     const Nivose(
       'Millefonts',
-      LatLng(44.11819, 7.19226),
+      Coordinate(latitude: 44.11819, longitude: 7.19226),
       2430,
       'MILLE',
     ),
     const Nivose(
       'Parpaillon',
-      LatLng(44.49522, 6.63650),
+      Coordinate(latitude: 44.49522, longitude: 6.63650),
       2545,
       'PARPA',
     )
@@ -128,13 +128,13 @@ abstract class ConstantDatalist {
     ,
     const Nivose(
       'Sponde',
-      LatLng(42.32448, 8.88478),
+      Coordinate(latitude: 42.32448, longitude: 8.88478),
       1980,
       'SPOND',
     ),
     const Nivose(
       'Maniccia',
-      LatLng(42.20837, 9.04888),
+      Coordinate(latitude: 42.20837, longitude: 9.04888),
       2360,
       'MANIC',
     )
@@ -142,49 +142,49 @@ abstract class ConstantDatalist {
     ,
     const Nivose(
       'Maupas',
-      LatLng(42.71428, 0.54995),
+      Coordinate(latitude: 42.71428, longitude: 0.54995),
       2430,
       'MAUPA',
     ),
     const Nivose(
       'Port d`Aula',
-      LatLng(42.76993, 1.11493),
+      Coordinate(latitude: 42.76993, longitude: 1.11493),
       2140,
       'PAULA',
     ),
     const Nivose(
       'Canigou',
-      LatLng(42.53322, 2.46096),
+      Coordinate(latitude: 42.53322, longitude: 2.46096),
       2150,
       'CANIG',
     ),
     const Nivose(
       'Hospitalet',
-      LatLng(42.57778, 1.81140),
+      Coordinate(latitude: 42.57778, longitude: 1.81140),
       2293,
       'HOSPI',
     ),
     const Nivose(
       'Puigmal',
-      LatLng(42.38318, 2.09143),
+      Coordinate(latitude: 42.38318, longitude: 2.09143),
       2467,
       'PUIGN',
     ),
     const Nivose(
       'Soum Couy',
-      LatLng(42.96157, -0.71995),
+      Coordinate(latitude: 42.96157, longitude: -0.71995),
       2150,
       'SOUMC',
     ),
     const Nivose(
       'Lac d’ardiden',
-      LatLng(42.84828, -0.06471),
+      Coordinate(latitude: 42.84828, longitude: -0.06471),
       2445,
       'LARDI',
     ),
     const Nivose(
       'Aiguillettes',
-      LatLng(42.74692, 0.18128),
+      Coordinate(latitude: 42.74692, longitude: 0.18128),
       2120,
       'AIGTE',
     ),

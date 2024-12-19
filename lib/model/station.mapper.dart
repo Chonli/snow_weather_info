@@ -15,6 +15,7 @@ class AbstractStationMapper extends ClassMapperBase<AbstractStation> {
       MapperContainer.globals.use(_instance = AbstractStationMapper._());
       StationMapper.ensureInitialized();
       NivoseMapper.ensureInitialized();
+      CoordinateMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -24,8 +25,8 @@ class AbstractStationMapper extends ClassMapperBase<AbstractStation> {
 
   static String _$name(AbstractStation v) => v.name;
   static const Field<AbstractStation, String> _f$name = Field('name', _$name);
-  static LatLng _$position(AbstractStation v) => v.position;
-  static const Field<AbstractStation, LatLng> _f$position =
+  static Coordinate _$position(AbstractStation v) => v.position;
+  static const Field<AbstractStation, Coordinate> _f$position =
       Field('position', _$position);
   static int _$altitude(AbstractStation v) => v.altitude;
   static const Field<AbstractStation, int> _f$altitude =
@@ -63,7 +64,8 @@ mixin AbstractStationMappable {
 
 abstract class AbstractStationCopyWith<$R, $In extends AbstractStation, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  $R call({String? name, LatLng? position, int? altitude});
+  CoordinateCopyWith<$R, Coordinate, Coordinate> get position;
+  $R call({String? name, Coordinate? position, int? altitude});
   AbstractStationCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
@@ -76,6 +78,7 @@ class StationMapper extends ClassMapperBase<Station> {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = StationMapper._());
       AbstractStationMapper.ensureInitialized();
+      CoordinateMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -87,8 +90,8 @@ class StationMapper extends ClassMapperBase<Station> {
   static const Field<Station, int> _f$id = Field('id', _$id);
   static String _$name(Station v) => v.name;
   static const Field<Station, String> _f$name = Field('name', _$name);
-  static LatLng _$position(Station v) => v.position;
-  static const Field<Station, LatLng> _f$position =
+  static Coordinate _$position(Station v) => v.position;
+  static const Field<Station, Coordinate> _f$position =
       Field('position', _$position);
   static int _$altitude(Station v) => v.altitude;
   static const Field<Station, int> _f$altitude = Field('altitude', _$altitude);
@@ -156,7 +159,9 @@ extension StationValueCopy<$R, $Out> on ObjectCopyWith<$R, Station, $Out> {
 abstract class StationCopyWith<$R, $In extends Station, $Out>
     implements AbstractStationCopyWith<$R, $In, $Out> {
   @override
-  $R call({int? id, String? name, LatLng? position, int? altitude});
+  CoordinateCopyWith<$R, Coordinate, Coordinate> get position;
+  @override
+  $R call({int? id, String? name, Coordinate? position, int? altitude});
   StationCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -169,7 +174,10 @@ class _StationCopyWithImpl<$R, $Out>
   late final ClassMapperBase<Station> $mapper =
       StationMapper.ensureInitialized();
   @override
-  $R call({int? id, String? name, LatLng? position, int? altitude}) =>
+  CoordinateCopyWith<$R, Coordinate, Coordinate> get position =>
+      $value.position.copyWith.$chain((v) => call(position: v));
+  @override
+  $R call({int? id, String? name, Coordinate? position, int? altitude}) =>
       $apply(FieldCopyWithData({
         if (id != null) #id: id,
         if (name != null) #name: name,
@@ -196,6 +204,7 @@ class NivoseMapper extends ClassMapperBase<Nivose> {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = NivoseMapper._());
       AbstractStationMapper.ensureInitialized();
+      CoordinateMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -205,8 +214,8 @@ class NivoseMapper extends ClassMapperBase<Nivose> {
 
   static String _$name(Nivose v) => v.name;
   static const Field<Nivose, String> _f$name = Field('name', _$name);
-  static LatLng _$position(Nivose v) => v.position;
-  static const Field<Nivose, LatLng> _f$position =
+  static Coordinate _$position(Nivose v) => v.position;
+  static const Field<Nivose, Coordinate> _f$position =
       Field('position', _$position);
   static int _$altitude(Nivose v) => v.altitude;
   static const Field<Nivose, int> _f$altitude = Field('altitude', _$altitude);
@@ -273,7 +282,9 @@ extension NivoseValueCopy<$R, $Out> on ObjectCopyWith<$R, Nivose, $Out> {
 abstract class NivoseCopyWith<$R, $In extends Nivose, $Out>
     implements AbstractStationCopyWith<$R, $In, $Out> {
   @override
-  $R call({String? name, LatLng? position, int? altitude, String? codeMF});
+  CoordinateCopyWith<$R, Coordinate, Coordinate> get position;
+  @override
+  $R call({String? name, Coordinate? position, int? altitude, String? codeMF});
   NivoseCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -284,7 +295,14 @@ class _NivoseCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Nivose, $Out>
   @override
   late final ClassMapperBase<Nivose> $mapper = NivoseMapper.ensureInitialized();
   @override
-  $R call({String? name, LatLng? position, int? altitude, String? codeMF}) =>
+  CoordinateCopyWith<$R, Coordinate, Coordinate> get position =>
+      $value.position.copyWith.$chain((v) => call(position: v));
+  @override
+  $R call(
+          {String? name,
+          Coordinate? position,
+          int? altitude,
+          String? codeMF}) =>
       $apply(FieldCopyWithData({
         if (name != null) #name: name,
         if (position != null) #position: position,

@@ -42,7 +42,7 @@ final currentStationProvider = AutoDisposeProvider<Station>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef CurrentStationRef = AutoDisposeProviderRef<Station>;
-String _$isFavoriteHash() => r'1d151df11f5f8621cb4d3dd4c9a87706f6743feb';
+String _$isFavoriteHash() => r'687055a698fb459c7e3b0ee4cb430e33f0ef41dc';
 
 /// Copied from Dart SDK
 class _SystemHash {

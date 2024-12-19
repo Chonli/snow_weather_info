@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:snow_weather_info/data/sources/data/preferences.dart';
 import 'package:snow_weather_info/extensions/double.dart';
 import 'package:snow_weather_info/model/data_station.dart';
 import 'package:snow_weather_info/model/station.dart';
@@ -52,12 +53,10 @@ class _CurrentIndexData extends _$CurrentIndexData {
 
 @riverpod
 bool _isFavorite(Ref ref, int id) {
-  final favorites = ref.watch(favoriteStationProvider);
+  final favorites = ref.watch(favoritesStationSettingsProvider);
+
   return favorites.any(
-    (element) => switch (element) {
-      final Station st => st.id == id,
-      _ => false,
-    },
+    (fav) => fav == id.toString(),
   );
 }
 

@@ -1,30 +1,43 @@
 import 'package:flutter/foundation.dart';
-import 'package:hive_ce/hive.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:sembast/sembast_io.dart';
 
-typedef Serializer<T> = T Function(T value);
+part 'local_database.g.dart';
+
+typedef Serializer<T> = Object Function(T value);
 typedef Deserializer<T> = T Function(Object value);
 
-T _defaultSerialize<T>(T value) => value;
+Object _defaultSerialize<T>(T value) => value as Object;
 T _defaultDeserialize<T>(Object value) => value as T;
 
-class LocalDataBase<T> {
-  const LocalDataBase(this.database);
+@Riverpod(keepAlive: true)
+Database dataBase(Ref ref) {
+  throw Exception('Not initialize database!');
+}
 
-  final Box<T> database;
+abstract class LocalDataContainer {
+  const LocalDataContainer(this.dataBase);
 
-  LocalData<T> load({
+  @protected
+  final Database dataBase;
+
+  @protected
+  String get name;
+
+  LocalData<T> load<T>({
     required String key,
+    required T defaultValue,
     Serializer<T>? serialize,
     Deserializer<T>? deserialize,
-    T? defaultValue,
     AsyncCallback? onSaved,
   }) {
     return LocalData<T>(
-      database,
+      dataBase,
+      StoreRef.main().record('$name$key'),
       serialize,
       deserialize,
       defaultValue,
-      onSaved,
     );
   }
 }
@@ -32,38 +45,36 @@ class LocalDataBase<T> {
 class LocalData<T> {
   LocalData(
     this._db,
+    this._record,
     Serializer<T>? serialize,
     Deserializer<T>? deserialize,
     this.defaultValue,
-    this.onSaved,
-  )   : assert(
-          serialize == null && deserialize == null ||
-              serialize != null && deserialize != null,
-          'serialize and deserialize should be set at the same time',
-        ),
-        _serialize = serialize ?? _defaultSerialize,
+  )   : _serialize = serialize ?? _defaultSerialize,
         _deserialize = deserialize ?? _defaultDeserialize;
 
-  final Box<T> _db;
+  final Database _db;
+  final RecordRef _record;
   final Serializer<T> _serialize;
   final Deserializer<T> _deserialize;
-  final T? defaultValue;
-  final AsyncCallback? onSaved;
+  final T defaultValue;
 
-  Future<T?> read() async {
-    final value = _db.get(_db) as Object? ?? defaultValue;
+  T read() {
+    final data = _record.getSync(_db);
 
-    return value == null ? null : _deserialize(value);
+    if (data != null) {
+      return _deserialize(data);
+    } else {
+      return defaultValue;
+    }
   }
 
   Future<void> save(T? value) async {
-    if (value == null && _db.containsKey(_db)) {
-      await _db.delete(_db);
+    if (value == null && _record.existsSync(_db)) {
+      await _record.delete(_db);
     } else if (value != null) {
       final data = _serialize(value);
-      await _db.put(_db, data);
+      await _record.put(_db, data);
     }
-    await onSaved?.call();
   }
 }
 

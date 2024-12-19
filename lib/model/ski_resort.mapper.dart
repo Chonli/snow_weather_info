@@ -14,6 +14,7 @@ class SkiResortMapper extends ClassMapperBase<SkiResort> {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = SkiResortMapper._());
       MountainMapper.ensureInitialized();
+      CoordinateMapper.ensureInitialized();
       WebCamMapper.ensureInitialized();
     }
     return _instance!;
@@ -29,8 +30,8 @@ class SkiResortMapper extends ClassMapperBase<SkiResort> {
   static Mountain _$mountain(SkiResort v) => v.mountain;
   static const Field<SkiResort, Mountain> _f$mountain =
       Field('mountain', _$mountain);
-  static LatLng? _$position(SkiResort v) => v.position;
-  static const Field<SkiResort, LatLng> _f$position =
+  static Coordinate? _$position(SkiResort v) => v.position;
+  static const Field<SkiResort, Coordinate> _f$position =
       Field('position', _$position, opt: true);
   static String? _$description(SkiResort v) => v.description;
   static const Field<SkiResort, String> _f$description =
@@ -109,12 +110,13 @@ extension SkiResortValueCopy<$R, $Out> on ObjectCopyWith<$R, SkiResort, $Out> {
 
 abstract class SkiResortCopyWith<$R, $In extends SkiResort, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
+  CoordinateCopyWith<$R, Coordinate, Coordinate>? get position;
   ListCopyWith<$R, WebCam, WebCamCopyWith<$R, WebCam, WebCam>> get webcams;
   $R call(
       {int? id,
       String? name,
       Mountain? mountain,
-      LatLng? position,
+      Coordinate? position,
       String? description,
       List<WebCam>? webcams});
   SkiResortCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
@@ -128,6 +130,9 @@ class _SkiResortCopyWithImpl<$R, $Out>
   @override
   late final ClassMapperBase<SkiResort> $mapper =
       SkiResortMapper.ensureInitialized();
+  @override
+  CoordinateCopyWith<$R, Coordinate, Coordinate>? get position =>
+      $value.position?.copyWith.$chain((v) => call(position: v));
   @override
   ListCopyWith<$R, WebCam, WebCamCopyWith<$R, WebCam, WebCam>> get webcams =>
       ListCopyWith($value.webcams, (v, t) => v.copyWith.$chain(t),

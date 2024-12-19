@@ -1,5 +1,6 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:snow_weather_info/model/coordinate.dart';
 import 'package:snow_weather_info/model/mountain.dart';
 import 'package:snow_weather_info/model/webcam.dart';
 
@@ -19,7 +20,7 @@ class SkiResort with SkiResortMappable {
   final int id;
   final String name;
   final Mountain mountain;
-  final LatLng? position;
+  final Coordinate? position;
   final String? description;
   final List<WebCam> webcams;
 }

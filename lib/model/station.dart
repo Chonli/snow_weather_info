@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:latlong2/latlong.dart';
+import 'package:snow_weather_info/model/coordinate.dart';
 
 part 'station.mapper.dart';
 
@@ -14,7 +14,7 @@ sealed class AbstractStation with AbstractStationMappable {
   );
 
   final String name;
-  final LatLng position;
+  final Coordinate position;
   final int altitude;
 
   @override
@@ -34,41 +34,25 @@ class Station extends AbstractStation with StationMappable {
     super.altitude,
   );
 
-  factory Station.fromJson(Map<String, dynamic> json) => Station(
+  factory Station.fromRemoteJson(Map<String, dynamic> json) => Station(
         int.parse(json['ID'] as String),
         json['Nom'] as String,
-        LatLng(
-          double.parse(json['Latitude'] as String),
-          double.parse(json['Longitude'] as String),
+        Coordinate(
+          latitude: double.parse(json['Latitude'] as String),
+          longitude: double.parse(json['Longitude'] as String),
         ),
         int.parse(json['Altitude'] as String),
       );
 
-  // Station.fromMap(Map<String, dynamic> map)
-  //     : id = map[columnId] as int,
-  //       super(
-  //         map[columnName] as String,
-  //         LatLng(map[columnLatitude] as double, map[columnLongitude] as double),
-  //         map[columnAltitude] as int,
-  //       );
-
   final int id;
-
-  // @override
-  // Map<String, dynamic> toMap() {
-  //   return <String, dynamic>{
-  //     columnId: id,
-  //     columnName: name,
-  //     columnLatitude: position.latitude,
-  //     columnLongitude: position.longitude,
-  //     columnAltitude: altitude,
-  //   };
-  // }
 
   @override
   String toString() {
     return '$id - $name : $altitude m, $position';
   }
+
+  static const fromMap = StationMapper.fromMap;
+  static const fromJson = StationMapper.fromJson;
 }
 
 @MappableClass()
@@ -87,4 +71,7 @@ class Nivose extends AbstractStation with NivoseMappable {
 
   String get urlWeek => '$_urlBase${codeMF}S.gif';
   String get urlSeason => '$_urlBase$codeMF.gif';
+
+  static const fromMap = NivoseMapper.fromMap;
+  static const fromJson = NivoseMapper.fromJson;
 }

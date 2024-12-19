@@ -22,6 +22,14 @@
             "part '$TM_FILENAME_BASE.mapper.dart';",
         ],
     },
+    "dart_mappable fromMap/fromJson link": {
+        "prefix": "drtMapFrom",
+        "description": "dart_mappable fromMap/fromJson link",
+        "body": [
+            "static final fromMap = ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}Mapper.fromMap;",
+            "static final fromJson = ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}Mapper.fromJson;",
+        ],
+    },
     "WebCam": {
         "scope": "dart",
         "prefix": "webcam",

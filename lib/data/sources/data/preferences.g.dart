@@ -39,40 +39,6 @@ final themeModeSettingsProvider =
 );
 
 typedef _$ThemeModeSettings = Notifier<ThemeMode>;
-String _$lastStationDataSettingsHash() =>
-    r'6cfdbd488e1416750f361235142136088aa8fd54';
-
-/// See also [LastStationDataSettings].
-@ProviderFor(LastStationDataSettings)
-final lastStationDataSettingsProvider =
-    NotifierProvider<LastStationDataSettings, DateTime>.internal(
-  LastStationDataSettings.new,
-  name: r'lastStationDataSettingsProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$lastStationDataSettingsHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$LastStationDataSettings = Notifier<DateTime>;
-String _$lastStationSettingsHash() =>
-    r'106a627e5e1a04714b24b00973c082ed155258c1';
-
-/// See also [LastStationSettings].
-@ProviderFor(LastStationSettings)
-final lastStationSettingsProvider =
-    NotifierProvider<LastStationSettings, DateTime>.internal(
-  LastStationSettings.new,
-  name: r'lastStationSettingsProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$lastStationSettingsHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$LastStationSettings = Notifier<DateTime>;
 String _$favoritesStationSettingsHash() =>
     r'1558bd39ac145e4dad63815a1427b95068c6c379';
 
