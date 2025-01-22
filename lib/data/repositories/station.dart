@@ -23,7 +23,7 @@ class StationRepository {
   );
 
   final StationApi stationApi;
-  final SationLocalDataContainer localData;
+  final StationLocalDataContainer localData;
 
   FutureOr<List<Station>> getStation({bool forceUpdate = false}) async {
     List<Station> stations = localData.allStations.read();

@@ -15,7 +15,7 @@ dependencies:
     git:
       url: https://github.com/Chonli/webfeed.git
       ref: feature/geo-rss-2
-  fl_chart: ^0.69.0
+  fl_chart: ^0.70.1
   flutter:
     sdk: flutter
   flutter_hooks: ^0.20.5
@@ -45,7 +45,7 @@ dependencies:
 
 dev_dependencies:
   build_runner: ^2.4.13
-  custom_lint: ^0.6.7
+  custom_lint: ^0.7.0
   dart_mappable_builder: ^4.3.0
   flutter_lints: ^5.0.0
   flutter_test:
@@ -55,7 +55,7 @@ dev_dependencies:
   mocktail: ^1.0.4
   riverpod_generator: ^2.3.11
   riverpod_lint: ^2.3.13
-  very_good_analysis: ^6.0.0
+  very_good_analysis: ^7.0.0
 
 flutter:
   uses-material-design: true

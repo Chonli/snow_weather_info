@@ -58,12 +58,12 @@ class WebcamListView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return CustomScrollView(
+    return const CustomScrollView(
       slivers: [
         // recherche
-        const _SearchBarView(),
-        const _MassifFilterView(),
-        const _ListFavoriteView(),
+        _SearchBarView(),
+        _MassifFilterView(),
+        _ListFavoriteView(),
         _ListByMassifView(
           mountain: Mountain.alpesNord,
           skiResorts: ConstSkiResorts.webcamsNord,

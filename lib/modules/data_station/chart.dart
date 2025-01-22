@@ -9,7 +9,7 @@ import 'package:snow_weather_info/model/data_station.dart';
 import 'package:snow_weather_info/modules/data_station/view.dart';
 
 final _snowColor = Colors.blue.shade600;
-final _snowHeightColor = Colors.blue.shade300.withOpacity(0.5);
+final _snowHeightColor = Colors.blue.shade300.withValues(alpha: 0.5);
 const _tempColor = Colors.red;
 
 class DataStationChart extends ConsumerWidget {
@@ -83,12 +83,12 @@ class DataStationChart extends ConsumerWidget {
         BetweenBarsData(
           fromIndex: 0,
           toIndex: 1,
-          color: _tempColor.withOpacity(0.5),
+          color: _tempColor.withValues(alpha: 0.5),
         ),
         BetweenBarsData(
           fromIndex: 0,
           toIndex: 2,
-          color: _tempColor.withOpacity(0.5),
+          color: _tempColor.withValues(alpha: 0.5),
         ),
       ],
       titlesData: FlTitlesData(

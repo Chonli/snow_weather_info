@@ -1,5 +1,4 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:snow_weather_info/model/coordinate.dart';
 import 'package:snow_weather_info/model/mountain.dart';
 import 'package:snow_weather_info/model/webcam.dart';

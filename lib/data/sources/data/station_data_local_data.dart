@@ -2,20 +2,20 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/core/local_database.dart';
 import 'package:snow_weather_info/extensions/date_time.dart';
-import 'package:snow_weather_info/model/station.dart';
+import 'package:snow_weather_info/model/data_station.dart';
 
-part 'station_local_data.g.dart';
+part 'station_data_local_data.g.dart';
 
 @Riverpod(keepAlive: true)
-StationLocalDataContainer stationLocalData(Ref ref) {
-  return StationLocalDataContainer(ref.watch(dataBaseProvider));
+StationDataLocalDataContainer stationDataLocalData(Ref ref) {
+  return StationDataLocalDataContainer(ref.watch(dataBaseProvider));
 }
 
-class StationLocalDataContainer extends LocalDataContainer {
-  const StationLocalDataContainer(super.dataBase);
+class StationDataLocalDataContainer extends LocalDataContainer {
+  const StationDataLocalDataContainer(super.dataBase);
 
   @override
-  String get name => 'station_box';
+  String get name => 'station_data_box';
 
   LocalData<DateTime> get lastUpdate => load(
         key: 'last_update',
@@ -24,12 +24,12 @@ class StationLocalDataContainer extends LocalDataContainer {
         defaultValue: DateTime(0),
       );
 
-  LocalData<List<Station>> get allStations => load(
-        key: 'all_station',
+  LocalData<List<DataStation>> get allDataStations => load(
+        key: 'all_station_data',
         serialize: (stations) => stations.map((e) => e.toJson()).toList(),
         deserialize: (json) => (json as List<dynamic>)
             .map(
-              (e) => Station.fromJson(e as String),
+              (e) => DataStation.fromJson(e as String),
             )
             .toList(),
         defaultValue: [],

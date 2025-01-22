@@ -19,7 +19,7 @@ class AllStations extends _$AllStations {
         ...stations,
         ...ConstantDatalist.listNivose,
       ];
-    } catch (e) {
+    } on Exception catch (e) {
       log('Error fetching all stations: $e');
       return [...ConstantDatalist.listNivose];
     }

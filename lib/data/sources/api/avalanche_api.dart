@@ -17,7 +17,7 @@ Future<AtomFeed?> apiAvalanche(Ref ref) async {
     final response =
         await client.get(Uri.parse('http://www.data-avalanche.org/feed'));
     feed = AtomFeed.parse(utf8.decode(response.bodyBytes));
-  } catch (e) {
+  } on Exception catch (e) {
     log('feed error : $e');
     throw Exception(e);
   }

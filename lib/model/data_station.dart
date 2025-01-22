@@ -1,3 +1,4 @@
+// Specific parse file
 // ignore_for_file: avoid_dynamic_calls
 
 import 'package:dart_mappable/dart_mappable.dart';
@@ -48,42 +49,14 @@ class DataStation with DataStationMappable {
   final double? snowHeight;
   final double? snowNewHeight;
 
-  // factory DataStation.fromMap(Map<String, dynamic> map) => DataStation(
-  //       id: map[columnIdStation] as int,
-  //       date: DateTime.parse(map[columnDate] as String),
-  //       temperature: map[columnTemperature] as double?,
-  //       temperatureMin24: map[columnTemperatureMin24] as double?,
-  //       temperatureMax24: map[columnTemperatureMax24] as double?,
-  //       temperatureSnow: map[columnTemperatureSnow] as double?,
-  //       snowHeight: map[columnSnowHeight] as double?,
-  //       snowNewHeight: map[columnSnowNewHeight] as double?,
-  //       speedWind: map[columnSpeedWind] as double?,
-  //       directionWind: map[columnDirectionWind] as double?,
-  //     );
-
-  // Map<String, dynamic> toMap() {
-  //   return <String, dynamic>{
-  //     columnIdStation: id,
-  //     columnDate: date.toIso8601String(),
-  //     columnTemperature: temperature,
-  //     columnTemperatureMin24: temperatureMin24,
-  //     columnTemperatureMax24: temperatureMax24,
-  //     columnTemperatureSnow: temperatureSnow,
-  //     columnSpeedWind: speedWind,
-  //     columnDirectionWind: directionWind,
-  //     columnSnowHeight: snowHeight,
-  //     columnSnowNewHeight: snowNewHeight,
-  //   };
-  // }
+  static const fromMap = DataStationMapper.fromMap;
+  static const fromJson = DataStationMapper.fromJson;
 
   @override
   String toString() {
     return '$id : $temperature °C $speedWind m/s, $snowHeight m';
   }
 }
-
-
-
 
 /*
 0 = "numer_sta"

@@ -6,7 +6,7 @@ part of 'avalanche_api.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$apiAvalancheHash() => r'9adf64de3813a1c23dcb3e5ecc062502dd1a2997';
+String _$apiAvalancheHash() => r'f73a00238dc1c31bbf067d674ac1e551a62debf1';
 
 /// See also [apiAvalanche].
 @ProviderFor(apiAvalanche)

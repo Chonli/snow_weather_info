@@ -6,12 +6,11 @@ part of 'station_local_data.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$stationLocalDataHash() => r'57d0237a77d3093f429a1787f457a482079cb235';
+String _$stationLocalDataHash() => r'7448a16b454f75679983de968add781eca7bdd42';
 
 /// See also [stationLocalData].
 @ProviderFor(stationLocalData)
-final stationLocalDataProvider =
-    AutoDisposeProvider<SationLocalDataContainer>.internal(
+final stationLocalDataProvider = Provider<StationLocalDataContainer>.internal(
   stationLocalData,
   name: r'stationLocalDataProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -23,6 +22,6 @@ final stationLocalDataProvider =
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef StationLocalDataRef = AutoDisposeProviderRef<SationLocalDataContainer>;
+typedef StationLocalDataRef = ProviderRef<StationLocalDataContainer>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

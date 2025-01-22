@@ -1,3 +1,4 @@
+// ignore_for_file: scoped_providers_should_specify_dependencies
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -31,7 +32,6 @@ class _CurrentIndex extends _$CurrentIndex {
     return 0;
   }
 
-  // ignore: use_setters_to_change_properties
   void setIndex(int index) {
     state = index;
   }
@@ -285,8 +285,8 @@ class _DotRow extends ConsumerWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: currentIndex == i
-                ? Theme.of(context).primaryColor.withOpacity(0.9)
-                : Theme.of(context).primaryColor.withOpacity(0.4),
+                ? Theme.of(context).primaryColor.withValues(alpha: 0.9)
+                : Theme.of(context).primaryColor.withValues(alpha: 0.4),
           ),
         ),
       ),

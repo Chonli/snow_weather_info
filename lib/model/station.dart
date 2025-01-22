@@ -1,5 +1,3 @@
-// ignore_for_file: public_member_api_docs
-
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:snow_weather_info/model/coordinate.dart';
 
