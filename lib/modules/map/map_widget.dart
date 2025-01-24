@@ -10,8 +10,9 @@ import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/core/notifier/location.dart';
 import 'package:snow_weather_info/data/constant_data_list.dart';
-import 'package:snow_weather_info/data/sources/avalanche_api.dart';
-import 'package:snow_weather_info/data/sources/preferences.dart';
+import 'package:snow_weather_info/data/sources/api/avalanche_api.dart';
+import 'package:snow_weather_info/data/sources/data/preferences.dart';
+import 'package:snow_weather_info/model/coordinate.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/modules/map/map_licence_widget.dart';
 import 'package:snow_weather_info/modules/map/map_maker.dart';
@@ -29,12 +30,12 @@ const _avalancheColor = Colors.orange;
 @riverpod
 class CurrentMapLoc extends _$CurrentMapLoc {
   @override
-  LatLng build() {
-    return const LatLng(45.05, 6.3);
+  Coordinate build() {
+    return const Coordinate(latitude: 45.05, longitude: 6.3);
   }
 
   // ignore: use_setters_to_change_properties
-  void setLocation(LatLng value) {
+  void setLocation(Coordinate value) {
     state = value;
   }
 }
@@ -110,7 +111,7 @@ class __InnerViewState extends ConsumerState<_InnerView> {
         Marker(
           width: 90,
           height: 50,
-          point: nivose.position,
+          point: nivose.position.toLatLng(),
           child: MapMaker(
             icon: const Icon(Icons.place),
             color: _nivoseColor,
@@ -142,7 +143,7 @@ class __InnerViewState extends ConsumerState<_InnerView> {
           Marker(
             width: 90,
             height: 50,
-            point: station.position,
+            point: station.position.toLatLng(),
             child: MapMaker(
               icon: const Icon(Icons.place),
               color: _stationColor,
@@ -167,7 +168,7 @@ class __InnerViewState extends ConsumerState<_InnerView> {
           Marker(
             width: 90,
             height: 50,
-            point: station.position,
+            point: station.position.toLatLng(),
             child: const MapMaker(
               icon: Icon(Icons.place),
               color: _stationNoDataColor,
@@ -192,9 +193,12 @@ class __InnerViewState extends ConsumerState<_InnerView> {
                 icon: const Icon(Icons.ac_unit),
                 color: _avalancheColor,
                 onPressed: () {
-                  ref
-                      .read(currentMapLocProvider.notifier)
-                      .setLocation(LatLng(lat, long));
+                  ref.read(currentMapLocProvider.notifier).setLocation(
+                        Coordinate(
+                          latitude: lat,
+                          longitude: long,
+                        ),
+                      );
 
                   context.goNamed(
                     AppRoute.detailMapAv.name,
@@ -240,7 +244,7 @@ class __InnerViewState extends ConsumerState<_InnerView> {
         FlutterMap(
           mapController: _mapController,
           options: MapOptions(
-            initialCenter: userLocation ?? currentMapLoc,
+            initialCenter: userLocation ?? currentMapLoc.toLatLng(),
             initialZoom: 10,
             maxZoom: 16,
             minZoom: 8,

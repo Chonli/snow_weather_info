@@ -30,7 +30,9 @@ if (keystorePropertiesFile.exists()) {
 
 
 android {
+    namespace 'com.chonli.snow_weather_info'
     compileSdkVersion 34
+
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -69,6 +71,7 @@ android {
             applicationIdSuffix '.debug'
         }
     }
+    
 }
 
 flutter {
@@ -76,7 +79,7 @@ flutter {
 }
 
 dependencies {
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test:runner:1.6.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
 }

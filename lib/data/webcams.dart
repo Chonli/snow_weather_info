@@ -5,7 +5,7 @@ import 'package:snow_weather_info/model/webcam.dart';
 //last id: 101
 
 abstract class ConstSkiResorts {
-  static final webcamsByResort = [
+  static const webcamsByResort = [
     ...webcamsNord,
     ...webcamsSud,
     ...webcamsPyrenees,
@@ -15,7 +15,7 @@ abstract class ConstSkiResorts {
     ...webcamsVosges,
   ];
 
-  static final webcamsNord = [
+  static const webcamsNord = [
 // Alpes du nord
     SkiResort(
       id: 0,
@@ -1868,7 +1868,7 @@ abstract class ConstSkiResorts {
     ),
   ];
 
-  static final webcamsSud = [
+  static const webcamsSud = [
 // Alpes du sud
     SkiResort(
       id: 48,
@@ -2531,7 +2531,7 @@ abstract class ConstSkiResorts {
     ),
   ];
 
-  static final webcamsPyrenees = [
+  static const webcamsPyrenees = [
 // Pyrenees
     SkiResort(
       id: 72,
@@ -3050,7 +3050,7 @@ abstract class ConstSkiResorts {
     ),
   ];
 
-  static final webcamsCorse = <SkiResort>[
+  static const webcamsCorse = <SkiResort>[
     SkiResort(
       id: 86,
       name: 'Ghisoni',
@@ -3095,7 +3095,7 @@ abstract class ConstSkiResorts {
     ),
   ];
 
-  static final webcamsJura = [
+  static const webcamsJura = [
 // Jura
     SkiResort(
       id: 89,
@@ -3181,7 +3181,7 @@ abstract class ConstSkiResorts {
     ),
   ];
 
-  static final webcamsCentral = [
+  static const webcamsCentral = [
 // Massif Central
     SkiResort(
       id: 92,
@@ -3271,7 +3271,7 @@ abstract class ConstSkiResorts {
     ),
   ];
 
-  static final webcamsVosges = [
+  static const webcamsVosges = [
 // Vosges
     SkiResort(
       id: 94,

@@ -1,8 +1,10 @@
+// ignore_for_file: scoped_providers_should_specify_dependencies
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:snow_weather_info/data/sources/data/preferences.dart';
 import 'package:snow_weather_info/extensions/double.dart';
 import 'package:snow_weather_info/model/data_station.dart';
 import 'package:snow_weather_info/model/station.dart';
@@ -30,7 +32,6 @@ class _CurrentIndex extends _$CurrentIndex {
     return 0;
   }
 
-  // ignore: use_setters_to_change_properties
   void setIndex(int index) {
     state = index;
   }
@@ -52,12 +53,10 @@ class _CurrentIndexData extends _$CurrentIndexData {
 
 @riverpod
 bool _isFavorite(Ref ref, int id) {
-  final favorites = ref.watch(favoriteStationProvider);
+  final favorites = ref.watch(favoritesStationSettingsProvider);
+
   return favorites.any(
-    (element) => switch (element) {
-      final Station st => st.id == id,
-      _ => false,
-    },
+    (fav) => fav == id.toString(),
   );
 }
 
@@ -286,8 +285,8 @@ class _DotRow extends ConsumerWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: currentIndex == i
-                ? Theme.of(context).primaryColor.withOpacity(0.9)
-                : Theme.of(context).primaryColor.withOpacity(0.4),
+                ? Theme.of(context).primaryColor.withValues(alpha: 0.9)
+                : Theme.of(context).primaryColor.withValues(alpha: 0.4),
           ),
         ),
       ),

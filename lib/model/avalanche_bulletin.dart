@@ -1,15 +1,17 @@
-// ignore_for_file: public_member_api_docs
-
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:snow_weather_info/model/mountain.dart';
 
-part 'avalanche_bulletin.freezed.dart';
+part 'avalanche_bulletin.mapper.dart';
 
-@freezed
-abstract class AvalancheBulletin with _$AvalancheBulletin {
-  const factory AvalancheBulletin({
-    required String massifName,
-    required int beraNumber,
-    required Mountain mountain,
-  }) = _AvalancheBulletin;
+@MappableClass()
+class AvalancheBulletin with AvalancheBulletinMappable {
+  const AvalancheBulletin({
+    required this.massifName,
+    required this.beraNumber,
+    required this.mountain,
+  });
+
+  final String massifName;
+  final int beraNumber;
+  final Mountain mountain;
 }

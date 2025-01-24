@@ -1,6 +1,7 @@
 import 'package:dart_rss/dart_rss.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/core/widgets/app_web_page.dart';
 import 'package:snow_weather_info/extensions/atom_item.dart';
@@ -30,7 +31,7 @@ final _beraNavigatorKey = GlobalKey<NavigatorState>();
 final _webcamNavigatorKey = GlobalKey<NavigatorState>();
 
 @Riverpod(keepAlive: true)
-GoRouter router(RouterRef ref) {
+GoRouter router(Ref ref) {
   final router = GoRouter(
     initialLocation: AppRoute.root.path,
     navigatorKey: _rootNavigatorKey,

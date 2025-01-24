@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/data/constant_data_list.dart';
-import 'package:snow_weather_info/data/sources/preferences.dart';
-import 'package:snow_weather_info/data/sources/station_api.dart';
+import 'package:snow_weather_info/data/repositories/station.dart';
+import 'package:snow_weather_info/data/sources/data/preferences.dart';
 import 'package:snow_weather_info/model/station.dart';
 
 part 'favorite_station.g.dart';
@@ -9,9 +9,10 @@ part 'favorite_station.g.dart';
 @Riverpod(keepAlive: true)
 class FavoriteStation extends _$FavoriteStation {
   @override
-  List<AbstractStation> build() {
+  Future<List<AbstractStation>> build() async {
     final favorites = ref.watch(favoritesStationSettingsProvider);
-    final stations = ref.watch(apiStationProvider).asData?.value ?? [];
+    final stationRepo = ref.watch(stationRepositoryProvider);
+    final stations = await stationRepo.getStation();
     final tmpDatas = <AbstractStation>[];
 
     for (final s in stations) {
@@ -29,8 +30,8 @@ class FavoriteStation extends _$FavoriteStation {
     return tmpDatas;
   }
 
-  void addOrRemoveFavoriteStation(AbstractStation station) {
-    final tmpDatas = [...state];
+  Future<void> addOrRemoveFavoriteStation(AbstractStation station) async {
+    final tmpDatas = await future;
 
     if (tmpDatas.contains(station)) {
       tmpDatas.remove(station);
@@ -40,7 +41,7 @@ class FavoriteStation extends _$FavoriteStation {
     tmpDatas.sort((a, b) => a.name.compareTo(b.name));
 
     _persitFavoriteStation(tmpDatas);
-    state = tmpDatas;
+    state = AsyncData(tmpDatas);
   }
 
   void _persitFavoriteStation(List<AbstractStation> value) {

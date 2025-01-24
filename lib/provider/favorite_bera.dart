@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/data/constant_data_list.dart';
-import 'package:snow_weather_info/data/sources/preferences.dart';
+import 'package:snow_weather_info/data/sources/data/preferences.dart';
 import 'package:snow_weather_info/model/avalanche_bulletin.dart';
 
 part 'favorite_bera.g.dart';

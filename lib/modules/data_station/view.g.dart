@@ -22,6 +22,8 @@ final currentDataStationProvider =
   allTransitiveDependencies: const <ProviderOrFamily>{},
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef CurrentDataStationRef = AutoDisposeProviderRef<List<DataStation>>;
 String _$currentStationHash() => r'd60a58973507c5e6eecabb2310e673c38166b922';
 
@@ -37,8 +39,10 @@ final currentStationProvider = AutoDisposeProvider<Station>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef CurrentStationRef = AutoDisposeProviderRef<Station>;
-String _$isFavoriteHash() => r'1d151df11f5f8621cb4d3dd4c9a87706f6743feb';
+String _$isFavoriteHash() => r'687055a698fb459c7e3b0ee4cb430e33f0ef41dc';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -174,6 +178,8 @@ class _IsFavoriteProvider extends AutoDisposeProvider<bool> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin _IsFavoriteRef on AutoDisposeProviderRef<bool> {
   /// The parameter `id` of this provider.
   int get id;
@@ -222,4 +228,4 @@ final _currentIndexDataProvider =
 
 typedef _$CurrentIndexData = AutoDisposeNotifier<DataStation?>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

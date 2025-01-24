@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:sliver_tools/sliver_tools.dart';
 import 'package:snow_weather_info/core/widgets/app_sticky_header_view.dart';
-import 'package:snow_weather_info/data/sources/preferences.dart';
+import 'package:snow_weather_info/data/sources/data/preferences.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/modules/station/station_card.dart';
 import 'package:snow_weather_info/provider/all_station.dart';
@@ -25,12 +26,12 @@ class _Search extends _$Search {
 }
 
 @riverpod
-class _FilteredSations extends _$FilteredSations {
+class _FilteredStations extends _$FilteredStations {
   @override
   Map<String, List<AbstractStation>> build() {
-    final allStations = ref.watch(allStationsProvider);
     final search = ref.watch(_searchProvider);
     final showNoDataStation = ref.watch(showNoDataStationSettingsProvider);
+    final allStations = ref.watch(allStationsProvider).valueOrNull ?? [];
 
     final stations = allStations
         .where(
@@ -75,9 +76,6 @@ class ListStationWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final filteredSations = ref.watch(_filteredSationsProvider);
-    final favoriteStation = ref.watch(favoriteStationProvider);
-
     return CustomScrollView(
       slivers: [
         // recherche
@@ -101,33 +99,71 @@ class ListStationWidget extends ConsumerWidget {
             ),
           ),
         ),
-        // favorite
-        if (favoriteStation.isNotEmpty)
-          SliverStickyHeader(
-            header: AppStickyHeaderView(
-              text: favoriteStation.length == 1 ? 'Favori' : 'Favoris',
-            ),
-            sliver: SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) => StationCard(
-                  station: favoriteStation[index],
-                ),
-                childCount: favoriteStation.length,
-              ),
-            ),
-          ),
-        ...filteredSations.entries.map(
-          (e) => SliverStickyHeader(
-            header: AppStickyHeaderView(text: e.key),
-            sliver: SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) => StationCard(station: e.value[index]),
-                childCount: e.value.length,
-              ),
-            ),
-          ),
-        ),
+        const _FavoriteStationsWidget(),
+        const _FilteredStationsWidget(),
       ],
+    );
+  }
+}
+
+class _FavoriteStationsWidget extends ConsumerWidget {
+  const _FavoriteStationsWidget();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final favoriteStation = ref.watch(favoriteStationProvider);
+
+    return favoriteStation.when(
+      data: (data) {
+        if (data.isEmpty) {
+          return const SliverToBoxAdapter();
+        }
+
+        return SliverStickyHeader(
+          header: AppStickyHeaderView(
+            text: data.length == 1 ? 'Favori' : 'Favoris',
+          ),
+          sliver: SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) => StationCard(
+                station: data[index],
+              ),
+              childCount: data.length,
+            ),
+          ),
+        );
+      },
+      error: (_, __) => const SliverToBoxAdapter(),
+      loading: () => const SliverToBoxAdapter(),
+    );
+  }
+}
+
+class _FilteredStationsWidget extends ConsumerWidget {
+  const _FilteredStationsWidget();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final filteredStations = ref.watch(_filteredStationsProvider);
+
+    if (filteredStations.isEmpty) {
+      return const SliverToBoxAdapter();
+    }
+
+    return MultiSliver(
+      children: filteredStations.entries
+          .map(
+            (e) => SliverStickyHeader(
+              header: AppStickyHeaderView(text: e.key),
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) => StationCard(station: e.value[index]),
+                  childCount: e.value.length,
+                ),
+              ),
+            ),
+          )
+          .toList(),
     );
   }
 }

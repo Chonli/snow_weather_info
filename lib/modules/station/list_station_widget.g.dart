@@ -20,22 +20,22 @@ final _searchProvider = AutoDisposeNotifierProvider<_Search, String>.internal(
 );
 
 typedef _$Search = AutoDisposeNotifier<String>;
-String _$filteredSationsHash() => r'36e71d6782f264fcc3525fd485ec2b3e4337ae69';
+String _$filteredStationsHash() => r'9af43ceee2e1aa63e6ff8f8a85c76b06f450b13b';
 
-/// See also [_FilteredSations].
-@ProviderFor(_FilteredSations)
-final _filteredSationsProvider = AutoDisposeNotifierProvider<_FilteredSations,
+/// See also [_FilteredStations].
+@ProviderFor(_FilteredStations)
+final _filteredStationsProvider = AutoDisposeNotifierProvider<_FilteredStations,
     Map<String, List<AbstractStation>>>.internal(
-  _FilteredSations.new,
-  name: r'_filteredSationsProvider',
+  _FilteredStations.new,
+  name: r'_filteredStationsProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$filteredSationsHash,
+      : _$filteredStationsHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$FilteredSations
+typedef _$FilteredStations
     = AutoDisposeNotifier<Map<String, List<AbstractStation>>>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -1,5 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:snow_weather_info/data/sources/station_api.dart';
+import 'package:snow_weather_info/data/repositories/station.dart';
 import 'package:snow_weather_info/model/station.dart';
 
 part 'stations.g.dart';
@@ -8,7 +8,8 @@ part 'stations.g.dart';
 class Stations extends _$Stations {
   @override
   FutureOr<List<Station>> build() {
-    return ref.watch(apiStationProvider).asData?.value ?? [];
+    final stationRepo = ref.watch(stationRepositoryProvider);
+    return stationRepo.getStation();
   }
 
   // Future<List<Station>> _getStations({bool forceUpdate = false}) async {

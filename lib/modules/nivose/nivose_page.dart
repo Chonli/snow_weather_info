@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:snow_weather_info/data/sources/data/preferences.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/modules/map/map_widget.dart';
 import 'package:snow_weather_info/provider/favorite_station.dart';
@@ -11,13 +12,10 @@ part 'nivose_page.g.dart';
 
 @riverpod
 bool _isFavorite(Ref ref, String codeMF) {
-  final stations = ref.watch(favoriteStationProvider);
+  final favorites = ref.watch(favoritesStationSettingsProvider);
 
-  return stations.any(
-    (element) => switch (element) {
-      final Nivose nivose => nivose.codeMF == codeMF,
-      _ => false,
-    },
+  return favorites.any(
+    (id) => id == codeMF,
   );
 }
 

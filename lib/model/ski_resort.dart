@@ -1,18 +1,25 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:latlong2/latlong.dart';
+import 'package:dart_mappable/dart_mappable.dart';
+import 'package:snow_weather_info/model/coordinate.dart';
 import 'package:snow_weather_info/model/mountain.dart';
 import 'package:snow_weather_info/model/webcam.dart';
 
-part 'ski_resort.freezed.dart';
+part 'ski_resort.mapper.dart';
 
-@freezed
-abstract class SkiResort with _$SkiResort {
-  factory SkiResort({
-    required int id,
-    required String name,
-    required Mountain mountain,
-    LatLng? position,
-    String? description,
-    @Default([]) List<WebCam> webcams,
-  }) = _SkiResort;
+@MappableClass()
+class SkiResort with SkiResortMappable {
+  const SkiResort({
+    required this.id,
+    required this.name,
+    required this.mountain,
+    this.position,
+    this.description,
+    this.webcams = const [],
+  });
+
+  final int id;
+  final String name;
+  final Mountain mountain;
+  final Coordinate? position;
+  final String? description;
+  final List<WebCam> webcams;
 }

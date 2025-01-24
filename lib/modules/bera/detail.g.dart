@@ -6,7 +6,7 @@ part of 'detail.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$pdfControllerHash() => r'd44e0853f31b71f120ff19c2c98d963746a798fc';
+String _$pdfControllerHash() => r'5edcfd1e2d6806a2cf0e5755aea8989ed1b4aa9c';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -142,6 +142,8 @@ class _PdfControllerProvider extends AutoDisposeFutureProvider<PdfController?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin _PdfControllerRef on AutoDisposeFutureProviderRef<PdfController?> {
   /// The parameter `beraNumber` of this provider.
   int get beraNumber;
@@ -173,4 +175,4 @@ final _beraTokenHeaderProvider =
 
 typedef _$BeraTokenHeader = Notifier<Map<String, String>>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

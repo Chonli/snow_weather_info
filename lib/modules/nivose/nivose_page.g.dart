@@ -6,7 +6,7 @@ part of 'nivose_page.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$isFavoriteHash() => r'640e830f46ed2b550d16bf1aec74eae6d8d05a83';
+String _$isFavoriteHash() => r'6a4e20c692a9cc432999a9dca41676908fd4a090';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -142,6 +142,8 @@ class _IsFavoriteProvider extends AutoDisposeProvider<bool> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin _IsFavoriteRef on AutoDisposeProviderRef<bool> {
   /// The parameter `codeMF` of this provider.
   String get codeMF;
@@ -155,4 +157,4 @@ class _IsFavoriteProviderElement extends AutoDisposeProviderElement<bool>
   String get codeMF => (origin as _IsFavoriteProvider).codeMF;
 }
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

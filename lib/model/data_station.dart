@@ -1,26 +1,27 @@
+// Specific parse file
 // ignore_for_file: avoid_dynamic_calls
 
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:snow_weather_info/extensions/string.dart';
 
-part 'data_station.freezed.dart';
+part 'data_station.mapper.dart';
 
 const kelvin = -273.15;
 
-@freezed
-class DataStation with _$DataStation {
-  const factory DataStation({
-    required DateTime date,
-    @Default(0) int id,
-    double? temperature,
-    double? temperatureMin24,
-    double? temperatureMax24,
-    double? temperatureSnow,
-    double? speedWind,
-    double? directionWind,
-    double? snowHeight,
-    double? snowNewHeight,
-  }) = _DataStation;
+@MappableClass()
+class DataStation with DataStationMappable {
+  const DataStation({
+    required this.date,
+    this.id = 0,
+    this.temperature,
+    this.temperatureMin24,
+    this.temperatureMax24,
+    this.temperatureSnow,
+    this.speedWind,
+    this.directionWind,
+    this.snowHeight,
+    this.snowNewHeight,
+  });
 
   factory DataStation.fromList(List<dynamic> data) => DataStation(
         id: int.parse(data[0] as String),
@@ -37,42 +38,25 @@ class DataStation with _$DataStation {
         snowNewHeight: (data[23] as String?).parseDouble(),
       );
 
-  // factory DataStation.fromMap(Map<String, dynamic> map) => DataStation(
-  //       id: map[columnIdStation] as int,
-  //       date: DateTime.parse(map[columnDate] as String),
-  //       temperature: map[columnTemperature] as double?,
-  //       temperatureMin24: map[columnTemperatureMin24] as double?,
-  //       temperatureMax24: map[columnTemperatureMax24] as double?,
-  //       temperatureSnow: map[columnTemperatureSnow] as double?,
-  //       snowHeight: map[columnSnowHeight] as double?,
-  //       snowNewHeight: map[columnSnowNewHeight] as double?,
-  //       speedWind: map[columnSpeedWind] as double?,
-  //       directionWind: map[columnDirectionWind] as double?,
-  //     );
+  final DateTime date;
+  final int id;
+  final double? temperature;
+  final double? temperatureMin24;
+  final double? temperatureMax24;
+  final double? temperatureSnow;
+  final double? speedWind;
+  final double? directionWind;
+  final double? snowHeight;
+  final double? snowNewHeight;
 
-  // Map<String, dynamic> toMap() {
-  //   return <String, dynamic>{
-  //     columnIdStation: id,
-  //     columnDate: date.toIso8601String(),
-  //     columnTemperature: temperature,
-  //     columnTemperatureMin24: temperatureMin24,
-  //     columnTemperatureMax24: temperatureMax24,
-  //     columnTemperatureSnow: temperatureSnow,
-  //     columnSpeedWind: speedWind,
-  //     columnDirectionWind: directionWind,
-  //     columnSnowHeight: snowHeight,
-  //     columnSnowNewHeight: snowNewHeight,
-  //   };
-  // }
+  static const fromMap = DataStationMapper.fromMap;
+  static const fromJson = DataStationMapper.fromJson;
 
   @override
   String toString() {
     return '$id : $temperature °C $speedWind m/s, $snowHeight m';
   }
 }
-
-
-
 
 /*
 0 = "numer_sta"
