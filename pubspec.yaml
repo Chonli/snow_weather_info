@@ -2,15 +2,15 @@ name: snow_weather_info
 description: A application to display french snow weather beacon informations
 publish_to: none
 
-version: 2.3.2+36
+version: 2.4.0+37
 
 environment:
-  sdk: ">=3.6.0 <4.0.0"
+  sdk: ">=3.7.0 <4.0.0"
 
 dependencies:
   collection: any
   csv: ^6.0.0
-  dart_mappable: ^4.3.0
+  dart_mappable: ^4.4.0
   dart_rss:
     git:
       url: https://github.com/Chonli/webfeed.git
@@ -21,24 +21,24 @@ dependencies:
   flutter_hooks: ^0.20.5
   flutter_inappwebview: ^6.1.3
   flutter_launcher_icons: ^0.14.1
-  flutter_map: ^7.0.2
+  flutter_map: ^7.0.0
   flutter_map_marker_cluster: ^1.4.0
   flutter_sticky_header: ^0.7.0
   geolocator: ^13.0.1
-  go_router: ^14.2.0
-  hooks_riverpod: ^2.5.1
-  http: ^1.2.1
+  go_router: ^14.8.0
+  hooks_riverpod: ^2.6.0
+  http: ^1.3.0
   intl: any
   latlong2: ^0.9.0
-  logging: ^1.2.0
-  package_info_plus: ^8.1.1
-  path: ^1.9.0
+  logging: ^1.3.0
+  package_info_plus: ^8.2.1
+  path: ^1.9.1
   path_provider: ^2.1.5
   pdfx: ^2.8.0
-  riverpod_annotation: ^2.3.5
-  sembast: ^3.8.0+1
-  share_plus: ^10.1.2
-  shared_preferences: ^2.2.2
+  riverpod_annotation: ^2.6.1
+  sembast: ^3.8.4
+  share_plus: ^10.1.4
+  shared_preferences: ^2.5.2
   sliver_tools: ^0.2.12
   smooth_page_indicator: ^1.2.0
   url_launcher: ^6.3.0
@@ -46,15 +46,15 @@ dependencies:
 dev_dependencies:
   build_runner: ^2.4.13
   custom_lint: ^0.7.0
-  dart_mappable_builder: ^4.3.0
+  dart_mappable_builder: ^4.4.0
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
-  freezed: ^2.4.7
-  json_serializable: ^6.8.0
+  freezed: ^2.5.0
+  json_serializable: ^6.9.4
   mocktail: ^1.0.4
-  riverpod_generator: ^2.3.11
-  riverpod_lint: ^2.3.13
+  riverpod_generator: ^2.6.4
+  riverpod_lint: ^2.6.4
   very_good_analysis: ^7.0.0
 
 flutter:

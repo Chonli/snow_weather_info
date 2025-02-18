@@ -12,13 +12,15 @@ String _$userLocationHash() => r'e7cc84cfbc66f5cb9781034f1bedb5583105f196';
 @ProviderFor(UserLocation)
 final userLocationProvider =
     AutoDisposeAsyncNotifierProvider<UserLocation, LatLng?>.internal(
-  UserLocation.new,
-  name: r'userLocationProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$userLocationHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      UserLocation.new,
+      name: r'userLocationProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$userLocationHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$UserLocation = AutoDisposeAsyncNotifier<LatLng?>;
 // ignore_for_file: type=lint

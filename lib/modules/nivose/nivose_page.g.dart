@@ -39,21 +39,15 @@ class _IsFavoriteFamily extends Family<bool> {
   const _IsFavoriteFamily();
 
   /// See also [_isFavorite].
-  _IsFavoriteProvider call(
-    String codeMF,
-  ) {
-    return _IsFavoriteProvider(
-      codeMF,
-    );
+  _IsFavoriteProvider call(String codeMF) {
+    return _IsFavoriteProvider(codeMF);
   }
 
   @override
   _IsFavoriteProvider getProviderOverride(
     covariant _IsFavoriteProvider provider,
   ) {
-    return call(
-      provider.codeMF,
-    );
+    return call(provider.codeMF);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -74,24 +68,19 @@ class _IsFavoriteFamily extends Family<bool> {
 /// See also [_isFavorite].
 class _IsFavoriteProvider extends AutoDisposeProvider<bool> {
   /// See also [_isFavorite].
-  _IsFavoriteProvider(
-    String codeMF,
-  ) : this._internal(
-          (ref) => _isFavorite(
-            ref as _IsFavoriteRef,
-            codeMF,
-          ),
-          from: _isFavoriteProvider,
-          name: r'_isFavoriteProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$isFavoriteHash,
-          dependencies: _IsFavoriteFamily._dependencies,
-          allTransitiveDependencies:
-              _IsFavoriteFamily._allTransitiveDependencies,
-          codeMF: codeMF,
-        );
+  _IsFavoriteProvider(String codeMF)
+    : this._internal(
+        (ref) => _isFavorite(ref as _IsFavoriteRef, codeMF),
+        from: _isFavoriteProvider,
+        name: r'_isFavoriteProvider',
+        debugGetCreateSourceHash:
+            const bool.fromEnvironment('dart.vm.product')
+                ? null
+                : _$isFavoriteHash,
+        dependencies: _IsFavoriteFamily._dependencies,
+        allTransitiveDependencies: _IsFavoriteFamily._allTransitiveDependencies,
+        codeMF: codeMF,
+      );
 
   _IsFavoriteProvider._internal(
     super._createNotifier, {
@@ -106,9 +95,7 @@ class _IsFavoriteProvider extends AutoDisposeProvider<bool> {
   final String codeMF;
 
   @override
-  Override overrideWith(
-    bool Function(_IsFavoriteRef provider) create,
-  ) {
+  Override overrideWith(bool Function(_IsFavoriteRef provider) create) {
     return ProviderOverride(
       origin: this,
       override: _IsFavoriteProvider._internal(
@@ -156,5 +143,6 @@ class _IsFavoriteProviderElement extends AutoDisposeProviderElement<bool>
   @override
   String get codeMF => (origin as _IsFavoriteProvider).codeMF;
 }
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

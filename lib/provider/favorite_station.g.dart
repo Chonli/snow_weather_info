@@ -12,14 +12,15 @@ String _$favoriteStationHash() => r'5e0800ede47b280c5084451f00b1c39d1454e4b5';
 @ProviderFor(FavoriteStation)
 final favoriteStationProvider =
     AsyncNotifierProvider<FavoriteStation, List<AbstractStation>>.internal(
-  FavoriteStation.new,
-  name: r'favoriteStationProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$favoriteStationHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      FavoriteStation.new,
+      name: r'favoriteStationProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$favoriteStationHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$FavoriteStation = AsyncNotifier<List<AbstractStation>>;
 // ignore_for_file: type=lint

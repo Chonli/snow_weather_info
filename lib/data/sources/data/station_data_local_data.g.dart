@@ -13,14 +13,15 @@ String _$stationDataLocalDataHash() =>
 @ProviderFor(stationDataLocalData)
 final stationDataLocalDataProvider =
     Provider<StationDataLocalDataContainer>.internal(
-  stationDataLocalData,
-  name: r'stationDataLocalDataProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$stationDataLocalDataHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      stationDataLocalData,
+      name: r'stationDataLocalDataProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$stationDataLocalDataHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element

@@ -12,14 +12,15 @@ String _$currentMapLocHash() => r'd1554a09c91bf0d51437d829b641c3dff5398579';
 @ProviderFor(CurrentMapLoc)
 final currentMapLocProvider =
     AutoDisposeNotifierProvider<CurrentMapLoc, Coordinate>.internal(
-  CurrentMapLoc.new,
-  name: r'currentMapLocProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$currentMapLocHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      CurrentMapLoc.new,
+      name: r'currentMapLocProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$currentMapLocHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$CurrentMapLoc = AutoDisposeNotifier<Coordinate>;
 // ignore_for_file: type=lint

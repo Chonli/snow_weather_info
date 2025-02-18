@@ -39,21 +39,15 @@ class _PdfControllerFamily extends Family<AsyncValue<PdfController?>> {
   const _PdfControllerFamily();
 
   /// See also [_pdfController].
-  _PdfControllerProvider call(
-    int beraNumber,
-  ) {
-    return _PdfControllerProvider(
-      beraNumber,
-    );
+  _PdfControllerProvider call(int beraNumber) {
+    return _PdfControllerProvider(beraNumber);
   }
 
   @override
   _PdfControllerProvider getProviderOverride(
     covariant _PdfControllerProvider provider,
   ) {
-    return call(
-      provider.beraNumber,
-    );
+    return call(provider.beraNumber);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -74,24 +68,20 @@ class _PdfControllerFamily extends Family<AsyncValue<PdfController?>> {
 /// See also [_pdfController].
 class _PdfControllerProvider extends AutoDisposeFutureProvider<PdfController?> {
   /// See also [_pdfController].
-  _PdfControllerProvider(
-    int beraNumber,
-  ) : this._internal(
-          (ref) => _pdfController(
-            ref as _PdfControllerRef,
-            beraNumber,
-          ),
-          from: _pdfControllerProvider,
-          name: r'_pdfControllerProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$pdfControllerHash,
-          dependencies: _PdfControllerFamily._dependencies,
-          allTransitiveDependencies:
-              _PdfControllerFamily._allTransitiveDependencies,
-          beraNumber: beraNumber,
-        );
+  _PdfControllerProvider(int beraNumber)
+    : this._internal(
+        (ref) => _pdfController(ref as _PdfControllerRef, beraNumber),
+        from: _pdfControllerProvider,
+        name: r'_pdfControllerProvider',
+        debugGetCreateSourceHash:
+            const bool.fromEnvironment('dart.vm.product')
+                ? null
+                : _$pdfControllerHash,
+        dependencies: _PdfControllerFamily._dependencies,
+        allTransitiveDependencies:
+            _PdfControllerFamily._allTransitiveDependencies,
+        beraNumber: beraNumber,
+      );
 
   _PdfControllerProvider._internal(
     super._createNotifier, {
@@ -164,14 +154,15 @@ String _$beraTokenHeaderHash() => r'0bbe438278a0b8d7c53812ad2a6373dff7ac4f30';
 @ProviderFor(_BeraTokenHeader)
 final _beraTokenHeaderProvider =
     NotifierProvider<_BeraTokenHeader, Map<String, String>>.internal(
-  _BeraTokenHeader.new,
-  name: r'_beraTokenHeaderProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$beraTokenHeaderHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      _BeraTokenHeader.new,
+      name: r'_beraTokenHeaderProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$beraTokenHeaderHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$BeraTokenHeader = Notifier<Map<String, String>>;
 // ignore_for_file: type=lint

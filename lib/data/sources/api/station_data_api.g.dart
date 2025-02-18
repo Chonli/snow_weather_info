@@ -13,9 +13,10 @@ String _$stationDataApiHash() => r'2ab5247bed0040beee7e5bbef4c19b8f30987e6a';
 final stationDataApiProvider = Provider<StationDataApi>.internal(
   stationDataApi,
   name: r'stationDataApiProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$stationDataApiHash,
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$stationDataApiHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

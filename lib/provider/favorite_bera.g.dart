@@ -12,13 +12,15 @@ String _$favoriteBeraHash() => r'37e84c8c8c8ede734803853429ea597c12ae63b2';
 @ProviderFor(FavoriteBera)
 final favoriteBeraProvider =
     NotifierProvider<FavoriteBera, List<AvalancheBulletin>>.internal(
-  FavoriteBera.new,
-  name: r'favoriteBeraProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$favoriteBeraHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      FavoriteBera.new,
+      name: r'favoriteBeraProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$favoriteBeraHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$FavoriteBera = Notifier<List<AvalancheBulletin>>;
 // ignore_for_file: type=lint

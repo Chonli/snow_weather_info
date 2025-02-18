@@ -13,9 +13,10 @@ String _$stationLocalDataHash() => r'7448a16b454f75679983de968add781eca7bdd42';
 final stationLocalDataProvider = Provider<StationLocalDataContainer>.internal(
   stationLocalData,
   name: r'stationLocalDataProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$stationLocalDataHash,
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$stationLocalDataHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

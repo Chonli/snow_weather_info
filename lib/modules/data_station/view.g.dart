@@ -13,14 +13,15 @@ String _$currentDataStationHash() =>
 @ProviderFor(currentDataStation)
 final currentDataStationProvider =
     AutoDisposeProvider<List<DataStation>>.internal(
-  currentDataStation,
-  name: r'currentDataStationProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$currentDataStationHash,
-  dependencies: const <ProviderOrFamily>[],
-  allTransitiveDependencies: const <ProviderOrFamily>{},
-);
+      currentDataStation,
+      name: r'currentDataStationProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$currentDataStationHash,
+      dependencies: const <ProviderOrFamily>[],
+      allTransitiveDependencies: const <ProviderOrFamily>{},
+    );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
@@ -32,9 +33,10 @@ String _$currentStationHash() => r'd60a58973507c5e6eecabb2310e673c38166b922';
 final currentStationProvider = AutoDisposeProvider<Station>.internal(
   currentStation,
   name: r'currentStationProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$currentStationHash,
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$currentStationHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
@@ -75,21 +77,15 @@ class _IsFavoriteFamily extends Family<bool> {
   const _IsFavoriteFamily();
 
   /// See also [_isFavorite].
-  _IsFavoriteProvider call(
-    int id,
-  ) {
-    return _IsFavoriteProvider(
-      id,
-    );
+  _IsFavoriteProvider call(int id) {
+    return _IsFavoriteProvider(id);
   }
 
   @override
   _IsFavoriteProvider getProviderOverride(
     covariant _IsFavoriteProvider provider,
   ) {
-    return call(
-      provider.id,
-    );
+    return call(provider.id);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -110,24 +106,19 @@ class _IsFavoriteFamily extends Family<bool> {
 /// See also [_isFavorite].
 class _IsFavoriteProvider extends AutoDisposeProvider<bool> {
   /// See also [_isFavorite].
-  _IsFavoriteProvider(
-    int id,
-  ) : this._internal(
-          (ref) => _isFavorite(
-            ref as _IsFavoriteRef,
-            id,
-          ),
-          from: _isFavoriteProvider,
-          name: r'_isFavoriteProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$isFavoriteHash,
-          dependencies: _IsFavoriteFamily._dependencies,
-          allTransitiveDependencies:
-              _IsFavoriteFamily._allTransitiveDependencies,
-          id: id,
-        );
+  _IsFavoriteProvider(int id)
+    : this._internal(
+        (ref) => _isFavorite(ref as _IsFavoriteRef, id),
+        from: _isFavoriteProvider,
+        name: r'_isFavoriteProvider',
+        debugGetCreateSourceHash:
+            const bool.fromEnvironment('dart.vm.product')
+                ? null
+                : _$isFavoriteHash,
+        dependencies: _IsFavoriteFamily._dependencies,
+        allTransitiveDependencies: _IsFavoriteFamily._allTransitiveDependencies,
+        id: id,
+      );
 
   _IsFavoriteProvider._internal(
     super._createNotifier, {
@@ -142,9 +133,7 @@ class _IsFavoriteProvider extends AutoDisposeProvider<bool> {
   final int id;
 
   @override
-  Override overrideWith(
-    bool Function(_IsFavoriteRef provider) create,
-  ) {
+  Override overrideWith(bool Function(_IsFavoriteRef provider) create) {
     return ProviderOverride(
       origin: this,
       override: _IsFavoriteProvider._internal(
@@ -199,13 +188,15 @@ String _$currentIndexHash() => r'6e74376bced0377c27a8aa641601ddf61c2fc918';
 @ProviderFor(_CurrentIndex)
 final _currentIndexProvider =
     AutoDisposeNotifierProvider<_CurrentIndex, int>.internal(
-  _CurrentIndex.new,
-  name: r'_currentIndexProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$currentIndexHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      _CurrentIndex.new,
+      name: r'_currentIndexProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$currentIndexHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$CurrentIndex = AutoDisposeNotifier<int>;
 String _$currentIndexDataHash() => r'cdbf1535bea2a08c23e75353e4338e4b9bcb87f5';
@@ -214,17 +205,18 @@ String _$currentIndexDataHash() => r'cdbf1535bea2a08c23e75353e4338e4b9bcb87f5';
 @ProviderFor(_CurrentIndexData)
 final _currentIndexDataProvider =
     AutoDisposeNotifierProvider<_CurrentIndexData, DataStation?>.internal(
-  _CurrentIndexData.new,
-  name: r'_currentIndexDataProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$currentIndexDataHash,
-  dependencies: <ProviderOrFamily>[currentDataStationProvider],
-  allTransitiveDependencies: <ProviderOrFamily>{
-    currentDataStationProvider,
-    ...?currentDataStationProvider.allTransitiveDependencies
-  },
-);
+      _CurrentIndexData.new,
+      name: r'_currentIndexDataProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$currentIndexDataHash,
+      dependencies: <ProviderOrFamily>[currentDataStationProvider],
+      allTransitiveDependencies: <ProviderOrFamily>{
+        currentDataStationProvider,
+        ...?currentDataStationProvider.allTransitiveDependencies,
+      },
+    );
 
 typedef _$CurrentIndexData = AutoDisposeNotifier<DataStation?>;
 // ignore_for_file: type=lint

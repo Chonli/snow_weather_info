@@ -24,18 +24,21 @@ String _$filteredStationsHash() => r'9af43ceee2e1aa63e6ff8f8a85c76b06f450b13b';
 
 /// See also [_FilteredStations].
 @ProviderFor(_FilteredStations)
-final _filteredStationsProvider = AutoDisposeNotifierProvider<_FilteredStations,
-    Map<String, List<AbstractStation>>>.internal(
+final _filteredStationsProvider = AutoDisposeNotifierProvider<
+  _FilteredStations,
+  Map<String, List<AbstractStation>>
+>.internal(
   _FilteredStations.new,
   name: r'_filteredStationsProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$filteredStationsHash,
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$filteredStationsHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$FilteredStations
-    = AutoDisposeNotifier<Map<String, List<AbstractStation>>>;
+typedef _$FilteredStations =
+    AutoDisposeNotifier<Map<String, List<AbstractStation>>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

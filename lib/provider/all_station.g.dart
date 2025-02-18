@@ -12,13 +12,15 @@ String _$allStationsHash() => r'e49bd7fd10e614f907451c49d802a4495b1db51a';
 @ProviderFor(AllStations)
 final allStationsProvider =
     AsyncNotifierProvider<AllStations, List<AbstractStation>>.internal(
-  AllStations.new,
-  name: r'allStationsProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$allStationsHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      AllStations.new,
+      name: r'allStationsProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$allStationsHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$AllStations = AsyncNotifier<List<AbstractStation>>;
 // ignore_for_file: type=lint
