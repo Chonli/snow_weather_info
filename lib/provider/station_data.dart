@@ -22,6 +22,7 @@ class StationData extends _$StationData {
           .where(
             (data) => data.id == s.id,
           )
+          .sorted((a, b) => b.date.compareTo(a.date))
           .toList();
       mapDataStation[s.id] = listOfData;
     }

@@ -22,8 +22,8 @@ class DataStationChart extends ConsumerWidget {
     final tempData = <FlSpot>[];
     final minTempData = <FlSpot>[];
     final maxTempData = <FlSpot>[];
-    final min = datas.firstOrNull?.date.millisecondsSinceEpoch.toDouble() ?? 0;
-    final max = datas.lastOrNull?.date.millisecondsSinceEpoch.toDouble() ?? 0;
+    final max = datas.firstOrNull?.date.millisecondsSinceEpoch.toDouble() ?? 0;
+    final min = datas.lastOrNull?.date.millisecondsSinceEpoch.toDouble() ?? 0;
 
     for (final data in datas) {
       tempData.add(
@@ -104,9 +104,9 @@ class DataStationChart extends ConsumerWidget {
   ) {
     final tempData = <FlSpot>[];
     final List<List<FlSpot>> tempHeightData = [];
-    final minDate =
-        datas.firstOrNull?.date.millisecondsSinceEpoch.toDouble() ?? 0;
     final maxDate =
+        datas.firstOrNull?.date.millisecondsSinceEpoch.toDouble() ?? 0;
+    final minDate =
         datas.lastOrNull?.date.millisecondsSinceEpoch.toDouble() ?? 0;
 
     for (final data in datas) {
