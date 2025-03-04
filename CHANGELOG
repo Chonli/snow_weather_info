@@ -1,6 +1,68 @@
 # Change Log
 All notable changes to this project will be documented in this file.
- 
+## 2.4.0
+### Fixed
+- Add cache in local data
+
+## 2.3.2
+### Added
+- migration to Flutter 3.24.
+
+## 2.3.1
+### Fixed
+- BERA return error 404
+
+## 2.3.0
+### Added
+- update to Flutter 3.22
+
+## 2.2.0
+### Added
+- Add filter massif to view BERA and Webcam 
+
+## 2.1.2
+### Fixed
+- SplashScreen and webcams view
+
+## 2.1.1
+### Added
+- Add settings in map
+- Add webcam favorite management
+
+### Fixed
+- View webcam, add station and improve search
+
+## 2.1.0
+### Added
+- Add settings in map
+
+## 2.0.0
+### Added
+- update API android 34
+- use freezed model
+
+### Fixed
+- **chart**: case when new snow only
+- **bera**: use pdf bera instead of old page
+
+## 2.0.0
+### Added
+- add avalanche web site link
+- improve data station view performance
+- migration riverpod state management
+
+## 1.10.2
+### Fixed
+- Add BERA in favorite
+
+## 1.10.1
+### Added
+- update flutter map to v3
+
+## 1.10.0
+### Added
+- Add location user in map
+
 ## 1.9.0
 ### Added
 - Add BERA in favori
