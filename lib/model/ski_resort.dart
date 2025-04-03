@@ -22,4 +22,7 @@ class SkiResort with SkiResortMappable {
   final Coordinate? position;
   final String? description;
   final List<WebCam> webcams;
+
+  static const fromMap = SkiResortMapper.fromMap;
+  static const fromJson = SkiResortMapper.fromJson;
 }

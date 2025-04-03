@@ -1,18 +1,20 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/data/sources/data/preferences.dart';
-import 'package:snow_weather_info/data/webcams.dart';
 import 'package:snow_weather_info/model/ski_resort.dart';
+import 'package:snow_weather_info/modules/webcam/notifier.dart';
 
 part 'favorite_notifier.g.dart';
 
 @riverpod
 class FavoriteSkiResort extends _$FavoriteSkiResort {
   @override
-  List<SkiResort> build() {
-    final listSkiResort = ref.read(favoritesSkiResortSettingsProvider);
+  FutureOr<List<SkiResort>> build() async {
+    final favoriteSkiResorts = ref.read(favoritesSkiResortSettingsProvider);
     final tmpDatas = <SkiResort>[];
-    for (final skiresort in ConstSkiResorts.webcamsByResort) {
-      if (listSkiResort.contains(skiresort.id)) {
+    final allSkiResorts = await ref.watch(skiResortsProvider.future);
+
+    for (final skiresort in allSkiResorts) {
+      if (favoriteSkiResorts.contains(skiresort.id)) {
         tmpDatas.add(skiresort);
       }
     }
@@ -20,7 +22,8 @@ class FavoriteSkiResort extends _$FavoriteSkiResort {
   }
 
   void addOrRemoveFavorite(SkiResort bera) {
-    final tmpDatas = [...state];
+    final currentData = state.valueOrNull ?? [];
+    final tmpDatas = [...currentData];
 
     if (tmpDatas.contains(bera)) {
       tmpDatas.remove(bera);
@@ -30,16 +33,12 @@ class FavoriteSkiResort extends _$FavoriteSkiResort {
     tmpDatas.sort((a, b) => a.name.compareTo(b.name));
 
     _persitFavoriteBERA(tmpDatas);
-    state = tmpDatas;
+    state = AsyncData(tmpDatas);
   }
 
   void _persitFavoriteBERA(List<SkiResort> value) {
-    ref.read(favoritesSkiResortSettingsProvider.notifier).update(
-          value
-              .map<int>(
-                (skiResort) => skiResort.id,
-              )
-              .toList(),
-        );
+    ref
+        .read(favoritesSkiResortSettingsProvider.notifier)
+        .update(value.map<int>((skiResort) => skiResort.id).toList());
   }
 }

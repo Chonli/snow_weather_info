@@ -31,8 +31,16 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace 'com.chonli.snow_weather_info'
-    compileSdkVersion 34
+    compileSdkVersion 35
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlin {
+        jvmToolchain(17)
+    }
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -45,7 +53,7 @@ android {
     defaultConfig {
         applicationId "com.chonli.snow_weather_info"
         minSdkVersion 21
-        targetSdkVersion 34
+        targetSdkVersion 35
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

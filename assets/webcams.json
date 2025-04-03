@@ -3,7 +3,7 @@
         {
             "id": 0,
             "name": "Abondance",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "TC Essert",
@@ -14,7 +14,7 @@
         {
             "id": 1,
             "name": "Aillons Margeriaz",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Sommet Des Biolles",
@@ -37,7 +37,7 @@
         {
             "id": 2,
             "name": "Albiez",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Haut Echaux",
@@ -49,7 +49,7 @@
             "id": 3,
             "name": "Alpe d'huez",
             "description": "Alpe d'huez, Auris en Oisans, La Garde, Le Freney d'Oisans, Oz en Oisans, Vaujany et Villard-Reculas",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Pic Blanc",
@@ -100,7 +100,7 @@
         {
             "id": 4,
             "name": "Alpe du Grand Serre",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "La Blanche",
@@ -123,7 +123,7 @@
         {
             "id": 5,
             "name": "Areches Beaufort",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Curvy",
@@ -146,7 +146,7 @@
         {
             "id": 6,
             "name": "Aussois",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Front Neige",
@@ -169,7 +169,7 @@
         {
             "id": 7,
             "name": "Autrans Méaudre",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Tremplin",
@@ -208,7 +208,7 @@
         {
             "id": 8,
             "name": "Portes du Soleil",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Avoriaz - Station",
@@ -311,7 +311,7 @@
         {
             "id": 9,
             "name": "Bernex",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Départ Télésiège",
@@ -326,7 +326,7 @@
         {
             "id": 10,
             "name": "Bessans",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Le Carreley",
@@ -345,7 +345,7 @@
         {
             "id": 12,
             "name": "Bonneval sur Arc",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Le Vallonnet",
@@ -361,7 +361,7 @@
             "id": 13,
             "name": "Vallée de Chamonix",
             "description": "Argentière, Chamonix, Le Tour, Les Houches, Vallorcine",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Chamonix Village",
@@ -432,7 +432,7 @@
         {
             "id": 14,
             "name": "Chamrousse",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "La Croix de Chamrousse",
@@ -467,7 +467,7 @@
         {
             "id": 15,
             "name": "Combloux/Megève",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Sommet Combloux",
@@ -510,7 +510,7 @@
         {
             "id": 16,
             "name": "Col de Porte",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Chamechaude",
@@ -533,7 +533,7 @@
         {
             "id": 17,
             "name": "7 Laux",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Secteur Débutant du Plan",
@@ -552,7 +552,7 @@
         {
             "id": 18,
             "name": "Corrençon/Villard de Lans",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Altitude 2000",
@@ -595,7 +595,7 @@
         {
             "id": 19,
             "name": "3 Vallées",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Courchevel - La Saulire",
@@ -710,7 +710,7 @@
         {
             "id": 20,
             "name": "Flaine",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Desert Blanc",
@@ -737,7 +737,7 @@
         {
             "id": 21,
             "name": "La Clusaz",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "La Bergerie",
@@ -784,7 +784,7 @@
         {
             "id": 22,
             "name": "La Norma",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Front de Neige",
@@ -807,7 +807,7 @@
         {
             "id": 23,
             "name": "La Plagne",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Roche de Mio",
@@ -882,7 +882,7 @@
         {
             "id": 24,
             "name": "La Rosière",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Plan de l'Arc",
@@ -925,7 +925,7 @@
         {
             "id": 25,
             "name": "Les 2 Alpes",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Glacier à 3400m",
@@ -961,7 +961,7 @@
             "id": 26,
             "name": "Les Arcs",
             "description": "Les Arcs, Peisey, Vallandry",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Arcabulle",
@@ -1008,7 +1008,7 @@
         {
             "id": 27,
             "name": "Les Carroz",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Télécabine de la Kédeuze – 1754m",
@@ -1039,7 +1039,7 @@
         {
             "id": 28,
             "name": "Saint Gervais",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "L'épaule - 2100m",
@@ -1070,7 +1070,7 @@
         {
             "id": 29,
             "name": "Les Contamines Montjoie",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Signal 1800m",
@@ -1229,7 +1229,7 @@
         {
             "id": 30,
             "name": "Les Karellis",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Front de Neige",
@@ -1245,7 +1245,7 @@
             "id": 31,
             "name": "Val Cenis",
             "description": "Lanslevillard, Lanslebourg, Termignon",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Téléski du Pont Noir",
@@ -1268,7 +1268,7 @@
         {
             "id": 32,
             "name": "Collet d'Allevard",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Les Plagnes",
@@ -1292,7 +1292,7 @@
             "id": 33,
             "name": "Les Sybelles",
             "description": "La Toussuire, Le Corbier, Saint-Sorlin-d’Arves, Saint-Jean-d’Arves, Les Bottières et Saint-Colomban des Villard",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "La Toussuire - Front de Neige",
@@ -1343,7 +1343,7 @@
         {
             "id": 34,
             "name": "Le Grand Bornand",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Village 1000m",
@@ -1378,7 +1378,7 @@
         {
             "id": 36,
             "name": "Sainte Foy la Tarentaise",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Sommet Aiguille (2620m)",
@@ -1401,7 +1401,7 @@
         {
             "id": 37,
             "name": "Plateau des Pettites Roches",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Dent de Crolles depuis St Hilaire",
@@ -1416,7 +1416,7 @@
         {
             "id": 38,
             "name": "Saint Francois de Longchamp/Valmorel",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Frêne",
@@ -1455,7 +1455,7 @@
         {
             "id": 39,
             "name": "Les saisies",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Hauteluce Chozal",
@@ -1498,7 +1498,7 @@
         {
             "id": 40,
             "name": "Praz de Lys Sommand",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Parking",
@@ -1522,7 +1522,7 @@
             "id": 41,
             "name": "Val d'arly",
             "description": "Praz sur Arly, Notre Dame de Bellecombe",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Praz Front de Neige",
@@ -1549,7 +1549,7 @@
         {
             "id": 42,
             "name": "Morillon/Sixt-Fer-à-Cheval/Samoëns",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Morillon 1100m",
@@ -1588,7 +1588,7 @@
         {
             "id": 43,
             "name": "Thollon-les-Mémises",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Front de Neige",
@@ -1603,7 +1603,7 @@
         {
             "id": 44,
             "name": "Tignes",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "1800",
@@ -1642,7 +1642,7 @@
         {
             "id": 45,
             "name": "Val d'Isère",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Village",
@@ -1673,7 +1673,7 @@
         {
             "id": 46,
             "name": "Valfréjus",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "TC Arrondaz",
@@ -1692,7 +1692,7 @@
         {
             "id": 47,
             "name": "Valloire/Val Menier",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Poingt Ravier",
@@ -1727,7 +1727,7 @@
         {
             "id": 95,
             "name": "Gresse en Vercors",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "La Station",
@@ -1738,7 +1738,7 @@
         {
             "id": 96,
             "name": "Herbouilly",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Station",
@@ -1753,7 +1753,7 @@
         {
             "id": 97,
             "name": "Font d'Urle",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Parking",
@@ -1772,7 +1772,7 @@
         {
             "id": 98,
             "name": "Col de Rousset",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Haut du Télésiège",
@@ -1787,7 +1787,7 @@
         {
             "id": 99,
             "name": "Rencurel/Les Coulmes",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Le Belvédère",
@@ -1802,7 +1802,7 @@
         {
             "id": 100,
             "name": "Grand Echaillon",
-            "mountain": "Mountain.alpesNord",
+            "mountain": "alpesNord",
             "webcams": [
                 {
                     "name": "Station",
@@ -1813,7 +1813,7 @@
         {
             "id": 48,
             "name": "Ancelle",
-            "mountain": "Mountain.alpesSud",
+            "mountain": "alpesSud",
             "webcams": [
                 {
                     "name": "Station",
@@ -1832,7 +1832,7 @@
         {
             "id": 49,
             "name": "Orcières",
-            "mountain": "Mountain.alpesSud",
+            "mountain": "alpesSud",
             "webcams": [
                 {
                     "name": "Front de Neige",
@@ -1863,7 +1863,7 @@
         {
             "id": 50,
             "name": "Saint Léger les Mélèzes",
-            "mountain": "Mountain.alpesSud",
+            "mountain": "alpesSud",
             "webcams": [
                 {
                     "name": "Les Mélèzes",
@@ -1878,7 +1878,7 @@
         {
             "id": 51,
             "name": "Gap Bayard",
-            "mountain": "Mountain.alpesSud",
+            "mountain": "alpesSud",
             "webcams": [
                 {
                     "name": "Départ des pistes",
@@ -1901,7 +1901,7 @@
         {
             "id": 52,
             "name": "Laye",
-            "mountain": "Mountain.alpesSud",
+            "mountain": "alpesSud",
             "webcams": [
                 {
                     "name": "Front de Neige",
@@ -1912,7 +1912,7 @@
         {
             "id": 53,
             "name": "Valgaudemar",
-            "mountain": "Mountain.alpesSud",
+            "mountain": "alpesSud",
             "webcams": [
                 {
                     "name": "Prairie de Jamivoï et fond de vallée",
@@ -1932,7 +1932,7 @@
             "id": 54,
             "name": "Dévoluy",
             "description": "Superdévoluy et La Joue du Loup",
-            "mountain": "Mountain.alpesSud",
+            "mountain": "alpesSud",
             "webcams": [
                 {
                     "name": "Télésiège du Génépy",
@@ -1963,7 +1963,7 @@
         {
             "id": 55,
             "name": "Auron",
-            "mountain": "Mountain.alpesSud",
+            "mountain": "alpesSud",
             "webcams": [
                 {
                     "name": "Cime de Chevalet",
@@ -1990,7 +1990,7 @@
         {
             "id": 56,
             "name": "Chaillol",
-            "mountain": "Mountain.alpesSud",
+            "mountain": "alpesSud",
             "webcams": [
                 {
                     "name": "Clot Chenu",
@@ -2005,7 +2005,7 @@
         {
             "id": 57,
             "name": "Puy Saint Vincent",
-            "mountain": "Mountain.alpesSud",
+            "mountain": "alpesSud",
             "webcams": [
                 {
                     "name": "1600m",
@@ -2028,7 +2028,7 @@
         {
             "id": 58,
             "name": "Réallon",
-            "mountain": "Mountain.alpesSud",
+            "mountain": "alpesSud",
             "webcams": [
                 {
                     "name": "Front de Neige",
@@ -2043,7 +2043,7 @@
         {
             "id": 59,
             "name": "Chabanon",
-            "mountain": "Mountain.alpesSud",
+            "mountain": "alpesSud",
             "webcams": [
                 {
                     "name": "Chabanon",
@@ -2058,7 +2058,7 @@
         {
             "id": 60,
             "name": "La Grave",
-            "mountain": "Mountain.alpesSud",
+            "mountain": "alpesSud",
             "webcams": [
                 {
                     "name": "Col des Ruillans",
@@ -2081,7 +2081,7 @@
         {
             "id": 61,
             "name": "Les Orres",
-            "mountain": "Mountain.alpesSud",
+            "mountain": "alpesSud",
             "webcams": [
                 {
                     "name": "Au sommet de Pousterle (2530m)",
@@ -2100,7 +2100,7 @@
         {
             "id": 62,
             "name": "Montgenèvre",
-            "mountain": "Mountain.alpesSud",
+            "mountain": "alpesSud",
             "webcams": [
                 {
                     "name": "Eglise",
@@ -2143,7 +2143,7 @@
         {
             "id": 63,
             "name": "Briançon/Serre Chevalier/Monetier",
-            "mountain": "Mountain.alpesSud",
+            "mountain": "alpesSud",
             "webcams": [
                 {
                     "name": "Cucumelle",
@@ -2174,7 +2174,7 @@
         {
             "id": 64,
             "name": "Sauze",
-            "mountain": "Mountain.alpesSud",
+            "mountain": "alpesSud",
             "webcams": [
                 {
                     "name": "Le Brec",
@@ -2201,7 +2201,7 @@
         {
             "id": 65,
             "name": "Isola 2000",
-            "mountain": "Mountain.alpesSud",
+            "mountain": "alpesSud",
             "webcams": [
                 {
                     "name": "Centre Station",
@@ -2232,7 +2232,7 @@
         {
             "id": 66,
             "name": "Saint Dalmas le Selvage",
-            "mountain": "Mountain.alpesSud",
+            "mountain": "alpesSud",
             "webcams": [
                 {
                     "name": "Village",
@@ -2244,7 +2244,7 @@
             "id": 67,
             "name": "Queyras",
             "description": "Abriès, Arvieux, Ceillac, Ristolas, Moulines, Saint-Véran",
-            "mountain": "Mountain.alpesSud",
+            "mountain": "alpesSud",
             "webcams": [
                 {
                     "name": "L'Echalp",
@@ -2295,7 +2295,7 @@
         {
             "id": 68,
             "name": "Le Grand Puy",
-            "mountain": "Mountain.alpesSud",
+            "mountain": "alpesSud",
             "webcams": [
                 {
                     "name": "Les Planes",
@@ -2314,7 +2314,7 @@
         {
             "id": 69,
             "name": "Allos",
-            "mountain": "Mountain.alpesSud",
+            "mountain": "alpesSud",
             "webcams": [
                 {
                     "name": "La Foux - Marin Pascal",
@@ -2349,7 +2349,7 @@
         {
             "id": 70,
             "name": "Pra Loup",
-            "mountain": "Mountain.alpesSud",
+            "mountain": "alpesSud",
             "webcams": [
                 {
                     "name": "Station",
@@ -2372,7 +2372,7 @@
         {
             "id": 71,
             "name": "Vars/Risoul",
-            "mountain": "Mountain.alpesSud",
+            "mountain": "alpesSud",
             "webcams": [
                 {
                     "name": "Speed Master",
@@ -2423,7 +2423,7 @@
         {
             "id": 11,
             "name": "Valberg",
-            "mountain": "Mountain.alpesSud",
+            "mountain": "alpesSud",
             "webcams": [
                 {
                     "name": "Panoramique Centre Station",
@@ -2450,7 +2450,7 @@
         {
             "id": 72,
             "name": "Astún",
-            "mountain": "Mountain.pyrenees",
+            "mountain": "pyrenees",
             "webcams": [
                 {
                     "name": "Canal Roya",
@@ -2481,7 +2481,7 @@
         {
             "id": 73,
             "name": "Ax 3 Domaines",
-            "mountain": "Mountain.pyrenees",
+            "mountain": "pyrenees",
             "webcams": [
                 {
                     "name": "Saquet - 2300m",
@@ -2504,7 +2504,7 @@
         {
             "id": 74,
             "name": "Baqueira - Beret",
-            "mountain": "Mountain.pyrenees",
+            "mountain": "pyrenees",
             "webcams": [
                 {
                     "name": "Blanhiblar",
@@ -2523,7 +2523,7 @@
         {
             "id": 75,
             "name": "Cauterets",
-            "mountain": "Mountain.pyrenees",
+            "mountain": "pyrenees",
             "webcams": [
                 {
                     "name": "Terrasse du Lys 1800m",
@@ -2542,7 +2542,7 @@
         {
             "id": 76,
             "name": "Gourette",
-            "mountain": "Mountain.pyrenees",
+            "mountain": "pyrenees",
             "webcams": [
                 {
                     "name": "Plateau de Bézou",
@@ -2566,7 +2566,7 @@
             "id": 77,
             "name": "Andorre",
             "description": "Canillo, Pal Arinsal, Arcalis, Pas de la Casa, Grandvalira",
-            "mountain": "Mountain.pyrenees",
+            "mountain": "pyrenees",
             "webcams": [
                 {
                     "name": "Arinsal - La Tossa",
@@ -2629,7 +2629,7 @@
         {
             "id": 78,
             "name": "Peyragudes",
-            "mountain": "Mountain.pyrenees",
+            "mountain": "pyrenees",
             "webcams": [
                 {
                     "name": "Belvédère",
@@ -2684,7 +2684,7 @@
         {
             "id": 79,
             "name": "Font Romeu",
-            "mountain": "Mountain.pyrenees",
+            "mountain": "pyrenees",
             "webcams": [
                 {
                     "name": "La Calme",
@@ -2739,7 +2739,7 @@
         {
             "id": 80,
             "name": "Les Angles",
-            "mountain": "Mountain.pyrenees",
+            "mountain": "pyrenees",
             "webcams": [
                 {
                     "name": "Panoramique",
@@ -2762,7 +2762,7 @@
         {
             "id": 81,
             "name": "La Mongie/Barèges",
-            "mountain": "Mountain.pyrenees",
+            "mountain": "pyrenees",
             "webcams": [
                 {
                     "name": "Col du Tourmalet",
@@ -2813,7 +2813,7 @@
         {
             "id": 82,
             "name": "La Pierre Saint-Martin",
-            "mountain": "Mountain.pyrenees",
+            "mountain": "pyrenees",
             "webcams": [
                 {
                     "name": "Front de neige",
@@ -2840,7 +2840,7 @@
         {
             "id": 83,
             "name": "Luz Ardiden",
-            "mountain": "Mountain.pyrenees",
+            "mountain": "pyrenees",
             "webcams": [
                 {
                     "name": "Pourtere",
@@ -2859,7 +2859,7 @@
         {
             "id": 84,
             "name": "Luchon Superbagnères",
-            "mountain": "Mountain.pyrenees",
+            "mountain": "pyrenees",
             "webcams": [
                 {
                     "name": "Le Plateau",
@@ -2870,7 +2870,7 @@
         {
             "id": 85,
             "name": "Piau Engaly",
-            "mountain": "Mountain.pyrenees",
+            "mountain": "pyrenees",
             "webcams": [
                 {
                     "name": "Lac Oredon",
@@ -2929,7 +2929,7 @@
         {
             "id": 86,
             "name": "Ghisoni",
-            "mountain": "Mountain.corse",
+            "mountain": "corse",
             "webcams": [
                 {
                     "name": "Petra Niella",
@@ -2944,7 +2944,7 @@
         {
             "id": 87,
             "name": "Bastelica (Val d'Ese)",
-            "mountain": "Mountain.corse",
+            "mountain": "corse",
             "webcams": [
                 {
                     "name": "Axis",
@@ -2959,7 +2959,7 @@
         {
             "id": 88,
             "name": "Asco",
-            "mountain": "Mountain.corse",
+            "mountain": "corse",
             "webcams": [
                 {
                     "name": "Asco",
@@ -2970,7 +2970,7 @@
         {
             "id": 89,
             "name": "Les Rousses",
-            "mountain": "Mountain.jura",
+            "mountain": "jura",
             "webcams": [
                 {
                     "name": "Les Tuffes",
@@ -2997,7 +2997,7 @@
         {
             "id": 90,
             "name": "Mont Jura",
-            "mountain": "Mountain.jura",
+            "mountain": "jura",
             "webcams": [
                 {
                     "name": "Telecabine Fierney",
@@ -3036,7 +3036,7 @@
         {
             "id": 91,
             "name": "Métabief",
-            "mountain": "Mountain.jura",
+            "mountain": "jura",
             "webcams": [
                 {
                     "name": "Front de Neige",
@@ -3051,7 +3051,7 @@
         {
             "id": 94,
             "name": "La Bresse Hohneck",
-            "mountain": "Mountain.vosges",
+            "mountain": "vosges",
             "webcams": [
                 {
                     "name": "Front de Neige",
@@ -3074,7 +3074,7 @@
         {
             "id": 35,
             "name": "Le Champ du Feu",
-            "mountain": "Mountain.vosges",
+            "mountain": "vosges",
             "webcams": [
                 {
                     "name": "Front de Neige",
@@ -3101,7 +3101,7 @@
         {
             "id": 92,
             "name": "Besse/Mont-Dore",
-            "mountain": "Mountain.massifCentral",
+            "mountain": "massifCentral",
             "webcams": [
                 {
                     "name": "Besse - Haut",
@@ -3148,7 +3148,7 @@
         {
             "id": 93,
             "name": "Le Lioran",
-            "mountain": "Mountain.massifCentral",
+            "mountain": "massifCentral",
             "webcams": [
                 {
                     "name": "Centre station",
@@ -3175,7 +3175,7 @@
         {
             "id": 101,
             "name": "Croix de Bauzon",
-            "mountain": "Mountain.massifCentral",
+            "mountain": "massifCentral",
             "webcams": [
                 {
                     "name": "Station",

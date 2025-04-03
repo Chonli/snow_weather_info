@@ -4,11 +4,11 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/core/widgets/app_sticky_header_view.dart';
-import 'package:snow_weather_info/data/webcams.dart';
 import 'package:snow_weather_info/extensions/string.dart';
 import 'package:snow_weather_info/model/mountain.dart';
 import 'package:snow_weather_info/model/ski_resort.dart';
 import 'package:snow_weather_info/modules/webcam/favorite_notifier.dart';
+import 'package:snow_weather_info/modules/webcam/notifier.dart';
 import 'package:snow_weather_info/router/router.dart';
 
 part 'view.g.dart';
@@ -52,47 +52,56 @@ class _Search extends _$Search {
 }
 
 class WebcamListView extends ConsumerWidget {
-  const WebcamListView({
-    super.key,
-  });
+  const WebcamListView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const CustomScrollView(
-      slivers: [
-        // recherche
-        _SearchBarView(),
-        _MassifFilterView(),
-        _ListFavoriteView(),
-        _ListByMassifView(
-          mountain: Mountain.alpesNord,
-          skiResorts: ConstSkiResorts.webcamsNord,
-        ),
-        _ListByMassifView(
-          mountain: Mountain.alpesSud,
-          skiResorts: ConstSkiResorts.webcamsSud,
-        ),
-        _ListByMassifView(
-          mountain: Mountain.corse,
-          skiResorts: ConstSkiResorts.webcamsCorse,
-        ),
-        _ListByMassifView(
-          mountain: Mountain.jura,
-          skiResorts: ConstSkiResorts.webcamsJura,
-        ),
-        _ListByMassifView(
-          mountain: Mountain.massifCentral,
-          skiResorts: ConstSkiResorts.webcamsCentral,
-        ),
-        _ListByMassifView(
-          mountain: Mountain.pyrenees,
-          skiResorts: ConstSkiResorts.webcamsPyrenees,
-        ),
-        _ListByMassifView(
-          mountain: Mountain.vosges,
-          skiResorts: ConstSkiResorts.webcamsVosges,
-        ),
-      ],
+    final allSkiResorts = ref.watch(skiResortsProvider);
+
+    return allSkiResorts.when(
+      data:
+          (data) => CustomScrollView(
+            slivers: [
+              // recherche
+              const _SearchBarView(),
+              const _MassifFilterView(),
+              const _ListFavoriteView(),
+              _ListByMassifView(
+                mountain: Mountain.alpesNord,
+                skiResorts: data.webcamsNord,
+              ),
+              _ListByMassifView(
+                mountain: Mountain.alpesSud,
+                skiResorts: data.webcamsSud,
+              ),
+              _ListByMassifView(
+                mountain: Mountain.corse,
+                skiResorts: data.webcamsCorse,
+              ),
+              _ListByMassifView(
+                mountain: Mountain.jura,
+                skiResorts: data.webcamsJura,
+              ),
+              _ListByMassifView(
+                mountain: Mountain.massifCentral,
+                skiResorts: data.webcamsCentral,
+              ),
+              _ListByMassifView(
+                mountain: Mountain.pyrenees,
+                skiResorts: data.webcamsPyrenees,
+              ),
+              _ListByMassifView(
+                mountain: Mountain.vosges,
+                skiResorts: data.webcamsVosges,
+              ),
+            ],
+          ),
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error:
+          (_, _) => const Padding(
+            padding: EdgeInsets.all(20),
+            child: Text('Erreur lors du chargement des webcams'),
+          ),
     );
   }
 }
@@ -102,14 +111,10 @@ class _ListFavoriteView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final favorites = ref.watch(
-      favoriteSkiResortProvider,
-    );
+    final favorites = ref.watch(favoriteSkiResortProvider).valueOrNull ?? [];
 
     if (favorites.isEmpty) {
-      return const SliverToBoxAdapter(
-        child: SizedBox.shrink(),
-      );
+      return const SliverToBoxAdapter(child: SizedBox.shrink());
     }
 
     return SliverStickyHeader(
@@ -127,10 +132,7 @@ class _ListFavoriteView extends ConsumerWidget {
 }
 
 class _ListByMassifView extends ConsumerWidget {
-  const _ListByMassifView({
-    required this.mountain,
-    required this.skiResorts,
-  });
+  const _ListByMassifView({required this.mountain, required this.skiResorts});
 
   final Mountain mountain;
   final List<SkiResort> skiResorts;
@@ -144,28 +146,23 @@ class _ListByMassifView extends ConsumerWidget {
     }
 
     final search = ref.watch(_searchProvider);
-    final list = skiResorts
-        .where(
-          (station) =>
-              search.isEmpty ||
-              station.name.safeSearch(
-                search.toLowerCase(),
-              ) ||
-              station.description.safeSearch(
-                search.toLowerCase(),
-              ),
-        )
-        .toList()
-      ..sort((a, b) => a.name.compareTo(b.name));
+    final list =
+        skiResorts
+            .where(
+              (station) =>
+                  search.isEmpty ||
+                  station.name.safeSearch(search.toLowerCase()) ||
+                  station.description.safeSearch(search.toLowerCase()),
+            )
+            .toList()
+          ..sort((a, b) => a.name.compareTo(b.name));
 
     if (list.isEmpty) {
       return const SliverToBoxAdapter();
     }
 
     return SliverStickyHeader(
-      header: AppStickyHeaderView(
-        text: mountain.displayName,
-      ),
+      header: AppStickyHeaderView(text: mountain.displayName),
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
           (context, index) => _CardSkiResort(list[index]),
@@ -187,17 +184,12 @@ class _CardSkiResort extends StatelessWidget {
 
     return Card(
       margin: const EdgeInsets.all(8),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       elevation: 5,
       child: ListTile(
         title: Text(resort.name),
         subtitle: description != null ? Text(description) : null,
-        onTap: () => context.goNamed(
-          AppRoute.detailResort.name,
-          extra: resort,
-        ),
+        onTap: () => context.goNamed(AppRoute.detailResort.name, extra: resort),
       ),
     );
   }
@@ -213,20 +205,23 @@ class _MassifFilterView extends ConsumerWidget {
     return SliverToBoxAdapter(
       child: Wrap(
         alignment: WrapAlignment.center,
-        children: Mountain.values
-            .map(
-              (mountain) => Padding(
-                padding: const EdgeInsets.only(right: 5),
-                child: ChoiceChip(
-                  label: Text(mountain.displayName),
-                  selected: filters.contains(mountain),
-                  onSelected: (_) {
-                    ref.read(_massifFilterProvider.notifier).update(mountain);
-                  },
-                ),
-              ),
-            )
-            .toList(),
+        children:
+            Mountain.values
+                .map(
+                  (mountain) => Padding(
+                    padding: const EdgeInsets.only(right: 5),
+                    child: ChoiceChip(
+                      label: Text(mountain.displayName),
+                      selected: filters.contains(mountain),
+                      onSelected: (_) {
+                        ref
+                            .read(_massifFilterProvider.notifier)
+                            .update(mountain);
+                      },
+                    ),
+                  ),
+                )
+                .toList(),
       ),
     );
   }
@@ -249,9 +244,7 @@ class _SearchBarView extends ConsumerWidget {
             hintText: 'Recherche',
             prefixIcon: Icon(Icons.search),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(20),
-              ),
+              borderRadius: BorderRadius.all(Radius.circular(20)),
             ),
           ),
         ),
