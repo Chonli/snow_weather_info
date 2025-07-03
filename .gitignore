@@ -40,3 +40,5 @@ lib/generated_plugin_registrant.dart
 linux/flutter/ephemeral/.plugin_symlinks/
 macos/Flutter/ephemeral/
 .cxx
+ephemeral
+

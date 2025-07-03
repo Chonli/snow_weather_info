@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
+import 'package:flutter_map_marker_cluster_plus/flutter_map_marker_cluster_plus.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
@@ -22,10 +22,10 @@ import 'package:snow_weather_info/router/router.dart';
 
 part 'map_widget.g.dart';
 
-final _nivoseColor = Colors.blue.shade900;
-const _stationColor = Colors.black;
-const _stationNoDataColor = Colors.grey;
-const _avalancheColor = Colors.orange;
+final Color _nivoseColor = Colors.blue.shade900;
+const Color _stationColor = Colors.black;
+const MaterialColor _stationNoDataColor = Colors.grey;
+const MaterialColor _avalancheColor = Colors.orange;
 
 @riverpod
 class CurrentMapLoc extends _$CurrentMapLoc {
@@ -193,7 +193,9 @@ class __InnerViewState extends ConsumerState<_InnerView> {
                 icon: const Icon(Icons.ac_unit),
                 color: _avalancheColor,
                 onPressed: () {
-                  ref.read(currentMapLocProvider.notifier).setLocation(
+                  ref
+                      .read(currentMapLocProvider.notifier)
+                      .setLocation(
                         Coordinate(
                           latitude: lat,
                           longitude: long,
@@ -348,7 +350,8 @@ class _MakerLayer extends StatelessWidget {
                   child: Text(
                     markers.length.toString(),
                     style: TextStyle(
-                      color: ThemeData.estimateBrightnessForColor(color) ==
+                      color:
+                          ThemeData.estimateBrightnessForColor(color) ==
                               Brightness.light
                           ? Colors.black
                           : Colors.white,
