@@ -26,11 +26,15 @@ class AbstractStationMapper extends ClassMapperBase<AbstractStation> {
   static String _$name(AbstractStation v) => v.name;
   static const Field<AbstractStation, String> _f$name = Field('name', _$name);
   static Coordinate _$position(AbstractStation v) => v.position;
-  static const Field<AbstractStation, Coordinate> _f$position =
-      Field('position', _$position);
+  static const Field<AbstractStation, Coordinate> _f$position = Field(
+    'position',
+    _$position,
+  );
   static int _$altitude(AbstractStation v) => v.altitude;
-  static const Field<AbstractStation, int> _f$altitude =
-      Field('altitude', _$altitude);
+  static const Field<AbstractStation, int> _f$altitude = Field(
+    'altitude',
+    _$altitude,
+  );
 
   @override
   final MappableFields<AbstractStation> fields = const {
@@ -59,7 +63,7 @@ mixin AbstractStationMappable {
   String toJson();
   Map<String, dynamic> toMap();
   AbstractStationCopyWith<AbstractStation, AbstractStation, AbstractStation>
-      get copyWith;
+  get copyWith;
 }
 
 abstract class AbstractStationCopyWith<$R, $In extends AbstractStation, $Out>
@@ -67,7 +71,8 @@ abstract class AbstractStationCopyWith<$R, $In extends AbstractStation, $Out>
   CoordinateCopyWith<$R, Coordinate, Coordinate> get position;
   $R call({String? name, Coordinate? position, int? altitude});
   AbstractStationCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+    Then<$Out2, $R2> t,
+  );
 }
 
 class StationMapper extends ClassMapperBase<Station> {
@@ -91,8 +96,10 @@ class StationMapper extends ClassMapperBase<Station> {
   static String _$name(Station v) => v.name;
   static const Field<Station, String> _f$name = Field('name', _$name);
   static Coordinate _$position(Station v) => v.position;
-  static const Field<Station, Coordinate> _f$position =
-      Field('position', _$position);
+  static const Field<Station, Coordinate> _f$position = Field(
+    'position',
+    _$position,
+  );
   static int _$altitude(Station v) => v.altitude;
   static const Field<Station, int> _f$altitude = Field('altitude', _$altitude);
 
@@ -105,8 +112,12 @@ class StationMapper extends ClassMapperBase<Station> {
   };
 
   static Station _instantiate(DecodingData data) {
-    return Station(data.dec(_f$id), data.dec(_f$name), data.dec(_f$position),
-        data.dec(_f$altitude));
+    return Station(
+      data.dec(_f$id),
+      data.dec(_f$name),
+      data.dec(_f$position),
+      data.dec(_f$altitude),
+    );
   }
 
   @override
@@ -123,13 +134,15 @@ class StationMapper extends ClassMapperBase<Station> {
 
 mixin StationMappable {
   String toJson() {
-    return StationMapper.ensureInitialized()
-        .encodeJson<Station>(this as Station);
+    return StationMapper.ensureInitialized().encodeJson<Station>(
+      this as Station,
+    );
   }
 
   Map<String, dynamic> toMap() {
-    return StationMapper.ensureInitialized()
-        .encodeMap<Station>(this as Station);
+    return StationMapper.ensureInitialized().encodeMap<Station>(
+      this as Station,
+    );
   }
 
   StationCopyWith<Station, Station, Station> get copyWith =>
@@ -141,8 +154,10 @@ mixin StationMappable {
 
   @override
   bool operator ==(Object other) {
-    return StationMapper.ensureInitialized()
-        .equalsValue(this as Station, other);
+    return StationMapper.ensureInitialized().equalsValue(
+      this as Station,
+      other,
+    );
   }
 
   @override
@@ -178,18 +193,21 @@ class _StationCopyWithImpl<$R, $Out>
       $value.position.copyWith.$chain((v) => call(position: v));
   @override
   $R call({int? id, String? name, Coordinate? position, int? altitude}) =>
-      $apply(FieldCopyWithData({
-        if (id != null) #id: id,
-        if (name != null) #name: name,
-        if (position != null) #position: position,
-        if (altitude != null) #altitude: altitude
-      }));
+      $apply(
+        FieldCopyWithData({
+          if (id != null) #id: id,
+          if (name != null) #name: name,
+          if (position != null) #position: position,
+          if (altitude != null) #altitude: altitude,
+        }),
+      );
   @override
   Station $make(CopyWithData data) => Station(
-      data.get(#id, or: $value.id),
-      data.get(#name, or: $value.name),
-      data.get(#position, or: $value.position),
-      data.get(#altitude, or: $value.altitude));
+    data.get(#id, or: $value.id),
+    data.get(#name, or: $value.name),
+    data.get(#position, or: $value.position),
+    data.get(#altitude, or: $value.altitude),
+  );
 
   @override
   StationCopyWith<$R2, Station, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
@@ -215,8 +233,10 @@ class NivoseMapper extends ClassMapperBase<Nivose> {
   static String _$name(Nivose v) => v.name;
   static const Field<Nivose, String> _f$name = Field('name', _$name);
   static Coordinate _$position(Nivose v) => v.position;
-  static const Field<Nivose, Coordinate> _f$position =
-      Field('position', _$position);
+  static const Field<Nivose, Coordinate> _f$position = Field(
+    'position',
+    _$position,
+  );
   static int _$altitude(Nivose v) => v.altitude;
   static const Field<Nivose, int> _f$altitude = Field('altitude', _$altitude);
   static String _$codeMF(Nivose v) => v.codeMF;
@@ -231,8 +251,12 @@ class NivoseMapper extends ClassMapperBase<Nivose> {
   };
 
   static Nivose _instantiate(DecodingData data) {
-    return Nivose(data.dec(_f$name), data.dec(_f$position),
-        data.dec(_f$altitude), data.dec(_f$codeMF));
+    return Nivose(
+      data.dec(_f$name),
+      data.dec(_f$position),
+      data.dec(_f$altitude),
+      data.dec(_f$codeMF),
+    );
   }
 
   @override
@@ -298,23 +322,26 @@ class _NivoseCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Nivose, $Out>
   CoordinateCopyWith<$R, Coordinate, Coordinate> get position =>
       $value.position.copyWith.$chain((v) => call(position: v));
   @override
-  $R call(
-          {String? name,
-          Coordinate? position,
-          int? altitude,
-          String? codeMF}) =>
-      $apply(FieldCopyWithData({
-        if (name != null) #name: name,
-        if (position != null) #position: position,
-        if (altitude != null) #altitude: altitude,
-        if (codeMF != null) #codeMF: codeMF
-      }));
+  $R call({
+    String? name,
+    Coordinate? position,
+    int? altitude,
+    String? codeMF,
+  }) => $apply(
+    FieldCopyWithData({
+      if (name != null) #name: name,
+      if (position != null) #position: position,
+      if (altitude != null) #altitude: altitude,
+      if (codeMF != null) #codeMF: codeMF,
+    }),
+  );
   @override
   Nivose $make(CopyWithData data) => Nivose(
-      data.get(#name, or: $value.name),
-      data.get(#position, or: $value.position),
-      data.get(#altitude, or: $value.altitude),
-      data.get(#codeMF, or: $value.codeMF));
+    data.get(#name, or: $value.name),
+    data.get(#position, or: $value.position),
+    data.get(#altitude, or: $value.altitude),
+    data.get(#codeMF, or: $value.codeMF),
+  );
 
   @override
   NivoseCopyWith<$R2, Nivose, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>

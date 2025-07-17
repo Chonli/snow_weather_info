@@ -15,10 +15,9 @@ final skiResortLocalDataProvider =
     Provider<SkiResortLocalDataContainer>.internal(
       skiResortLocalData,
       name: r'skiResortLocalDataProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$skiResortLocalDataHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$skiResortLocalDataHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );

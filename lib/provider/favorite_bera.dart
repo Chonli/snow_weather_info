@@ -34,7 +34,9 @@ class FavoriteBera extends _$FavoriteBera {
   }
 
   void _persitFavoriteBERA(List<AvalancheBulletin> value) {
-    ref.read(favoritesBERASettingsProvider.notifier).update(
+    ref
+        .read(favoritesBERASettingsProvider.notifier)
+        .update(
           value
               .map<String>(
                 (bera) => bera.massifName,

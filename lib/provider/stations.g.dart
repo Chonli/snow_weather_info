@@ -14,8 +14,9 @@ final stationsProvider =
     AutoDisposeAsyncNotifierProvider<Stations, List<Station>>.internal(
       Stations.new,
       name: r'stationsProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product') ? null : _$stationsHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$stationsHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );

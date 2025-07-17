@@ -21,11 +21,15 @@ class CoordinateMapper extends ClassMapperBase<Coordinate> {
   final String id = 'Coordinate';
 
   static double _$latitude(Coordinate v) => v.latitude;
-  static const Field<Coordinate, double> _f$latitude =
-      Field('latitude', _$latitude);
+  static const Field<Coordinate, double> _f$latitude = Field(
+    'latitude',
+    _$latitude,
+  );
   static double _$longitude(Coordinate v) => v.longitude;
-  static const Field<Coordinate, double> _f$longitude =
-      Field('longitude', _$longitude);
+  static const Field<Coordinate, double> _f$longitude = Field(
+    'longitude',
+    _$longitude,
+  );
 
   @override
   final MappableFields<Coordinate> fields = const {
@@ -35,7 +39,9 @@ class CoordinateMapper extends ClassMapperBase<Coordinate> {
 
   static Coordinate _instantiate(DecodingData data) {
     return Coordinate(
-        latitude: data.dec(_f$latitude), longitude: data.dec(_f$longitude));
+      latitude: data.dec(_f$latitude),
+      longitude: data.dec(_f$longitude),
+    );
   }
 
   @override
@@ -52,27 +58,32 @@ class CoordinateMapper extends ClassMapperBase<Coordinate> {
 
 mixin CoordinateMappable {
   String toJson() {
-    return CoordinateMapper.ensureInitialized()
-        .encodeJson<Coordinate>(this as Coordinate);
+    return CoordinateMapper.ensureInitialized().encodeJson<Coordinate>(
+      this as Coordinate,
+    );
   }
 
   Map<String, dynamic> toMap() {
-    return CoordinateMapper.ensureInitialized()
-        .encodeMap<Coordinate>(this as Coordinate);
+    return CoordinateMapper.ensureInitialized().encodeMap<Coordinate>(
+      this as Coordinate,
+    );
   }
 
   CoordinateCopyWith<Coordinate, Coordinate, Coordinate> get copyWith =>
       _CoordinateCopyWithImpl(this as Coordinate, $identity, $identity);
   @override
   String toString() {
-    return CoordinateMapper.ensureInitialized()
-        .stringifyValue(this as Coordinate);
+    return CoordinateMapper.ensureInitialized().stringifyValue(
+      this as Coordinate,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return CoordinateMapper.ensureInitialized()
-        .equalsValue(this as Coordinate, other);
+    return CoordinateMapper.ensureInitialized().equalsValue(
+      this as Coordinate,
+      other,
+    );
   }
 
   @override
@@ -102,17 +113,20 @@ class _CoordinateCopyWithImpl<$R, $Out>
   late final ClassMapperBase<Coordinate> $mapper =
       CoordinateMapper.ensureInitialized();
   @override
-  $R call({double? latitude, double? longitude}) => $apply(FieldCopyWithData({
-        if (latitude != null) #latitude: latitude,
-        if (longitude != null) #longitude: longitude
-      }));
+  $R call({double? latitude, double? longitude}) => $apply(
+    FieldCopyWithData({
+      if (latitude != null) #latitude: latitude,
+      if (longitude != null) #longitude: longitude,
+    }),
+  );
   @override
   Coordinate $make(CopyWithData data) => Coordinate(
-      latitude: data.get(#latitude, or: $value.latitude),
-      longitude: data.get(#longitude, or: $value.longitude));
+    latitude: data.get(#latitude, or: $value.latitude),
+    longitude: data.get(#longitude, or: $value.longitude),
+  );
 
   @override
   CoordinateCopyWith<$R2, Coordinate, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _CoordinateCopyWithImpl($value, $cast, t);
+    Then<$Out2, $R2> t,
+  ) => _CoordinateCopyWithImpl($value, $cast, t);
 }

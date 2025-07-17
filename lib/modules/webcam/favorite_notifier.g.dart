@@ -10,19 +10,19 @@ String _$favoriteSkiResortHash() => r'bb57921b951ea1312a39ecdb2d169bf1af74307f';
 
 /// See also [FavoriteSkiResort].
 @ProviderFor(FavoriteSkiResort)
-final favoriteSkiResortProvider = AutoDisposeAsyncNotifierProvider<
-  FavoriteSkiResort,
-  List<SkiResort>
->.internal(
-  FavoriteSkiResort.new,
-  name: r'favoriteSkiResortProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product')
+final favoriteSkiResortProvider =
+    AutoDisposeAsyncNotifierProvider<
+      FavoriteSkiResort,
+      List<SkiResort>
+    >.internal(
+      FavoriteSkiResort.new,
+      name: r'favoriteSkiResortProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
           ? null
           : _$favoriteSkiResortHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$FavoriteSkiResort = AutoDisposeAsyncNotifier<List<SkiResort>>;
 // ignore_for_file: type=lint

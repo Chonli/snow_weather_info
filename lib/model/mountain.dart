@@ -24,7 +24,7 @@ extension MountainExtension on Mountain {
       Mountain.massifCentral => 'Massif Central',
       Mountain.pyrenees => 'Pyrenées',
       Mountain.vosges => 'Vosges',
-      _ => 'Tous'
+      _ => 'Tous',
     };
   }
 }

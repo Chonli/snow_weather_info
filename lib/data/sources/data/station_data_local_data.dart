@@ -18,20 +18,20 @@ class StationDataLocalDataContainer extends LocalDataContainer {
   String get name => 'station_data_box';
 
   LocalData<DateTime> get lastUpdate => load(
-        key: 'last_update',
-        serialize: (date) => date.toLocalData,
-        deserialize: (json) => DateTime.parse(json as String),
-        defaultValue: DateTime(0),
-      );
+    key: 'last_update',
+    serialize: (date) => date.toLocalData,
+    deserialize: (json) => DateTime.parse(json as String),
+    defaultValue: DateTime(0),
+  );
 
   LocalData<List<DataStation>> get allDataStations => load(
-        key: 'all_station_data',
-        serialize: (stations) => stations.map((e) => e.toJson()).toList(),
-        deserialize: (json) => (json as List<dynamic>)
-            .map(
-              (e) => DataStation.fromJson(e as String),
-            )
-            .toList(),
-        defaultValue: [],
-      );
+    key: 'all_station_data',
+    serialize: (stations) => stations.map((e) => e.toJson()).toList(),
+    deserialize: (json) => (json as List<dynamic>)
+        .map(
+          (e) => DataStation.fromJson(e as String),
+        )
+        .toList(),
+    defaultValue: [],
+  );
 }

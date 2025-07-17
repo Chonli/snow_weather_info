@@ -14,10 +14,9 @@ final skiResortsProvider =
     AutoDisposeAsyncNotifierProvider<SkiResorts, List<SkiResort>>.internal(
       SkiResorts.new,
       name: r'skiResortsProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$skiResortsHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$skiResortsHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );

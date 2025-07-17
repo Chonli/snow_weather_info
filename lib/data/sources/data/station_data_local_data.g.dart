@@ -15,10 +15,9 @@ final stationDataLocalDataProvider =
     Provider<StationDataLocalDataContainer>.internal(
       stationDataLocalData,
       name: r'stationDataLocalDataProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$stationDataLocalDataHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$stationDataLocalDataHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );

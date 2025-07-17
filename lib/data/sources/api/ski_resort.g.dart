@@ -13,8 +13,9 @@ String _$skiResortApiHash() => r'3ff824650d0cbc71240c9e273c96c9d5d4499577';
 final skiResortApiProvider = Provider<SkiResortApi>.internal(
   skiResortApi,
   name: r'skiResortApiProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$skiResortApiHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$skiResortApiHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

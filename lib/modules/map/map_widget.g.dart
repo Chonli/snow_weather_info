@@ -14,10 +14,9 @@ final currentMapLocProvider =
     AutoDisposeNotifierProvider<CurrentMapLoc, Coordinate>.internal(
       CurrentMapLoc.new,
       name: r'currentMapLocProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$currentMapLocHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$currentMapLocHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );

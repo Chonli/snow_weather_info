@@ -72,26 +72,27 @@ class _MassifFilterView extends ConsumerWidget {
     final filters = ref.watch(_massifFilterProvider);
 
     return Wrap(
-      children: [
-        Mountain.all,
-        Mountain.alpesNord,
-        Mountain.alpesSud,
-        Mountain.corse,
-        Mountain.pyrenees,
-      ]
-          .map(
-            (mountain) => Padding(
-              padding: const EdgeInsets.only(right: 5),
-              child: ChoiceChip(
-                label: Text(mountain.displayName),
-                selected: filters.contains(mountain),
-                onSelected: (_) {
-                  ref.read(_massifFilterProvider.notifier).update(mountain);
-                },
-              ),
-            ),
-          )
-          .toList(),
+      children:
+          [
+                Mountain.all,
+                Mountain.alpesNord,
+                Mountain.alpesSud,
+                Mountain.corse,
+                Mountain.pyrenees,
+              ]
+              .map(
+                (mountain) => Padding(
+                  padding: const EdgeInsets.only(right: 5),
+                  child: ChoiceChip(
+                    label: Text(mountain.displayName),
+                    selected: filters.contains(mountain),
+                    onSelected: (_) {
+                      ref.read(_massifFilterProvider.notifier).update(mountain);
+                    },
+                  ),
+                ),
+              )
+              .toList(),
     );
   }
 }
@@ -140,12 +141,13 @@ class _ListByMassifView extends ConsumerWidget {
       return const SliverToBoxAdapter();
     }
 
-    final list = ConstantDatalist.listAvalancheBulletin
-        .where(
-          (b) => b.mountain == mountain,
-        )
-        .toList()
-      ..sort((a, b) => a.massifName.compareTo(b.massifName));
+    final list =
+        ConstantDatalist.listAvalancheBulletin
+            .where(
+              (b) => b.mountain == mountain,
+            )
+            .toList()
+          ..sort((a, b) => a.massifName.compareTo(b.massifName));
 
     return SliverStickyHeader(
       header: AppStickyHeaderView(

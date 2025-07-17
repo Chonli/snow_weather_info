@@ -14,10 +14,9 @@ final _massifFilterProvider =
     AutoDisposeNotifierProvider<_MassifFilter, List<Mountain>>.internal(
       _MassifFilter.new,
       name: r'_massifFilterProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$massifFilterHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$massifFilterHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
@@ -30,8 +29,9 @@ String _$searchHash() => r'1a7e9beb07c2afdb77254aa6455e44d5beb2a328';
 final _searchProvider = AutoDisposeNotifierProvider<_Search, String>.internal(
   _Search.new,
   name: r'_searchProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$searchHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$searchHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

@@ -33,14 +33,14 @@ class Station extends AbstractStation with StationMappable {
   );
 
   factory Station.fromRemoteJson(Map<String, dynamic> json) => Station(
-        int.parse(json['ID'] as String),
-        json['Nom'] as String,
-        Coordinate(
-          latitude: double.parse(json['Latitude'] as String),
-          longitude: double.parse(json['Longitude'] as String),
-        ),
-        int.parse(json['Altitude'] as String),
-      );
+    int.parse(json['ID'] as String),
+    json['Nom'] as String,
+    Coordinate(
+      latitude: double.parse(json['Latitude'] as String),
+      longitude: double.parse(json['Longitude'] as String),
+    ),
+    int.parse(json['Altitude'] as String),
+  );
 
   final int id;
 

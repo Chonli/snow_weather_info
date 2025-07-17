@@ -91,9 +91,8 @@ abstract class ConstantDatalist {
       Coordinate(latitude: 45.05733, longitude: 6.37739),
       2559,
       'GALIB',
-    )
+    ),
     //alpes sud
-    ,
     const Nivose(
       'Orcières',
       Coordinate(latitude: 44.71857, longitude: 6.33378),
@@ -123,9 +122,8 @@ abstract class ConstantDatalist {
       Coordinate(latitude: 44.49522, longitude: 6.63650),
       2545,
       'PARPA',
-    )
+    ),
     //corse
-    ,
     const Nivose(
       'Sponde',
       Coordinate(latitude: 42.32448, longitude: 8.88478),
@@ -137,9 +135,8 @@ abstract class ConstantDatalist {
       Coordinate(latitude: 42.20837, longitude: 9.04888),
       2360,
       'MANIC',
-    )
+    ),
     //pyrennée
-    ,
     const Nivose(
       'Maupas',
       Coordinate(latitude: 42.71428, longitude: 0.54995),

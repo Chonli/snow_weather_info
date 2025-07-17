@@ -14,10 +14,9 @@ final stationDataProvider =
     AsyncNotifierProvider<StationData, Map<int, List<DataStation>>>.internal(
       StationData.new,
       name: r'stationDataProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$stationDataHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$stationDataHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );

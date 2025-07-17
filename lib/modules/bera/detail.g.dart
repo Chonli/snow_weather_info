@@ -73,10 +73,9 @@ class _PdfControllerProvider extends AutoDisposeFutureProvider<PdfController?> {
         (ref) => _pdfController(ref as _PdfControllerRef, beraNumber),
         from: _pdfControllerProvider,
         name: r'_pdfControllerProvider',
-        debugGetCreateSourceHash:
-            const bool.fromEnvironment('dart.vm.product')
-                ? null
-                : _$pdfControllerHash,
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$pdfControllerHash,
         dependencies: _PdfControllerFamily._dependencies,
         allTransitiveDependencies:
             _PdfControllerFamily._allTransitiveDependencies,
@@ -156,10 +155,9 @@ final _beraTokenHeaderProvider =
     NotifierProvider<_BeraTokenHeader, Map<String, String>>.internal(
       _BeraTokenHeader.new,
       name: r'_beraTokenHeaderProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$beraTokenHeaderHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$beraTokenHeaderHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );

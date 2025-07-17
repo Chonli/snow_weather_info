@@ -15,10 +15,9 @@ final currentDataStationProvider =
     AutoDisposeProvider<List<DataStation>>.internal(
       currentDataStation,
       name: r'currentDataStationProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$currentDataStationHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$currentDataStationHash,
       dependencies: const <ProviderOrFamily>[],
       allTransitiveDependencies: const <ProviderOrFamily>{},
     );
@@ -33,10 +32,9 @@ String _$currentStationHash() => r'd60a58973507c5e6eecabb2310e673c38166b922';
 final currentStationProvider = AutoDisposeProvider<Station>.internal(
   currentStation,
   name: r'currentStationProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$currentStationHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$currentStationHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
@@ -111,10 +109,9 @@ class _IsFavoriteProvider extends AutoDisposeProvider<bool> {
         (ref) => _isFavorite(ref as _IsFavoriteRef, id),
         from: _isFavoriteProvider,
         name: r'_isFavoriteProvider',
-        debugGetCreateSourceHash:
-            const bool.fromEnvironment('dart.vm.product')
-                ? null
-                : _$isFavoriteHash,
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$isFavoriteHash,
         dependencies: _IsFavoriteFamily._dependencies,
         allTransitiveDependencies: _IsFavoriteFamily._allTransitiveDependencies,
         id: id,
@@ -190,10 +187,9 @@ final _currentIndexProvider =
     AutoDisposeNotifierProvider<_CurrentIndex, int>.internal(
       _CurrentIndex.new,
       name: r'_currentIndexProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$currentIndexHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$currentIndexHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
@@ -207,10 +203,9 @@ final _currentIndexDataProvider =
     AutoDisposeNotifierProvider<_CurrentIndexData, DataStation?>.internal(
       _CurrentIndexData.new,
       name: r'_currentIndexDataProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$currentIndexDataHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$currentIndexDataHash,
       dependencies: <ProviderOrFamily>[currentDataStationProvider],
       allTransitiveDependencies: <ProviderOrFamily>{
         currentDataStationProvider,

@@ -35,8 +35,9 @@ class StationDataRepository {
     final diffDays = min(DateTime.now().difference(lastUpdate).inDays, 7);
 
     log('Fetching new data from API for last $diffDays days');
-    final remoteDataStations =
-        await stationDataApi.getStationDatas(maxDaysFetch: diffDays);
+    final remoteDataStations = await stationDataApi.getStationDatas(
+      maxDaysFetch: diffDays,
+    );
 
     final allDataStations = await compute(
       StationDataRepository._mergeStations,
@@ -56,7 +57,8 @@ class StationDataRepository {
     ({
       List<DataStation> cacheDataStations,
       List<DataStation> remoteDataStations,
-    }) param,
+    })
+    param,
   ) {
     if (param.remoteDataStations.isEmpty) {
       return param.cacheDataStations;
@@ -87,7 +89,8 @@ extension _DataStationDataStationsExtension on List<DataStation> {
       return DateTime(0);
     }
 
-    return map((station) => station.date)
-        .reduce((a, b) => a.isAfter(b) ? a : b);
+    return map(
+      (station) => station.date,
+    ).reduce((a, b) => a.isAfter(b) ? a : b);
   }
 }

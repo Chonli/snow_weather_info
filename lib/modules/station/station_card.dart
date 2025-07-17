@@ -21,11 +21,13 @@ class StationCard extends ConsumerWidget {
 
     if (station case final Station st) {
       final hasData = ref.watch(stationDataProvider.notifier).hasData(st.id);
-      final lastSnowHeight =
-          ref.watch(stationDataProvider.notifier).lastSnowHeight(st.id);
+      final lastSnowHeight = ref
+          .watch(stationDataProvider.notifier)
+          .lastSnowHeight(st.id);
 
-      snowHeigth =
-          hasData ? ' ${(lastSnowHeight * 100).toStringAsFixed(0)}cm' : '';
+      snowHeigth = hasData
+          ? ' ${(lastSnowHeight * 100).toStringAsFixed(0)}cm'
+          : '';
       final color = hasData
           ? Theme.of(context).textTheme.bodyMedium?.color
           : Theme.of(context).disabledColor;

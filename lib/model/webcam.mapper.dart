@@ -92,12 +92,17 @@ class _WebCamCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, WebCam, $Out>
   @override
   late final ClassMapperBase<WebCam> $mapper = WebCamMapper.ensureInitialized();
   @override
-  $R call({String? name, String? url}) => $apply(FieldCopyWithData(
-      {if (name != null) #name: name, if (url != null) #url: url}));
+  $R call({String? name, String? url}) => $apply(
+    FieldCopyWithData({
+      if (name != null) #name: name,
+      if (url != null) #url: url,
+    }),
+  );
   @override
   WebCam $make(CopyWithData data) => WebCam(
-      name: data.get(#name, or: $value.name),
-      url: data.get(#url, or: $value.url));
+    name: data.get(#name, or: $value.name),
+    url: data.get(#url, or: $value.url),
+  );
 
   @override
   WebCamCopyWith<$R2, WebCam, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>

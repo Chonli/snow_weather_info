@@ -19,11 +19,9 @@ class SkiResortLocalDataContainer extends LocalDataContainer {
   LocalData<List<SkiResort>> get skiResorts => load(
     key: 'skiResorts',
     serialize: (skiResorts) => skiResorts.map((e) => e.toJson()).toList(),
-    deserialize:
-        (json) =>
-            (json as List<dynamic>)
-                .map((e) => SkiResort.fromJson(e as String))
-                .toList(),
+    deserialize: (json) => (json as List<dynamic>)
+        .map((e) => SkiResort.fromJson(e as String))
+        .toList(),
     defaultValue: [],
   );
 }

@@ -24,10 +24,9 @@ class WebcamsForResortView extends ConsumerWidget {
         actions: [
           IconButton(
             icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
-            onPressed:
-                () => ref
-                    .read(favoriteSkiResortProvider.notifier)
-                    .addOrRemoveFavorite(resort),
+            onPressed: () => ref
+                .read(favoriteSkiResortProvider.notifier)
+                .addOrRemoveFavorite(resort),
           ),
         ],
       ),
@@ -50,16 +49,14 @@ class WebcamCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8),
       child: GestureDetector(
-        onTap:
-            () => Navigator.push(
-              context,
-              MaterialPageRoute<void>(
-                builder:
-                    (BuildContext context) =>
-                        _WebcamDialog(url: webcam.url, name: webcam.name),
-                fullscreenDialog: true,
-              ),
-            ),
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute<void>(
+            builder: (BuildContext context) =>
+                _WebcamDialog(url: webcam.url, name: webcam.name),
+            fullscreenDialog: true,
+          ),
+        ),
         child: Column(
           children: [
             Text(webcam.name),
@@ -109,8 +106,8 @@ class _WebMedia extends StatelessWidget {
     return InAppWebView(
       initialUrlRequest: URLRequest(url: WebUri(url)),
       initialSettings: InAppWebViewSettings(useShouldOverrideUrlLoading: true),
-      shouldOverrideUrlLoading:
-          (controller, navigationAction) async => NavigationActionPolicy.CANCEL,
+      shouldOverrideUrlLoading: (controller, navigationAction) async =>
+          NavigationActionPolicy.CANCEL,
     );
   }
 }

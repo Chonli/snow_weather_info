@@ -14,8 +14,8 @@ extension StringNullExtension on String? {
   bool safeSearch(String search) {
     return switch (this) {
       final String value => value.toLowerCase().contains(
-            search.toLowerCase(),
-          ),
+        search.toLowerCase(),
+      ),
       _ => false,
     };
   }

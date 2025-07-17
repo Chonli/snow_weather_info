@@ -13,8 +13,9 @@ String _$apiClientHash() => r'0f0c252a0ee867aa34c2521db95ce1604d57aee2';
 final apiClientProvider = Provider<Client>.internal(
   apiClient,
   name: r'apiClientProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$apiClientHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$apiClientHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

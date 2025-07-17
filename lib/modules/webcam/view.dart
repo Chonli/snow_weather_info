@@ -59,49 +59,47 @@ class WebcamListView extends ConsumerWidget {
     final allSkiResorts = ref.watch(skiResortsProvider);
 
     return allSkiResorts.when(
-      data:
-          (data) => CustomScrollView(
-            slivers: [
-              // recherche
-              const _SearchBarView(),
-              const _MassifFilterView(),
-              const _ListFavoriteView(),
-              _ListByMassifView(
-                mountain: Mountain.alpesNord,
-                skiResorts: data.webcamsNord,
-              ),
-              _ListByMassifView(
-                mountain: Mountain.alpesSud,
-                skiResorts: data.webcamsSud,
-              ),
-              _ListByMassifView(
-                mountain: Mountain.corse,
-                skiResorts: data.webcamsCorse,
-              ),
-              _ListByMassifView(
-                mountain: Mountain.jura,
-                skiResorts: data.webcamsJura,
-              ),
-              _ListByMassifView(
-                mountain: Mountain.massifCentral,
-                skiResorts: data.webcamsCentral,
-              ),
-              _ListByMassifView(
-                mountain: Mountain.pyrenees,
-                skiResorts: data.webcamsPyrenees,
-              ),
-              _ListByMassifView(
-                mountain: Mountain.vosges,
-                skiResorts: data.webcamsVosges,
-              ),
-            ],
+      data: (data) => CustomScrollView(
+        slivers: [
+          // recherche
+          const _SearchBarView(),
+          const _MassifFilterView(),
+          const _ListFavoriteView(),
+          _ListByMassifView(
+            mountain: Mountain.alpesNord,
+            skiResorts: data.webcamsNord,
           ),
+          _ListByMassifView(
+            mountain: Mountain.alpesSud,
+            skiResorts: data.webcamsSud,
+          ),
+          _ListByMassifView(
+            mountain: Mountain.corse,
+            skiResorts: data.webcamsCorse,
+          ),
+          _ListByMassifView(
+            mountain: Mountain.jura,
+            skiResorts: data.webcamsJura,
+          ),
+          _ListByMassifView(
+            mountain: Mountain.massifCentral,
+            skiResorts: data.webcamsCentral,
+          ),
+          _ListByMassifView(
+            mountain: Mountain.pyrenees,
+            skiResorts: data.webcamsPyrenees,
+          ),
+          _ListByMassifView(
+            mountain: Mountain.vosges,
+            skiResorts: data.webcamsVosges,
+          ),
+        ],
+      ),
       loading: () => const Center(child: CircularProgressIndicator()),
-      error:
-          (_, _) => const Padding(
-            padding: EdgeInsets.all(20),
-            child: Text('Erreur lors du chargement des webcams'),
-          ),
+      error: (_, _) => const Padding(
+        padding: EdgeInsets.all(20),
+        child: Text('Erreur lors du chargement des webcams'),
+      ),
     );
   }
 }
@@ -205,23 +203,20 @@ class _MassifFilterView extends ConsumerWidget {
     return SliverToBoxAdapter(
       child: Wrap(
         alignment: WrapAlignment.center,
-        children:
-            Mountain.values
-                .map(
-                  (mountain) => Padding(
-                    padding: const EdgeInsets.only(right: 5),
-                    child: ChoiceChip(
-                      label: Text(mountain.displayName),
-                      selected: filters.contains(mountain),
-                      onSelected: (_) {
-                        ref
-                            .read(_massifFilterProvider.notifier)
-                            .update(mountain);
-                      },
-                    ),
-                  ),
-                )
-                .toList(),
+        children: Mountain.values
+            .map(
+              (mountain) => Padding(
+                padding: const EdgeInsets.only(right: 5),
+                child: ChoiceChip(
+                  label: Text(mountain.displayName),
+                  selected: filters.contains(mountain),
+                  onSelected: (_) {
+                    ref.read(_massifFilterProvider.notifier).update(mountain);
+                  },
+                ),
+              ),
+            )
+            .toList(),
       ),
     );
   }

@@ -13,8 +13,9 @@ String _$apiAvalancheHash() => r'f73a00238dc1c31bbf067d674ac1e551a62debf1';
 final apiAvalancheProvider = FutureProvider<AtomFeed?>.internal(
   apiAvalanche,
   name: r'apiAvalancheProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$apiAvalancheHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$apiAvalancheHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

@@ -14,10 +14,9 @@ final favoriteBeraProvider =
     NotifierProvider<FavoriteBera, List<AvalancheBulletin>>.internal(
       FavoriteBera.new,
       name: r'favoriteBeraProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$favoriteBeraHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$favoriteBeraHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );

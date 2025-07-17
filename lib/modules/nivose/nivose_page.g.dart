@@ -73,10 +73,9 @@ class _IsFavoriteProvider extends AutoDisposeProvider<bool> {
         (ref) => _isFavorite(ref as _IsFavoriteRef, codeMF),
         from: _isFavoriteProvider,
         name: r'_isFavoriteProvider',
-        debugGetCreateSourceHash:
-            const bool.fromEnvironment('dart.vm.product')
-                ? null
-                : _$isFavoriteHash,
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$isFavoriteHash,
         dependencies: _IsFavoriteFamily._dependencies,
         allTransitiveDependencies: _IsFavoriteFamily._allTransitiveDependencies,
         codeMF: codeMF,

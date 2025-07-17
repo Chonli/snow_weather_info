@@ -14,10 +14,9 @@ String _$skiResortsRepositoryHash() =>
 final skiResortsRepositoryProvider = Provider<SkiResortsRepository>.internal(
   skiResortsRepository,
   name: r'skiResortsRepositoryProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$skiResortsRepositoryHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$skiResortsRepositoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

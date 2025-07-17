@@ -28,17 +28,29 @@ class SkiResortMapper extends ClassMapperBase<SkiResort> {
   static String _$name(SkiResort v) => v.name;
   static const Field<SkiResort, String> _f$name = Field('name', _$name);
   static Mountain _$mountain(SkiResort v) => v.mountain;
-  static const Field<SkiResort, Mountain> _f$mountain =
-      Field('mountain', _$mountain);
+  static const Field<SkiResort, Mountain> _f$mountain = Field(
+    'mountain',
+    _$mountain,
+  );
   static Coordinate? _$position(SkiResort v) => v.position;
-  static const Field<SkiResort, Coordinate> _f$position =
-      Field('position', _$position, opt: true);
+  static const Field<SkiResort, Coordinate> _f$position = Field(
+    'position',
+    _$position,
+    opt: true,
+  );
   static String? _$description(SkiResort v) => v.description;
-  static const Field<SkiResort, String> _f$description =
-      Field('description', _$description, opt: true);
+  static const Field<SkiResort, String> _f$description = Field(
+    'description',
+    _$description,
+    opt: true,
+  );
   static List<WebCam> _$webcams(SkiResort v) => v.webcams;
-  static const Field<SkiResort, List<WebCam>> _f$webcams =
-      Field('webcams', _$webcams, opt: true, def: const []);
+  static const Field<SkiResort, List<WebCam>> _f$webcams = Field(
+    'webcams',
+    _$webcams,
+    opt: true,
+    def: const [],
+  );
 
   @override
   final MappableFields<SkiResort> fields = const {
@@ -52,12 +64,13 @@ class SkiResortMapper extends ClassMapperBase<SkiResort> {
 
   static SkiResort _instantiate(DecodingData data) {
     return SkiResort(
-        id: data.dec(_f$id),
-        name: data.dec(_f$name),
-        mountain: data.dec(_f$mountain),
-        position: data.dec(_f$position),
-        description: data.dec(_f$description),
-        webcams: data.dec(_f$webcams));
+      id: data.dec(_f$id),
+      name: data.dec(_f$name),
+      mountain: data.dec(_f$mountain),
+      position: data.dec(_f$position),
+      description: data.dec(_f$description),
+      webcams: data.dec(_f$webcams),
+    );
   }
 
   @override
@@ -74,27 +87,32 @@ class SkiResortMapper extends ClassMapperBase<SkiResort> {
 
 mixin SkiResortMappable {
   String toJson() {
-    return SkiResortMapper.ensureInitialized()
-        .encodeJson<SkiResort>(this as SkiResort);
+    return SkiResortMapper.ensureInitialized().encodeJson<SkiResort>(
+      this as SkiResort,
+    );
   }
 
   Map<String, dynamic> toMap() {
-    return SkiResortMapper.ensureInitialized()
-        .encodeMap<SkiResort>(this as SkiResort);
+    return SkiResortMapper.ensureInitialized().encodeMap<SkiResort>(
+      this as SkiResort,
+    );
   }
 
   SkiResortCopyWith<SkiResort, SkiResort, SkiResort> get copyWith =>
       _SkiResortCopyWithImpl(this as SkiResort, $identity, $identity);
   @override
   String toString() {
-    return SkiResortMapper.ensureInitialized()
-        .stringifyValue(this as SkiResort);
+    return SkiResortMapper.ensureInitialized().stringifyValue(
+      this as SkiResort,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return SkiResortMapper.ensureInitialized()
-        .equalsValue(this as SkiResort, other);
+    return SkiResortMapper.ensureInitialized().equalsValue(
+      this as SkiResort,
+      other,
+    );
   }
 
   @override
@@ -112,13 +130,14 @@ abstract class SkiResortCopyWith<$R, $In extends SkiResort, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   CoordinateCopyWith<$R, Coordinate, Coordinate>? get position;
   ListCopyWith<$R, WebCam, WebCamCopyWith<$R, WebCam, WebCam>> get webcams;
-  $R call(
-      {int? id,
-      String? name,
-      Mountain? mountain,
-      Coordinate? position,
-      String? description,
-      List<WebCam>? webcams});
+  $R call({
+    int? id,
+    String? name,
+    Mountain? mountain,
+    Coordinate? position,
+    String? description,
+    List<WebCam>? webcams,
+  });
   SkiResortCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -135,35 +154,41 @@ class _SkiResortCopyWithImpl<$R, $Out>
       $value.position?.copyWith.$chain((v) => call(position: v));
   @override
   ListCopyWith<$R, WebCam, WebCamCopyWith<$R, WebCam, WebCam>> get webcams =>
-      ListCopyWith($value.webcams, (v, t) => v.copyWith.$chain(t),
-          (v) => call(webcams: v));
+      ListCopyWith(
+        $value.webcams,
+        (v, t) => v.copyWith.$chain(t),
+        (v) => call(webcams: v),
+      );
   @override
-  $R call(
-          {int? id,
-          String? name,
-          Mountain? mountain,
-          Object? position = $none,
-          Object? description = $none,
-          List<WebCam>? webcams}) =>
-      $apply(FieldCopyWithData({
-        if (id != null) #id: id,
-        if (name != null) #name: name,
-        if (mountain != null) #mountain: mountain,
-        if (position != $none) #position: position,
-        if (description != $none) #description: description,
-        if (webcams != null) #webcams: webcams
-      }));
+  $R call({
+    int? id,
+    String? name,
+    Mountain? mountain,
+    Object? position = $none,
+    Object? description = $none,
+    List<WebCam>? webcams,
+  }) => $apply(
+    FieldCopyWithData({
+      if (id != null) #id: id,
+      if (name != null) #name: name,
+      if (mountain != null) #mountain: mountain,
+      if (position != $none) #position: position,
+      if (description != $none) #description: description,
+      if (webcams != null) #webcams: webcams,
+    }),
+  );
   @override
   SkiResort $make(CopyWithData data) => SkiResort(
-      id: data.get(#id, or: $value.id),
-      name: data.get(#name, or: $value.name),
-      mountain: data.get(#mountain, or: $value.mountain),
-      position: data.get(#position, or: $value.position),
-      description: data.get(#description, or: $value.description),
-      webcams: data.get(#webcams, or: $value.webcams));
+    id: data.get(#id, or: $value.id),
+    name: data.get(#name, or: $value.name),
+    mountain: data.get(#mountain, or: $value.mountain),
+    position: data.get(#position, or: $value.position),
+    description: data.get(#description, or: $value.description),
+    webcams: data.get(#webcams, or: $value.webcams),
+  );
 
   @override
   SkiResortCopyWith<$R2, SkiResort, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _SkiResortCopyWithImpl($value, $cast, t);
+    Then<$Out2, $R2> t,
+  ) => _SkiResortCopyWithImpl($value, $cast, t);
 }

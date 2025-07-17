@@ -22,14 +22,20 @@ class AvalancheBulletinMapper extends ClassMapperBase<AvalancheBulletin> {
   final String id = 'AvalancheBulletin';
 
   static String _$massifName(AvalancheBulletin v) => v.massifName;
-  static const Field<AvalancheBulletin, String> _f$massifName =
-      Field('massifName', _$massifName);
+  static const Field<AvalancheBulletin, String> _f$massifName = Field(
+    'massifName',
+    _$massifName,
+  );
   static int _$beraNumber(AvalancheBulletin v) => v.beraNumber;
-  static const Field<AvalancheBulletin, int> _f$beraNumber =
-      Field('beraNumber', _$beraNumber);
+  static const Field<AvalancheBulletin, int> _f$beraNumber = Field(
+    'beraNumber',
+    _$beraNumber,
+  );
   static Mountain _$mountain(AvalancheBulletin v) => v.mountain;
-  static const Field<AvalancheBulletin, Mountain> _f$mountain =
-      Field('mountain', _$mountain);
+  static const Field<AvalancheBulletin, Mountain> _f$mountain = Field(
+    'mountain',
+    _$mountain,
+  );
 
   @override
   final MappableFields<AvalancheBulletin> fields = const {
@@ -40,9 +46,10 @@ class AvalancheBulletinMapper extends ClassMapperBase<AvalancheBulletin> {
 
   static AvalancheBulletin _instantiate(DecodingData data) {
     return AvalancheBulletin(
-        massifName: data.dec(_f$massifName),
-        beraNumber: data.dec(_f$beraNumber),
-        mountain: data.dec(_f$mountain));
+      massifName: data.dec(_f$massifName),
+      beraNumber: data.dec(_f$beraNumber),
+      mountain: data.dec(_f$mountain),
+    );
   }
 
   @override
@@ -68,41 +75,56 @@ mixin AvalancheBulletinMappable {
         .encodeMap<AvalancheBulletin>(this as AvalancheBulletin);
   }
 
-  AvalancheBulletinCopyWith<AvalancheBulletin, AvalancheBulletin,
-          AvalancheBulletin>
-      get copyWith => _AvalancheBulletinCopyWithImpl(
-          this as AvalancheBulletin, $identity, $identity);
+  AvalancheBulletinCopyWith<
+    AvalancheBulletin,
+    AvalancheBulletin,
+    AvalancheBulletin
+  >
+  get copyWith => _AvalancheBulletinCopyWithImpl(
+    this as AvalancheBulletin,
+    $identity,
+    $identity,
+  );
   @override
   String toString() {
-    return AvalancheBulletinMapper.ensureInitialized()
-        .stringifyValue(this as AvalancheBulletin);
+    return AvalancheBulletinMapper.ensureInitialized().stringifyValue(
+      this as AvalancheBulletin,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return AvalancheBulletinMapper.ensureInitialized()
-        .equalsValue(this as AvalancheBulletin, other);
+    return AvalancheBulletinMapper.ensureInitialized().equalsValue(
+      this as AvalancheBulletin,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return AvalancheBulletinMapper.ensureInitialized()
-        .hashValue(this as AvalancheBulletin);
+    return AvalancheBulletinMapper.ensureInitialized().hashValue(
+      this as AvalancheBulletin,
+    );
   }
 }
 
 extension AvalancheBulletinValueCopy<$R, $Out>
     on ObjectCopyWith<$R, AvalancheBulletin, $Out> {
   AvalancheBulletinCopyWith<$R, AvalancheBulletin, $Out>
-      get $asAvalancheBulletin =>
-          $base.as((v, t, t2) => _AvalancheBulletinCopyWithImpl(v, t, t2));
+  get $asAvalancheBulletin =>
+      $base.as((v, t, t2) => _AvalancheBulletinCopyWithImpl(v, t, t2));
 }
 
-abstract class AvalancheBulletinCopyWith<$R, $In extends AvalancheBulletin,
-    $Out> implements ClassCopyWith<$R, $In, $Out> {
+abstract class AvalancheBulletinCopyWith<
+  $R,
+  $In extends AvalancheBulletin,
+  $Out
+>
+    implements ClassCopyWith<$R, $In, $Out> {
   $R call({String? massifName, int? beraNumber, Mountain? mountain});
   AvalancheBulletinCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
+    Then<$Out2, $R2> t,
+  );
 }
 
 class _AvalancheBulletinCopyWithImpl<$R, $Out>
@@ -114,20 +136,22 @@ class _AvalancheBulletinCopyWithImpl<$R, $Out>
   late final ClassMapperBase<AvalancheBulletin> $mapper =
       AvalancheBulletinMapper.ensureInitialized();
   @override
-  $R call({String? massifName, int? beraNumber, Mountain? mountain}) =>
-      $apply(FieldCopyWithData({
-        if (massifName != null) #massifName: massifName,
-        if (beraNumber != null) #beraNumber: beraNumber,
-        if (mountain != null) #mountain: mountain
-      }));
+  $R call({String? massifName, int? beraNumber, Mountain? mountain}) => $apply(
+    FieldCopyWithData({
+      if (massifName != null) #massifName: massifName,
+      if (beraNumber != null) #beraNumber: beraNumber,
+      if (mountain != null) #mountain: mountain,
+    }),
+  );
   @override
   AvalancheBulletin $make(CopyWithData data) => AvalancheBulletin(
-      massifName: data.get(#massifName, or: $value.massifName),
-      beraNumber: data.get(#beraNumber, or: $value.beraNumber),
-      mountain: data.get(#mountain, or: $value.mountain));
+    massifName: data.get(#massifName, or: $value.massifName),
+    beraNumber: data.get(#beraNumber, or: $value.beraNumber),
+    mountain: data.get(#mountain, or: $value.mountain),
+  );
 
   @override
   AvalancheBulletinCopyWith<$R2, AvalancheBulletin, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _AvalancheBulletinCopyWithImpl($value, $cast, t);
+    Then<$Out2, $R2> t,
+  ) => _AvalancheBulletinCopyWithImpl($value, $cast, t);
 }

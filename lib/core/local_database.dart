@@ -49,8 +49,8 @@ class LocalData<T> {
     Serializer<T>? serialize,
     Deserializer<T>? deserialize,
     this.defaultValue,
-  )   : _serialize = serialize ?? _defaultSerialize,
-        _deserialize = deserialize ?? _defaultDeserialize;
+  ) : _serialize = serialize ?? _defaultSerialize,
+      _deserialize = deserialize ?? _defaultDeserialize;
 
   final Database _db;
   final RecordRef _record;

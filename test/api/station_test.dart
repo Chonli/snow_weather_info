@@ -13,8 +13,9 @@ void main() {
     final responseBody = getJson('postesNivo.json');
 
     // Définir le comportement du mock
-    when(() => client.get(Uri.parse(StationApi.stationUrl)))
-        .thenAnswer((_) async => Response(responseBody, 200));
+    when(
+      () => client.get(Uri.parse(StationApi.stationUrl)),
+    ).thenAnswer((_) async => Response(responseBody, 200));
 
     final apiStation = StationApi(client);
     // Appeler la méthode à tester

@@ -8,8 +8,8 @@ extension DoubleExtension on double {
   double get toCm => this * 100;
 
   String get toDate => DateFormat.Md().format(
-        DateTime.fromMillisecondsSinceEpoch(
-          toInt(),
-        ),
-      );
+    DateTime.fromMillisecondsSinceEpoch(
+      toInt(),
+    ),
+  );
 }

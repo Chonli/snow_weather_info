@@ -14,10 +14,9 @@ String _$stationDataRepositoryHash() =>
 final stationDataRepositoryProvider = Provider<StationDataRepository>.internal(
   stationDataRepository,
   name: r'stationDataRepositoryProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$stationDataRepositoryHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$stationDataRepositoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

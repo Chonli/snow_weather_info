@@ -45,7 +45,9 @@ class FavoriteStation extends _$FavoriteStation {
   }
 
   void _persitFavoriteStation(List<AbstractStation> value) {
-    ref.read(favoritesStationSettingsProvider.notifier).update(
+    ref
+        .read(favoritesStationSettingsProvider.notifier)
+        .update(
           value.map<String>(
             (s) {
               if (s is Station) {

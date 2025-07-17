@@ -13,10 +13,9 @@ String _$sharedPreferencesHash() => r'1a6250efdc19e86c923ceb598a77ff74d64378e6';
 final sharedPreferencesProvider = Provider<SharedPreferences>.internal(
   sharedPreferences,
   name: r'sharedPreferencesProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$sharedPreferencesHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$sharedPreferencesHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
@@ -32,10 +31,9 @@ final themeModeSettingsProvider =
     NotifierProvider<ThemeModeSettings, ThemeMode>.internal(
       ThemeModeSettings.new,
       name: r'themeModeSettingsProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$themeModeSettingsHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$themeModeSettingsHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
@@ -50,10 +48,9 @@ final favoritesStationSettingsProvider =
     NotifierProvider<FavoritesStationSettings, List<String>>.internal(
       FavoritesStationSettings.new,
       name: r'favoritesStationSettingsProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$favoritesStationSettingsHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$favoritesStationSettingsHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
@@ -68,10 +65,9 @@ final favoritesSkiResortSettingsProvider =
     NotifierProvider<FavoritesSkiResortSettings, List<int>>.internal(
       FavoritesSkiResortSettings.new,
       name: r'favoritesSkiResortSettingsProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$favoritesSkiResortSettingsHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$favoritesSkiResortSettingsHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
@@ -86,10 +82,9 @@ final favoritesBERASettingsProvider =
     NotifierProvider<FavoritesBERASettings, List<String>>.internal(
       FavoritesBERASettings.new,
       name: r'favoritesBERASettingsProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$favoritesBERASettingsHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$favoritesBERASettingsHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
@@ -104,10 +99,9 @@ final showNoDataStationSettingsProvider =
     NotifierProvider<ShowNoDataStationSettings, bool>.internal(
       ShowNoDataStationSettings.new,
       name: r'showNoDataStationSettingsProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$showNoDataStationSettingsHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$showNoDataStationSettingsHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
@@ -122,10 +116,9 @@ final showClusterLayerSettingsProvider =
     NotifierProvider<ShowClusterLayerSettings, bool>.internal(
       ShowClusterLayerSettings.new,
       name: r'showClusterLayerSettingsProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$showClusterLayerSettingsHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$showClusterLayerSettingsHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );

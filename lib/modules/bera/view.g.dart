@@ -14,10 +14,9 @@ final _massifFilterProvider =
     AutoDisposeNotifierProvider<_MassifFilter, List<Mountain>>.internal(
       _MassifFilter.new,
       name: r'_massifFilterProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$massifFilterHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$massifFilterHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );

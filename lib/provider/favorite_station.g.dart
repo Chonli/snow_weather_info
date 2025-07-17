@@ -14,10 +14,9 @@ final favoriteStationProvider =
     AsyncNotifierProvider<FavoriteStation, List<AbstractStation>>.internal(
       FavoriteStation.new,
       name: r'favoriteStationProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$favoriteStationHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$favoriteStationHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );

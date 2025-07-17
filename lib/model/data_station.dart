@@ -24,19 +24,19 @@ class DataStation with DataStationMappable {
   });
 
   factory DataStation.fromList(List<dynamic> data) => DataStation(
-        id: int.parse(data[0] as String),
-        date: DateTime.parse(
-          '${data[1].substring(0, 8)}T${data[1].substring(8)}',
-        ),
-        temperature: (data[5] as String?).parseDouble(addValue: kelvin),
-        temperatureMin24: (data[19] as String?).parseDouble(addValue: kelvin),
-        temperatureMax24: (data[21] as String?).parseDouble(addValue: kelvin),
-        temperatureSnow: (data[28] as String?).parseDouble(addValue: kelvin),
-        speedWind: (data[4] as String?).parseDouble(),
-        directionWind: (data[3] as String?).parseDouble(),
-        snowHeight: (data[22] as String?).parseDouble(),
-        snowNewHeight: (data[23] as String?).parseDouble(),
-      );
+    id: int.parse(data[0] as String),
+    date: DateTime.parse(
+      '${data[1].substring(0, 8)}T${data[1].substring(8)}',
+    ),
+    temperature: (data[5] as String?).parseDouble(addValue: kelvin),
+    temperatureMin24: (data[19] as String?).parseDouble(addValue: kelvin),
+    temperatureMax24: (data[21] as String?).parseDouble(addValue: kelvin),
+    temperatureSnow: (data[28] as String?).parseDouble(addValue: kelvin),
+    speedWind: (data[4] as String?).parseDouble(),
+    directionWind: (data[3] as String?).parseDouble(),
+    snowHeight: (data[22] as String?).parseDouble(),
+    snowNewHeight: (data[23] as String?).parseDouble(),
+  );
 
   final DateTime date;
   final int id;
