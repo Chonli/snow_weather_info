@@ -32,6 +32,7 @@ class _CurrentIndex extends _$CurrentIndex {
     return 0;
   }
 
+  // ignore: use_setters_to_change_properties
   void setIndex(int index) {
     state = index;
   }
@@ -91,22 +92,28 @@ class _InnerView extends ConsumerWidget {
     final station = ref.read(currentStationProvider);
 
     if (displayData != null) {
-      String ret =
-          "Station ${station.name} (${station.altitude}m) au ${DateFormat('dd-MM-yyyy à kk:mm').format(displayData.date)}\n";
+      final ret = StringBuffer()
+        ..writeln(
+          "Station ${station.name} (${station.altitude}m) au ${DateFormat('dd-MM-yyyy à kk:mm').format(displayData.date)}",
+        );
 
       if (displayData.temperature != null) {
-        ret += 'Température: ${displayData.temperature!.toStringTemperature}\n';
+        ret.writeln(
+          'Température: ${displayData.temperature!.toStringTemperature}',
+        );
       }
       if (displayData.snowHeight != null) {
-        ret +=
-            'Hauteur de neige: ${displayData.snowHeight!.toStringSnowHeigth}\n';
+        ret.writeln(
+          'Hauteur de neige: ${displayData.snowHeight!.toStringSnowHeigth}',
+        );
       }
       if (displayData.snowNewHeight != null) {
-        ret +=
-            'Hauteur de neige fraiches: ${displayData.snowNewHeight!.toStringSnowHeigth}\n';
+        ret.writeln(
+          'Hauteur de neige fraiches: ${displayData.snowNewHeight!.toStringSnowHeigth}',
+        );
       }
 
-      return ret;
+      return ret.toString();
     } else {
       return '';
     }
@@ -146,8 +153,10 @@ class _InnerView extends ConsumerWidget {
             if (displayData != null)
               IconButton(
                 icon: const Icon(Icons.share),
-                onPressed: () => Share.share(
-                  _formatDataToString(ref),
+                onPressed: () => SharePlus.instance.share(
+                  ShareParams(
+                    text: _formatDataToString(ref),
+                  ),
                 ),
               ),
           ],

@@ -35,9 +35,13 @@ class _BeraTokenHeader extends _$BeraTokenHeader {
         ),
         shouldInterceptRequest: (controller, request) async {
           if (state.isEmpty &&
-              request.url.rawValue
-                  .contains('https://rpcache-aa.meteofrance.com') &&
-              request.method == 'GET' &&
+              (request.url.rawValue.contains(
+                    'https://rpcache-aa.meteofrance.com',
+                  ) ||
+                  // TODO: voir si l'ancienne url (rpcache) est toujours valide
+                  request.url.rawValue.contains(
+                    'https://rwg.meteofrance.com',
+                  )) &&
               request.headers != null) {
             state = request.headers!;
           }
@@ -100,8 +104,9 @@ class BERADetailPage extends ConsumerWidget {
     final pdfController = ref.watch(
       _pdfControllerProvider(avalancheBulletin.beraNumber),
     );
-    final isFavorite =
-        ref.watch(favoriteBeraProvider).contains(avalancheBulletin);
+    final isFavorite = ref
+        .watch(favoriteBeraProvider)
+        .contains(avalancheBulletin);
 
     return Scaffold(
       appBar: AppBar(
@@ -111,23 +116,24 @@ class BERADetailPage extends ConsumerWidget {
             icon: Icon(
               isFavorite ? Icons.favorite : Icons.favorite_border,
             ),
-            onPressed: () =>
-                ref.read(favoriteBeraProvider.notifier).addOrRemoveFavoriteBERA(
-                      avalancheBulletin,
-                    ),
+            onPressed: () => ref
+                .read(favoriteBeraProvider.notifier)
+                .addOrRemoveFavoriteBERA(
+                  avalancheBulletin,
+                ),
           ),
         ],
       ),
       body: switch (pdfController) {
         AsyncData(:final PdfController value) => _PdfView(
-            value,
-          ),
+          value,
+        ),
         AsyncError() => const Center(
-            child: Text('Erreur: pas de BERA trouvé'),
-          ),
+          child: Text('Erreur: pas de BERA trouvé'),
+        ),
         _ => const Center(
-            child: CircularProgressIndicator(),
-          ),
+          child: CircularProgressIndicator(),
+        ),
       },
     );
   }

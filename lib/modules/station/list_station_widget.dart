@@ -33,25 +33,28 @@ class _FilteredStations extends _$FilteredStations {
     final showNoDataStation = ref.watch(showNoDataStationSettingsProvider);
     final allStations = ref.watch(allStationsProvider).valueOrNull ?? [];
 
-    final stations = allStations
-        .where(
-          (station) =>
-              showNoDataStation ||
-              station is Nivose ||
-              (station is Station &&
-                  ref.watch(stationDataProvider.notifier).hasData(station.id)),
-        )
-        .where(
-          (station) =>
-              search.isEmpty ||
-              station.name.toLowerCase().contains(
+    final stations =
+        allStations
+            .where(
+              (station) =>
+                  showNoDataStation ||
+                  station is Nivose ||
+                  (station is Station &&
+                      ref
+                          .watch(stationDataProvider.notifier)
+                          .hasData(station.id)),
+            )
+            .where(
+              (station) =>
+                  search.isEmpty ||
+                  station.name.toLowerCase().contains(
                     search.toLowerCase(),
                   ),
-        )
-        .toList()
-      ..sort(
-        (a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()),
-      );
+            )
+            .toList()
+          ..sort(
+            (a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()),
+          );
 
     final tmpGroupList = <String, List<AbstractStation>>{};
     for (final s in stations) {
@@ -133,7 +136,7 @@ class _FavoriteStationsWidget extends ConsumerWidget {
           ),
         );
       },
-      error: (_, __) => const SliverToBoxAdapter(),
+      error: (_, _) => const SliverToBoxAdapter(),
       loading: () => const SliverToBoxAdapter(),
     );
   }

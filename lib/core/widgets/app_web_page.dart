@@ -47,7 +47,9 @@ class AppWebPage extends StatelessWidget {
           if (canShare)
             IconButton(
               icon: const Icon(Icons.share),
-              onPressed: () => Share.share(url),
+              onPressed: () => SharePlus.instance.share(
+                ShareParams(text: url),
+              ),
             ),
           if (safeOnFavorite != null)
             IconButton(

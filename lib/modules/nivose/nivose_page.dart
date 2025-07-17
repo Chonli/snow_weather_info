@@ -36,7 +36,9 @@ class _NivosePageState extends ConsumerState<NivosePage> {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
-        ref.read(currentMapLocProvider.notifier).setLocation(
+        ref
+            .read(currentMapLocProvider.notifier)
+            .setLocation(
               widget.nivose.position,
             );
       }
@@ -63,8 +65,11 @@ class _NivosePageState extends ConsumerState<NivosePage> {
           ),
           IconButton(
             icon: const Icon(Icons.share),
-            onPressed: () => Share.share(
-              'Nivose ${widget.nivose.name}\ndonnée semaine: ${widget.nivose.urlWeek}\ndonnée saison: ${widget.nivose.urlSeason}\n',
+            onPressed: () => SharePlus.instance.share(
+              ShareParams(
+                text:
+                    'Nivose ${widget.nivose.name}\ndonnée semaine: ${widget.nivose.urlWeek}\ndonnée saison: ${widget.nivose.urlSeason}\n',
+              ),
             ),
           ),
         ],
@@ -102,19 +107,20 @@ class _NetworkImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Image.network(
       url,
-      loadingBuilder: (
-        BuildContext context,
-        Widget child,
-        ImageChunkEvent? loadingProgress,
-      ) {
-        if (loadingProgress == null) {
-          return child;
-        }
+      loadingBuilder:
+          (
+            BuildContext context,
+            Widget child,
+            ImageChunkEvent? loadingProgress,
+          ) {
+            if (loadingProgress == null) {
+              return child;
+            }
 
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          },
     );
   }
 }

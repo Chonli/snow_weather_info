@@ -6,6 +6,12 @@ analyzer:
   errors:
     invalid_annotation_target: ignore
     document_ignores: ignore
+    specify_nonobvious_property_types: ignore
+    public_member_api_docs: ignore
+    omit_local_variable_types: ignore
+    lines_longer_than_80_chars: ignore
+    use_setters_to_change_properties: ignore
+    flutter_style_todos: ignore
   exclude:
     - '**/lib/**/*.freezed.dart'
     - '**/lib/**/*.g.dart'
@@ -17,7 +23,19 @@ analyzer:
 
 linter:
   rules:
-    public_member_api_docs: false
-    omit_local_variable_types: false
-    lines_longer_than_80_chars: false
-    use_setters_to_change_properties: false
+    cancel_subscriptions
+    close_sinks
+    avoid_bool_literals_in_conditional_expressions
+    prefer_const_constructors
+    prefer_const_declarations
+    prefer_const_literals_to_create_immutables
+    prefer_final_in_for_each
+    prefer_final_locals
+    prefer_null_aware_method_calls
+    sized_box_shrink_expand
+    throw_in_finally
+    unnecessary_lambdas
+    use_decorated_box
+    use_colored_box
+    use_null_aware_elements
+    use_string_buffers
