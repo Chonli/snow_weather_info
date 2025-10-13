@@ -6,21 +6,55 @@ part of 'favorite_station.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(FavoriteStation)
+const favoriteStationProvider = FavoriteStationProvider._();
+
+final class FavoriteStationProvider
+    extends $AsyncNotifierProvider<FavoriteStation, List<AbstractStation>> {
+  const FavoriteStationProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'favoriteStationProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$favoriteStationHash();
+
+  @$internal
+  @override
+  FavoriteStation create() => FavoriteStation();
+}
+
 String _$favoriteStationHash() => r'5e0800ede47b280c5084451f00b1c39d1454e4b5';
 
-/// See also [FavoriteStation].
-@ProviderFor(FavoriteStation)
-final favoriteStationProvider =
-    AsyncNotifierProvider<FavoriteStation, List<AbstractStation>>.internal(
-      FavoriteStation.new,
-      name: r'favoriteStationProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$favoriteStationHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
-
-typedef _$FavoriteStation = AsyncNotifier<List<AbstractStation>>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+abstract class _$FavoriteStation extends $AsyncNotifier<List<AbstractStation>> {
+  FutureOr<List<AbstractStation>> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref =
+        this.ref
+            as $Ref<AsyncValue<List<AbstractStation>>, List<AbstractStation>>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<
+                AsyncValue<List<AbstractStation>>,
+                List<AbstractStation>
+              >,
+              AsyncValue<List<AbstractStation>>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

@@ -6,22 +6,52 @@ part of 'station_local_data.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$stationLocalDataHash() => r'7448a16b454f75679983de968add781eca7bdd42';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [stationLocalData].
 @ProviderFor(stationLocalData)
-final stationLocalDataProvider = Provider<StationLocalDataContainer>.internal(
-  stationLocalData,
-  name: r'stationLocalDataProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$stationLocalDataHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const stationLocalDataProvider = StationLocalDataProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef StationLocalDataRef = ProviderRef<StationLocalDataContainer>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class StationLocalDataProvider
+    extends
+        $FunctionalProvider<
+          StationLocalDataContainer,
+          StationLocalDataContainer,
+          StationLocalDataContainer
+        >
+    with $Provider<StationLocalDataContainer> {
+  const StationLocalDataProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'stationLocalDataProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$stationLocalDataHash();
+
+  @$internal
+  @override
+  $ProviderElement<StationLocalDataContainer> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  StationLocalDataContainer create(Ref ref) {
+    return stationLocalData(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(StationLocalDataContainer value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<StationLocalDataContainer>(value),
+    );
+  }
+}
+
+String _$stationLocalDataHash() => r'7448a16b454f75679983de968add781eca7bdd42';

@@ -6,24 +6,53 @@ part of 'ski_resort_local_data.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(skiResortLocalData)
+const skiResortLocalDataProvider = SkiResortLocalDataProvider._();
+
+final class SkiResortLocalDataProvider
+    extends
+        $FunctionalProvider<
+          SkiResortLocalDataContainer,
+          SkiResortLocalDataContainer,
+          SkiResortLocalDataContainer
+        >
+    with $Provider<SkiResortLocalDataContainer> {
+  const SkiResortLocalDataProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'skiResortLocalDataProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$skiResortLocalDataHash();
+
+  @$internal
+  @override
+  $ProviderElement<SkiResortLocalDataContainer> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  SkiResortLocalDataContainer create(Ref ref) {
+    return skiResortLocalData(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SkiResortLocalDataContainer value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SkiResortLocalDataContainer>(value),
+    );
+  }
+}
+
 String _$skiResortLocalDataHash() =>
     r'7c2b11d815cd2c828b67e15814d08ef888e7f6be';
-
-/// See also [skiResortLocalData].
-@ProviderFor(skiResortLocalData)
-final skiResortLocalDataProvider =
-    Provider<SkiResortLocalDataContainer>.internal(
-      skiResortLocalData,
-      name: r'skiResortLocalDataProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$skiResortLocalDataHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef SkiResortLocalDataRef = ProviderRef<SkiResortLocalDataContainer>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -6,21 +6,59 @@ part of 'station_data.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$stationDataHash() => r'fd3be9e3d19f28d57303c608d4944be9a00da4a9';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [StationData].
 @ProviderFor(StationData)
-final stationDataProvider =
-    AsyncNotifierProvider<StationData, Map<int, List<DataStation>>>.internal(
-      StationData.new,
-      name: r'stationDataProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$stationDataHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+const stationDataProvider = StationDataProvider._();
 
-typedef _$StationData = AsyncNotifier<Map<int, List<DataStation>>>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class StationDataProvider
+    extends $AsyncNotifierProvider<StationData, Map<int, List<DataStation>>> {
+  const StationDataProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'stationDataProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$stationDataHash();
+
+  @$internal
+  @override
+  StationData create() => StationData();
+}
+
+String _$stationDataHash() => r'3a4ff4444c4fad23dd6d8c6a90dff081dbae7cf8';
+
+abstract class _$StationData
+    extends $AsyncNotifier<Map<int, List<DataStation>>> {
+  FutureOr<Map<int, List<DataStation>>> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref =
+        this.ref
+            as $Ref<
+              AsyncValue<Map<int, List<DataStation>>>,
+              Map<int, List<DataStation>>
+            >;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<
+                AsyncValue<Map<int, List<DataStation>>>,
+                Map<int, List<DataStation>>
+              >,
+              AsyncValue<Map<int, List<DataStation>>>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

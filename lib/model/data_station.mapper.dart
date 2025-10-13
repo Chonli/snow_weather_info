@@ -1,5 +1,6 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format off
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
@@ -133,7 +134,11 @@ mixin DataStationMappable {
   }
 
   DataStationCopyWith<DataStation, DataStation, DataStation> get copyWith =>
-      _DataStationCopyWithImpl(this as DataStation, $identity, $identity);
+      _DataStationCopyWithImpl<DataStation, DataStation>(
+        this as DataStation,
+        $identity,
+        $identity,
+      );
   @override
   String toString() {
     return DataStationMapper.ensureInitialized().stringifyValue(
@@ -158,7 +163,7 @@ mixin DataStationMappable {
 extension DataStationValueCopy<$R, $Out>
     on ObjectCopyWith<$R, DataStation, $Out> {
   DataStationCopyWith<$R, DataStation, $Out> get $asDataStation =>
-      $base.as((v, t, t2) => _DataStationCopyWithImpl(v, t, t2));
+      $base.as((v, t, t2) => _DataStationCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class DataStationCopyWith<$R, $In extends DataStation, $Out>
@@ -229,5 +234,6 @@ class _DataStationCopyWithImpl<$R, $Out>
   @override
   DataStationCopyWith<$R2, DataStation, $Out2> $chain<$R2, $Out2>(
     Then<$Out2, $R2> t,
-  ) => _DataStationCopyWithImpl($value, $cast, t);
+  ) => _DataStationCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
+

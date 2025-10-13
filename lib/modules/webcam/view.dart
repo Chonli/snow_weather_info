@@ -109,7 +109,7 @@ class _ListFavoriteView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final favorites = ref.watch(favoriteSkiResortProvider).valueOrNull ?? [];
+    final favorites = ref.watch(favoriteSkiResortProvider).value ?? [];
 
     if (favorites.isEmpty) {
       return const SliverToBoxAdapter(child: SizedBox.shrink());

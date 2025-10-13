@@ -6,23 +6,53 @@ part of 'station_data.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(stationDataRepository)
+const stationDataRepositoryProvider = StationDataRepositoryProvider._();
+
+final class StationDataRepositoryProvider
+    extends
+        $FunctionalProvider<
+          StationDataRepository,
+          StationDataRepository,
+          StationDataRepository
+        >
+    with $Provider<StationDataRepository> {
+  const StationDataRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'stationDataRepositoryProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$stationDataRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<StationDataRepository> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  StationDataRepository create(Ref ref) {
+    return stationDataRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(StationDataRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<StationDataRepository>(value),
+    );
+  }
+}
+
 String _$stationDataRepositoryHash() =>
     r'9dc8fc3835023534d3a5c88351ff5fa4ec41f832';
-
-/// See also [stationDataRepository].
-@ProviderFor(stationDataRepository)
-final stationDataRepositoryProvider = Provider<StationDataRepository>.internal(
-  stationDataRepository,
-  name: r'stationDataRepositoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$stationDataRepositoryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef StationDataRepositoryRef = ProviderRef<StationDataRepository>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

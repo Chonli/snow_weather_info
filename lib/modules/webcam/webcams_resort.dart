@@ -14,7 +14,7 @@ class WebcamsForResortView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isFavorite = ref.watch(
       favoriteSkiResortProvider.select(
-        (fav) => fav.valueOrNull?.contains(resort) ?? false,
+        (fav) => fav.value?.contains(resort) ?? false,
       ),
     );
 

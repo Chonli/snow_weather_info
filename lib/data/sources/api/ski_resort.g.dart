@@ -6,22 +6,46 @@ part of 'ski_resort.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$skiResortApiHash() => r'3ff824650d0cbc71240c9e273c96c9d5d4499577';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [skiResortApi].
 @ProviderFor(skiResortApi)
-final skiResortApiProvider = Provider<SkiResortApi>.internal(
-  skiResortApi,
-  name: r'skiResortApiProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$skiResortApiHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const skiResortApiProvider = SkiResortApiProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef SkiResortApiRef = ProviderRef<SkiResortApi>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class SkiResortApiProvider
+    extends $FunctionalProvider<SkiResortApi, SkiResortApi, SkiResortApi>
+    with $Provider<SkiResortApi> {
+  const SkiResortApiProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'skiResortApiProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$skiResortApiHash();
+
+  @$internal
+  @override
+  $ProviderElement<SkiResortApi> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  SkiResortApi create(Ref ref) {
+    return skiResortApi(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SkiResortApi value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SkiResortApi>(value),
+    );
+  }
+}
+
+String _$skiResortApiHash() => r'3ff824650d0cbc71240c9e273c96c9d5d4499577';

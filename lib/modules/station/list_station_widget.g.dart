@@ -6,40 +6,125 @@ part of 'list_station_widget.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$searchHash() => r'61226d45460befcf6e68d1c49a0bef7181a7ab19';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [_Search].
 @ProviderFor(_Search)
-final _searchProvider = AutoDisposeNotifierProvider<_Search, String>.internal(
-  _Search.new,
-  name: r'_searchProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$searchHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const _searchProvider = _SearchProvider._();
 
-typedef _$Search = AutoDisposeNotifier<String>;
-String _$filteredStationsHash() => r'9af43ceee2e1aa63e6ff8f8a85c76b06f450b13b';
+final class _SearchProvider extends $NotifierProvider<_Search, String> {
+  const _SearchProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'_searchProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
-/// See also [_FilteredStations].
-@ProviderFor(_FilteredStations)
-final _filteredStationsProvider =
-    AutoDisposeNotifierProvider<
-      _FilteredStations,
-      Map<String, List<AbstractStation>>
-    >.internal(
-      _FilteredStations.new,
-      name: r'_filteredStationsProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$filteredStationsHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
+  @override
+  String debugGetCreateSourceHash() => _$_searchHash();
+
+  @$internal
+  @override
+  _Search create() => _Search();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(String value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<String>(value),
     );
+  }
+}
 
-typedef _$FilteredStations =
-    AutoDisposeNotifier<Map<String, List<AbstractStation>>>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+String _$_searchHash() => r'61226d45460befcf6e68d1c49a0bef7181a7ab19';
+
+abstract class _$Search extends $Notifier<String> {
+  String build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<String, String>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<String, String>,
+              String,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}
+
+@ProviderFor(_FilteredStations)
+const _filteredStationsProvider = _FilteredStationsProvider._();
+
+final class _FilteredStationsProvider
+    extends
+        $NotifierProvider<
+          _FilteredStations,
+          Map<String, List<AbstractStation>>
+        > {
+  const _FilteredStationsProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'_filteredStationsProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$_filteredStationsHash();
+
+  @$internal
+  @override
+  _FilteredStations create() => _FilteredStations();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Map<String, List<AbstractStation>> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<Map<String, List<AbstractStation>>>(
+        value,
+      ),
+    );
+  }
+}
+
+String _$_filteredStationsHash() => r'9af43ceee2e1aa63e6ff8f8a85c76b06f450b13b';
+
+abstract class _$FilteredStations
+    extends $Notifier<Map<String, List<AbstractStation>>> {
+  Map<String, List<AbstractStation>> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref =
+        this.ref
+            as $Ref<
+              Map<String, List<AbstractStation>>,
+              Map<String, List<AbstractStation>>
+            >;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<
+                Map<String, List<AbstractStation>>,
+                Map<String, List<AbstractStation>>
+              >,
+              Map<String, List<AbstractStation>>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

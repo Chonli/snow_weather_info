@@ -1,5 +1,6 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format off
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
@@ -25,21 +26,21 @@ class MountainMapper extends EnumMapper<Mountain> {
   @override
   Mountain decode(dynamic value) {
     switch (value) {
-      case 'all':
+      case r'all':
         return Mountain.all;
-      case 'alpesNord':
+      case r'alpesNord':
         return Mountain.alpesNord;
-      case 'alpesSud':
+      case r'alpesSud':
         return Mountain.alpesSud;
-      case 'corse':
+      case r'corse':
         return Mountain.corse;
-      case 'jura':
+      case r'jura':
         return Mountain.jura;
-      case 'massifCentral':
+      case r'massifCentral':
         return Mountain.massifCentral;
-      case 'pyrenees':
+      case r'pyrenees':
         return Mountain.pyrenees;
-      case 'vosges':
+      case r'vosges':
         return Mountain.vosges;
       default:
         throw MapperException.unknownEnumValue(value);
@@ -50,21 +51,21 @@ class MountainMapper extends EnumMapper<Mountain> {
   dynamic encode(Mountain self) {
     switch (self) {
       case Mountain.all:
-        return 'all';
+        return r'all';
       case Mountain.alpesNord:
-        return 'alpesNord';
+        return r'alpesNord';
       case Mountain.alpesSud:
-        return 'alpesSud';
+        return r'alpesSud';
       case Mountain.corse:
-        return 'corse';
+        return r'corse';
       case Mountain.jura:
-        return 'jura';
+        return r'jura';
       case Mountain.massifCentral:
-        return 'massifCentral';
+        return r'massifCentral';
       case Mountain.pyrenees:
-        return 'pyrenees';
+        return r'pyrenees';
       case Mountain.vosges:
-        return 'vosges';
+        return r'vosges';
     }
   }
 }
@@ -75,3 +76,4 @@ extension MountainMapperExtension on Mountain {
     return MapperContainer.globals.toValue<Mountain>(this) as String;
   }
 }
+

@@ -22,6 +22,6 @@ void main() {
     final stations = await apiStation.getStations();
 
     // Vérifier le résultat
-    expect(stations.length, 200);
+    expect(stations.length, 126); // 130 - 4 sans ID
   });
 }

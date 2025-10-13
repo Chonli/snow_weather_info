@@ -6,24 +6,50 @@ part of 'favorite_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(FavoriteSkiResort)
+const favoriteSkiResortProvider = FavoriteSkiResortProvider._();
+
+final class FavoriteSkiResortProvider
+    extends $AsyncNotifierProvider<FavoriteSkiResort, List<SkiResort>> {
+  const FavoriteSkiResortProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'favoriteSkiResortProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$favoriteSkiResortHash();
+
+  @$internal
+  @override
+  FavoriteSkiResort create() => FavoriteSkiResort();
+}
+
 String _$favoriteSkiResortHash() => r'bb57921b951ea1312a39ecdb2d169bf1af74307f';
 
-/// See also [FavoriteSkiResort].
-@ProviderFor(FavoriteSkiResort)
-final favoriteSkiResortProvider =
-    AutoDisposeAsyncNotifierProvider<
-      FavoriteSkiResort,
-      List<SkiResort>
-    >.internal(
-      FavoriteSkiResort.new,
-      name: r'favoriteSkiResortProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$favoriteSkiResortHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
-
-typedef _$FavoriteSkiResort = AutoDisposeAsyncNotifier<List<SkiResort>>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+abstract class _$FavoriteSkiResort extends $AsyncNotifier<List<SkiResort>> {
+  FutureOr<List<SkiResort>> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<AsyncValue<List<SkiResort>>, List<SkiResort>>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<List<SkiResort>>, List<SkiResort>>,
+              AsyncValue<List<SkiResort>>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

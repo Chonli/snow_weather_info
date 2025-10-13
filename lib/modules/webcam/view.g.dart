@@ -6,36 +6,110 @@ part of 'view.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$massifFilterHash() => r'38333b2b6862a8591522d56b823077d8093a8e36';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [_MassifFilter].
 @ProviderFor(_MassifFilter)
-final _massifFilterProvider =
-    AutoDisposeNotifierProvider<_MassifFilter, List<Mountain>>.internal(
-      _MassifFilter.new,
-      name: r'_massifFilterProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$massifFilterHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
+const _massifFilterProvider = _MassifFilterProvider._();
+
+final class _MassifFilterProvider
+    extends $NotifierProvider<_MassifFilter, List<Mountain>> {
+  const _MassifFilterProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'_massifFilterProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$_massifFilterHash();
+
+  @$internal
+  @override
+  _MassifFilter create() => _MassifFilter();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(List<Mountain> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<Mountain>>(value),
     );
+  }
+}
 
-typedef _$MassifFilter = AutoDisposeNotifier<List<Mountain>>;
-String _$searchHash() => r'1a7e9beb07c2afdb77254aa6455e44d5beb2a328';
+String _$_massifFilterHash() => r'38333b2b6862a8591522d56b823077d8093a8e36';
 
-/// See also [_Search].
+abstract class _$MassifFilter extends $Notifier<List<Mountain>> {
+  List<Mountain> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<List<Mountain>, List<Mountain>>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<List<Mountain>, List<Mountain>>,
+              List<Mountain>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}
+
 @ProviderFor(_Search)
-final _searchProvider = AutoDisposeNotifierProvider<_Search, String>.internal(
-  _Search.new,
-  name: r'_searchProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$searchHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const _searchProvider = _SearchProvider._();
 
-typedef _$Search = AutoDisposeNotifier<String>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class _SearchProvider extends $NotifierProvider<_Search, String> {
+  const _SearchProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'_searchProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$_searchHash();
+
+  @$internal
+  @override
+  _Search create() => _Search();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(String value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<String>(value),
+    );
+  }
+}
+
+String _$_searchHash() => r'1a7e9beb07c2afdb77254aa6455e44d5beb2a328';
+
+abstract class _$Search extends $Notifier<String> {
+  String build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<String, String>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<String, String>,
+              String,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

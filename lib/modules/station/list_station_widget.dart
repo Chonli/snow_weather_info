@@ -31,7 +31,7 @@ class _FilteredStations extends _$FilteredStations {
   Map<String, List<AbstractStation>> build() {
     final search = ref.watch(_searchProvider);
     final showNoDataStation = ref.watch(showNoDataStationSettingsProvider);
-    final allStations = ref.watch(allStationsProvider).valueOrNull ?? [];
+    final allStations = ref.watch(allStationsProvider).value ?? [];
 
     final stations =
         allStations

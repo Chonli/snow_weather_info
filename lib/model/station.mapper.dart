@@ -1,5 +1,6 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format off
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
@@ -146,7 +147,11 @@ mixin StationMappable {
   }
 
   StationCopyWith<Station, Station, Station> get copyWith =>
-      _StationCopyWithImpl(this as Station, $identity, $identity);
+      _StationCopyWithImpl<Station, Station>(
+        this as Station,
+        $identity,
+        $identity,
+      );
   @override
   String toString() {
     return StationMapper.ensureInitialized().stringifyValue(this as Station);
@@ -168,7 +173,7 @@ mixin StationMappable {
 
 extension StationValueCopy<$R, $Out> on ObjectCopyWith<$R, Station, $Out> {
   StationCopyWith<$R, Station, $Out> get $asStation =>
-      $base.as((v, t, t2) => _StationCopyWithImpl(v, t, t2));
+      $base.as((v, t, t2) => _StationCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class StationCopyWith<$R, $In extends Station, $Out>
@@ -211,7 +216,7 @@ class _StationCopyWithImpl<$R, $Out>
 
   @override
   StationCopyWith<$R2, Station, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-      _StationCopyWithImpl($value, $cast, t);
+      _StationCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class NivoseMapper extends ClassMapperBase<Nivose> {
@@ -241,6 +246,18 @@ class NivoseMapper extends ClassMapperBase<Nivose> {
   static const Field<Nivose, int> _f$altitude = Field('altitude', _$altitude);
   static String _$codeMF(Nivose v) => v.codeMF;
   static const Field<Nivose, String> _f$codeMF = Field('codeMF', _$codeMF);
+  static String _$urlWeek(Nivose v) => v.urlWeek;
+  static const Field<Nivose, String> _f$urlWeek = Field(
+    'urlWeek',
+    _$urlWeek,
+    mode: FieldMode.member,
+  );
+  static String _$urlSeason(Nivose v) => v.urlSeason;
+  static const Field<Nivose, String> _f$urlSeason = Field(
+    'urlSeason',
+    _$urlSeason,
+    mode: FieldMode.member,
+  );
 
   @override
   final MappableFields<Nivose> fields = const {
@@ -248,6 +265,8 @@ class NivoseMapper extends ClassMapperBase<Nivose> {
     #position: _f$position,
     #altitude: _f$altitude,
     #codeMF: _f$codeMF,
+    #urlWeek: _f$urlWeek,
+    #urlSeason: _f$urlSeason,
   };
 
   static Nivose _instantiate(DecodingData data) {
@@ -281,7 +300,7 @@ mixin NivoseMappable {
   }
 
   NivoseCopyWith<Nivose, Nivose, Nivose> get copyWith =>
-      _NivoseCopyWithImpl(this as Nivose, $identity, $identity);
+      _NivoseCopyWithImpl<Nivose, Nivose>(this as Nivose, $identity, $identity);
   @override
   String toString() {
     return NivoseMapper.ensureInitialized().stringifyValue(this as Nivose);
@@ -300,7 +319,7 @@ mixin NivoseMappable {
 
 extension NivoseValueCopy<$R, $Out> on ObjectCopyWith<$R, Nivose, $Out> {
   NivoseCopyWith<$R, Nivose, $Out> get $asNivose =>
-      $base.as((v, t, t2) => _NivoseCopyWithImpl(v, t, t2));
+      $base.as((v, t, t2) => _NivoseCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
 abstract class NivoseCopyWith<$R, $In extends Nivose, $Out>
@@ -345,5 +364,6 @@ class _NivoseCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Nivose, $Out>
 
   @override
   NivoseCopyWith<$R2, Nivose, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-      _NivoseCopyWithImpl($value, $cast, t);
+      _NivoseCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
+

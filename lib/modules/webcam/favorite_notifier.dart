@@ -22,7 +22,7 @@ class FavoriteSkiResort extends _$FavoriteSkiResort {
   }
 
   void addOrRemoveFavorite(SkiResort bera) {
-    final currentData = state.valueOrNull ?? [];
+    final currentData = state.value ?? [];
     final tmpDatas = [...currentData];
 
     if (tmpDatas.contains(bera)) {

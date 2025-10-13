@@ -6,21 +6,58 @@ part of 'map_widget.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(CurrentMapLoc)
+const currentMapLocProvider = CurrentMapLocProvider._();
+
+final class CurrentMapLocProvider
+    extends $NotifierProvider<CurrentMapLoc, Coordinate> {
+  const CurrentMapLocProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'currentMapLocProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$currentMapLocHash();
+
+  @$internal
+  @override
+  CurrentMapLoc create() => CurrentMapLoc();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Coordinate value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<Coordinate>(value),
+    );
+  }
+}
+
 String _$currentMapLocHash() => r'd1554a09c91bf0d51437d829b641c3dff5398579';
 
-/// See also [CurrentMapLoc].
-@ProviderFor(CurrentMapLoc)
-final currentMapLocProvider =
-    AutoDisposeNotifierProvider<CurrentMapLoc, Coordinate>.internal(
-      CurrentMapLoc.new,
-      name: r'currentMapLocProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$currentMapLocHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
-
-typedef _$CurrentMapLoc = AutoDisposeNotifier<Coordinate>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+abstract class _$CurrentMapLoc extends $Notifier<Coordinate> {
+  Coordinate build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<Coordinate, Coordinate>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<Coordinate, Coordinate>,
+              Coordinate,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}
