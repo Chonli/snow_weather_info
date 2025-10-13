@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/data/sources/api/api_client.dart';

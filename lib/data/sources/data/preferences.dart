@@ -1,6 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -37,14 +38,10 @@ class ThemeModeSettings extends _$ThemeModeSettings {
     return ThemeMode.system;
   }
 
-  set _themeMode(ThemeMode themeMode) {
-    _preference.setInt(_themeModePrefs, themeMode.index);
-  }
-
   void updateThemeMode(ThemeMode mode) {
     if (state != mode) {
       state = mode;
-      _themeMode = mode;
+      unawaited(_preference.setInt(_themeModePrefs, mode.index));
     }
   }
 }
@@ -64,7 +61,7 @@ class FavoritesStationSettings extends _$FavoritesStationSettings {
   void update(List<String> favorites) {
     if (!listEquals(state, favorites)) {
       state = favorites;
-      _preference.setStringList(_favoritesStationPrefs, favorites);
+      unawaited(_preference.setStringList(_favoritesStationPrefs, favorites));
     }
   }
 }
@@ -88,9 +85,11 @@ class FavoritesSkiResortSettings extends _$FavoritesSkiResortSettings {
   void update(List<int> favorites) {
     if (!listEquals(state, favorites)) {
       state = favorites;
-      _preference.setStringList(
-        _favoritesSkiResortPrefs,
-        favorites.map((e) => e.toString()).toList(),
+      unawaited(
+        _preference.setStringList(
+          _favoritesSkiResortPrefs,
+          favorites.map((e) => e.toString()).toList(),
+        ),
       );
     }
   }
@@ -111,7 +110,7 @@ class FavoritesBERASettings extends _$FavoritesBERASettings {
   void update(List<String> favorites) {
     if (!listEquals(state, favorites)) {
       state = favorites;
-      _preference.setStringList(_favoritesBERAPrefs, favorites);
+      unawaited(_preference.setStringList(_favoritesBERAPrefs, favorites));
     }
   }
 }
@@ -130,7 +129,7 @@ class ShowNoDataStationSettings extends _$ShowNoDataStationSettings {
 
   void update() {
     state = !state;
-    _preference.setBool(_showNoDataStationPrefs, state);
+    unawaited(_preference.setBool(_showNoDataStationPrefs, state));
   }
 }
 
@@ -148,6 +147,6 @@ class ShowClusterLayerSettings extends _$ShowClusterLayerSettings {
 
   void update() {
     state = !state;
-    _preference.setBool(_showClusterLayerPrefs, state);
+    unawaited(_preference.setBool(_showClusterLayerPrefs, state));
   }
 }

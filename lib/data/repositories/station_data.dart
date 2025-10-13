@@ -2,7 +2,6 @@ import 'dart:developer' show log;
 import 'dart:math' show min;
 
 import 'package:flutter/foundation.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/data/sources/api/station_data_api.dart';
 import 'package:snow_weather_info/data/sources/data/station_data_local_data.dart';

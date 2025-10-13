@@ -1,4 +1,3 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/core/local_database.dart';
 import 'package:snow_weather_info/model/ski_resort.dart';

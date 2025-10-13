@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:developer' show log;
 
 import 'package:dart_rss/dart_rss.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/data/sources/api/api_client.dart';
 

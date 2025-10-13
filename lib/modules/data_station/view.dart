@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:snow_weather_info/data/sources/data/preferences.dart';
@@ -84,6 +85,7 @@ class DataStationView extends ConsumerWidget {
   }
 }
 
+@Dependencies([currentDataStation, _CurrentIndexData])
 class _InnerView extends ConsumerWidget {
   const _InnerView();
 
@@ -171,6 +173,7 @@ class _InnerView extends ConsumerWidget {
   }
 }
 
+@Dependencies([currentDataStation])
 class _Body extends StatelessWidget {
   const _Body();
 
@@ -206,6 +209,7 @@ class _Body extends StatelessWidget {
   }
 }
 
+@Dependencies([currentDataStation])
 class _DataView extends ConsumerStatefulWidget {
   const _DataView();
 
@@ -272,6 +276,7 @@ class __DataViewState extends ConsumerState<_DataView> {
   }
 }
 
+@Dependencies([currentDataStation])
 class _DotRow extends ConsumerWidget {
   const _DotRow();
 

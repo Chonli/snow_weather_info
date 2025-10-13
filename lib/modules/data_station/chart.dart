@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:snow_weather_info/extensions/chart.dart';
 import 'package:snow_weather_info/extensions/double.dart';
 import 'package:snow_weather_info/model/data_station.dart';
@@ -12,6 +13,7 @@ final _snowColor = Colors.blue.shade600;
 final _snowHeightColor = Colors.blue.shade300.withValues(alpha: 0.5);
 const _tempColor = Colors.red;
 
+@Dependencies([currentDataStation])
 class DataStationChart extends ConsumerWidget {
   const DataStationChart({
     super.key,

@@ -1,6 +1,5 @@
 import 'dart:developer' show log;
 
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/data/sources/api/station_api.dart';
 import 'package:snow_weather_info/data/sources/data/station_local_data.dart';
