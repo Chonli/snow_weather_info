@@ -34,15 +34,12 @@ class _BeraTokenHeader extends _$BeraTokenHeader {
           useShouldInterceptRequest: true,
         ),
         shouldInterceptRequest: (controller, request) async {
+          final header = request.headers ?? <String, String>{};
           if (state.isEmpty &&
-              (request.url.rawValue.contains(
-                    'https://rpcache-aa.meteofrance.com',
-                  ) ||
-                  // TODO: voir si l'ancienne url (rpcache) est toujours valide
-                  request.url.rawValue.contains(
-                    'https://rwg.meteofrance.com',
-                  )) &&
-              request.headers != null) {
+              request.url.rawValue.contains(
+                'https://rwg.meteofrance.com',
+              ) &&
+              header['Authorization'] != null) {
             state = request.headers!;
           }
           return null;
@@ -72,7 +69,7 @@ FutureOr<PdfController?> _pdfController(Ref ref, int beraNumber) async {
   );
 
   if (response.statusCode == 404) {
-    throw Exception('No BERA found');
+    throw Exception('BERA not found');
   }
 
   if (response.statusCode != 200) {
