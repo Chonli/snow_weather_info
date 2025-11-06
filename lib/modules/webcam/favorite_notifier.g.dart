@@ -33,7 +33,7 @@ final class FavoriteSkiResortProvider
   FavoriteSkiResort create() => FavoriteSkiResort();
 }
 
-String _$favoriteSkiResortHash() => r'bb57921b951ea1312a39ecdb2d169bf1af74307f';
+String _$favoriteSkiResortHash() => r'f918743054196436f47f4e19ff9cff9c2adc9e1b';
 
 abstract class _$FavoriteSkiResort extends $AsyncNotifier<List<SkiResort>> {
   FutureOr<List<SkiResort>> build();

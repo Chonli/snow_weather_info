@@ -17,7 +17,7 @@ class _BeraTokenHeader extends _$BeraTokenHeader {
     return {};
   }
 
-  Future<void> updateHeader({bool forceReset = false}) async {
+  FutureOr<void> updateHeader({bool forceReset = false}) async {
     if (forceReset) {
       state = {};
     }
@@ -40,9 +40,9 @@ class _BeraTokenHeader extends _$BeraTokenHeader {
                 'https://rwg.meteofrance.com',
               ) &&
               header['Authorization'] != null) {
-            state = request.headers!;
+            state = header;
           }
-          return null;
+          return;
         },
       );
 
@@ -54,38 +54,44 @@ class _BeraTokenHeader extends _$BeraTokenHeader {
 }
 
 @riverpod
-FutureOr<PdfController?> _pdfController(Ref ref, int beraNumber) async {
-  final headers = ref.watch(_beraTokenHeaderProvider);
-  if (headers.isEmpty) {
-    await ref.read(_beraTokenHeaderProvider.notifier).updateHeader();
-    return null;
+class _PdfController extends _$PdfController {
+  @override
+  Future<PdfController?> build(int beraNumber) async {
+    final headers = ref.watch(_beraTokenHeaderProvider);
+    if (headers.isEmpty) {
+      await ref.read(_beraTokenHeaderProvider.notifier).updateHeader();
+
+      return null;
+    }
+
+    final response = await http.get(
+      Uri.parse(
+        'https://rpcache-aa.meteofrance.com/gdss/v1/metronome_bra/blob?sort-results-by=-blob_creation_time&blob_filename=BRA_$beraNumber.pdf',
+      ),
+      headers: headers,
+    );
+
+    if (response.statusCode == 404) {
+      const error = 'BERA not found';
+      state = AsyncError(error, StackTrace.current);
+      throw Exception(error);
+    }
+
+    if (response.statusCode != 200) {
+      await ref
+          .read(_beraTokenHeaderProvider.notifier)
+          .updateHeader(forceReset: true);
+      return null;
+    }
+
+    final pdfController = PdfController(
+      document: PdfDocument.openData(response.bodyBytes),
+    );
+
+    ref.onDispose(pdfController.dispose);
+
+    return pdfController;
   }
-
-  final response = await http.get(
-    Uri.parse(
-      'https://rpcache-aa.meteofrance.com/gdss/v1/metronome_bra/blob?sort-results-by=-blob_creation_time&blob_filename=BRA_$beraNumber.pdf',
-    ),
-    headers: headers,
-  );
-
-  if (response.statusCode == 404) {
-    throw Exception('BERA not found');
-  }
-
-  if (response.statusCode != 200) {
-    await ref
-        .read(_beraTokenHeaderProvider.notifier)
-        .updateHeader(forceReset: true);
-    return null;
-  }
-
-  final pdfController = PdfController(
-    document: PdfDocument.openData(response.bodyBytes),
-  );
-
-  ref.onDispose(pdfController.dispose);
-
-  return pdfController;
 }
 
 class BERADetailPage extends ConsumerWidget {
@@ -101,9 +107,9 @@ class BERADetailPage extends ConsumerWidget {
     final pdfController = ref.watch(
       _pdfControllerProvider(avalancheBulletin.beraNumber),
     );
-    final isFavorite = ref
-        .watch(favoriteBeraProvider)
-        .contains(avalancheBulletin);
+    final isFavorite = ref.watch(
+      favoriteBeraProvider.select((fav) => fav.contains(avalancheBulletin)),
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -125,9 +131,11 @@ class BERADetailPage extends ConsumerWidget {
         AsyncData(:final PdfController value) => _PdfView(
           value,
         ),
-        AsyncError() => const Center(
+        AsyncError() ||
+        AsyncLoading() when pdfController.hasError => const Center(
           child: Text('Erreur: pas de BERA trouvé'),
         ),
+        // cas loading sans erreur et pdf controlleur null
         _ => const Center(
           child: CircularProgressIndicator(),
         ),

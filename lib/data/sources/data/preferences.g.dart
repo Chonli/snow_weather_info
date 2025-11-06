@@ -88,7 +88,7 @@ final class ThemeModeSettingsProvider
   }
 }
 
-String _$themeModeSettingsHash() => r'106550861a9acf66c527c4f3f77fe9c7c850ac47';
+String _$themeModeSettingsHash() => r'3481e26e850d3c8dc85fa2afe9b6ff9002c58144';
 
 abstract class _$ThemeModeSettings extends $Notifier<ThemeMode> {
   ThemeMode build();
@@ -142,7 +142,7 @@ final class FavoritesStationSettingsProvider
 }
 
 String _$favoritesStationSettingsHash() =>
-    r'1558bd39ac145e4dad63815a1427b95068c6c379';
+    r'3ac1182ccb3c5324af45cb87181d2c836df5677d';
 
 abstract class _$FavoritesStationSettings extends $Notifier<List<String>> {
   List<String> build();
@@ -197,7 +197,7 @@ final class FavoritesSkiResortSettingsProvider
 }
 
 String _$favoritesSkiResortSettingsHash() =>
-    r'e267cf13d5da54b939713822d10626d34f24464d';
+    r'9dee0325bfdc6b77b6d9259b22a8f2664578753c';
 
 abstract class _$FavoritesSkiResortSettings extends $Notifier<List<int>> {
   List<int> build();
@@ -251,7 +251,7 @@ final class FavoritesBERASettingsProvider
 }
 
 String _$favoritesBERASettingsHash() =>
-    r'fae0e555c2ed965494d055085abe2ded4603b9f4';
+    r'bb1598fd624f3bea69453ecbc8d714065bc6b677';
 
 abstract class _$FavoritesBERASettings extends $Notifier<List<String>> {
   List<String> build();
@@ -305,7 +305,7 @@ final class ShowNoDataStationSettingsProvider
 }
 
 String _$showNoDataStationSettingsHash() =>
-    r'a8bc73ea9a30a056c0d89820ba8556cd972446e3';
+    r'2507553c37504980fc948535b2b257c5f19de774';
 
 abstract class _$ShowNoDataStationSettings extends $Notifier<bool> {
   bool build();
@@ -359,7 +359,7 @@ final class ShowClusterLayerSettingsProvider
 }
 
 String _$showClusterLayerSettingsHash() =>
-    r'd6a4cd5ea6a4babe575c094592ec120df6c66d57';
+    r'90b7b8db79e0ac783c231fff074dc22462154252';
 
 abstract class _$ShowClusterLayerSettings extends $Notifier<bool> {
   bool build();

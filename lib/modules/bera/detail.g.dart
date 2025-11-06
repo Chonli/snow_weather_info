@@ -41,7 +41,7 @@ final class _BeraTokenHeaderProvider
   }
 }
 
-String _$_beraTokenHeaderHash() => r'858a0056d13e03936bf0452b5b622e7f140dd5a3';
+String _$_beraTokenHeaderHash() => r'8e63649a042e05a2751971d63930d3d9678c3099';
 
 abstract class _$BeraTokenHeader extends $Notifier<Map<String, String>> {
   Map<String, String> build();
@@ -62,17 +62,11 @@ abstract class _$BeraTokenHeader extends $Notifier<Map<String, String>> {
   }
 }
 
-@ProviderFor(_pdfController)
+@ProviderFor(_PdfController)
 const _pdfControllerProvider = _PdfControllerFamily._();
 
 final class _PdfControllerProvider
-    extends
-        $FunctionalProvider<
-          AsyncValue<PdfController?>,
-          PdfController?,
-          FutureOr<PdfController?>
-        >
-    with $FutureModifier<PdfController?>, $FutureProvider<PdfController?> {
+    extends $AsyncNotifierProvider<_PdfController, PdfController?> {
   const _PdfControllerProvider._({
     required _PdfControllerFamily super.from,
     required int super.argument,
@@ -96,15 +90,7 @@ final class _PdfControllerProvider
 
   @$internal
   @override
-  $FutureProviderElement<PdfController?> $createElement(
-    $ProviderPointer pointer,
-  ) => $FutureProviderElement(pointer);
-
-  @override
-  FutureOr<PdfController?> create(Ref ref) {
-    final argument = this.argument as int;
-    return _pdfController(ref, argument);
-  }
+  _PdfController create() => _PdfController();
 
   @override
   bool operator ==(Object other) {
@@ -117,10 +103,17 @@ final class _PdfControllerProvider
   }
 }
 
-String _$_pdfControllerHash() => r'5edcfd1e2d6806a2cf0e5755aea8989ed1b4aa9c';
+String _$_pdfControllerHash() => r'dcf07e625119c829f39f8c58aabeefc150290d2c';
 
 final class _PdfControllerFamily extends $Family
-    with $FunctionalFamilyOverride<FutureOr<PdfController?>, int> {
+    with
+        $ClassFamilyOverride<
+          _PdfController,
+          AsyncValue<PdfController?>,
+          PdfController?,
+          FutureOr<PdfController?>,
+          int
+        > {
   const _PdfControllerFamily._()
     : super(
         retry: null,
@@ -135,4 +128,26 @@ final class _PdfControllerFamily extends $Family
 
   @override
   String toString() => r'_pdfControllerProvider';
+}
+
+abstract class _$PdfController extends $AsyncNotifier<PdfController?> {
+  late final _$args = ref.$arg as int;
+  int get beraNumber => _$args;
+
+  FutureOr<PdfController?> build(int beraNumber);
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build(_$args);
+    final ref = this.ref as $Ref<AsyncValue<PdfController?>, PdfController?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<PdfController?>, PdfController?>,
+              AsyncValue<PdfController?>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
 }
