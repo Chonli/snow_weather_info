@@ -10,7 +10,7 @@ part of 'ski_resorts.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(skiResortsRepository)
-const skiResortsRepositoryProvider = SkiResortsRepositoryProvider._();
+final skiResortsRepositoryProvider = SkiResortsRepositoryProvider._();
 
 final class SkiResortsRepositoryProvider
     extends
@@ -20,7 +20,7 @@ final class SkiResortsRepositoryProvider
           SkiResortsRepository
         >
     with $Provider<SkiResortsRepository> {
-  const SkiResortsRepositoryProvider._()
+  SkiResortsRepositoryProvider._()
     : super(
         from: null,
         argument: null,

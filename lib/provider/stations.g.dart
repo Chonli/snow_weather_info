@@ -10,11 +10,11 @@ part of 'stations.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(Stations)
-const stationsProvider = StationsProvider._();
+final stationsProvider = StationsProvider._();
 
 final class StationsProvider
     extends $AsyncNotifierProvider<Stations, List<Station>> {
-  const StationsProvider._()
+  StationsProvider._()
     : super(
         from: null,
         argument: null,
@@ -40,7 +40,6 @@ abstract class _$Stations extends $AsyncNotifier<List<Station>> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<AsyncValue<List<Station>>, List<Station>>;
     final element =
         ref.element
@@ -50,6 +49,6 @@ abstract class _$Stations extends $AsyncNotifier<List<Station>> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

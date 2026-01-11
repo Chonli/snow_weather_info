@@ -10,10 +10,10 @@ part of 'list_station_widget.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(_Search)
-const _searchProvider = _SearchProvider._();
+final _searchProvider = _SearchProvider._();
 
 final class _SearchProvider extends $NotifierProvider<_Search, String> {
-  const _SearchProvider._()
+  _SearchProvider._()
     : super(
         from: null,
         argument: null,
@@ -47,7 +47,6 @@ abstract class _$Search extends $Notifier<String> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<String, String>;
     final element =
         ref.element
@@ -57,12 +56,12 @@ abstract class _$Search extends $Notifier<String> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
 
 @ProviderFor(_FilteredStations)
-const _filteredStationsProvider = _FilteredStationsProvider._();
+final _filteredStationsProvider = _FilteredStationsProvider._();
 
 final class _FilteredStationsProvider
     extends
@@ -70,7 +69,7 @@ final class _FilteredStationsProvider
           _FilteredStations,
           Map<String, List<AbstractStation>>
         > {
-  const _FilteredStationsProvider._()
+  _FilteredStationsProvider._()
     : super(
         from: null,
         argument: null,
@@ -107,7 +106,6 @@ abstract class _$FilteredStations
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref =
         this.ref
             as $Ref<
@@ -125,6 +123,6 @@ abstract class _$FilteredStations
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

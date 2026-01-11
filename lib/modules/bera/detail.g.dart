@@ -10,11 +10,11 @@ part of 'detail.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(_BeraTokenHeader)
-const _beraTokenHeaderProvider = _BeraTokenHeaderProvider._();
+final _beraTokenHeaderProvider = _BeraTokenHeaderProvider._();
 
 final class _BeraTokenHeaderProvider
     extends $NotifierProvider<_BeraTokenHeader, Map<String, String>> {
-  const _BeraTokenHeaderProvider._()
+  _BeraTokenHeaderProvider._()
     : super(
         from: null,
         argument: null,
@@ -48,7 +48,6 @@ abstract class _$BeraTokenHeader extends $Notifier<Map<String, String>> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<Map<String, String>, Map<String, String>>;
     final element =
         ref.element
@@ -58,16 +57,16 @@ abstract class _$BeraTokenHeader extends $Notifier<Map<String, String>> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
 
 @ProviderFor(_PdfController)
-const _pdfControllerProvider = _PdfControllerFamily._();
+final _pdfControllerProvider = _PdfControllerFamily._();
 
 final class _PdfControllerProvider
     extends $AsyncNotifierProvider<_PdfController, PdfController?> {
-  const _PdfControllerProvider._({
+  _PdfControllerProvider._({
     required _PdfControllerFamily super.from,
     required int super.argument,
   }) : super(
@@ -103,7 +102,7 @@ final class _PdfControllerProvider
   }
 }
 
-String _$_pdfControllerHash() => r'dcf07e625119c829f39f8c58aabeefc150290d2c';
+String _$_pdfControllerHash() => r'08d05f75772c071ed278aa3f67bd56939402107c';
 
 final class _PdfControllerFamily extends $Family
     with
@@ -114,7 +113,7 @@ final class _PdfControllerFamily extends $Family
           FutureOr<PdfController?>,
           int
         > {
-  const _PdfControllerFamily._()
+  _PdfControllerFamily._()
     : super(
         retry: null,
         name: r'_pdfControllerProvider',
@@ -138,7 +137,6 @@ abstract class _$PdfController extends $AsyncNotifier<PdfController?> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build(_$args);
     final ref = this.ref as $Ref<AsyncValue<PdfController?>, PdfController?>;
     final element =
         ref.element
@@ -148,6 +146,6 @@ abstract class _$PdfController extends $AsyncNotifier<PdfController?> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, () => build(_$args));
   }
 }

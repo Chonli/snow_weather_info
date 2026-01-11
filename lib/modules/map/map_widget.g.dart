@@ -10,11 +10,11 @@ part of 'map_widget.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(CurrentMapLoc)
-const currentMapLocProvider = CurrentMapLocProvider._();
+final currentMapLocProvider = CurrentMapLocProvider._();
 
 final class CurrentMapLocProvider
     extends $NotifierProvider<CurrentMapLoc, Coordinate> {
-  const CurrentMapLocProvider._()
+  CurrentMapLocProvider._()
     : super(
         from: null,
         argument: null,
@@ -48,7 +48,6 @@ abstract class _$CurrentMapLoc extends $Notifier<Coordinate> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<Coordinate, Coordinate>;
     final element =
         ref.element
@@ -58,6 +57,6 @@ abstract class _$CurrentMapLoc extends $Notifier<Coordinate> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

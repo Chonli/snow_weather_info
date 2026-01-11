@@ -10,7 +10,7 @@ part of 'ski_resort_local_data.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(skiResortLocalData)
-const skiResortLocalDataProvider = SkiResortLocalDataProvider._();
+final skiResortLocalDataProvider = SkiResortLocalDataProvider._();
 
 final class SkiResortLocalDataProvider
     extends
@@ -20,7 +20,7 @@ final class SkiResortLocalDataProvider
           SkiResortLocalDataContainer
         >
     with $Provider<SkiResortLocalDataContainer> {
-  const SkiResortLocalDataProvider._()
+  SkiResortLocalDataProvider._()
     : super(
         from: null,
         argument: null,

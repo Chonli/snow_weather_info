@@ -10,7 +10,7 @@ part of 'view.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(currentDataStation)
-const currentDataStationProvider = CurrentDataStationProvider._();
+final currentDataStationProvider = CurrentDataStationProvider._();
 
 final class CurrentDataStationProvider
     extends
@@ -20,15 +20,15 @@ final class CurrentDataStationProvider
           List<DataStation>
         >
     with $Provider<List<DataStation>> {
-  const CurrentDataStationProvider._()
+  CurrentDataStationProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
         name: r'currentDataStationProvider',
         isAutoDispose: true,
-        dependencies: const <ProviderOrFamily>[],
-        $allTransitiveDependencies: const <ProviderOrFamily>[],
+        dependencies: <ProviderOrFamily>[],
+        $allTransitiveDependencies: <ProviderOrFamily>[],
       );
 
   @override
@@ -58,12 +58,12 @@ String _$currentDataStationHash() =>
     r'8030f6f30ebb0b4de5b64599e07ba630fc438e75';
 
 @ProviderFor(currentStation)
-const currentStationProvider = CurrentStationProvider._();
+final currentStationProvider = CurrentStationProvider._();
 
 final class CurrentStationProvider
     extends $FunctionalProvider<Station, Station, Station>
     with $Provider<Station> {
-  const CurrentStationProvider._()
+  CurrentStationProvider._()
     : super(
         from: null,
         argument: null,
@@ -99,11 +99,11 @@ final class CurrentStationProvider
 String _$currentStationHash() => r'd60a58973507c5e6eecabb2310e673c38166b922';
 
 @ProviderFor(_CurrentIndex)
-const _currentIndexProvider = _CurrentIndexProvider._();
+final _currentIndexProvider = _CurrentIndexProvider._();
 
 final class _CurrentIndexProvider
     extends $NotifierProvider<_CurrentIndex, int> {
-  const _CurrentIndexProvider._()
+  _CurrentIndexProvider._()
     : super(
         from: null,
         argument: null,
@@ -137,7 +137,6 @@ abstract class _$CurrentIndex extends $Notifier<int> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<int, int>;
     final element =
         ref.element
@@ -147,29 +146,29 @@ abstract class _$CurrentIndex extends $Notifier<int> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
 
 @ProviderFor(_CurrentIndexData)
-const _currentIndexDataProvider = _CurrentIndexDataProvider._();
+final _currentIndexDataProvider = _CurrentIndexDataProvider._();
 
 final class _CurrentIndexDataProvider
     extends $NotifierProvider<_CurrentIndexData, DataStation?> {
-  const _CurrentIndexDataProvider._()
+  _CurrentIndexDataProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
         name: r'_currentIndexDataProvider',
         isAutoDispose: true,
-        dependencies: const <ProviderOrFamily>[currentDataStationProvider],
-        $allTransitiveDependencies: const <ProviderOrFamily>[
+        dependencies: <ProviderOrFamily>[currentDataStationProvider],
+        $allTransitiveDependencies: <ProviderOrFamily>[
           _CurrentIndexDataProvider.$allTransitiveDependencies0,
         ],
       );
 
-  static const $allTransitiveDependencies0 = currentDataStationProvider;
+  static final $allTransitiveDependencies0 = currentDataStationProvider;
 
   @override
   String debugGetCreateSourceHash() => _$_currentIndexDataHash();
@@ -194,7 +193,6 @@ abstract class _$CurrentIndexData extends $Notifier<DataStation?> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<DataStation?, DataStation?>;
     final element =
         ref.element
@@ -204,16 +202,16 @@ abstract class _$CurrentIndexData extends $Notifier<DataStation?> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
 
 @ProviderFor(_isFavorite)
-const _isFavoriteProvider = _IsFavoriteFamily._();
+final _isFavoriteProvider = _IsFavoriteFamily._();
 
 final class _IsFavoriteProvider extends $FunctionalProvider<bool, bool, bool>
     with $Provider<bool> {
-  const _IsFavoriteProvider._({
+  _IsFavoriteProvider._({
     required _IsFavoriteFamily super.from,
     required int super.argument,
   }) : super(
@@ -268,7 +266,7 @@ String _$_isFavoriteHash() => r'687055a698fb459c7e3b0ee4cb430e33f0ef41dc';
 
 final class _IsFavoriteFamily extends $Family
     with $FunctionalFamilyOverride<bool, int> {
-  const _IsFavoriteFamily._()
+  _IsFavoriteFamily._()
     : super(
         retry: null,
         name: r'_isFavoriteProvider',

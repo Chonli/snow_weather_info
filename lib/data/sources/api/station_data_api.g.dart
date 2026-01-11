@@ -10,12 +10,12 @@ part of 'station_data_api.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(stationDataApi)
-const stationDataApiProvider = StationDataApiProvider._();
+final stationDataApiProvider = StationDataApiProvider._();
 
 final class StationDataApiProvider
     extends $FunctionalProvider<StationDataApi, StationDataApi, StationDataApi>
     with $Provider<StationDataApi> {
-  const StationDataApiProvider._()
+  StationDataApiProvider._()
     : super(
         from: null,
         argument: null,

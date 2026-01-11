@@ -10,11 +10,11 @@ part of 'favorite_notifier.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(FavoriteSkiResort)
-const favoriteSkiResortProvider = FavoriteSkiResortProvider._();
+final favoriteSkiResortProvider = FavoriteSkiResortProvider._();
 
 final class FavoriteSkiResortProvider
     extends $AsyncNotifierProvider<FavoriteSkiResort, List<SkiResort>> {
-  const FavoriteSkiResortProvider._()
+  FavoriteSkiResortProvider._()
     : super(
         from: null,
         argument: null,
@@ -40,7 +40,6 @@ abstract class _$FavoriteSkiResort extends $AsyncNotifier<List<SkiResort>> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<AsyncValue<List<SkiResort>>, List<SkiResort>>;
     final element =
         ref.element
@@ -50,6 +49,6 @@ abstract class _$FavoriteSkiResort extends $AsyncNotifier<List<SkiResort>> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

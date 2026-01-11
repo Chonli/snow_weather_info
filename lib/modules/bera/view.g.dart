@@ -10,11 +10,11 @@ part of 'view.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(_MassifFilter)
-const _massifFilterProvider = _MassifFilterProvider._();
+final _massifFilterProvider = _MassifFilterProvider._();
 
 final class _MassifFilterProvider
     extends $NotifierProvider<_MassifFilter, List<Mountain>> {
-  const _MassifFilterProvider._()
+  _MassifFilterProvider._()
     : super(
         from: null,
         argument: null,
@@ -48,7 +48,6 @@ abstract class _$MassifFilter extends $Notifier<List<Mountain>> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<List<Mountain>, List<Mountain>>;
     final element =
         ref.element
@@ -58,6 +57,6 @@ abstract class _$MassifFilter extends $Notifier<List<Mountain>> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

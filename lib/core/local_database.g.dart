@@ -10,12 +10,12 @@ part of 'local_database.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(dataBase)
-const dataBaseProvider = DataBaseProvider._();
+final dataBaseProvider = DataBaseProvider._();
 
 final class DataBaseProvider
     extends $FunctionalProvider<Database, Database, Database>
     with $Provider<Database> {
-  const DataBaseProvider._()
+  DataBaseProvider._()
     : super(
         from: null,
         argument: null,

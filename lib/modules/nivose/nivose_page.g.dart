@@ -10,11 +10,11 @@ part of 'nivose_page.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(_isFavorite)
-const _isFavoriteProvider = _IsFavoriteFamily._();
+final _isFavoriteProvider = _IsFavoriteFamily._();
 
 final class _IsFavoriteProvider extends $FunctionalProvider<bool, bool, bool>
     with $Provider<bool> {
-  const _IsFavoriteProvider._({
+  _IsFavoriteProvider._({
     required _IsFavoriteFamily super.from,
     required String super.argument,
   }) : super(
@@ -69,7 +69,7 @@ String _$_isFavoriteHash() => r'6a4e20c692a9cc432999a9dca41676908fd4a090';
 
 final class _IsFavoriteFamily extends $Family
     with $FunctionalFamilyOverride<bool, String> {
-  const _IsFavoriteFamily._()
+  _IsFavoriteFamily._()
     : super(
         retry: null,
         name: r'_isFavoriteProvider',

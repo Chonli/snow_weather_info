@@ -39,7 +39,13 @@ class StationData extends _$StationData {
   }
 
   double lastSnowHeight(int id) {
-    return state.asData?.value[id]?.reversed
+    final data = state.asData?.value[id];
+
+    if (data == null || data.isEmpty) {
+      return 0.0;
+    }
+
+    return data
             .firstWhereOrNull(
               (d) => d.snowHeight != null,
             )

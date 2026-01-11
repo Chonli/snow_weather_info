@@ -10,11 +10,11 @@ part of 'station_data.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(StationData)
-const stationDataProvider = StationDataProvider._();
+final stationDataProvider = StationDataProvider._();
 
 final class StationDataProvider
     extends $AsyncNotifierProvider<StationData, Map<int, List<DataStation>>> {
-  const StationDataProvider._()
+  StationDataProvider._()
     : super(
         from: null,
         argument: null,
@@ -33,7 +33,7 @@ final class StationDataProvider
   StationData create() => StationData();
 }
 
-String _$stationDataHash() => r'3a4ff4444c4fad23dd6d8c6a90dff081dbae7cf8';
+String _$stationDataHash() => r'd799da9a60391c322ea2c2824da5ff8369810e6b';
 
 abstract class _$StationData
     extends $AsyncNotifier<Map<int, List<DataStation>>> {
@@ -41,7 +41,6 @@ abstract class _$StationData
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref =
         this.ref
             as $Ref<
@@ -59,6 +58,6 @@ abstract class _$StationData
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

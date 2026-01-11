@@ -10,11 +10,11 @@ part of 'location.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(UserLocation)
-const userLocationProvider = UserLocationProvider._();
+final userLocationProvider = UserLocationProvider._();
 
 final class UserLocationProvider
     extends $AsyncNotifierProvider<UserLocation, LatLng?> {
-  const UserLocationProvider._()
+  UserLocationProvider._()
     : super(
         from: null,
         argument: null,
@@ -40,7 +40,6 @@ abstract class _$UserLocation extends $AsyncNotifier<LatLng?> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<AsyncValue<LatLng?>, LatLng?>;
     final element =
         ref.element
@@ -50,6 +49,6 @@ abstract class _$UserLocation extends $AsyncNotifier<LatLng?> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

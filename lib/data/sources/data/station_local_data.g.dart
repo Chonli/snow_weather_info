@@ -10,7 +10,7 @@ part of 'station_local_data.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(stationLocalData)
-const stationLocalDataProvider = StationLocalDataProvider._();
+final stationLocalDataProvider = StationLocalDataProvider._();
 
 final class StationLocalDataProvider
     extends
@@ -20,7 +20,7 @@ final class StationLocalDataProvider
           StationLocalDataContainer
         >
     with $Provider<StationLocalDataContainer> {
-  const StationLocalDataProvider._()
+  StationLocalDataProvider._()
     : super(
         from: null,
         argument: null,

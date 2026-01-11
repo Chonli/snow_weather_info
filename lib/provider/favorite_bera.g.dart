@@ -10,11 +10,11 @@ part of 'favorite_bera.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(FavoriteBera)
-const favoriteBeraProvider = FavoriteBeraProvider._();
+final favoriteBeraProvider = FavoriteBeraProvider._();
 
 final class FavoriteBeraProvider
     extends $NotifierProvider<FavoriteBera, List<AvalancheBulletin>> {
-  const FavoriteBeraProvider._()
+  FavoriteBeraProvider._()
     : super(
         from: null,
         argument: null,
@@ -48,7 +48,6 @@ abstract class _$FavoriteBera extends $Notifier<List<AvalancheBulletin>> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref =
         this.ref as $Ref<List<AvalancheBulletin>, List<AvalancheBulletin>>;
     final element =
@@ -59,6 +58,6 @@ abstract class _$FavoriteBera extends $Notifier<List<AvalancheBulletin>> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

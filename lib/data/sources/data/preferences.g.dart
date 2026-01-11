@@ -10,7 +10,7 @@ part of 'preferences.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(sharedPreferences)
-const sharedPreferencesProvider = SharedPreferencesProvider._();
+final sharedPreferencesProvider = SharedPreferencesProvider._();
 
 final class SharedPreferencesProvider
     extends
@@ -20,7 +20,7 @@ final class SharedPreferencesProvider
           SharedPreferences
         >
     with $Provider<SharedPreferences> {
-  const SharedPreferencesProvider._()
+  SharedPreferencesProvider._()
     : super(
         from: null,
         argument: null,
@@ -57,11 +57,11 @@ final class SharedPreferencesProvider
 String _$sharedPreferencesHash() => r'1a6250efdc19e86c923ceb598a77ff74d64378e6';
 
 @ProviderFor(ThemeModeSettings)
-const themeModeSettingsProvider = ThemeModeSettingsProvider._();
+final themeModeSettingsProvider = ThemeModeSettingsProvider._();
 
 final class ThemeModeSettingsProvider
     extends $NotifierProvider<ThemeModeSettings, ThemeMode> {
-  const ThemeModeSettingsProvider._()
+  ThemeModeSettingsProvider._()
     : super(
         from: null,
         argument: null,
@@ -95,7 +95,6 @@ abstract class _$ThemeModeSettings extends $Notifier<ThemeMode> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<ThemeMode, ThemeMode>;
     final element =
         ref.element
@@ -105,16 +104,16 @@ abstract class _$ThemeModeSettings extends $Notifier<ThemeMode> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
 
 @ProviderFor(FavoritesStationSettings)
-const favoritesStationSettingsProvider = FavoritesStationSettingsProvider._();
+final favoritesStationSettingsProvider = FavoritesStationSettingsProvider._();
 
 final class FavoritesStationSettingsProvider
     extends $NotifierProvider<FavoritesStationSettings, List<String>> {
-  const FavoritesStationSettingsProvider._()
+  FavoritesStationSettingsProvider._()
     : super(
         from: null,
         argument: null,
@@ -149,7 +148,6 @@ abstract class _$FavoritesStationSettings extends $Notifier<List<String>> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<List<String>, List<String>>;
     final element =
         ref.element
@@ -159,17 +157,17 @@ abstract class _$FavoritesStationSettings extends $Notifier<List<String>> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
 
 @ProviderFor(FavoritesSkiResortSettings)
-const favoritesSkiResortSettingsProvider =
+final favoritesSkiResortSettingsProvider =
     FavoritesSkiResortSettingsProvider._();
 
 final class FavoritesSkiResortSettingsProvider
     extends $NotifierProvider<FavoritesSkiResortSettings, List<int>> {
-  const FavoritesSkiResortSettingsProvider._()
+  FavoritesSkiResortSettingsProvider._()
     : super(
         from: null,
         argument: null,
@@ -204,7 +202,6 @@ abstract class _$FavoritesSkiResortSettings extends $Notifier<List<int>> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<List<int>, List<int>>;
     final element =
         ref.element
@@ -214,16 +211,16 @@ abstract class _$FavoritesSkiResortSettings extends $Notifier<List<int>> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
 
 @ProviderFor(FavoritesBERASettings)
-const favoritesBERASettingsProvider = FavoritesBERASettingsProvider._();
+final favoritesBERASettingsProvider = FavoritesBERASettingsProvider._();
 
 final class FavoritesBERASettingsProvider
     extends $NotifierProvider<FavoritesBERASettings, List<String>> {
-  const FavoritesBERASettingsProvider._()
+  FavoritesBERASettingsProvider._()
     : super(
         from: null,
         argument: null,
@@ -258,7 +255,6 @@ abstract class _$FavoritesBERASettings extends $Notifier<List<String>> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<List<String>, List<String>>;
     final element =
         ref.element
@@ -268,16 +264,16 @@ abstract class _$FavoritesBERASettings extends $Notifier<List<String>> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
 
 @ProviderFor(ShowNoDataStationSettings)
-const showNoDataStationSettingsProvider = ShowNoDataStationSettingsProvider._();
+final showNoDataStationSettingsProvider = ShowNoDataStationSettingsProvider._();
 
 final class ShowNoDataStationSettingsProvider
     extends $NotifierProvider<ShowNoDataStationSettings, bool> {
-  const ShowNoDataStationSettingsProvider._()
+  ShowNoDataStationSettingsProvider._()
     : super(
         from: null,
         argument: null,
@@ -312,7 +308,6 @@ abstract class _$ShowNoDataStationSettings extends $Notifier<bool> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<bool, bool>;
     final element =
         ref.element
@@ -322,16 +317,16 @@ abstract class _$ShowNoDataStationSettings extends $Notifier<bool> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
 
 @ProviderFor(ShowClusterLayerSettings)
-const showClusterLayerSettingsProvider = ShowClusterLayerSettingsProvider._();
+final showClusterLayerSettingsProvider = ShowClusterLayerSettingsProvider._();
 
 final class ShowClusterLayerSettingsProvider
     extends $NotifierProvider<ShowClusterLayerSettings, bool> {
-  const ShowClusterLayerSettingsProvider._()
+  ShowClusterLayerSettingsProvider._()
     : super(
         from: null,
         argument: null,
@@ -366,7 +361,6 @@ abstract class _$ShowClusterLayerSettings extends $Notifier<bool> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<bool, bool>;
     final element =
         ref.element
@@ -376,6 +370,6 @@ abstract class _$ShowClusterLayerSettings extends $Notifier<bool> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

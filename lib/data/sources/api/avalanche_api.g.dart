@@ -10,7 +10,7 @@ part of 'avalanche_api.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(apiAvalanche)
-const apiAvalancheProvider = ApiAvalancheProvider._();
+final apiAvalancheProvider = ApiAvalancheProvider._();
 
 final class ApiAvalancheProvider
     extends
@@ -20,7 +20,7 @@ final class ApiAvalancheProvider
           FutureOr<AtomFeed?>
         >
     with $FutureModifier<AtomFeed?>, $FutureProvider<AtomFeed?> {
-  const ApiAvalancheProvider._()
+  ApiAvalancheProvider._()
     : super(
         from: null,
         argument: null,

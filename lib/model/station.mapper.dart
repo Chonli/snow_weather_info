@@ -246,18 +246,6 @@ class NivoseMapper extends ClassMapperBase<Nivose> {
   static const Field<Nivose, int> _f$altitude = Field('altitude', _$altitude);
   static String _$codeMF(Nivose v) => v.codeMF;
   static const Field<Nivose, String> _f$codeMF = Field('codeMF', _$codeMF);
-  static String _$urlWeek(Nivose v) => v.urlWeek;
-  static const Field<Nivose, String> _f$urlWeek = Field(
-    'urlWeek',
-    _$urlWeek,
-    mode: FieldMode.member,
-  );
-  static String _$urlSeason(Nivose v) => v.urlSeason;
-  static const Field<Nivose, String> _f$urlSeason = Field(
-    'urlSeason',
-    _$urlSeason,
-    mode: FieldMode.member,
-  );
 
   @override
   final MappableFields<Nivose> fields = const {
@@ -265,8 +253,6 @@ class NivoseMapper extends ClassMapperBase<Nivose> {
     #position: _f$position,
     #altitude: _f$altitude,
     #codeMF: _f$codeMF,
-    #urlWeek: _f$urlWeek,
-    #urlSeason: _f$urlSeason,
   };
 
   static Nivose _instantiate(DecodingData data) {

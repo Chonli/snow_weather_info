@@ -10,12 +10,12 @@ part of 'ski_resort.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(skiResortApi)
-const skiResortApiProvider = SkiResortApiProvider._();
+final skiResortApiProvider = SkiResortApiProvider._();
 
 final class SkiResortApiProvider
     extends $FunctionalProvider<SkiResortApi, SkiResortApi, SkiResortApi>
     with $Provider<SkiResortApi> {
-  const SkiResortApiProvider._()
+  SkiResortApiProvider._()
     : super(
         from: null,
         argument: null,

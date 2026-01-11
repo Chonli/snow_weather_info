@@ -10,11 +10,11 @@ part of 'favorite_station.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(FavoriteStation)
-const favoriteStationProvider = FavoriteStationProvider._();
+final favoriteStationProvider = FavoriteStationProvider._();
 
 final class FavoriteStationProvider
     extends $AsyncNotifierProvider<FavoriteStation, List<AbstractStation>> {
-  const FavoriteStationProvider._()
+  FavoriteStationProvider._()
     : super(
         from: null,
         argument: null,
@@ -40,7 +40,6 @@ abstract class _$FavoriteStation extends $AsyncNotifier<List<AbstractStation>> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref =
         this.ref
             as $Ref<AsyncValue<List<AbstractStation>>, List<AbstractStation>>;
@@ -55,6 +54,6 @@ abstract class _$FavoriteStation extends $AsyncNotifier<List<AbstractStation>> {
               Object?,
               Object?
             >;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }
