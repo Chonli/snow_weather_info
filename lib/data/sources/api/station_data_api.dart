@@ -1,8 +1,9 @@
+import 'dart:convert';
 import 'dart:developer' show log;
 
+import 'package:archive/archive.dart';
 import 'package:csv/csv.dart';
 import 'package:http/http.dart';
-import 'package:intl/intl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/data/sources/api/api_client.dart';
 import 'package:snow_weather_info/model/data_station.dart';
@@ -16,71 +17,77 @@ StationDataApi stationDataApi(Ref ref) {
   return StationDataApi(client);
 }
 
+// new link data https://www.data.gouv.fr/api/1/datasets/r/2fc62fab-7379-4bb1-afca-7c52c35d6636
+
 class StationDataApi {
   const StationDataApi(this.client);
 
   final Client client;
 
-  Future<List<DataStation>> getStationDatas({int maxDaysFetch = 7}) async {
-    final datas = <DataStation>[];
-    final now = DateTime.now();
+  static const stationDataUrl =
+      'https://www.data.gouv.fr/api/1/datasets/r/2fc62fab-7379-4bb1-afca-7c52c35d6636';
 
-    for (int i = 0; i <= maxDaysFetch; ++i) {
-      final dateTime = now.subtract(Duration(days: i));
+  Future<List<DataStation>> getStationDatas({
+    int maxDaysFetch = 7,
+    DateTime? currentDate,
+  }) async {
+    final response = await client.get(
+      Uri.parse(stationDataUrl),
+    );
 
-      final dateStr = DateFormat('yyyyMMdd').format(dateTime);
-      final url = Uri.parse(
-        'https://donneespubliques.meteofrance.fr/donnees_libres/Txt/Nivo/nivo.$dateStr.csv',
-      );
-      final response = await client.get(url);
+    if (response.statusCode == 200) {
+      // Unzip .gz to extract csv
+      final decompressed = GZipDecoder().decodeBytes(response.bodyBytes);
+      final csvStr = utf8.decode(decompressed);
+      final datas = await csvStr.decodeStationData();
+      // limit row at maxDaysFetch
+      final now = currentDate ?? DateTime.now();
+      final minDate = now.subtract(Duration(days: maxDaysFetch));
+      datas.removeWhere((data) => data.date.isBefore(minDate));
 
-      if (response.statusCode == 200) {
-        datas.addAll(await response.body.decodeStationData());
-        log('get data from $dateStr OK');
-      }
+      return datas;
     }
 
-    log('donwload data station ok');
-
-    return datas;
+    log('Erreur download data station');
+    return [];
   }
 }
 
-// Basic method to stub data
-// Future<List<DataStation>> getData()  {
-// {
-//   final datas = rootBundle.loadString('assets/test_data/nivo.202102.txt');
-//   return _decodeStationData(datas);
-// }
-
 extension _DataStationStringExtension on String {
   Future<List<DataStation>> decodeStationData() async {
+    late final List<List<dynamic>> cvsResult;
     try {
-      final cvsResult = const CsvToListConverter().convert<dynamic>(
+      cvsResult = const CsvToListConverter().convert<dynamic>(
         this,
         fieldDelimiter: ';',
         eol: '\n',
         shouldParseNumbers: false,
+        allowInvalid: true,
       );
-
-      if (cvsResult.length > 1) {
-        if (cvsResult[0].length > 2) {
-          cvsResult.removeAt(0);
-          final listData = cvsResult.map<DataStation>(
-            (line) {
-              return DataStation.fromList(line);
-            },
-          ).toList();
-
-          return listData;
-        }
-      }
-
-      return <DataStation>[];
     } on Exception catch (e) {
       log('Parse csv error: $e');
 
       return <DataStation>[];
     }
+
+    if (cvsResult.length > 1) {
+      if (cvsResult[0].length >= 34) {
+        // delete header line
+        cvsResult.removeAt(0);
+        final listData = <DataStation>[];
+        for (final line in cvsResult) {
+          try {
+            listData.add(DataStation.fromList(line));
+          } on Exception catch (e) {
+            log('Parse csv line error: $e');
+          }
+        }
+
+        return listData;
+      }
+    }
+    log('Parse csv error: empty');
+
+    return <DataStation>[];
   }
 }

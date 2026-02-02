@@ -1,4 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:snow_weather_info/extensions/string.dart';
 import 'package:snow_weather_info/model/coordinate.dart';
 
 part 'station.mapper.dart';
@@ -34,12 +35,12 @@ class Station extends AbstractStation with StationMappable {
 
   factory Station.fromRemoteJson(Map<String, dynamic> json) => Station(
     int.parse(json['ID'] as String),
-    json['Nom'] as String,
+    (json['Nom'] as String).capitalizeAllWords,
     Coordinate(
-      latitude: double.parse(json['Latitude'] as String),
-      longitude: double.parse(json['Longitude'] as String),
+      latitude: json['Latitude'] as double,
+      longitude: json['Longitude'] as double,
     ),
-    int.parse(json['Altitude'] as String),
+    json['Altitude'] as int,
   );
 
   final int id;

@@ -1,24 +1,18 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:http/http.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:snow_weather_info/data/sources/api/api_client.dart';
 import 'package:snow_weather_info/model/ski_resort.dart';
 
 part 'ski_resort.g.dart';
 
 @Riverpod(keepAlive: true)
 SkiResortApi skiResortApi(Ref ref) {
-  final client = ref.watch(apiClientProvider);
-
-  return SkiResortApi(client);
+  return SkiResortApi();
 }
 
 class SkiResortApi {
-  const SkiResortApi(this.client);
-
-  final Client client;
+  const SkiResortApi();
 
   Future<List<SkiResort>> getSkiResortsFromAsset() async {
     final jsonString = await rootBundle.loadString('assets/webcams.json');

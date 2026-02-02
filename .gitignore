@@ -42,3 +42,4 @@ macos/Flutter/ephemeral/
 .cxx
 ephemeral
 
+coverage/lcov.info

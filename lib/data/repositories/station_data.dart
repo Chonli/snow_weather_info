@@ -1,7 +1,5 @@
 import 'dart:developer' show log;
-import 'dart:math' show min;
 
-import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/data/sources/api/station_data_api.dart';
 import 'package:snow_weather_info/data/sources/data/station_data_local_data.dart';
@@ -26,70 +24,26 @@ class StationDataRepository {
   final StationDataApi stationDataApi;
   final StationDataLocalDataContainer localData;
 
-  static const _maxCacheDays = 12;
+  static const maxDaysFetch = 10;
 
   FutureOr<List<DataStation>> getDataStation() async {
-    final cacheDataStations = localData.allDataStations.read();
-    final lastUpdate = localData.lastUpdate.read();
-    final diffDays = min(DateTime.now().difference(lastUpdate).inDays, 7);
-
-    log('Fetching new data from API for last $diffDays days');
+    log('Fetching new data from API for last 10 days');
     final remoteDataStations = await stationDataApi.getStationDatas(
-      maxDaysFetch: diffDays,
+      maxDaysFetch: maxDaysFetch,
     );
 
-    final allDataStations = await compute(
-      StationDataRepository._mergeStations,
-      (
-        cacheDataStations: cacheDataStations,
-        remoteDataStations: remoteDataStations,
-      ),
-    );
+    if (remoteDataStations.isEmpty) {
+      final cachedDataStations = localData.allDataStations.read();
+      final minDate = DateTime.now().subtract(Duration(days: maxDaysFetch));
+      cachedDataStations.removeWhere((data) => data.date.isBefore(minDate));
+      await localData.allDataStations.save(cachedDataStations);
 
-    await localData.allDataStations.save(allDataStations);
-    await localData.lastUpdate.save(allDataStations.lastDataUpdate);
+      return cachedDataStations;
+    } else {
+      await localData.allDataStations.save(remoteDataStations);
+      await localData.lastUpdate.save(DateTime.now());
 
-    return allDataStations;
-  }
-
-  static List<DataStation> _mergeStations(
-    ({
-      List<DataStation> cacheDataStations,
-      List<DataStation> remoteDataStations,
-    })
-    param,
-  ) {
-    if (param.remoteDataStations.isEmpty) {
-      return param.cacheDataStations;
+      return remoteDataStations;
     }
-
-    // to keep only last x days data
-    final maxDateCache = DateTime.now().subtract(
-      const Duration(days: _maxCacheDays),
-    );
-
-    final mergedStationsMap = {
-      for (final data in param.remoteDataStations) (data.id, data.date): data,
-    };
-
-    for (final data in param.cacheDataStations) {
-      if (mergedStationsMap[(data.id, data.date)] == null &&
-          data.date.isAfter(maxDateCache)) {
-        mergedStationsMap[(data.id, data.date)] = data;
-      }
-    }
-    return mergedStationsMap.values.toList();
-  }
-}
-
-extension _DataStationDataStationsExtension on List<DataStation> {
-  DateTime get lastDataUpdate {
-    if (isEmpty) {
-      return DateTime(0);
-    }
-
-    return map(
-      (station) => station.date,
-    ).reduce((a, b) => a.isAfter(b) ? a : b);
   }
 }

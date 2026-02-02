@@ -20,3 +20,18 @@ extension StringNullExtension on String? {
     };
   }
 }
+
+extension StringExtension on String {
+  String get capitalizeAllWords {
+    final cleanString = this.replaceAll('_', ' ');
+
+    return cleanString
+        .split(' ')
+        .map(
+          (word) => word.isEmpty
+              ? word
+              : '${word[0].toUpperCase()}${word.substring(1).toLowerCase()}',
+        )
+        .join(' ');
+  }
+}
