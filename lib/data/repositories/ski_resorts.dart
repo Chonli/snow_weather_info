@@ -28,7 +28,7 @@ class SkiResortsRepository {
     final now = currentDate ?? DateTime.now();
 
     // if last update more 1 day ago
-    if (now.difference(lastUpdate) >= const Duration(seconds: 1)) {
+    if (now.difference(lastUpdate) >= const Duration(days: 1)) {
       final onlineSkiResorts = await skiResortApi.getSkiResorts();
 
       if (onlineSkiResorts.isNotEmpty) {
