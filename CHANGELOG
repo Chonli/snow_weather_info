@@ -1,8 +1,39 @@
 # Change Log
 All notable changes to this project will be documented in this file.
-## 2.4.0
+## 2.4.7
+### Added
+- Dynamic update of webcams url  
+
+## 2.4.6
 ### Fixed
+- Update data station url 
+
+## 2.4.5
+### Fixed
+- Last snow height display wrong value
+
+## 2.4.4
+### Fixed
+- Display error when Bera not available
+
+## 2.4.3
+### Fixed
+- Bera pdf display error
+
+## 2.4.2
+### Added
+- Update to riverpod 3
+
+## 2.4.1
+### Added
+- Migrate webcam from json file
+
+## 2.4.0
+### Added
 - Add cache in local data
+
+### Fixed
+- Display chart
 
 ## 2.3.2
 ### Added
