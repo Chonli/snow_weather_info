@@ -33,7 +33,7 @@ final class StationDataProvider
   StationData create() => StationData();
 }
 
-String _$stationDataHash() => r'd799da9a60391c322ea2c2824da5ff8369810e6b';
+String _$stationDataHash() => r'e63c6eff6546eaea7e488c7893ae3272ffa5cdee';
 
 abstract class _$StationData
     extends $AsyncNotifier<Map<int, List<DataStation>>> {

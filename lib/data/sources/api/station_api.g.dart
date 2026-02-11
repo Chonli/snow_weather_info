@@ -48,4 +48,4 @@ final class StationApiProvider
   }
 }
 
-String _$stationApiHash() => r'717226873df9521d214d9a87f4e02984c58a3a57';
+String _$stationApiHash() => r'd3638c28b45f015329ddfa86ca72cba5f805f52a';

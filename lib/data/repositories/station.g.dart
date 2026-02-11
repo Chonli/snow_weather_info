@@ -54,4 +54,4 @@ final class StationRepositoryProvider
   }
 }
 
-String _$stationRepositoryHash() => r'827dc02733cdf22479010c953b53053ffc2bcd91';
+String _$stationRepositoryHash() => r'3db4c140b808ea6012e67f0064e6c45a140aedf1';

@@ -32,18 +32,19 @@ class StationDataRepository {
       maxDaysFetch: maxDaysFetch,
     );
 
-    if (remoteDataStations.isEmpty) {
-      final cachedDataStations = localData.allDataStations.read();
-      final minDate = DateTime.now().subtract(Duration(days: maxDaysFetch));
-      cachedDataStations.removeWhere((data) => data.date.isBefore(minDate));
-      await localData.allDataStations.save(cachedDataStations);
-
-      return cachedDataStations;
-    } else {
+    if (remoteDataStations.isNotEmpty) {
       await localData.allDataStations.save(remoteDataStations);
       await localData.lastUpdate.save(DateTime.now());
 
       return remoteDataStations;
     }
+
+    // use cache data
+    final cachedDataStations = localData.allDataStations.read();
+    final minDate = DateTime.now().subtract(Duration(days: maxDaysFetch));
+    cachedDataStations.removeWhere((data) => data.date.isBefore(minDate));
+    await localData.allDataStations.save(cachedDataStations);
+
+    return cachedDataStations;
   }
 }
