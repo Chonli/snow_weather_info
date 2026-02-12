@@ -12,6 +12,9 @@ enum Mountain {
   massifCentral,
   pyrenees,
   vosges,
+  italie,
+  suisse,
+  espagne,
 }
 
 extension MountainExtension on Mountain {
@@ -24,6 +27,9 @@ extension MountainExtension on Mountain {
       Mountain.massifCentral => 'Massif Central',
       Mountain.pyrenees => 'Pyrenées',
       Mountain.vosges => 'Vosges',
+      Mountain.suisse => 'Suisse',
+      Mountain.italie => 'Italie',
+      Mountain.espagne => 'Espagne',
       _ => 'Tous',
     };
   }

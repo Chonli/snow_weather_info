@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'detail.dart';
+part of 'detail_bera.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -102,7 +102,7 @@ final class _PdfControllerProvider
   }
 }
 
-String _$_pdfControllerHash() => r'08d05f75772c071ed278aa3f67bd56939402107c';
+String _$_pdfControllerHash() => r'1d12604251b5679d0f04dfe60f06d2508cd95619';
 
 final class _PdfControllerFamily extends $Family
     with

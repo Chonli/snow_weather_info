@@ -7,7 +7,7 @@ import 'package:snow_weather_info/core/widgets/app_sticky_header_view.dart';
 import 'package:snow_weather_info/data/constant_data_list.dart';
 import 'package:snow_weather_info/model/avalanche_bulletin.dart';
 import 'package:snow_weather_info/model/mountain.dart';
-import 'package:snow_weather_info/provider/favorite_bera.dart';
+import 'package:snow_weather_info/provider/favorite_bulletin.dart';
 import 'package:snow_weather_info/router/router.dart';
 
 part 'view.g.dart';
@@ -56,6 +56,9 @@ class BERAMassifListView extends StatelessWidget {
               _ListByMassifView(mountain: Mountain.alpesSud),
               _ListByMassifView(mountain: Mountain.corse),
               _ListByMassifView(mountain: Mountain.pyrenees),
+              _ListByMassifView(mountain: Mountain.espagne),
+              _ListByMassifView(mountain: Mountain.suisse),
+              _ListByMassifView(mountain: Mountain.italie),
             ],
           ),
         ),
@@ -79,6 +82,9 @@ class _MassifFilterView extends ConsumerWidget {
                 Mountain.alpesSud,
                 Mountain.corse,
                 Mountain.pyrenees,
+                Mountain.espagne,
+                Mountain.suisse,
+                Mountain.italie,
               ]
               .map(
                 (mountain) => Padding(
@@ -102,9 +108,7 @@ class _ListFavoriteView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final favorites = ref.watch(
-      favoriteBeraProvider,
-    );
+    final favorites = ref.watch(favoriteBulletinProvider);
 
     if (favorites.isEmpty) {
       return const SliverToBoxAdapter(
@@ -166,7 +170,7 @@ class _ListByMassifView extends ConsumerWidget {
 class _CardMassif extends StatelessWidget {
   const _CardMassif(this.avalancheBulletin);
 
-  final AvalancheBulletin avalancheBulletin;
+  final AbstractBulletin avalancheBulletin;
 
   @override
   Widget build(BuildContext context) {

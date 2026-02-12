@@ -295,186 +295,226 @@ abstract class ConstantDatalist {
     ),
   ];
 
-  static final listAvalancheBulletin = <AvalancheBulletin>[
-    const AvalancheBulletin(
+  static final listAvalancheBulletin = <AbstractBulletin>[
+    const AvalancheBulletinFr(
       massifName: 'Chablais',
       beraNumber: 1,
       mountain: Mountain.alpesNord,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Aravis',
       beraNumber: 2,
       mountain: Mountain.alpesNord,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Mont-Blanc',
       beraNumber: 3,
       mountain: Mountain.alpesNord,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Bauges',
       beraNumber: 4,
       mountain: Mountain.alpesNord,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Beaufortain',
       beraNumber: 5,
       mountain: Mountain.alpesNord,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Haute-Tarentaise',
       beraNumber: 6,
       mountain: Mountain.alpesNord,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Chartreuse',
       beraNumber: 7,
       mountain: Mountain.alpesNord,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Belledonne',
       beraNumber: 8,
       mountain: Mountain.alpesNord,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Maurienne',
       beraNumber: 9,
       mountain: Mountain.alpesNord,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Vanoise',
       beraNumber: 10,
       mountain: Mountain.alpesNord,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Haute-Maurienne',
       beraNumber: 11,
       mountain: Mountain.alpesNord,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Grandes-Rousses',
       beraNumber: 12,
       mountain: Mountain.alpesNord,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Thabor',
       beraNumber: 13,
       mountain: Mountain.alpesNord,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Vercors',
       beraNumber: 14,
       mountain: Mountain.alpesNord,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Oisans',
       beraNumber: 15,
       mountain: Mountain.alpesNord,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Pelvoux',
       beraNumber: 16,
       mountain: Mountain.alpesSud,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Queyras',
       beraNumber: 17,
       mountain: Mountain.alpesSud,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Devoluy',
       beraNumber: 18,
       mountain: Mountain.alpesSud,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Champsaur',
       beraNumber: 19,
       mountain: Mountain.alpesSud,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Embrunnais-Parpaillon',
       beraNumber: 20,
       mountain: Mountain.alpesSud,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Ubaye',
       beraNumber: 21,
       mountain: Mountain.alpesSud,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Haut-Var-Haut-Verdon',
       beraNumber: 22,
       mountain: Mountain.alpesSud,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Mercantour',
       beraNumber: 23,
       mountain: Mountain.alpesSud,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Cinto-Rotondo',
       beraNumber: 40,
       mountain: Mountain.corse,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Renoso',
       beraNumber: 41,
       mountain: Mountain.corse,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Pays-Basque',
       beraNumber: 64,
       mountain: Mountain.pyrenees,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Aspe-Ossau',
       beraNumber: 65,
       mountain: Mountain.pyrenees,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Haute-Bigorre',
       beraNumber: 66,
       mountain: Mountain.pyrenees,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Aure-Louron',
       beraNumber: 67,
       mountain: Mountain.pyrenees,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Luchonnais',
       beraNumber: 68,
       mountain: Mountain.pyrenees,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Couserans',
       beraNumber: 69,
       mountain: Mountain.pyrenees,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Haute-Ariege',
       beraNumber: 70,
       mountain: Mountain.pyrenees,
     ),
-    const AvalancheBulletin(
-      massifName: 'Andorre',
-      beraNumber: 71,
-      mountain: Mountain.pyrenees,
-    ),
-    const AvalancheBulletin(
+    // const AvalancheBulletinFr(
+    //   massifName: 'Andorre',
+    //   beraNumber: 71,
+    //   mountain: Mountain.pyrenees,
+    // ),
+    const AvalancheBulletinFr(
       massifName: 'Orlu-St-Barthelemy',
       beraNumber: 72,
       mountain: Mountain.pyrenees,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Capcir-Puymorens',
       beraNumber: 73,
       mountain: Mountain.pyrenees,
     ),
-    const AvalancheBulletin(
+    const AvalancheBulletinFr(
       massifName: 'Cerdagne-Canigou',
       beraNumber: 74,
       mountain: Mountain.pyrenees,
+    ),
+    const AvalancheBulletinPdf(
+      massifName: 'Andorre',
+      pdfPath: 'https://www.meteo.ad/uploads/neu/estatNeu1466fr.pdf',
+      mountain: Mountain.pyrenees,
+    ),
+    const AvalancheBulletinPdf(
+      massifName: 'Pirineo Catalán',
+      pdfPath:
+          'https://www.aemet.es/documentos/es/eltiempo/prediccion/montana/boletin_peligro_aludes/BPA_Pirineo_Cat.pdf',
+      mountain: Mountain.pyrenees,
+    ),
+    const AvalancheBulletinPdf(
+      massifName: 'Pirineo Navarro y Aragonés',
+      pdfPath:
+          'https://www.aemet.es/documentos/es/eltiempo/prediccion/montana/boletin_peligro_aludes/BPA_Pirineo_Nav_Ara.pdf',
+      mountain: Mountain.pyrenees,
+    ),
+    const AvalancheBulletinPdf(
+      massifName: 'Sierras del Cordel y Peña Labra',
+      pdfPath:
+          'https://www.aemet.es/documentos/es/eltiempo/prediccion/montana/boletin_peligro_aludes/BPA_sierra_Cordel_PLabra.pdf',
+      mountain: Mountain.espagne,
+    ),
+    const AvalancheBulletinPdf(
+      massifName: 'Picos de Europa',
+      pdfPath:
+          'https://www.aemet.es/documentos/es/eltiempo/prediccion/montana/boletin_peligro_aludes/BPA_PN_Picos_Europa.pdf',
+      mountain: Mountain.espagne,
+    ),
+    const AvalancheBulletinPdf(
+      massifName: 'Guadarrama',
+      pdfPath:
+          'https://www.aemet.es/documentos/es/eltiempo/prediccion/montana/boletin_peligro_aludes/BPA_PN_Guadarrama.pdf',
+      mountain: Mountain.espagne,
+    ),
+    const AvalancheBulletinPdf(
+      massifName: 'Suisse',
+      pdfPath: 'https://aws.slf.ch/api/bulletin/document/full/fr',
+      mountain: Mountain.suisse,
     ),
   ];
 }
