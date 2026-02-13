@@ -203,20 +203,32 @@ class _MassifFilterView extends ConsumerWidget {
     return SliverToBoxAdapter(
       child: Wrap(
         alignment: WrapAlignment.center,
-        children: Mountain.values
-            .map(
-              (mountain) => Padding(
-                padding: const EdgeInsets.only(right: 5),
-                child: ChoiceChip(
-                  label: Text(mountain.displayName),
-                  selected: filters.contains(mountain),
-                  onSelected: (_) {
-                    ref.read(_massifFilterProvider.notifier).update(mountain);
-                  },
-                ),
-              ),
-            )
-            .toList(),
+        children:
+            [
+                  Mountain.all,
+                  Mountain.alpesNord,
+                  Mountain.alpesSud,
+                  Mountain.corse,
+                  Mountain.jura,
+                  Mountain.massifCentral,
+                  Mountain.pyrenees,
+                  Mountain.vosges,
+                ]
+                .map(
+                  (mountain) => Padding(
+                    padding: const EdgeInsets.only(right: 5),
+                    child: ChoiceChip(
+                      label: Text(mountain.displayName),
+                      selected: filters.contains(mountain),
+                      onSelected: (_) {
+                        ref
+                            .read(_massifFilterProvider.notifier)
+                            .update(mountain);
+                      },
+                    ),
+                  ),
+                )
+                .toList(),
       ),
     );
   }

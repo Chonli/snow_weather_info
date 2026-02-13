@@ -16,7 +16,7 @@ final class _PdfControllerProvider
     extends $AsyncNotifierProvider<_PdfController, PdfController?> {
   _PdfControllerProvider._({
     required _PdfControllerFamily super.from,
-    required String super.argument,
+    required AvalancheBulletinPdf super.argument,
   }) : super(
          retry: null,
          name: r'_pdfControllerProvider',
@@ -50,7 +50,7 @@ final class _PdfControllerProvider
   }
 }
 
-String _$_pdfControllerHash() => r'ebd5a6237d92ce999771ffdda1165e862f867f73';
+String _$_pdfControllerHash() => r'8a3ef2e3f881d79c0f66034bea8447ee11ccb735';
 
 final class _PdfControllerFamily extends $Family
     with
@@ -59,7 +59,7 @@ final class _PdfControllerFamily extends $Family
           AsyncValue<PdfController?>,
           PdfController?,
           FutureOr<PdfController?>,
-          String
+          AvalancheBulletinPdf
         > {
   _PdfControllerFamily._()
     : super(
@@ -70,18 +70,18 @@ final class _PdfControllerFamily extends $Family
         isAutoDispose: true,
       );
 
-  _PdfControllerProvider call(String url) =>
-      _PdfControllerProvider._(argument: url, from: this);
+  _PdfControllerProvider call(AvalancheBulletinPdf avalancheBulletinPdf) =>
+      _PdfControllerProvider._(argument: avalancheBulletinPdf, from: this);
 
   @override
   String toString() => r'_pdfControllerProvider';
 }
 
 abstract class _$PdfController extends $AsyncNotifier<PdfController?> {
-  late final _$args = ref.$arg as String;
-  String get url => _$args;
+  late final _$args = ref.$arg as AvalancheBulletinPdf;
+  AvalancheBulletinPdf get avalancheBulletinPdf => _$args;
 
-  FutureOr<PdfController?> build(String url);
+  FutureOr<PdfController?> build(AvalancheBulletinPdf avalancheBulletinPdf);
   @$mustCallSuper
   @override
   void runBuild() {

@@ -476,11 +476,11 @@ abstract class ConstantDatalist {
       beraNumber: 74,
       mountain: Mountain.pyrenees,
     ),
-    const AvalancheBulletinPdf(
-      massifName: 'Andorre',
-      pdfPath: 'https://www.meteo.ad/uploads/neu/estatNeu1466fr.pdf',
-      mountain: Mountain.pyrenees,
-    ),
+    // const AvalancheBulletinPdf(
+    //   massifName: 'Andorre',
+    //   pdfPath: 'https://www.meteo.ad/uploads/neu/estatNeu1466fr.pdf',
+    //   mountain: Mountain.pyrenees,
+    // ),
     const AvalancheBulletinPdf(
       massifName: 'Pirineo Catalán',
       pdfPath:
@@ -515,6 +515,48 @@ abstract class ConstantDatalist {
       massifName: 'Suisse',
       pdfPath: 'https://aws.slf.ch/api/bulletin/document/full/fr',
       mountain: Mountain.suisse,
+    ),
+    const AvalancheBulletinPdf(
+      massifName: 'Piemont',
+      pdfPath:
+          'https://bollettini.aineva.it/albina_files/<date>/<date>_IT-21_it.pdf',
+      mountain: Mountain.italie,
+    ),
+    const AvalancheBulletinPdf(
+      massifName: 'Aoste',
+      pdfPath:
+          'https://bollettini.aineva.it/albina_files/<date>/<date>_IT-23_it.pdf',
+      mountain: Mountain.italie,
+    ),
+    const AvalancheBulletinPdf(
+      massifName: 'Venetie',
+      pdfPath:
+          'https://bollettini.aineva.it/albina_files/<date>/<date>_IT-34_it.pdf',
+      mountain: Mountain.italie,
+    ),
+    const AvalancheBulletinPdf(
+      massifName: 'Frioul',
+      pdfPath:
+          'https://bollettini.aineva.it/albina_files/<date>/<date>_IT-36_it.pdf',
+      mountain: Mountain.italie,
+    ),
+    const AvalancheBulletinPdf(
+      massifName: 'Haut Adige',
+      pdfPath:
+          'https://bollettini.aineva.it/albina_files/<date>/<date>_IT-32-BZ_it.pdf',
+      mountain: Mountain.italie,
+    ),
+    const AvalancheBulletinPdf(
+      massifName: 'Trentin',
+      pdfPath:
+          'https://bollettini.aineva.it/albina_files/<date>/<date>_IT-32-TN_it.pdf',
+      mountain: Mountain.italie,
+    ),
+    const AvalancheBulletinPdf(
+      massifName: 'Marche',
+      pdfPath:
+          'https://bollettini.aineva.it/albina_files/<date>/<date>_IT-57_it.pdf',
+      mountain: Mountain.italie,
     ),
   ];
 }

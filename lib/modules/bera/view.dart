@@ -45,23 +45,17 @@ class BERAMassifListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: [
+    return CustomScrollView(
+      slivers: [
         _MassifFilterView(),
-        Expanded(
-          child: CustomScrollView(
-            slivers: [
-              _ListFavoriteView(),
-              _ListByMassifView(mountain: Mountain.alpesNord),
-              _ListByMassifView(mountain: Mountain.alpesSud),
-              _ListByMassifView(mountain: Mountain.corse),
-              _ListByMassifView(mountain: Mountain.pyrenees),
-              _ListByMassifView(mountain: Mountain.espagne),
-              _ListByMassifView(mountain: Mountain.suisse),
-              _ListByMassifView(mountain: Mountain.italie),
-            ],
-          ),
-        ),
+        _ListFavoriteView(),
+        _ListByMassifView(mountain: Mountain.alpesNord),
+        _ListByMassifView(mountain: Mountain.alpesSud),
+        _ListByMassifView(mountain: Mountain.corse),
+        _ListByMassifView(mountain: Mountain.pyrenees),
+        _ListByMassifView(mountain: Mountain.espagne),
+        _ListByMassifView(mountain: Mountain.suisse),
+        _ListByMassifView(mountain: Mountain.italie),
       ],
     );
   }
@@ -74,31 +68,35 @@ class _MassifFilterView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final filters = ref.watch(_massifFilterProvider);
 
-    return Wrap(
-      children:
-          [
-                Mountain.all,
-                Mountain.alpesNord,
-                Mountain.alpesSud,
-                Mountain.corse,
-                Mountain.pyrenees,
-                Mountain.espagne,
-                Mountain.suisse,
-                Mountain.italie,
-              ]
-              .map(
-                (mountain) => Padding(
-                  padding: const EdgeInsets.only(right: 5),
-                  child: ChoiceChip(
-                    label: Text(mountain.displayName),
-                    selected: filters.contains(mountain),
-                    onSelected: (_) {
-                      ref.read(_massifFilterProvider.notifier).update(mountain);
-                    },
+    return SliverToBoxAdapter(
+      child: Wrap(
+        children:
+            [
+                  Mountain.all,
+                  Mountain.alpesNord,
+                  Mountain.alpesSud,
+                  Mountain.corse,
+                  Mountain.pyrenees,
+                  Mountain.espagne,
+                  Mountain.suisse,
+                  Mountain.italie,
+                ]
+                .map(
+                  (mountain) => Padding(
+                    padding: const EdgeInsets.only(right: 5),
+                    child: ChoiceChip(
+                      label: Text(mountain.displayName),
+                      selected: filters.contains(mountain),
+                      onSelected: (_) {
+                        ref
+                            .read(_massifFilterProvider.notifier)
+                            .update(mountain);
+                      },
+                    ),
                   ),
-                ),
-              )
-              .toList(),
+                )
+                .toList(),
+      ),
     );
   }
 }
