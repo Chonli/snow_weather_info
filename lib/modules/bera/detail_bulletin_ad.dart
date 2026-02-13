@@ -1,47 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:http/http.dart';
 import 'package:pdfx/pdfx.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/data/sources/api/api_client.dart';
 import 'package:snow_weather_info/model/avalanche_bulletin.dart';
-import 'package:snow_weather_info/model/mountain.dart';
 import 'package:snow_weather_info/modules/bera/bulletin_pdf.dart';
 
-part 'detail_basic_pdf.g.dart';
-
-String _formatDate(DateTime date) =>
-    '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
+part 'detail_bulletin_ad.g.dart';
 
 @riverpod
 class _PdfController extends _$PdfController {
   @override
   Future<PdfController?> build(
-    AvalancheBulletinPdf avalancheBulletinPdf,
+    AvalancheBulletinAndorre avalancheBulletin,
   ) async {
-    late final String url;
-    String? urlFallback;
-    if (avalancheBulletinPdf.mountain == Mountain.italie) {
-      final now = DateTime.now();
-
-      url = avalancheBulletinPdf.pdfPath.replaceAll(
-        '<date>',
-        _formatDate(now.add(const Duration(days: 1))),
-      );
-      urlFallback = avalancheBulletinPdf.pdfPath.replaceAll(
-        '<date>',
-        _formatDate(now),
-      );
-    } else {
-      url = avalancheBulletinPdf.pdfPath;
-    }
-
     final client = ref.watch(apiClientProvider);
-    Response response = await client.get(Uri.parse(url));
+    final responsehttp = await client.get(Uri.parse(avalancheBulletin.url));
 
-    if (urlFallback != null && response.statusCode >= 300) {
-      response = await client.get(Uri.parse(urlFallback));
+    if (responsehttp.statusCode >= 300) {
+      const error = 'BERA not found';
+      state = AsyncError(error, StackTrace.current);
+      throw Exception(error);
     }
+
+    final regex = RegExp(
+      r'<a href="(https:\/\/www\.meteo\.ad\/uploads\/neu\/estatNeu\d+fr\.pdf)"[^>]*title="Version pour imprimer"[^>]*>',
+    );
+    final match = regex.firstMatch(responsehttp.body);
+    final url = match?.group(1);
+
+    if (url == null) {
+      const error = 'BERA not found';
+      state = AsyncError(error, StackTrace.current);
+      throw Exception(error);
+    }
+
+    final response = await client.get(Uri.parse(url));
 
     if (response.statusCode >= 300) {
       const error = 'BERA not found';
@@ -58,13 +52,13 @@ class _PdfController extends _$PdfController {
   }
 }
 
-class DetailBasicPdf extends ConsumerWidget {
-  const DetailBasicPdf({
+class DetailAndrorre extends ConsumerWidget {
+  const DetailAndrorre({
     required this.avalancheBulletin,
     super.key,
   });
 
-  final AvalancheBulletinPdf avalancheBulletin;
+  final AvalancheBulletinAndorre avalancheBulletin;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

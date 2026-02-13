@@ -10,6 +10,7 @@ import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/modules/avalanche/view.dart';
 import 'package:snow_weather_info/modules/bera/detail_basic_pdf.dart';
 import 'package:snow_weather_info/modules/bera/detail_bera.dart';
+import 'package:snow_weather_info/modules/bera/detail_bulletin_ad.dart';
 import 'package:snow_weather_info/modules/bera/view.dart';
 import 'package:snow_weather_info/modules/data_station/view.dart';
 import 'package:snow_weather_info/modules/home/home_page.dart';
@@ -160,6 +161,9 @@ GoRouter router(Ref ref) {
                           avalancheBulletin: bulletin,
                         ),
                         AvalancheBulletinPdf() => DetailBasicPdf(
+                          avalancheBulletin: bulletin,
+                        ),
+                        AvalancheBulletinAndorre() => DetailAndrorre(
                           avalancheBulletin: bulletin,
                         ),
                         _ => const Center(

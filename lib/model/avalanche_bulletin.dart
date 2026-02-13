@@ -37,3 +37,15 @@ class AvalancheBulletinPdf extends AbstractBulletin
 
   final String pdfPath;
 }
+
+@MappableClass()
+class AvalancheBulletinAndorre extends AbstractBulletin
+    with AvalancheBulletinAndorreMappable {
+  const AvalancheBulletinAndorre({
+    required super.massifName,
+    required this.url,
+    required super.mountain,
+  });
+
+  final String url;
+}

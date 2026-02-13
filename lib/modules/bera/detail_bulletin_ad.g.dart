@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'detail_basic_pdf.dart';
+part of 'detail_bulletin_ad.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -16,7 +16,7 @@ final class _PdfControllerProvider
     extends $AsyncNotifierProvider<_PdfController, PdfController?> {
   _PdfControllerProvider._({
     required _PdfControllerFamily super.from,
-    required AvalancheBulletinPdf super.argument,
+    required AvalancheBulletinAndorre super.argument,
   }) : super(
          retry: null,
          name: r'_pdfControllerProvider',
@@ -50,7 +50,7 @@ final class _PdfControllerProvider
   }
 }
 
-String _$_pdfControllerHash() => r'cf8ad892f1362b8e811d8b3054cd189bded086ac';
+String _$_pdfControllerHash() => r'9914e6b7405e631d8faa271540cfafa0e7fe7853';
 
 final class _PdfControllerFamily extends $Family
     with
@@ -59,7 +59,7 @@ final class _PdfControllerFamily extends $Family
           AsyncValue<PdfController?>,
           PdfController?,
           FutureOr<PdfController?>,
-          AvalancheBulletinPdf
+          AvalancheBulletinAndorre
         > {
   _PdfControllerFamily._()
     : super(
@@ -70,18 +70,18 @@ final class _PdfControllerFamily extends $Family
         isAutoDispose: true,
       );
 
-  _PdfControllerProvider call(AvalancheBulletinPdf avalancheBulletinPdf) =>
-      _PdfControllerProvider._(argument: avalancheBulletinPdf, from: this);
+  _PdfControllerProvider call(AvalancheBulletinAndorre avalancheBulletin) =>
+      _PdfControllerProvider._(argument: avalancheBulletin, from: this);
 
   @override
   String toString() => r'_pdfControllerProvider';
 }
 
 abstract class _$PdfController extends $AsyncNotifier<PdfController?> {
-  late final _$args = ref.$arg as AvalancheBulletinPdf;
-  AvalancheBulletinPdf get avalancheBulletinPdf => _$args;
+  late final _$args = ref.$arg as AvalancheBulletinAndorre;
+  AvalancheBulletinAndorre get avalancheBulletin => _$args;
 
-  FutureOr<PdfController?> build(AvalancheBulletinPdf avalancheBulletinPdf);
+  FutureOr<PdfController?> build(AvalancheBulletinAndorre avalancheBulletin);
   @$mustCallSuper
   @override
   void runBuild() {

@@ -17,6 +17,7 @@ class AbstractBulletinMapper extends ClassMapperBase<AbstractBulletin> {
       MapperContainer.globals.use(_instance = AbstractBulletinMapper._());
       AvalancheBulletinFrMapper.ensureInitialized();
       AvalancheBulletinPdfMapper.ensureInitialized();
+      AvalancheBulletinAndorreMapper.ensureInitialized();
       MountainMapper.ensureInitialized();
     }
     return _instance!;
@@ -377,5 +378,162 @@ class _AvalancheBulletinPdfCopyWithImpl<$R, $Out>
   AvalancheBulletinPdfCopyWith<$R2, AvalancheBulletinPdf, $Out2>
   $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
       _AvalancheBulletinPdfCopyWithImpl<$R2, $Out2>($value, $cast, t);
+}
+
+class AvalancheBulletinAndorreMapper
+    extends ClassMapperBase<AvalancheBulletinAndorre> {
+  AvalancheBulletinAndorreMapper._();
+
+  static AvalancheBulletinAndorreMapper? _instance;
+  static AvalancheBulletinAndorreMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(
+        _instance = AvalancheBulletinAndorreMapper._(),
+      );
+      AbstractBulletinMapper.ensureInitialized();
+      MountainMapper.ensureInitialized();
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'AvalancheBulletinAndorre';
+
+  static String _$massifName(AvalancheBulletinAndorre v) => v.massifName;
+  static const Field<AvalancheBulletinAndorre, String> _f$massifName = Field(
+    'massifName',
+    _$massifName,
+  );
+  static String _$url(AvalancheBulletinAndorre v) => v.url;
+  static const Field<AvalancheBulletinAndorre, String> _f$url = Field(
+    'url',
+    _$url,
+  );
+  static Mountain _$mountain(AvalancheBulletinAndorre v) => v.mountain;
+  static const Field<AvalancheBulletinAndorre, Mountain> _f$mountain = Field(
+    'mountain',
+    _$mountain,
+  );
+
+  @override
+  final MappableFields<AvalancheBulletinAndorre> fields = const {
+    #massifName: _f$massifName,
+    #url: _f$url,
+    #mountain: _f$mountain,
+  };
+
+  static AvalancheBulletinAndorre _instantiate(DecodingData data) {
+    return AvalancheBulletinAndorre(
+      massifName: data.dec(_f$massifName),
+      url: data.dec(_f$url),
+      mountain: data.dec(_f$mountain),
+    );
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static AvalancheBulletinAndorre fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<AvalancheBulletinAndorre>(map);
+  }
+
+  static AvalancheBulletinAndorre fromJson(String json) {
+    return ensureInitialized().decodeJson<AvalancheBulletinAndorre>(json);
+  }
+}
+
+mixin AvalancheBulletinAndorreMappable {
+  String toJson() {
+    return AvalancheBulletinAndorreMapper.ensureInitialized()
+        .encodeJson<AvalancheBulletinAndorre>(this as AvalancheBulletinAndorre);
+  }
+
+  Map<String, dynamic> toMap() {
+    return AvalancheBulletinAndorreMapper.ensureInitialized()
+        .encodeMap<AvalancheBulletinAndorre>(this as AvalancheBulletinAndorre);
+  }
+
+  AvalancheBulletinAndorreCopyWith<
+    AvalancheBulletinAndorre,
+    AvalancheBulletinAndorre,
+    AvalancheBulletinAndorre
+  >
+  get copyWith =>
+      _AvalancheBulletinAndorreCopyWithImpl<
+        AvalancheBulletinAndorre,
+        AvalancheBulletinAndorre
+      >(this as AvalancheBulletinAndorre, $identity, $identity);
+  @override
+  String toString() {
+    return AvalancheBulletinAndorreMapper.ensureInitialized().stringifyValue(
+      this as AvalancheBulletinAndorre,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return AvalancheBulletinAndorreMapper.ensureInitialized().equalsValue(
+      this as AvalancheBulletinAndorre,
+      other,
+    );
+  }
+
+  @override
+  int get hashCode {
+    return AvalancheBulletinAndorreMapper.ensureInitialized().hashValue(
+      this as AvalancheBulletinAndorre,
+    );
+  }
+}
+
+extension AvalancheBulletinAndorreValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, AvalancheBulletinAndorre, $Out> {
+  AvalancheBulletinAndorreCopyWith<$R, AvalancheBulletinAndorre, $Out>
+  get $asAvalancheBulletinAndorre => $base.as(
+    (v, t, t2) => _AvalancheBulletinAndorreCopyWithImpl<$R, $Out>(v, t, t2),
+  );
+}
+
+abstract class AvalancheBulletinAndorreCopyWith<
+  $R,
+  $In extends AvalancheBulletinAndorre,
+  $Out
+>
+    implements AbstractBulletinCopyWith<$R, $In, $Out> {
+  @override
+  $R call({String? massifName, String? url, Mountain? mountain});
+  AvalancheBulletinAndorreCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+    Then<$Out2, $R2> t,
+  );
+}
+
+class _AvalancheBulletinAndorreCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, AvalancheBulletinAndorre, $Out>
+    implements
+        AvalancheBulletinAndorreCopyWith<$R, AvalancheBulletinAndorre, $Out> {
+  _AvalancheBulletinAndorreCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<AvalancheBulletinAndorre> $mapper =
+      AvalancheBulletinAndorreMapper.ensureInitialized();
+  @override
+  $R call({String? massifName, String? url, Mountain? mountain}) => $apply(
+    FieldCopyWithData({
+      if (massifName != null) #massifName: massifName,
+      if (url != null) #url: url,
+      if (mountain != null) #mountain: mountain,
+    }),
+  );
+  @override
+  AvalancheBulletinAndorre $make(CopyWithData data) => AvalancheBulletinAndorre(
+    massifName: data.get(#massifName, or: $value.massifName),
+    url: data.get(#url, or: $value.url),
+    mountain: data.get(#mountain, or: $value.mountain),
+  );
+
+  @override
+  AvalancheBulletinAndorreCopyWith<$R2, AvalancheBulletinAndorre, $Out2>
+  $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+      _AvalancheBulletinAndorreCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 

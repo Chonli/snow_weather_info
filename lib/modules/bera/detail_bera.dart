@@ -4,10 +4,9 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pdfx/pdfx.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:snow_weather_info/core/widgets/app_pdf.dart';
 import 'package:snow_weather_info/data/sources/api/api_client.dart';
 import 'package:snow_weather_info/model/avalanche_bulletin.dart';
-import 'package:snow_weather_info/provider/favorite_bulletin.dart';
+import 'package:snow_weather_info/modules/bera/bulletin_pdf.dart';
 
 part 'detail_bera.g.dart';
 
@@ -109,39 +108,10 @@ class BERADetailPage extends ConsumerWidget {
     final pdfController = ref.watch(
       _pdfControllerProvider(avalancheBulletin.beraNumber),
     );
-    final isFavorite = ref.watch(
-      favoriteBulletinProvider.select((fav) => fav.contains(avalancheBulletin)),
-    );
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(avalancheBulletin.massifName),
-        actions: [
-          IconButton(
-            icon: Icon(
-              isFavorite ? Icons.favorite : Icons.favorite_border,
-            ),
-            onPressed: () => ref
-                .read(favoriteBulletinProvider.notifier)
-                .addOrRemoveFavoriteBERA(
-                  avalancheBulletin,
-                ),
-          ),
-        ],
-      ),
-      body: switch (pdfController) {
-        AsyncData(:final PdfController value) => AppPdfView(
-          value,
-        ),
-        AsyncError() ||
-        AsyncLoading() when pdfController.hasError => const Center(
-          child: Text('Erreur: pas de BERA trouvé'),
-        ),
-        // cas loading sans erreur et pdf controlleur null
-        _ => const Center(
-          child: CircularProgressIndicator(),
-        ),
-      },
+    return BulletinPdf(
+      pdfController: pdfController,
+      avalancheBulletin: avalancheBulletin,
     );
   }
 }

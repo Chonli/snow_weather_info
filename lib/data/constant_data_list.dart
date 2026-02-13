@@ -476,11 +476,11 @@ abstract class ConstantDatalist {
       beraNumber: 74,
       mountain: Mountain.pyrenees,
     ),
-    // const AvalancheBulletinPdf(
-    //   massifName: 'Andorre',
-    //   pdfPath: 'https://www.meteo.ad/uploads/neu/estatNeu1466fr.pdf',
-    //   mountain: Mountain.pyrenees,
-    // ),
+    const AvalancheBulletinAndorre(
+      massifName: 'Andorre',
+      url: 'https://www.meteo.ad/fr/etatneige',
+      mountain: Mountain.pyrenees,
+    ),
     const AvalancheBulletinPdf(
       massifName: 'Pirineo Catalán',
       pdfPath:
