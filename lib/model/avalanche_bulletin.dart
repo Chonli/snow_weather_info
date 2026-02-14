@@ -1,10 +1,6 @@
-import 'package:dart_mappable/dart_mappable.dart';
 import 'package:snow_weather_info/model/mountain.dart';
 
-part 'avalanche_bulletin.mapper.dart';
-
-@MappableClass()
-sealed class AbstractBulletin with AbstractBulletinMappable {
+sealed class AbstractBulletin {
   const AbstractBulletin({
     required this.massifName,
     required this.mountain,
@@ -14,9 +10,7 @@ sealed class AbstractBulletin with AbstractBulletinMappable {
   final Mountain mountain;
 }
 
-@MappableClass()
-class AvalancheBulletinFr extends AbstractBulletin
-    with AvalancheBulletinFrMappable {
+class AvalancheBulletinFr extends AbstractBulletin {
   const AvalancheBulletinFr({
     required super.massifName,
     required this.beraNumber,
@@ -26,9 +20,7 @@ class AvalancheBulletinFr extends AbstractBulletin
   final int beraNumber;
 }
 
-@MappableClass()
-class AvalancheBulletinPdf extends AbstractBulletin
-    with AvalancheBulletinPdfMappable {
+class AvalancheBulletinPdf extends AbstractBulletin {
   const AvalancheBulletinPdf({
     required super.massifName,
     required this.pdfPath,
@@ -38,9 +30,7 @@ class AvalancheBulletinPdf extends AbstractBulletin
   final String pdfPath;
 }
 
-@MappableClass()
-class AvalancheBulletinAndorre extends AbstractBulletin
-    with AvalancheBulletinAndorreMappable {
+class AvalancheBulletinAndorre extends AbstractBulletin {
   const AvalancheBulletinAndorre({
     required super.massifName,
     required this.url,
