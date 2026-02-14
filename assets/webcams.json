@@ -41,7 +41,11 @@
             "webcams": [
                 {
                     "name": "Haut Echaux",
-                    "url": "https://m.webcam-hd.com/albiez/haut-echaux"
+                    "url": "https://app.webcam-hd.com/albiez/haut-echaux"
+                },
+                {
+                    "name": "Front de neige Grand Loup",
+                    "url": "https://app.webcam-hd.com/albiez/front-de-neige-grand-loup"
                 }
             ]
         },

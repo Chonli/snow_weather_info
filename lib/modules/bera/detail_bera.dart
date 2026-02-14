@@ -2,13 +2,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:http/http.dart' as http;
 import 'package:pdfx/pdfx.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:snow_weather_info/data/sources/api/api_client.dart';
 import 'package:snow_weather_info/model/avalanche_bulletin.dart';
-import 'package:snow_weather_info/provider/favorite_bera.dart';
+import 'package:snow_weather_info/modules/bera/bulletin_pdf.dart';
 
-part 'detail.g.dart';
+part 'detail_bera.g.dart';
 
 @Riverpod(keepAlive: true)
 class _BeraTokenHeader extends _$BeraTokenHeader {
@@ -57,6 +57,7 @@ class _BeraTokenHeader extends _$BeraTokenHeader {
 class _PdfController extends _$PdfController {
   @override
   Future<PdfController?> build(int beraNumber) async {
+    final client = ref.watch(apiClientProvider);
     final headers = ref.watch(_beraTokenHeaderProvider);
     if (headers.isEmpty) {
       await ref.read(_beraTokenHeaderProvider.notifier).updateHeader();
@@ -64,7 +65,7 @@ class _PdfController extends _$PdfController {
       return null;
     }
 
-    final response = await http.get(
+    final response = await client.get(
       Uri.parse(
         'https://rpcache-aa.meteofrance.com/gdss/v1/metronome_bra/blob?sort-results-by=-blob_creation_time&blob_filename=BRA_$beraNumber.pdf',
       ),
@@ -100,93 +101,17 @@ class BERADetailPage extends ConsumerWidget {
     super.key,
   });
 
-  final AvalancheBulletin avalancheBulletin;
+  final AvalancheBulletinFr avalancheBulletin;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final pdfController = ref.watch(
       _pdfControllerProvider(avalancheBulletin.beraNumber),
     );
-    final isFavorite = ref.watch(
-      favoriteBeraProvider.select((fav) => fav.contains(avalancheBulletin)),
-    );
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(avalancheBulletin.massifName),
-        actions: [
-          IconButton(
-            icon: Icon(
-              isFavorite ? Icons.favorite : Icons.favorite_border,
-            ),
-            onPressed: () => ref
-                .read(favoriteBeraProvider.notifier)
-                .addOrRemoveFavoriteBERA(
-                  avalancheBulletin,
-                ),
-          ),
-        ],
-      ),
-      body: switch (pdfController) {
-        AsyncData(:final PdfController value) => _PdfView(
-          value,
-        ),
-        AsyncError() ||
-        AsyncLoading() when pdfController.hasError => const Center(
-          child: Text('Erreur: pas de BERA trouvé'),
-        ),
-        // cas loading sans erreur et pdf controlleur null
-        _ => const Center(
-          child: CircularProgressIndicator(),
-        ),
-      },
-    );
-  }
-}
-
-class _PdfView extends StatelessWidget {
-  const _PdfView(this.controller);
-
-  final PdfController controller;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: PdfView(controller: controller),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            IconButton(
-              icon: const Icon(Icons.navigate_before),
-              onPressed: () {
-                controller.previousPage(
-                  curve: Curves.ease,
-                  duration: const Duration(milliseconds: 100),
-                );
-              },
-            ),
-            PdfPageNumber(
-              controller: controller,
-              builder: (_, loadingState, page, pagesCount) => Text(
-                'Pages $page/${pagesCount ?? 0}',
-                style: const TextStyle(fontSize: 18),
-              ),
-            ),
-            IconButton(
-              icon: const Icon(Icons.navigate_next),
-              onPressed: () {
-                controller.nextPage(
-                  curve: Curves.ease,
-                  duration: const Duration(milliseconds: 100),
-                );
-              },
-            ),
-          ],
-        ),
-      ],
+    return BulletinPdf(
+      pdfController: pdfController,
+      avalancheBulletin: avalancheBulletin,
     );
   }
 }

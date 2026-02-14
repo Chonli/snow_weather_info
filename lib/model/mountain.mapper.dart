@@ -2,6 +2,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 // ignore_for_file: type=lint
+// ignore_for_file: invalid_use_of_protected_member
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
@@ -42,6 +43,12 @@ class MountainMapper extends EnumMapper<Mountain> {
         return Mountain.pyrenees;
       case r'vosges':
         return Mountain.vosges;
+      case r'italie':
+        return Mountain.italie;
+      case r'suisse':
+        return Mountain.suisse;
+      case r'espagne':
+        return Mountain.espagne;
       default:
         throw MapperException.unknownEnumValue(value);
     }
@@ -66,6 +73,12 @@ class MountainMapper extends EnumMapper<Mountain> {
         return r'pyrenees';
       case Mountain.vosges:
         return r'vosges';
+      case Mountain.italie:
+        return r'italie';
+      case Mountain.suisse:
+        return r'suisse';
+      case Mountain.espagne:
+        return r'espagne';
     }
   }
 }

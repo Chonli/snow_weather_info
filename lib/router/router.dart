@@ -8,7 +8,9 @@ import 'package:snow_weather_info/model/avalanche_bulletin.dart';
 import 'package:snow_weather_info/model/ski_resort.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/modules/avalanche/view.dart';
-import 'package:snow_weather_info/modules/bera/detail.dart';
+import 'package:snow_weather_info/modules/bera/detail_basic_pdf.dart';
+import 'package:snow_weather_info/modules/bera/detail_bera.dart';
+import 'package:snow_weather_info/modules/bera/detail_bulletin_ad.dart';
 import 'package:snow_weather_info/modules/bera/view.dart';
 import 'package:snow_weather_info/modules/data_station/view.dart';
 import 'package:snow_weather_info/modules/home/home_page.dart';
@@ -152,12 +154,22 @@ GoRouter router(Ref ref) {
                     path: AppRoute.detailBera.path,
                     name: AppRoute.detailBera.name,
                     parentNavigatorKey: _rootNavigatorKey,
-                    builder: (context, state) {
-                      final bulletin = state.extra! as AvalancheBulletin;
-
-                      return BERADetailPage(
-                        avalancheBulletin: bulletin,
-                      );
+                    builder: (_, state) {
+                      final bulletin = state.extra;
+                      return switch (bulletin) {
+                        AvalancheBulletinFr() => BERADetailPage(
+                          avalancheBulletin: bulletin,
+                        ),
+                        AvalancheBulletinPdf() => DetailBasicPdf(
+                          avalancheBulletin: bulletin,
+                        ),
+                        AvalancheBulletinAndorre() => DetailAndrorre(
+                          avalancheBulletin: bulletin,
+                        ),
+                        _ => const Center(
+                          child: Text('Erreur: pas de Bulletin trouvé!'),
+                        ),
+                      };
                     },
                   ),
                 ],
@@ -211,7 +223,8 @@ enum AppRoute {
   detailAv._('detail_avalanche', 'detail_avalanche'),
   detailMapAv._('detail_avalanche', 'detail_map_avalanche'),
   detailResort._('detail_resort', 'detail_resort'),
-  detailBera._('detail_bera', 'detail_bera');
+  detailBera._('detail_bera', 'detail_bera')
+  ;
 
   const AppRoute._(this.path, this.name);
   final String path;

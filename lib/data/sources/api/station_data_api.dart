@@ -57,13 +57,13 @@ extension _DataStationStringExtension on String {
   Future<List<DataStation>> decodeStationData() async {
     late final List<List<dynamic>> cvsResult;
     try {
-      cvsResult = const CsvToListConverter().convert<dynamic>(
-        this,
+      final myCodec = CsvCodec(
         fieldDelimiter: ';',
-        eol: '\n',
-        shouldParseNumbers: false,
-        allowInvalid: true,
+        lineDelimiter: '\n',
+        quoteMode: QuoteMode.strings,
       );
+
+      cvsResult = myCodec.decode(this);
     } on Exception catch (e) {
       log('Parse csv error: $e');
 
