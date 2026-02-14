@@ -113,25 +113,29 @@ class DataStationChart extends ConsumerWidget {
 
     for (final data in datas) {
       final x = data.date.millisecondsSinceEpoch.toDouble();
-      tempData.add(
-        FlSpot(
-          x,
-          data.snowHeight?.toCm ?? 0,
-        ),
-      );
+      final height = data.snowHeight?.toCm;
 
-      final dataHeight = data.snowNewHeight?.toCm ?? 0;
-      if (dataHeight > 0) {
-        tempHeightData.add([
+      if (height != null) {
+        tempData.add(
           FlSpot(
             x,
-            dataHeight,
+            height,
           ),
-          FlSpot(
-            x,
-            0,
-          ),
-        ]);
+        );
+
+        final dataHeight = data.snowNewHeight?.toCm ?? 0;
+        if (dataHeight > 0) {
+          tempHeightData.add([
+            FlSpot(
+              x,
+              dataHeight,
+            ),
+            FlSpot(
+              x,
+              0,
+            ),
+          ]);
+        }
       }
     }
 

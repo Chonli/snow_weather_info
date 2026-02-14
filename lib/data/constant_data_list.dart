@@ -523,6 +523,12 @@ abstract class ConstantDatalist {
       mountain: Mountain.italie,
     ),
     const AvalancheBulletinPdf(
+      massifName: 'Lombardie',
+      pdfPath:
+          'https://bollettini.aineva.it/albina_files/<date>/<date>_IT-25_it.pdf',
+      mountain: Mountain.italie,
+    ),
+    const AvalancheBulletinPdf(
       massifName: 'Aoste',
       pdfPath:
           'https://bollettini.aineva.it/albina_files/<date>/<date>_IT-23_it.pdf',

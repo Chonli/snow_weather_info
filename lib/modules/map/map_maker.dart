@@ -18,13 +18,14 @@ class MapMaker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
+      clipBehavior: Clip.none,
       children: <Widget>[
         if (lastSnowHeight != null)
           Positioned(
-            left: 42,
+            left: 10,
             bottom: 0,
             child: Text(
-              lastSnowHeight!.toStringSnowHeigth,
+              lastSnowHeight!.toStringMapSnowHeigth,
               style: TextStyle(color: color),
             ),
           ),

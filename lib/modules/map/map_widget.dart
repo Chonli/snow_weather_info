@@ -109,7 +109,7 @@ class __InnerViewState extends ConsumerState<_InnerView> {
     for (final nivose in nivoses) {
       _listNivoseMarker.add(
         Marker(
-          width: 90,
+          width: 50,
           height: 50,
           point: nivose.position.toLatLng(),
           child: MapMaker(
@@ -141,7 +141,7 @@ class __InnerViewState extends ConsumerState<_InnerView> {
       if (hasData) {
         _listStationMarker.add(
           Marker(
-            width: 90,
+            width: 50,
             height: 50,
             point: station.position.toLatLng(),
             child: MapMaker(
@@ -166,7 +166,7 @@ class __InnerViewState extends ConsumerState<_InnerView> {
       } else {
         _listStationNoDataMarker.add(
           Marker(
-            width: 90,
+            width: 50,
             height: 50,
             point: station.position.toLatLng(),
             child: const MapMaker(
@@ -186,7 +186,7 @@ class __InnerViewState extends ConsumerState<_InnerView> {
         if (lat != null && long != null) {
           _listAvalancheMarker.add(
             Marker(
-              width: 90,
+              width: 50,
               height: 50,
               point: LatLng(lat, long),
               child: MapMaker(
