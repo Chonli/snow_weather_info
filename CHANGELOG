@@ -2,7 +2,13 @@
 All notable changes to this project will be documented in this file.
 ## 2.4.7
 ### Added
+- More Nivose
 - Dynamic update of webcams url  
+- Add BERA Spain, Andorre, Italy, Switzerland
+
+### Fixed
+- Chart with null sown height
+- Position of map maker
 
 ## 2.4.6
 ### Fixed
