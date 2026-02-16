@@ -34,4 +34,7 @@ extension ListSkiResorts on List<SkiResort> {
 
   List<SkiResort> get webcamsPyrenees =>
       where((ski) => ski.mountain == Mountain.pyrenees).toList();
+
+  List<SkiResort> get webcamsItalie =>
+      where((ski) => ski.mountain == Mountain.italie).toList();
 }

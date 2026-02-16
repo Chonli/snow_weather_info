@@ -2,7 +2,7 @@ name: snow_weather_info
 description: A application to display french snow weather beacon informations
 publish_to: none
 
-version: 2.4.7+47
+version: 2.5.0+48
 
 environment:
   sdk: '>=3.11.0'

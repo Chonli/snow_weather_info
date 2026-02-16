@@ -88,12 +88,12 @@
                     "url": "https://www.youtube.com/embed/7SheNmPKU9E?autoplay=1&mute=1"
                 },
                 {
-                    "name": "Alpette",
-                    "url": "https://app.webcam-hd.com/vaujany/alpette"
+                    "name": "Oz station",
+                    "url": "https://www.skaping.com/alpedhuez/oz-en-oisans/station"
                 },
                 {
                     "name": "Montfrais",
-                    "url": "https://app.webcam-hd.com/vaujany/front-de-neige"
+                    "url": "https://www.skaping.com/alpedhuez/vaujany/montfrais"
                 },
                 {
                     "name": "Petites Rousses (2800m)",
@@ -130,20 +130,20 @@
             "mountain": "alpesNord",
             "webcams": [
                 {
-                    "name": "Curvy",
+                    "name": "Curvy – 1710m",
                     "url": "https://app.webcam-hd.com/areches-beaufort/cuvy"
                 },
                 {
-                    "name": "Bonnets Rouges",
+                    "name": "Bonnets Rouges – 2037m",
                     "url": "https://app.webcam-hd.com/areches-beaufort/bonnets-rouges"
                 },
                 {
-                    "name": "Planay",
+                    "name": "Planay – 1200m",
                     "url": "https://app.webcam-hd.com/areches-beaufort/planay"
                 },
                 {
-                    "name": "Arolles",
-                    "url": "https://app.webcam-hd.com/areches-beaufort/arolles"
+                    "name": "Sommet des Combettes – 2130m",
+                    "url": "https://app.webcam-hd.com/areches-beaufort/sommet-combettes"
                 }
             ]
         },
@@ -154,7 +154,7 @@
             "webcams": [
                 {
                     "name": "Front Neige",
-                    "url": "https://vision.quanteec.com/contents/encodings/live/4e4fed78-ef45-43a7-746c-7561-6665-64-94fc-975529b56614d/poster.jpg"
+                    "url": "https://www.skaping.com/aussois/front-de-neige"
                 },
                 {
                     "name": "Domaine Nordique",
@@ -236,7 +236,7 @@
                 },
                 {
                     "name": "Avoriaz - Fornet",
-                    "url": "https://m.webcam-hd.com/avoriaz/fornet"
+                    "url": "https://app.webcam-hd.com/avoriaz/fornet"
                 },
                 {
                     "name": "Montriond - Les Lindarets",
@@ -244,7 +244,7 @@
                 },
                 {
                     "name": "Morzine - Chamossière",
-                    "url": "https://m.webcam-hd.com/morzine/chamossiere"
+                    "url": "https://app.webcam-hd.com/morzine/chamossiere"
                 },
                 {
                     "name": "Morzine - Raverettes",
@@ -288,7 +288,7 @@
                 },
                 {
                     "name": "Châtel - Morclan",
-                    "url": "https://m.webcam-hd.com/chatel/morclan"
+                    "url": "https://app.webcam-hd.com/chatel/morclan"
                 },
                 {
                     "name": "Châtel - Rochassons",
@@ -296,19 +296,19 @@
                 },
                 {
                     "name": "Châtel - Echo Alpin",
-                    "url": "https://m.webcam-hd.com/chatel/ts-echo-alpin"
+                    "url": "https://app.webcam-hd.com/chatel/ts-echo-alpin"
                 },
                 {
                     "name": "Abondance",
-                    "url": "https://m.webcam-hd.com/ot-peva/tc-essert"
+                    "url": "https://app.webcam-hd.com/ot-peva/tc-essert"
                 },
                 {
                     "name": "Chapelle d'Abondance",
-                    "url": "https://m.webcam-hd.com/la-chapelle/braitaz"
+                    "url": "https://app.webcam-hd.com/la-chapelle/braitaz"
                 },
                 {
                     "name": "Torgon",
-                    "url": "https://m.webcam-hd.com/chatel/torgon"
+                    "url": "https://app.webcam-hd.com/chatel/torgon"
                 }
             ]
         },
@@ -334,15 +334,15 @@
             "webcams": [
                 {
                     "name": "Le Carreley",
-                    "url": "https://m.webcam-hd.com/bessans/carreley"
+                    "url": "https://app.webcam-hd.com/bessans/carreley"
                 },
                 {
                     "name": "Saignière",
-                    "url": "https://m.webcam-hd.com/bessans/relais"
+                    "url": "https://app.webcam-hd.com/bessans/relais"
                 },
                 {
                     "name": "La Bessannaise",
-                    "url": "https://m.webcam-hd.com/bessans/bessannaise"
+                    "url": "https://app.webcam-hd.com/bessans/bessannaise"
                 }
             ]
         },
@@ -353,11 +353,15 @@
             "webcams": [
                 {
                     "name": "Le Vallonnet",
-                    "url": "https://broadcast.viewsurf.com/7c939fabfe29bbdb9f2762b3b3392e2e/capture/13304/playEmbed"
+                    "url": "https://pv.viewsurf.com/72/Bonneval-sur-Arc?i=MTUwOg"
                 },
                 {
                     "name": "Andagne",
-                    "url": "https://broadcast.viewsurf.com/c15529eba71115c84591e2d981d58762/capture/10720/playEmbed"
+                    "url": "https://pv.viewsurf.com/1496/Bonneval-Andagne?i=NTk3ODo"
+                },
+                {
+                    "name": "Village",
+                    "url": "https://broadcast.viewsurf.com/7c939fabfe29bbdb9f2762b3b3392e2e/capture/13302/playEmbed"
                 }
             ]
         },
@@ -456,7 +460,7 @@
                 },
                 {
                     "name": "Chamrousse 1800",
-                    "url": "http://static.meteo-chamrousse.com/webcam/webcam-chamrousse.jpg"
+                    "url": "https://static.meteo-chamrousse.com/webcam/webcam-chamrousse.jpg"
                 },
                 {
                     "name": "Le Recoin",
@@ -486,20 +490,32 @@
                     "url": "https://www.skaping.com/jaillet/sommet"
                 },
                 {
+                    "name": "Le Mont-Blanc",
+                    "url": "https://pv.viewsurf.com/1138/Cordon-Station?i=NTAyMDo"
+                },
+                {
                     "name": "Lac d’Arbois",
-                    "url": "https://m.webcam-hd.com/evasion/lac-arbois"
+                    "url": "https://www.skaping.com/megeve/lac-d-arbois"
                 },
                 {
                     "name": "Fontaine",
-                    "url": "https://m.webcam-hd.com/evasion/fontaine"
+                    "url": "https://www.skaping.com/megeve/fontaine"
                 },
                 {
                     "name": "Mont d’Arbois",
-                    "url": "https://m.webcam-hd.com:443/evasion/mont-arbois"
+                    "url": "https://www.skaping.com/megeve/mont-d-arbois"
+                },
+                {
+                    "name": "Cote 2000",
+                    "url": "https://www.skaping.com/megeve/cote-2000"
                 },
                 {
                     "name": "Rochebrune",
-                    "url": "https://m.webcam-hd.com:443/evasion/rochebrune"
+                    "url": "https://www.skaping.com/megeve/rochebrune"
+                },
+                {
+                    "name": "Village",
+                    "url": "https://www.skaping.com/megeve/village"
                 },
                 {
                     "name": "La Livraz",
@@ -546,6 +562,10 @@
                 {
                     "name": "Sommet de l’Oursiere",
                     "url": "https://www.skaping.com/les7laux/pleynet/oursiere"
+                },
+                {
+                    "name": "Grand Cerf",
+                    "url": "https://www.skaping.com/les7laux/pipay/grand-cerf"
                 },
                 {
                     "name": "Lac Crozet",
@@ -792,7 +812,7 @@
             "webcams": [
                 {
                     "name": "Front de Neige",
-                    "url": "https://pv.viewsurf.com/522/La-Norma"
+                    "url": "https://www.skaping.com/la-norma/fontaine-aux-oiseaux/video"
                 },
                 {
                     "name": "Secteur Repose",
@@ -885,7 +905,7 @@
         },
         {
             "id": 24,
-            "name": "La Rosière",
+            "name": "La Rosière/La Thuile",
             "mountain": "alpesNord",
             "webcams": [
                 {
@@ -917,12 +937,12 @@
                     "url": "https://app.webcam-hd.com/la-rosiere/plan-du-repos"
                 },
                 {
-                    "name": "Les Suches",
-                    "url": "https://www.lovevda.it/Media/Cache/Webcam/big_lathuile.jpg"
+                    "name": "Jardin d'enfants",
+                    "url": "https://app.webcam-hd.com/rosiere-planica/rosiere-planica_hotel"
                 },
                 {
-                    "name": "Jardin d'enfants",
-                    "url": "https://www.larosiere.net/webcam/chalet-planica/"
+                    "name": "Col du Petit Saint Bernard",
+                    "url": "https://lathuile.panomax.com/piccolosanbernardo"
                 }
             ]
         },
@@ -969,7 +989,7 @@
             "webcams": [
                 {
                     "name": "Arcabulle",
-                    "url": "https://m.webcam-hd.com/lesarcs/arcabulle"
+                    "url": "https://app.webcam-hd.com/lesarcs/arcabulle"
                 },
                 {
                     "name": "Arpette",
@@ -977,27 +997,27 @@
                 },
                 {
                     "name": "Aiguille Rouge",
-                    "url": "https://m.webcam-hd.com/lesarcs/aiguille-rouge"
+                    "url": "https://app.webcam-hd.com/lesarcs/aiguille-rouge"
                 },
                 {
                     "name": "Mont Blanc",
-                    "url": "https://m.webcam-hd.com/lesarcs/mont-blanc"
+                    "url": "https://app.webcam-hd.com/lesarcs/mont-blanc"
                 },
                 {
                     "name": "Snowpark",
-                    "url": "https://m.webcam-hd.com/lesarcs/snowpark"
+                    "url": "https://app.webcam-hd.com/lesarcs/snowpark"
                 },
                 {
                     "name": "Arc 1800",
-                    "url": "https://m.webcam-hd.com/lesarcs/mille8"
+                    "url": "https://app.webcam-hd.com/lesarcs/mille8"
                 },
                 {
                     "name": "Grizzly",
-                    "url": "https://m.webcam-hd.com/lesarcs/grizzly"
+                    "url": "https://app.webcam-hd.com/lesarcs/grizzly"
                 },
                 {
                     "name": "Vanoise Express",
-                    "url": "https://m.webcam-hd.com/lesarcs/vanoise-express"
+                    "url": "https://app.webcam-hd.com/lesarcs/vanoise-express"
                 },
                 {
                     "name": "Varet",
@@ -1016,7 +1036,7 @@
             "webcams": [
                 {
                     "name": "Télécabine de la Kédeuze – 1754m",
-                    "url": "https://m.webcam-hd.com/lescarroz/arrivee-telecabine"
+                    "url": "https://app.webcam-hd.com/lescarroz/arrivee-telecabine"
                 },
                 {
                     "name": "Front de neige – 1160m",
@@ -1024,7 +1044,7 @@
                 },
                 {
                     "name": "Tête des Saix – 2100m",
-                    "url": "https://m.webcam-hd.com/lescarroz/carroz-2100"
+                    "url": "https://app.webcam-hd.com/lescarroz/carroz-2100"
                 },
                 {
                     "name": "Les Molliets – 1500m",
@@ -1036,7 +1056,7 @@
                 },
                 {
                     "name": "Cool Zone de l'Oasis",
-                    "url": "https://m.webcam-hd.com/lescarroz/oasis"
+                    "url": "https://app.webcam-hd.com/lescarroz/oasis"
                 }
             ]
         },
@@ -1058,8 +1078,12 @@
                     "url": "https://app.webcam-hd.com/st-gervais/bettex"
                 },
                 {
+                    "name": "Mont Blanc - 1840 m",
+                    "url": "https://app.webcam-hd.com/st-gervais/mont-blanc"
+                },
+                {
                     "name": "Le Plateau de la Croix - 1450m",
-                    "url": "http://app.webcam-hd.com/st-gervais/plateau-de-la-croix"
+                    "url": "https://app.webcam-hd.com/st-gervais/plateau-de-la-croix"
                 },
                 {
                     "name": "Saint Nicolas de Véroce - 1200m",
@@ -1237,7 +1261,11 @@
             "webcams": [
                 {
                     "name": "Front de Neige",
-                    "url": "https://www.youtube.com/embed/2qc7Ty6ITtk?autoplay=1&mute=1"
+                    "url": "https://app.webcam-hd.com/les-karellis/front-de-neige"
+                },
+                {
+                    "name": "Chaudannes",
+                    "url": "https://app.webcam-hd.com/les-karellis/tsd-des-chaudannes"
                 },
                 {
                     "name": "Vinouve",
@@ -1530,23 +1558,23 @@
             "webcams": [
                 {
                     "name": "Praz Front de Neige",
-                    "url": "https://m.webcam-hd.com/val-d-arly/depart-des-pistes"
+                    "url": "https://app.webcam-hd.com/val-d-arly/depart-des-pistes"
                 },
                 {
                     "name": "Cret du Midi",
-                    "url": "https://m.webcam-hd.com/val-d-arly/cret-du-midi"
+                    "url": "https://app.webcam-hd.com/val-d-arly/cret-du-midi"
                 },
                 {
                     "name": "Ban Rouge – 1983m",
-                    "url": "https://m.webcam-hd.com/val-d-arly/ban-rouge"
+                    "url": "https://app.webcam-hd.com/val-d-arly/ban-rouge"
                 },
                 {
                     "name": "Le Mont Rond – 1350m",
-                    "url": "https://m.webcam-hd.com/val-d-arly/cret-du-midi"
+                    "url": "https://app.webcam-hd.com/val-d-arly/cret-du-midi"
                 },
                 {
                     "name": "NDB Le Centre village – 1150m",
-                    "url": "https://m.webcam-hd.com/val-d-arly-ot/village"
+                    "url": "https://app.webcam-hd.com/val-d-arly-ot/village"
                 }
             ]
         },
@@ -1560,10 +1588,6 @@
                     "url": "https://app.webcam-hd.com/grand-massif/grand-massif_morillon-1100"
                 },
                 {
-                    "name": "Morillon – Biollaires",
-                    "url": "https://app.webcam-hd.com/grand-massif/grand-massif_morillon-biollaires"
-                },
-                {
                     "name": "Morillon – Sairon",
                     "url": "https://app.webcam-hd.com/grand-massif/sairon"
                 },
@@ -1573,7 +1597,7 @@
                 },
                 {
                     "name": "Cirque du Fer à Cheval",
-                    "url": "https://m.webcam-hd.com/vallee-haut-giffre/sixt-fer-a-cheval"
+                    "url": "https://app.webcam-hd.com/vallee-haut-giffre/sixt-fer-a-cheval"
                 },
                 {
                     "name": "Col de Joux Plane",
@@ -1736,6 +1760,10 @@
                 {
                     "name": "La Station",
                     "url": "https://app.webcam-hd.com/gresse-en-vercors/grand-veymont"
+                },
+                {
+                    "name": "Col de Menée",
+                    "url": "https://sigressources.ladrome.fr/cameras/routes/col_menee/col_menee.jpg"
                 }
             ]
         },
@@ -1747,10 +1775,6 @@
                 {
                     "name": "Station",
                     "url": "https://app.webcam-hd.com/la-drome/la-drome_herbouilly"
-                },
-                {
-                    "name": "Parking",
-                    "url": "https://geo.ladrome.fr/cameras/herbouilly/herbouilly.jpg"
                 }
             ]
         },
@@ -1785,6 +1809,10 @@
                 {
                     "name": "Front de Neige",
                     "url": "https://app.webcam-hd.com/la-drome/front-de-neige-rousset"
+                },
+                {
+                    "name": "Téléski des Econdus",
+                    "url": "https://app.webcam-hd.com/la-drome/tk-econdus"
                 }
             ]
         },
@@ -1794,11 +1822,11 @@
             "mountain": "alpesNord",
             "webcams": [
                 {
-                    "name": "Le Belvédère",
+                    "name": "Le Belvédère - 1157m",
                     "url": "https://coulmes-vercors.com/wp-content/uploads/webcam-belvedere/webcam-belvedere.jpg"
                 },
                 {
-                    "name": "Foyer de ski",
+                    "name": "Col de Romeyère – Rencurel - 1079m",
                     "url": "https://coulmes-vercors.com/wp-content/uploads/webcam-foyer/webcam-foyer.jpg"
                 }
             ]
@@ -1811,6 +1839,90 @@
                 {
                     "name": "Station",
                     "url": "https://app.webcam-hd.com/la-drome/grand-echaillon"
+                }
+            ]
+        },
+        {
+            "id": 102,
+            "name": "Lans en Vercors",
+            "mountain": "alpesNord",
+            "webcams": [
+                {
+                    "name": "Vertige des cimes - 1715m",
+                    "url": "https://app.webcam-hd.com/lans_en_vercors/vertige_des_cimes"
+                },
+                {
+                    "name": "Montagnes de Lans-en-Vercors- 1430m",
+                    "url": "https://app.webcam-hd.com/lans_en_vercors/montagne-de-lans"
+                },
+                {
+                    "name": "Les Allières – Collet du Furon - 1449m",
+                    "url": "https://app.webcam-hd.com/lans_en_vercors/les-allieres-collet-du-furon"
+                },
+                {
+                    "name": "Stade de neige – La Sierre - 1430m",
+                    "url": "https://www.trinum.com/ibox/lans_en_vercors/images/stade/lans_stade8.jpg"
+                }
+            ]
+        },
+        {
+            "id": 103,
+            "name": "Lus La Jarjatte",
+            "mountain": "alpesNord",
+            "webcams": [
+                {
+                    "name": "Lièvre Blanc",
+                    "url": "https://app.webcam-hd.com/la-drome/piste-lievre-blanc"
+                },
+                {
+                    "name": "Front de neige",
+                    "url": "https://app.webcam-hd.com/la-drome/lus-la-jarjatte"
+                }
+            ]
+        },
+        {
+            "id": 104,
+            "name": "Chapelle en Vercors/Saint Julien en Vercors",
+            "mountain": "alpesNord",
+            "webcams": [
+                {
+                    "name": "Brasserie - 891m",
+                    "url": "https://www.brasserie-du-slalom.fr/webcam/la-chapelle-en-vercors.jpg"
+                },
+                {
+                    "name": "D103 - 700m",
+                    "url": "https://sigressources.ladrome.fr/cameras/routes/st_julien_en_vercors/st_julien_en_vercors.jpg"
+                },
+                {
+                    "name": "Col de Carri - 1202m",
+                    "url": "https://sigressources.ladrome.fr/cameras/routes/col_carri/col_carri.jpg"
+                }
+            ]
+        },
+        {
+            "id": 106,
+            "name": "La Feclaz/Grand Revard",
+            "mountain": "alpesNord",
+            "webcams": [
+                {
+                    "name": "Stade de Biathlon",
+                    "url": "https://www.skaping.com/la-feclaz/stade-de-biathlon"
+                },
+                {
+                    "name": "Belvédère du Revard",
+                    "url": "https://www.skaping.com/grandlac/revard"
+                },
+                {
+                    "name": "Orionde",
+                    "url": "https://www.skaping.com/la-feclaz/orionde"
+                },
+                {
+                    "name": "Téléski du Tesson",
+                    "url": "https://www.skaping.com/revard/tesson"
+                },
+                {
+                    "name": "Foyer de ski de fond de Crolles",
+                    "url": "https://www.skaping.com/aix-les-bains/foyer-du-ski-de-fond-de-crolles"
                 }
             ]
         },
@@ -1840,15 +1952,15 @@
             "webcams": [
                 {
                     "name": "Front de Neige",
-                    "url": "https://m.webcam-hd.com/orcieres-1850/front-de-neige"
+                    "url": "https://app.webcam-hd.com/orcieres-1850/front-de-neige"
                 },
                 {
                     "name": "Le Drouvet",
-                    "url": "https://m.webcam-hd.com/orcieres-1850/le-drouvet"
+                    "url": "https://app.webcam-hd.com/orcieres-1850/le-drouvet"
                 },
                 {
                     "name": "Estaris",
-                    "url": "https://m.webcam-hd.com/orcieres-1850/sommet-estaris"
+                    "url": "https://app.webcam-hd.com/orcieres-1850/sommet-estaris"
                 },
                 {
                     "name": "Rocherousse",
@@ -2013,19 +2125,27 @@
             "webcams": [
                 {
                     "name": "1600m",
-                    "url": "https://www.youtube.com/embed/ysSRemi4LsE?si=Xmw8dpyqxzulzLEC?autoplay=1&mute=1"
+                    "url": "https://www.vision-environnement.com/live/player/psv20.php"
                 },
                 {
-                    "name": "2000m",
-                    "url": "https://www.youtube.com/embed/25W1dH4gXAw?si=h0ICgf0o-rwo6Uhx?autoplay=1&mute=1"
+                    "name": "Téléski du Puy - 2000m",
+                    "url": "https://www.vision-environnement.com/live/player/psv0.php"
                 },
                 {
-                    "name": "Sommet de la Station",
-                    "url": "https://www.youtube.com/embed/fn9tjsNtfKc?si=EeRK1dC5RpkbiHDu"
+                    "name": "Chalet nordique",
+                    "url": "https://www.vision-environnement.com/live/player/psv30.php"
+                },
+                {
+                    "name": "Télécombi des Prés",
+                    "url": "https://www.vision-environnement.com/live/player/psv60.php"
                 },
                 {
                     "name": "Crête des Bans",
                     "url": "https://www.vision-environnement.com/live/player/psv2700.php"
+                },
+                {
+                    "name": "Sommet de la Pendine",
+                    "url": "https://www.vision-environnement.com/live/player/psv50.php"
                 }
             ]
         },
@@ -2036,11 +2156,11 @@
             "webcams": [
                 {
                     "name": "Front de Neige",
-                    "url": "https://m.webcam-hd.com/reallon/reallon-front-de-neige"
+                    "url": "https://app.webcam-hd.com/reallon/reallon-front-de-neige"
                 },
                 {
                     "name": "Chabrières",
-                    "url": "https://m.webcam-hd.com/reallon/reallon_chabrieres"
+                    "url": "https://app.webcam-hd.com/reallon/reallon_chabrieres"
                 }
             ]
         },
@@ -2303,15 +2423,15 @@
             "webcams": [
                 {
                     "name": "Les Planes",
-                    "url": "http://app.webcam-hd.com/grand-puy/planes"
+                    "url": "https://app.webcam-hd.com/grand-puy/planes"
                 },
                 {
                     "name": "Front de Neige",
-                    "url": "http://app.webcam-hd.com/grand-puy/front-de-neige"
+                    "url": "https://app.webcam-hd.com/grand-puy/front-de-neige"
                 },
                 {
                     "name": "Espace Débutant",
-                    "url": "http://app.webcam-hd.com/grand-puy/espace-debutant"
+                    "url": "https://app.webcam-hd.com/grand-puy/espace-debutant"
                 }
             ]
         },
@@ -2321,32 +2441,32 @@
             "mountain": "alpesSud",
             "webcams": [
                 {
-                    "name": "La Foux - Marin Pascal",
-                    "url": "http://app.webcam-hd.com/valdallos/sommet-marin-pascal"
+                    "name": "La Foux - Sommet Marin Pascal",
+                    "url": "https://app.webcam-hd.com/valdallos/sommet-marin-pascal"
+                },
+                {
+                    "name": "La Foux centre station",
+                    "url": "https://app.webcam-hd.com/valdallos/centre-station"
                 },
                 {
                     "name": "La Foux quartier de l'Ubac",
-                    "url": "http://app.webcam-hd.com/valdallos/front-de-neige"
+                    "url": "https://app.webcam-hd.com/valdallos/front-de-neige"
                 },
                 {
                     "name": "La Foux - Observatoire",
-                    "url": "http://app.webcam-hd.com/valdallos/observatoire"
+                    "url": "https://app.webcam-hd.com/valdallos/observatoire"
                 },
                 {
                     "name": "Le Seignus - Front de Neige",
-                    "url": "http://app.webcam-hd.com/valdallos/seignus-bas"
+                    "url": "https://app.webcam-hd.com/valdallos/seignus-bas"
                 },
                 {
                     "name": "Le Seignus - Clos Bertrand",
-                    "url": "http://app.webcam-hd.com/valdallos/seignus-haut"
+                    "url": "https://app.webcam-hd.com/valdallos/seignus-haut"
                 },
                 {
                     "name": "Le Village",
-                    "url": "http://app.webcam-hd.com/valdallos/village"
-                },
-                {
-                    "name": "Le Village & Le Seignus",
-                    "url": "http://app.webcam-hd.com/valdallos/champons"
+                    "url": "https://app.webcam-hd.com/valdallos/village"
                 }
             ]
         },
@@ -2412,15 +2532,15 @@
                 },
                 {
                     "name": "Pré du Bois",
-                    "url": "https://m.webcam-hd.com/risoul/pre-du-bois"
+                    "url": "https://app.webcam-hd.com/risoul/pre-du-bois"
                 },
                 {
                     "name": "Front de Neige",
-                    "url": "https://m.webcam-hd.com/risoul/risoul_front"
+                    "url": "https://app.webcam-hd.com/risoul/risoul_front"
                 },
                 {
                     "name": "Homme de Pierre",
-                    "url": "https://m.webcam-hd.com/risoul/homme-de-pierre"
+                    "url": "https://app.webcam-hd.com/risoul/homme-de-pierre"
                 }
             ]
         },
@@ -2435,7 +2555,7 @@
                 },
                 {
                     "name": "Village",
-                    "url": "https://m.webcam-hd.com/valberg/valberg_village"
+                    "url": "https://app.webcam-hd.com/valberg/valberg_village"
                 },
                 {
                     "name": "Ancolies",
@@ -2443,7 +2563,7 @@
                 },
                 {
                     "name": "Sommet des Eguilles",
-                    "url": "https://m.webcam-hd.com/valberg/sommet-tete-des-eguilles"
+                    "url": "https://app.webcam-hd.com/valberg/sommet-tete-des-eguilles"
                 },
                 {
                     "name": "Domaine nordique de Beuil-Les Launes",
@@ -2458,27 +2578,39 @@
             "webcams": [
                 {
                     "name": "Canal Roya",
-                    "url": "https://astuncandanchu.com/camara/canalroya.jpg"
+                    "url": "https://g0.ipcamlive.com/player/player.php?alias=6950efe01f574&amp;skin=white&amp;autoplay=1&amp;mute=1&amp;disableautofullscreen=1&amp;disablezoombutton=1&amp;disableframecapture=1&amp;disabletimelapseplayer=1&amp;disablestorageplayer=1&amp;disabledownloadbutton=1&amp;disableplaybackspeedbutton=1&amp;disablenavigation=1"
+                },
+                {
+                    "name": "Ibones",
+                    "url": "https://g0.ipcamlive.com/player/player.php?alias=67a0c2da05960&amp;skin=white&amp;autoplay=1&amp;mute=1&amp;disableautofullscreen=1&amp;disablezoombutton=1&amp;disabletimelapseplayer=1&amp;disablestorageplayer=1&amp;disableplaybackspeedbutton=1&amp;disablenavigation=1"
+                },
+                {
+                    "name": "Sector Raca",
+                    "url": "https://g0.ipcamlive.com/player/player.php?alias=67a34421f219f&amp;skin=white&amp;autoplay=1&amp;mute=1&amp;disableautofullscreen=1&amp;disablezoombutton=1&amp;disableframecapture=1&amp;disabletimelapseplayer=1&amp;disablestorageplayer=1&amp;disabledownloadbutton=1&amp;disableplaybackspeedbutton=1&amp;disablenavigation=1"
                 },
                 {
                     "name": "Cima Raca",
-                    "url": "https://astuncandanchu.com/camara/cimaraca.jpg"
+                    "url": "https://g0.ipcamlive.com/player/player.php?alias=6793840d85d77&amp;skin=white&amp;autoplay=1&amp;mute=1&amp;disableautofullscreen=1&amp;disablezoombutton=1&amp;disabletimelapseplayer=1&amp;disablestorageplayer=1&amp;disableplaybackspeedbutton=1&amp;disablenavigation=1"
+                },
+                {
+                    "name": "Cafetería Sarrios",
+                    "url": "https://g0.ipcamlive.com/player/player.php?alias=67938462ee074&amp;skin=white&amp;autoplay=1&amp;mute=1&amp;disableautofullscreen=1&amp;disablezoombutton=1&amp;disabletimelapseplayer=1&amp;disablestorageplayer=1&amp;disableplaybackspeedbutton=1&amp;disablenavigation=1"
                 },
                 {
                     "name": "Prado Blanco",
-                    "url": "https://astuncandanchu.com/camara/pradoblanco.jpg"
+                    "url": "https://g0.ipcamlive.com/player/player.php?alias=679383335f3dd&amp;skin=white&amp;autoplay=1&amp;mute=1&amp;disableautofullscreen=1&amp;disablezoombutton=1&amp;disabletimelapseplayer=1&amp;disablestorageplayer=1&amp;disableplaybackspeedbutton=1&amp;disablenavigation=1"
                 },
                 {
                     "name": "Sarrios - Águila",
-                    "url": "https://astuncandanchu.com/camara/sarrios-aguila.jpg"
+                    "url": "https://g0.ipcamlive.com/player/player.php?alias=679383b68931d&amp;skin=white&amp;autoplay=1&amp;mute=1&amp;disableautofullscreen=1&amp;disablezoombutton=1&amp;disabletimelapseplayer=1&amp;disablestorageplayer=1&amp;disableplaybackspeedbutton=1&amp;disablenavigation=1"
                 },
                 {
-                    "name": "Truchas",
-                    "url": "https://astuncandanchu.com/camara/truchas.jpg"
+                    "name": "Base estación",
+                    "url": "https://g0.ipcamlive.com/player/player.php?alias=6787abea8545e&amp;skin=white&amp;autoplay=1&amp;mute=1&amp;disableautofullscreen=1&amp;disablezoombutton=1&amp;disabletimelapseplayer=1&amp;disablestorageplayer=1&amp;disableplaybackspeedbutton=1&amp;disablenavigation=1"
                 },
                 {
                     "name": "Ts Águila",
-                    "url": "https://astuncandanchu.com/camara/aguila.jpg"
+                    "url": "https://g0.ipcamlive.com/player/player.php?alias=679e76a798b7c&amp;skin=white&amp;autoplay=1&amp;mute=1&amp;disableautofullscreen=1&amp;disablezoombutton=1&amp;disabletimelapseplayer=1&amp;disablestorageplayer=1&amp;disableplaybackspeedbutton=1&amp;disablenavigation=1"
                 }
             ]
         },
@@ -2535,11 +2667,27 @@
                 },
                 {
                     "name": "Crêtes 2400m",
-                    "url": "https://pv.viewsurf.com/1434/Cauterets-Le-Lys?i=NTc5ODp1bmRlZmluZWQ"
+                    "url": "https://www.skaping.com/cauterets/les-cretes/panoramique"
                 },
                 {
-                    "name": "Pont d'Espagne",
-                    "url": "https://pv.viewsurf.com/354/Cauterets-Pont-d-Espagne?i=NzIwODp1bmRlZmluZWQ"
+                    "name": "Pont d'Espagne (Plateau du Clot)",
+                    "url": "https://pv.viewsurf.com/354/Cauterets-Pont-d-Espagne?i=NzIwODo"
+                },
+                {
+                    "name": "Pont d'Espagne (Puntas)",
+                    "url": "https://www.skaping.com/cauterets/puntas/video"
+                },
+                {
+                    "name": "Cascade Pont d'Espagne",
+                    "url": "https://www.skaping.com/cauterets/pontdespagne/video"
+                },
+                {
+                    "name": "Village",
+                    "url": "https://www.skaping.com/cauterets/village/casino"
+                },
+                {
+                    "name": "Place de la Mairie",
+                    "url": "https://www.skaping.com/cauterets/village"
                 }
             ]
         },
@@ -2550,19 +2698,23 @@
             "webcams": [
                 {
                     "name": "Plateau de Bézou",
-                    "url": "https://visionenvironnement.quanteec.com/embeded/embeded.html?uuid=8b6a2241-9319-4b4f-746c-7561-6665-64-8763-4f05ee30599bd&type=live&analyticsID=visionenvironnement"
+                    "url": "https://www.vision-environnement.com/live/player/gourette30.php"
                 },
                 {
                     "name": "Col de l’Aubisque",
-                    "url": "https://visionenvironnement.quanteec.com/embeded/embeded.html?uuid=8b6a2241-9319-4b4f-746c-7561-6665-64-8763-4f05ee30599bd&type=live&analyticsID=visionenvironnement"
+                    "url": "https://www.vision-environnement.com/live/player/gourette-cirque0.php"
                 },
                 {
-                    "name": "Secteur Cotch",
-                    "url": "https://visionenvironnement.quanteec.com/embeded/embeded.html?uuid=5e634399-feb1-42bf-746c-7561-6665-64-941c-1579904f37ffd&type=live&analyticsID=visionenvironnement"
+                    "name": "Secteur Cotch – Pène Sarriere",
+                    "url": "https://www.vision-environnement.com/live/player/gourette40.php"
                 },
                 {
                     "name": "Secteur Pène Blanque",
-                    "url": "https://visionenvironnement.quanteec.com/embeded/embeded.html?uuid=54c71fab-a095-4557-746c-7561-6665-64-af95-d3f480434881d&type=live&analyticsID=visionenvironnement"
+                    "url": "https://www.vision-environnement.com/live/player/gourette50.php"
+                },
+                {
+                    "name": "Restaurant SnowKfé",
+                    "url": "https://www.vision-environnement.com/live/player/gourette-snowkfe0.php"
                 }
             ]
         },
@@ -2574,59 +2726,59 @@
             "webcams": [
                 {
                     "name": "Arinsal - La Tossa",
-                    "url": "http://webtv.feratel.com/webtv/?cam=15035&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0"
+                    "url": "https://webtv.feratel.com/webtv/?cam=15035&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0"
                 },
                 {
                     "name": "Arinsal - Port Negre",
-                    "url": "http://webtv.feratel.com/webtv/?cam=15035&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0"
+                    "url": "https://webtv.feratel.com/webtv/?cam=15035&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0"
                 },
                 {
                     "name": "Arinsal - Igloo",
-                    "url": "http://webtv.feratel.com/webtv/?cam=15037&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0"
+                    "url": "https://webtv.feratel.com/webtv/?cam=15037&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0"
                 },
                 {
                     "name": "Pal - La Caubella",
-                    "url": "http://webtv.feratel.com/webtv/?cam=15040&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0"
+                    "url": "https://webtv.feratel.com/webtv/?cam=15040&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0"
                 },
                 {
                     "name": "Pal - Pla de la Cot",
-                    "url": "http://webtv.feratel.com/webtv/?cam=15085&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0"
+                    "url": "https://webtv.feratel.com/webtv/?cam=15085&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0"
                 },
                 {
                     "name": "Pal - Coll de la Botella",
-                    "url": "http://webtv.feratel.com/webtv/?cam=15086&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0"
+                    "url": "https://webtv.feratel.com/webtv/?cam=15086&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0"
                 },
                 {
                     "name": "Ordino Arcalís - Cap de la Coma",
-                    "url": "http://webtv.feratel.com/webtv/?cam=15030&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0"
+                    "url": "https://webtv.feratel.com/webtv/?cam=15030&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0"
                 },
                 {
                     "name": "Ordino Arcalís - La Coma",
-                    "url": "http://webtv.feratel.com/webtv/?cam=15031&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0"
+                    "url": "https://webtv.feratel.com/webtv/?cam=15031&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0"
                 },
                 {
                     "name": "Canillo - El Forn",
-                    "url": "http://webtv.feratel.com/webtv/?cam=15065&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0"
+                    "url": "https://webtv.feratel.com/webtv/?cam=15065&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0"
                 },
                 {
                     "name": "El Tarter",
-                    "url": "http://webtv.feratel.com/webtv/?cam=15045&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0"
+                    "url": "https://webtv.feratel.com/webtv/?cam=15045&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0"
                 },
                 {
                     "name": "Grau Roig",
-                    "url": "http://webtv.feratel.com/webtv/?cam=15050&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0"
+                    "url": "https://webtv.feratel.com/webtv/?cam=15050&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0"
                 },
                 {
                     "name": "Pas de la Casa",
-                    "url": "http://webtv.feratel.com/webtv/?cam=15055&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0"
+                    "url": "https://webtv.feratel.com/webtv/?cam=15055&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0"
                 },
                 {
                     "name": "Espiolets",
-                    "url": "http://webtv.feratel.com/webtv/?cam=15060&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0"
+                    "url": "https://webtv.feratel.com/webtv/?cam=15060&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0"
                 },
                 {
                     "name": "Cortals",
-                    "url": "http://webtv.feratel.com/webtv/?cam=15090&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0"
+                    "url": "https://webtv.feratel.com/webtv/?cam=15090&design=v3&c0=0&c2=1&lg=fr&pg=40354CFF-57D1-4271-9EE2-08A745983EDD&s=0"
                 }
             ]
         },
@@ -2660,28 +2812,12 @@
                     "url": "https://www.skaping.com/peyragudes/les-agudes"
                 },
                 {
+                    "name": "Privilège",
+                    "url": " https://www.skaping.com/peyragudes/privilege"
+                },
+                {
                     "name": "Tour de Genos - 900m",
                     "url": "https://www.skaping.com/loudenvielle/tour-de-genos"
-                },
-                {
-                    "name": "Sérias",
-                    "url": "https://pv.viewsurf.com/1796/Peyragudes-Serias"
-                },
-                {
-                    "name": "Arrivée du Serre Doumenge",
-                    "url": "https://pv.viewsurf.com/1794/Peyragudes-Station"
-                },
-                {
-                    "name": "Arrivée",
-                    "url": "https://pv.viewsurf.com/1794/Peyragudes-Station?i=Njg0MDp1bmRlZmluZWQ"
-                },
-                {
-                    "name": "Sommet",
-                    "url": "https://pv.viewsurf.com/1794/Peyragudes-Station?i=Njg1Mjp1bmRlZmluZWQ"
-                },
-                {
-                    "name": "Télésièges",
-                    "url": "https://pv.viewsurf.com/1794/Peyragudes-Station?i=Njg1NDp1bmRlZmluZWQ"
                 }
             ]
         },
@@ -2696,7 +2832,7 @@
                 },
                 {
                     "name": "Les Airelles",
-                    "url": "https://m.webcam-hd.com/font-romeu/pied-de-piste"
+                    "url": "https://app.webcam-hd.com/font-romeu/pied-de-piste"
                 },
                 {
                     "name": "Gallinera",
@@ -2708,7 +2844,7 @@
                 },
                 {
                     "name": "Roc de la Calme",
-                    "url": "https://m.webcam-hd.com/font-romeu/roc-de-la-calme"
+                    "url": "https://app.webcam-hd.com/font-romeu/roc-de-la-calme"
                 },
                 {
                     "name": "Snowpark",
@@ -2751,15 +2887,15 @@
                 },
                 {
                     "name": "Plateau de Bigorre",
-                    "url": "https://pv.viewsurf.com/1736/Les-Angles-Plateau-de-Bigorre"
+                    "url": "https://pv.viewsurf.com/2590/Les-Angles-Plateau-de-Bigorre"
                 },
                 {
                     "name": "Angles Bas de Station",
-                    "url": "https://pv.viewsurf.com/1734/Les-Angles-vue-du-bas-de-la-station"
+                    "url": "https://pv.viewsurf.com/2586/Les-Angles-Bas-de-station"
                 },
                 {
-                    "name": "Roc d'Aude",
-                    "url": "https://broadcast.viewsurf.com/cb35437407edec2c3234c09c927cbfd2/capture/16148/playEmbed"
+                    "name": "Les Jasettes",
+                    "url": "https://pv.viewsurf.com/1734/Les-Angles-vue-du-bas-de-la-station"
                 }
             ]
         },
@@ -2866,8 +3002,28 @@
             "mountain": "pyrenees",
             "webcams": [
                 {
-                    "name": "Le Plateau",
-                    "url": "https://live.neos360.com/luchon/plateau/"
+                    "name": "Table d'orientation - Crêtes",
+                    "url": "https://live.neos360.com/luchon/fixes/img/upload/plateau_cremaillere/plateau_cremaillere.mp4"
+                },
+                {
+                    "name": "Secteur Téchous",
+                    "url": "https://live.neos360.com/luchon/fixes/img/upload/plateau_cabane/plateau_cabane.mp4"
+                },
+                {
+                    "name": "Secteur Céciré",
+                    "url": "https://live.neos360.com/luchon/fixes/img/upload/plateau_cecire/plateau_cecire.mp4"
+                },
+                {
+                    "name": "Arrivée Céciré Express ",
+                    "url": "https://live.neos360.com/luchon/fixes/img/upload/cecire_arrivee/cecire_arrivee.mp4"
+                },
+                {
+                    "name": "Départ du Céciré Express",
+                    "url": "https://live.neos360.com/luchon/fixes/img/upload/lac_cecire/lac_cecire.mp4"
+                },
+                {
+                    "name": "Lac vers le secteur Arbesquens",
+                    "url": "https://live.neos360.com/luchon/fixes/img/upload/lac_super/lac_super.mp4"
                 }
             ]
         },
@@ -2937,11 +3093,11 @@
             "webcams": [
                 {
                     "name": "Petra Niella",
-                    "url": "https://www.ghisoni.corsica/media/webcams/webcam1.jpg"
+                    "url": "http://defi2a.alwaysdata.net/ghisoni/cam1_ghisoni_1920x1080.jpg"
                 },
                 {
                     "name": "Départ U Capaghjolu",
-                    "url": "https://www.ghisoni.corsica/media/webcams/webcam2.jpg"
+                    "url": "https://defi2a.alwaysdata.net/ghisoni/cam2_ghisoni_1920x1080.jpg"
                 }
             ]
         },
@@ -2952,11 +3108,11 @@
             "webcams": [
                 {
                     "name": "Axis",
-                    "url": "http://defi2a.alwaysdata.net/ese/sauve_cam_axis.jpg"
+                    "url": "https://defi2a.alwaysdata.net/ese/sauve_cam_axis.jpg"
                 },
                 {
                     "name": "Dahua",
-                    "url": "http://defi2a.alwaysdata.net/ese/sauve_cam_dahua.jpg"
+                    "url": "https://defi2a.alwaysdata.net/ese/sauve_cam_dahua.jpg"
                 }
             ]
         },
@@ -3033,7 +3189,7 @@
                 },
                 {
                     "name": "Col de la Faucille 1323m",
-                    "url": "https://m.webcam-hd.com/ain/col-de-la-faucille"
+                    "url": "https://app.webcam-hd.com/ain/col-de-la-faucille"
                 }
             ]
         },
@@ -3103,6 +3259,33 @@
             ]
         },
         {
+            "id": 109,
+            "name": "Markstein",
+            "mountain": "vosges",
+            "webcams": [
+                {
+                    "name": "Grenouillère (1183m)",
+                    "url": "https://app.webcam-hd.com/markstein/grenouillere"
+                },
+                {
+                    "name": "Arrivée de la luge sur rails (1190m)",
+                    "url": "https://app.webcam-hd.com/markstein/luge"
+                },
+                {
+                    "name": "Steinlebach (1150m)",
+                    "url": "https://app.webcam-hd.com/markstein/maison-accueil"
+                },
+                {
+                    "name": "La fédérale (1090m)",
+                    "url": "https://app.webcam-hd.com/markstein/la-federale"
+                },
+                {
+                    "name": "Le Grand-Ballon, (1100m)",
+                    "url": "https://app.webcam-hd.com/markstein/grand-ballon"
+                }
+            ]
+        },
+        {
             "id": 92,
             "name": "Besse/Mont-Dore",
             "mountain": "massifCentral",
@@ -3117,7 +3300,7 @@
                 },
                 {
                     "name": "Besse - Front Neige",
-                    "url": "https://www.youtube.com/embed/XWmQtBOaSXQ?autoplay=1&mute=1"
+                    "url": "https://www.youtube.com/live/XWmQtBOaSXQ?si=JifWw-L15XgawGjy"
                 },
                 {
                     "name": "Mont-Dore - Sommet",
@@ -3184,6 +3367,130 @@
                 {
                     "name": "Station",
                     "url": "https://g0.ipcamlive.com/player/player.php?alias=6395af074a957"
+                }
+            ]
+        },
+        {
+            "id": 105,
+            "name": "Prabouré",
+            "mountain": "massifCentral",
+            "webcams": [
+                {
+                    "name": "Front de neige",
+                    "url": "https://app.webcam-hd.com/praboure/front-de-neige"
+                }
+            ]
+        },
+        {
+            "id": 107,
+            "name": "Vialatea (Sestriere, Oulx, Claviere)",
+            "mountain": "italie",
+            "webcams": [
+                {
+                    "name": "Tappeti Jolly",
+                    "url": "https://tappetijolly.panomax.com/"
+                },
+                {
+                    "name": "Roccia Rotonda",
+                    "url": "https://rocciarotonda.panomax.com/"
+                },
+                {
+                    "name": "Monte Triplex",
+                    "url": "https://montetriplex.panomax.com/"
+                },
+                {
+                    "name": "Monte Fraiteve",
+                    "url": "https://montefraiteve.panomax.com/"
+                },
+                {
+                    "name": "Colle Bercia",
+                    "url": "https://collebercia.panomax.com/"
+                },
+                {
+                    "name": "Aera Banchetta",
+                    "url": "https://areabanchetta.panomax.com/"
+                }
+            ]
+        },
+        {
+            "id": 108,
+            "name": "Brieul Cervina",
+            "mountain": "italie",
+            "webcams": [
+                {
+                    "name": "Plateau Rosa",
+                    "url": "https://cervinia.panomax.com/plateau-rosa"
+                },
+                {
+                    "name": "Plan Maison",
+                    "url": "https://cervinia.panomax.com/matterhorn"
+                },
+                {
+                    "name": "Seggiovia Goillet",
+                    "url": "https://webtv.feratel.com/webtv/?design=v5&cam=6350"
+                },
+                {
+                    "name": "Seggiovia Campetto",
+                    "url": "https://webtv.feratel.com/webtv/?design=v5&cam=6351"
+                },
+                {
+                    "name": "Bec Carré",
+                    "url": "https://cervinia.panomax.com/bec-carre"
+                },
+                {
+                    "name": "Chamois",
+                    "url": "https://chamois.panomax.com/"
+                },
+                {
+                    "name": "Torgnon",
+                    "url": "https://torgnon-skiarea.panomax.com/"
+                },
+                {
+                    "name": "La magdeleine",
+                    "url": "https://lamagdeleine.panomax.com/"
+                },
+                {
+                    "name": "Matterhorn Glacier",
+                    "url": "https://zbag.roundshot.com/matterhornglacierparadise/#/"
+                }
+            ]
+        },
+        {
+            "id": 110,
+            "name": "Courmayeur",
+            "mountain": "italie",
+            "webcams": [
+                {
+                    "name": "Courmayeur 360",
+                    "url": "https://courmayeur360.panomax.com/"
+                },
+                {
+                    "name": "Plan Checrouit",
+                    "url": "https://courmayeur-checrouit.panomax.com/cmbf"
+                },
+                {
+                    "name": "Colle Checrouit",
+                    "url": "https://webtv.feratel.com/webtv/?design=v3&cam=6359"
+                },
+                {
+                    "name": "Val Veny",
+                    "url": "https://webtv.feratel.com/webtv/?design=v3&cam=6359"
+                },
+                {
+                    "name": "Pra Neyron",
+                    "url": "https://webtv.feratel.com/webtv/?design=v3&cam=6360"
+                },
+                {
+                    "name": "Youla",
+                    "url": "https://courmayeur-youla.panomax.com/"
+                },
+                {
+                    "name": "Punta Helbronner",
+                    "url": "https://montblanc.panomax.com/cmbf"
+                },
+                {
+                    "name": "Courba Dzeleuna",
+                    "url": "https://www.lovevda.it/Media/LovevdaResp/Cache/Webcam/big_courma1.jpg"
                 }
             ]
         }

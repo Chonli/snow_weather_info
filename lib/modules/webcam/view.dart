@@ -93,6 +93,10 @@ class WebcamListView extends ConsumerWidget {
             mountain: Mountain.vosges,
             skiResorts: data.webcamsVosges,
           ),
+          _ListByMassifView(
+            mountain: Mountain.italie,
+            skiResorts: data.webcamsItalie,
+          ),
         ],
       ),
       loading: () => const Center(child: CircularProgressIndicator()),
@@ -213,6 +217,7 @@ class _MassifFilterView extends ConsumerWidget {
                   Mountain.massifCentral,
                   Mountain.pyrenees,
                   Mountain.vosges,
+                  Mountain.italie,
                 ]
                 .map(
                   (mountain) => Padding(
@@ -242,18 +247,12 @@ class _SearchBarView extends ConsumerWidget {
     return SliverToBoxAdapter(
       child: Padding(
         padding: const EdgeInsets.all(8),
-        child: TextField(
+        child: SearchBar(
           onChanged: (value) {
             ref.read(_searchProvider.notifier).search(value);
           },
-          decoration: const InputDecoration(
-            labelText: 'Recherche',
-            hintText: 'Recherche',
-            prefixIcon: Icon(Icons.search),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-            ),
-          ),
+          hintText: 'Recherche',
+          leading: Icon(Icons.search),
         ),
       ),
     );
