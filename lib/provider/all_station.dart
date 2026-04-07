@@ -3,6 +3,7 @@ import 'dart:developer' show log;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/data/constant_data_list.dart';
 import 'package:snow_weather_info/data/repositories/station.dart';
+import 'package:snow_weather_info/data/sources/api/station_piemont_api.dart';
 import 'package:snow_weather_info/model/station.dart';
 
 part 'all_station.g.dart';
@@ -14,9 +15,12 @@ class AllStations extends _$AllStations {
     try {
       final stationRepo = ref.watch(stationRepositoryProvider);
       final stations = await stationRepo.getStation();
+      final stationPiemontRepo = ref.watch(stationPiemontApiProvider);
+      final piemontStations = await stationPiemontRepo.getStation();
 
       return [
         ...stations,
+        ...piemontStations,
         ...ConstantDatalist.listNivose,
       ];
     } on Exception catch (e) {
