@@ -66,7 +66,7 @@ class Nivose extends AbstractStation with NivoseMappable {
   final String codeMF;
 
   static const _urlBase =
-      'https://rpcache-aa.meteofrance.com/internet2018client/2.0/files/mountain/observations/';
+      'https://rwg.meteofrance.com/internet2018client/2.0/files/mountain/observations/';
 
   String get urlWeek => '$_urlBase${codeMF}S.gif';
   String get urlSeason => '$_urlBase$codeMF.gif';
