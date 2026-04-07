@@ -16,6 +16,7 @@ class AbstractStationMapper extends ClassMapperBase<AbstractStation> {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = AbstractStationMapper._());
       StationMapper.ensureInitialized();
+      StationPiemontMapper.ensureInitialized();
       NivoseMapper.ensureInitialized();
       CoordinateMapper.ensureInitialized();
     }
@@ -218,6 +219,160 @@ class _StationCopyWithImpl<$R, $Out>
   @override
   StationCopyWith<$R2, Station, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
       _StationCopyWithImpl<$R2, $Out2>($value, $cast, t);
+}
+
+class StationPiemontMapper extends ClassMapperBase<StationPiemont> {
+  StationPiemontMapper._();
+
+  static StationPiemontMapper? _instance;
+  static StationPiemontMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = StationPiemontMapper._());
+      AbstractStationMapper.ensureInitialized();
+      CoordinateMapper.ensureInitialized();
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'StationPiemont';
+
+  static String _$id(StationPiemont v) => v.id;
+  static const Field<StationPiemont, String> _f$id = Field('id', _$id);
+  static String _$name(StationPiemont v) => v.name;
+  static const Field<StationPiemont, String> _f$name = Field('name', _$name);
+  static Coordinate _$position(StationPiemont v) => v.position;
+  static const Field<StationPiemont, Coordinate> _f$position = Field(
+    'position',
+    _$position,
+  );
+  static int _$altitude(StationPiemont v) => v.altitude;
+  static const Field<StationPiemont, int> _f$altitude = Field(
+    'altitude',
+    _$altitude,
+  );
+
+  @override
+  final MappableFields<StationPiemont> fields = const {
+    #id: _f$id,
+    #name: _f$name,
+    #position: _f$position,
+    #altitude: _f$altitude,
+  };
+
+  static StationPiemont _instantiate(DecodingData data) {
+    return StationPiemont(
+      data.dec(_f$id),
+      data.dec(_f$name),
+      data.dec(_f$position),
+      data.dec(_f$altitude),
+    );
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static StationPiemont fromMap(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<StationPiemont>(map);
+  }
+
+  static StationPiemont fromJson(String json) {
+    return ensureInitialized().decodeJson<StationPiemont>(json);
+  }
+}
+
+mixin StationPiemontMappable {
+  String toJson() {
+    return StationPiemontMapper.ensureInitialized().encodeJson<StationPiemont>(
+      this as StationPiemont,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return StationPiemontMapper.ensureInitialized().encodeMap<StationPiemont>(
+      this as StationPiemont,
+    );
+  }
+
+  StationPiemontCopyWith<StationPiemont, StationPiemont, StationPiemont>
+  get copyWith => _StationPiemontCopyWithImpl<StationPiemont, StationPiemont>(
+    this as StationPiemont,
+    $identity,
+    $identity,
+  );
+  @override
+  String toString() {
+    return StationPiemontMapper.ensureInitialized().stringifyValue(
+      this as StationPiemont,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return StationPiemontMapper.ensureInitialized().equalsValue(
+      this as StationPiemont,
+      other,
+    );
+  }
+
+  @override
+  int get hashCode {
+    return StationPiemontMapper.ensureInitialized().hashValue(
+      this as StationPiemont,
+    );
+  }
+}
+
+extension StationPiemontValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, StationPiemont, $Out> {
+  StationPiemontCopyWith<$R, StationPiemont, $Out> get $asStationPiemont =>
+      $base.as((v, t, t2) => _StationPiemontCopyWithImpl<$R, $Out>(v, t, t2));
+}
+
+abstract class StationPiemontCopyWith<$R, $In extends StationPiemont, $Out>
+    implements AbstractStationCopyWith<$R, $In, $Out> {
+  @override
+  CoordinateCopyWith<$R, Coordinate, Coordinate> get position;
+  @override
+  $R call({String? id, String? name, Coordinate? position, int? altitude});
+  StationPiemontCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+    Then<$Out2, $R2> t,
+  );
+}
+
+class _StationPiemontCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, StationPiemont, $Out>
+    implements StationPiemontCopyWith<$R, StationPiemont, $Out> {
+  _StationPiemontCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<StationPiemont> $mapper =
+      StationPiemontMapper.ensureInitialized();
+  @override
+  CoordinateCopyWith<$R, Coordinate, Coordinate> get position =>
+      $value.position.copyWith.$chain((v) => call(position: v));
+  @override
+  $R call({String? id, String? name, Coordinate? position, int? altitude}) =>
+      $apply(
+        FieldCopyWithData({
+          if (id != null) #id: id,
+          if (name != null) #name: name,
+          if (position != null) #position: position,
+          if (altitude != null) #altitude: altitude,
+        }),
+      );
+  @override
+  StationPiemont $make(CopyWithData data) => StationPiemont(
+    data.get(#id, or: $value.id),
+    data.get(#name, or: $value.name),
+    data.get(#position, or: $value.position),
+    data.get(#altitude, or: $value.altitude),
+  );
+
+  @override
+  StationPiemontCopyWith<$R2, StationPiemont, $Out2> $chain<$R2, $Out2>(
+    Then<$Out2, $R2> t,
+  ) => _StationPiemontCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
 class NivoseMapper extends ClassMapperBase<Nivose> {
