@@ -67,7 +67,7 @@ class _PdfController extends _$PdfController {
 
     final response = await client.get(
       Uri.parse(
-        'https://rpcache-aa.meteofrance.com/gdss/v1/metronome_bra/blob?sort-results-by=-blob_creation_time&blob_filename=BRA_$beraNumber.pdf',
+        'https://rwg.meteofrance.com/gdss/v1/metronome_bra/blob?sort-results-by=-blob_creation_time&blob_filename=BRA_$beraNumber.pdf',
       ),
       headers: headers,
     );
