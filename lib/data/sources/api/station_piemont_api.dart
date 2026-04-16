@@ -15,8 +15,6 @@ StationPiemontApi stationPiemontApi(Ref ref) {
   return StationPiemontApi(client);
 }
 
-// new link data https://www.data.gouv.fr/api/1/datasets/r/2fc62fab-7379-4bb1-afca-7c52c35d6636
-
 class StationPiemontApi {
   const StationPiemontApi(this.client);
 
@@ -47,6 +45,7 @@ class StationPiemontApi {
         }
       }
     }
+
     log('parse station ok');
     return stations;
   }

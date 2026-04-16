@@ -10,6 +10,7 @@ import 'package:snow_weather_info/modules/station/station_card.dart';
 import 'package:snow_weather_info/provider/all_station.dart';
 import 'package:snow_weather_info/provider/favorite_station.dart';
 import 'package:snow_weather_info/provider/station_data.dart';
+import 'package:snow_weather_info/provider/station_piemont_data.dart';
 
 part 'list_station_widget.g.dart';
 
@@ -42,6 +43,10 @@ class _FilteredStations extends _$FilteredStations {
                   (station is Station &&
                       ref
                           .watch(stationDataProvider.notifier)
+                          .hasData(station.id)) ||
+                  (station is StationPiemont &&
+                      ref
+                          .watch(stationPiemontDataProvider.notifier)
                           .hasData(station.id)),
             )
             .where(

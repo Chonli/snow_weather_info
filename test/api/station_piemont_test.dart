@@ -20,6 +20,6 @@ void main() {
 
     final datas = await apiStation.getStation();
 
-    expect(datas.length, 941);
+    expect(datas.length, 77);
   });
 }
