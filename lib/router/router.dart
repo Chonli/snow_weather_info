@@ -69,9 +69,11 @@ GoRouter router(Ref ref) {
                     builder: (context, state) {
                       final station = state.extra;
 
-                      return station is Station
-                          ? DataStationView(station: station)
-                          : NivosePage(nivose: station! as Nivose);
+                      return station is Nivose
+                          ? NivosePage(nivose: station)
+                          : DataStationView(
+                              station: station as AbstractStation,
+                            );
                     },
                   ),
                 ],
@@ -93,9 +95,11 @@ GoRouter router(Ref ref) {
                     builder: (context, state) {
                       final station = state.extra;
 
-                      return station is Station
-                          ? DataStationView(station: station)
-                          : NivosePage(nivose: station! as Nivose);
+                      return station is Nivose
+                          ? NivosePage(nivose: station)
+                          : DataStationView(
+                              station: station as AbstractStation,
+                            );
                     },
                   ),
                   GoRoute(

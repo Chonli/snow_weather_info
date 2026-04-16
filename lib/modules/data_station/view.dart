@@ -13,6 +13,7 @@ import 'package:snow_weather_info/modules/data_station/card.dart';
 import 'package:snow_weather_info/modules/data_station/chart.dart';
 import 'package:snow_weather_info/provider/favorite_station.dart';
 import 'package:snow_weather_info/provider/station_data.dart';
+import 'package:snow_weather_info/provider/station_piemont_data.dart';
 
 part 'view.g.dart';
 
@@ -22,7 +23,7 @@ List<DataStation> currentDataStation(Ref ref) {
 }
 
 @riverpod
-Station currentStation(Ref ref) {
+AbstractStation currentStation(Ref ref) {
   throw UnimplementedError();
 }
 
@@ -67,16 +68,26 @@ class DataStationView extends ConsumerWidget {
     required this.station,
     super.key,
   });
-  final Station station;
+  final AbstractStation station;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ProviderScope(
       overrides: [
         currentDataStationProvider.overrideWith(
-          (ref) => ref
-              .watch(stationDataProvider.notifier)
-              .getDataOfStation(station.id),
+          (ref) {
+            if (station is Station) {
+              return ref
+                  .watch(stationDataProvider.notifier)
+                  .getDataOfStation((station as Station).id);
+            } else if (station is StationPiemont) {
+              return ref
+                  .watch(stationPiemontDataProvider.notifier)
+                  .getDataOfStation((station as StationPiemont).id);
+            }
+
+            return <DataStation>[];
+          },
         ),
         currentStationProvider.overrideWithValue(station),
       ],
@@ -125,9 +136,11 @@ class _InnerView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final displayData = ref.watch(_currentIndexDataProvider);
     final station = ref.watch(currentStationProvider);
-    final isFavorite = ref.watch(
-      _isFavoriteProvider(station.id),
-    );
+    final isFavorite = station is Station
+        ? ref.watch(_isFavoriteProvider((station as Station).id))
+        : ref.watch(favoritesStationSettingsProvider).contains(
+            (station as StationPiemont).id,
+          );
 
     return SafeArea(
       child: Scaffold(
