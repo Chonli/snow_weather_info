@@ -13,9 +13,9 @@ class FavoriteStation extends _$FavoriteStation {
   Future<List<AbstractStation>> build() async {
     final favorites = ref.watch(favoritesStationSettingsProvider);
     final stationRepo = ref.watch(stationRepositoryProvider);
-    final stations = await stationRepo.getStation();
+    final stations = await stationRepo.getStations();
     final stationPiemontRepo = ref.watch(stationPiemontApiProvider);
-    final piemontStations = await stationPiemontRepo.getStation();
+    final piemontStations = await stationPiemontRepo.getStations();
     final tmpDatas = <AbstractStation>[];
 
     for (final s in stations) {

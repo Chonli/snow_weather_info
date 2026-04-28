@@ -9,36 +9,33 @@ part of 'station_piemont_stations.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(StationPiemontStations)
-final stationPiemontStationsProvider = StationPiemontStationsProvider._();
+@ProviderFor(PiemontStations)
+final piemontStationsProvider = PiemontStationsProvider._();
 
-final class StationPiemontStationsProvider
-    extends
-        $AsyncNotifierProvider<StationPiemontStations, List<StationPiemont>> {
-  StationPiemontStationsProvider._()
+final class PiemontStationsProvider
+    extends $AsyncNotifierProvider<PiemontStations, List<StationPiemont>> {
+  PiemontStationsProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'stationPiemontStationsProvider',
+        name: r'piemontStationsProvider',
         isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$stationPiemontStationsHash();
+  String debugGetCreateSourceHash() => _$piemontStationsHash();
 
   @$internal
   @override
-  StationPiemontStations create() => StationPiemontStations();
+  PiemontStations create() => PiemontStations();
 }
 
-String _$stationPiemontStationsHash() =>
-    r'9327116f19e486e3e8e51354ac76a284fda5cf3f';
+String _$piemontStationsHash() => r'a8b80b9b8627e37d7132be63a2e04621b4390030';
 
-abstract class _$StationPiemontStations
-    extends $AsyncNotifier<List<StationPiemont>> {
+abstract class _$PiemontStations extends $AsyncNotifier<List<StationPiemont>> {
   FutureOr<List<StationPiemont>> build();
   @$mustCallSuper
   @override

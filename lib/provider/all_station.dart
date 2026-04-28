@@ -14,9 +14,9 @@ class AllStations extends _$AllStations {
   Future<List<AbstractStation>> build() async {
     try {
       final stationRepo = ref.watch(stationRepositoryProvider);
-      final stations = await stationRepo.getStation();
+      final stations = await stationRepo.getStations();
       final stationPiemontRepo = ref.watch(stationPiemontApiProvider);
-      final piemontStations = await stationPiemontRepo.getStation();
+      final piemontStations = await stationPiemontRepo.getStations();
 
       return [
         ...stations,

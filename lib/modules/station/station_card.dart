@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:snow_weather_info/extensions/stations_data.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/modules/map/map_widget.dart';
 import 'package:snow_weather_info/provider/station_data.dart';
@@ -35,22 +36,18 @@ class StationCard extends ConsumerWidget {
     late final String snowHeigth;
 
     if (station case final Station st) {
-      final hasData = ref.watch(stationDataProvider.notifier).hasData(st.id);
-      final lastSnowHeight = ref
-          .watch(stationDataProvider.notifier)
-          .lastSnowHeight(st.id);
+      final dataStation = ref.watch(stationDataProvider).value ?? {};
+      final hasData = dataStation.hasData(st.id.toString());
+      final lastSnowHeight = dataStation.lastSnowHeight(st.id.toString());
 
       snowHeigth = hasData
           ? ' ${(lastSnowHeight * 100).toStringAsFixed(0)}cm'
           : '';
       textStyle = context.stationTextStyle(hasData);
     } else if (station case final StationPiemont st) {
-      final hasData = ref
-          .watch(stationPiemontDataProvider.notifier)
-          .hasData(st.id);
-      final lastSnowHeight = ref
-          .watch(stationPiemontDataProvider.notifier)
-          .lastSnowHeight(st.id);
+      final dataPiemonte = ref.watch(stationPiemontDataProvider).value ?? {};
+      final hasData = dataPiemonte.hasData(st.id);
+      final lastSnowHeight = dataPiemonte.lastSnowHeight(st.id);
 
       snowHeigth = hasData
           ? ' ${(lastSnowHeight * 100).toStringAsFixed(0)}cm'

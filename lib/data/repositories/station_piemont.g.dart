@@ -9,10 +9,10 @@ part of 'station_piemont.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(stationDataRepository)
-final stationDataRepositoryProvider = StationDataRepositoryProvider._();
+@ProviderFor(stationPiemontRepository)
+final stationPiemontRepositoryProvider = StationPiemontRepositoryProvider._();
 
-final class StationDataRepositoryProvider
+final class StationPiemontRepositoryProvider
     extends
         $FunctionalProvider<
           StationPiemontRepository,
@@ -20,19 +20,19 @@ final class StationDataRepositoryProvider
           StationPiemontRepository
         >
     with $Provider<StationPiemontRepository> {
-  StationDataRepositoryProvider._()
+  StationPiemontRepositoryProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'stationDataRepositoryProvider',
+        name: r'stationPiemontRepositoryProvider',
         isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$stationDataRepositoryHash();
+  String debugGetCreateSourceHash() => _$stationPiemontRepositoryHash();
 
   @$internal
   @override
@@ -42,7 +42,7 @@ final class StationDataRepositoryProvider
 
   @override
   StationPiemontRepository create(Ref ref) {
-    return stationDataRepository(ref);
+    return stationPiemontRepository(ref);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -54,5 +54,5 @@ final class StationDataRepositoryProvider
   }
 }
 
-String _$stationDataRepositoryHash() =>
-    r'54ccf7a2117422c744558d0162d7f190c4621eec';
+String _$stationPiemontRepositoryHash() =>
+    r'd7aee59c6d5d817e7c9960bc625a9e5457189644';

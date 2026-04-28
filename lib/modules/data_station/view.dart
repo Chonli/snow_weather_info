@@ -1,5 +1,8 @@
 // ignore_for_file: scoped_providers_should_specify_dependencies
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
@@ -72,22 +75,19 @@ class DataStationView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final datas = <DataStation>[];
+    if (station is Station) {
+      final map = ref.watch(stationDataProvider).value ?? {};
+      datas.addAll(map[(station as Station).id.toString()] ?? []);
+    } else if (station is StationPiemont) {
+      final map = ref.watch(stationPiemontDataProvider).value ?? {};
+      datas.addAll(map[(station as StationPiemont).id] ?? []);
+    }
+
     return ProviderScope(
       overrides: [
         currentDataStationProvider.overrideWith(
-          (ref) {
-            if (station is Station) {
-              return ref
-                  .watch(stationDataProvider.notifier)
-                  .getDataOfStation((station as Station).id);
-            } else if (station is StationPiemont) {
-              return ref
-                  .watch(stationPiemontDataProvider.notifier)
-                  .getDataOfStation((station as StationPiemont).id);
-            }
-
-            return <DataStation>[];
-          },
+          (ref) => datas,
         ),
         currentStationProvider.overrideWithValue(station),
       ],
@@ -137,10 +137,12 @@ class _InnerView extends ConsumerWidget {
     final displayData = ref.watch(_currentIndexDataProvider);
     final station = ref.watch(currentStationProvider);
     final isFavorite = station is Station
-        ? ref.watch(_isFavoriteProvider((station as Station).id))
-        : ref.watch(favoritesStationSettingsProvider).contains(
-            (station as StationPiemont).id,
-          );
+        ? ref.watch(_isFavoriteProvider(station.id))
+        : ref
+              .watch(favoritesStationSettingsProvider)
+              .contains(
+                (station as StationPiemont).id,
+              );
 
     return SafeArea(
       child: Scaffold(
@@ -207,16 +209,30 @@ class _Body extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Text(
-              'Informations créées à partir de données de Météo-France',
-              style: TextStyle(
-                fontSize: 14,
-              ),
-            ),
-          ),
+          _Footer(),
         ],
+      ),
+    );
+  }
+}
+
+class _Footer extends ConsumerWidget {
+  const _Footer();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isMeteoFranceStation = ref.watch(currentStationProvider) is Station;
+    final providerMeteo = isMeteoFranceStation
+        ? 'Météo-France'
+        : 'Arpa Piemonte';
+
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      child: Text(
+        'Informations créées à partir de données de $providerMeteo',
+        style: TextStyle(
+          fontSize: 14,
+        ),
       ),
     );
   }
@@ -297,11 +313,12 @@ class _DotRow extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final number = ref.watch(currentDataStationProvider).length;
     final currentIndex = ref.watch(_currentIndexProvider);
+    const maxDot = 20;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List<Widget>.generate(
-        number,
+        min(number, maxDot),
         (i) => Container(
           width: 8,
           height: 8,
@@ -311,7 +328,7 @@ class _DotRow extends ConsumerWidget {
           ),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: currentIndex == i
+            color: currentIndex % maxDot == i
                 ? Theme.of(context).primaryColor.withValues(alpha: 0.9)
                 : Theme.of(context).primaryColor.withValues(alpha: 0.4),
           ),

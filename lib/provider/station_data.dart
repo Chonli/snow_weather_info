@@ -9,47 +9,24 @@ part 'station_data.g.dart';
 @Riverpod(keepAlive: true)
 class StationData extends _$StationData {
   @override
-  FutureOr<Map<int, List<DataStation>>> build() async {
+  FutureOr<Map<String, List<DataStation>>> build() async {
     final stationRepo = ref.watch(stationRepositoryProvider);
-    final stations = await stationRepo.getStation();
+    final stations = await stationRepo.getStations();
     final stationDataRepo = ref.watch(stationDataRepositoryProvider);
     final stationDatas = await stationDataRepo.getDataStation();
 
-    final mapDataStation = <int, List<DataStation>>{};
+    final mapDataStation = <String, List<DataStation>>{};
 
     for (final s in stations) {
       final listOfData = stationDatas
           .where(
-            (data) => data.id == s.id,
+            (data) => data.id == s.id.toString(),
           )
           .sorted((a, b) => b.date.compareTo(a.date))
           .toList();
-      mapDataStation[s.id] = listOfData;
+      mapDataStation[s.id.toString()] = listOfData;
     }
 
     return mapDataStation;
-  }
-
-  List<DataStation> getDataOfStation(int id) {
-    return state.asData?.value[id] ?? [];
-  }
-
-  bool hasData(int id) {
-    return state.asData?.value[id]?.isNotEmpty ?? false;
-  }
-
-  double lastSnowHeight(int id) {
-    final data = state.asData?.value[id];
-
-    if (data == null || data.isEmpty) {
-      return 0.0;
-    }
-
-    return data
-            .firstWhereOrNull(
-              (d) => d.snowHeight != null,
-            )
-            ?.snowHeight ??
-        0.0;
   }
 }

@@ -38,7 +38,7 @@ final class StationPiemontDataProvider
 }
 
 String _$stationPiemontDataHash() =>
-    r'533aee1e57422326b881759856b6072a342e4404';
+    r'5f6fd9b813b88f13e8b11dbc9591009be11375c5';
 
 abstract class _$StationPiemontData
     extends $AsyncNotifier<Map<String, List<DataStation>>> {

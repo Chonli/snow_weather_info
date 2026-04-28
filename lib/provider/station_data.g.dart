@@ -13,7 +13,8 @@ part of 'station_data.dart';
 final stationDataProvider = StationDataProvider._();
 
 final class StationDataProvider
-    extends $AsyncNotifierProvider<StationData, Map<int, List<DataStation>>> {
+    extends
+        $AsyncNotifierProvider<StationData, Map<String, List<DataStation>>> {
   StationDataProvider._()
     : super(
         from: null,
@@ -33,28 +34,28 @@ final class StationDataProvider
   StationData create() => StationData();
 }
 
-String _$stationDataHash() => r'e63c6eff6546eaea7e488c7893ae3272ffa5cdee';
+String _$stationDataHash() => r'efe09d61fcf2bdf897be8ea2d3ff1ab62bdfa8b7';
 
 abstract class _$StationData
-    extends $AsyncNotifier<Map<int, List<DataStation>>> {
-  FutureOr<Map<int, List<DataStation>>> build();
+    extends $AsyncNotifier<Map<String, List<DataStation>>> {
+  FutureOr<Map<String, List<DataStation>>> build();
   @$mustCallSuper
   @override
   void runBuild() {
     final ref =
         this.ref
             as $Ref<
-              AsyncValue<Map<int, List<DataStation>>>,
-              Map<int, List<DataStation>>
+              AsyncValue<Map<String, List<DataStation>>>,
+              Map<String, List<DataStation>>
             >;
     final element =
         ref.element
             as $ClassProviderElement<
               AnyNotifier<
-                AsyncValue<Map<int, List<DataStation>>>,
-                Map<int, List<DataStation>>
+                AsyncValue<Map<String, List<DataStation>>>,
+                Map<String, List<DataStation>>
               >,
-              AsyncValue<Map<int, List<DataStation>>>,
+              AsyncValue<Map<String, List<DataStation>>>,
               Object?,
               Object?
             >;

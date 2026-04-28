@@ -47,10 +47,10 @@ class Station extends AbstractStation with StationMappable {
     int.parse(json['station_code'] as String),
     (json['name'] as String).capitalizeAllWords,
     Coordinate(
-      latitude: double.tryParse(json['lat']?.toString() ?? '') ?? 0.0,
-      longitude: double.tryParse(json['lng']?.toString() ?? '') ?? 0.0,
+      latitude: json['lat'] as double,
+      longitude: json['lng'] as double,
     ),
-    int.tryParse(json['quote']?.toString() ?? '') ?? 0,
+    json['quote'] as int,
   );
 
   final int id;
@@ -83,7 +83,7 @@ class StationPiemont extends AbstractStation with StationPiemontMappable {
           latitude: double.tryParse(json['lat']?.toString() ?? '') ?? 0.0,
           longitude: double.tryParse(json['lng']?.toString() ?? '') ?? 0.0,
         ),
-        int.tryParse(json['quote']?.toString() ?? '') ?? 0,
+        double.tryParse(json['quote']?.toString() ?? '')?.toInt() ?? 0,
       );
 
   final String id;
