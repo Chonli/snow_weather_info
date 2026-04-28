@@ -39,7 +39,7 @@ abstract class _$SkiResorts extends $AsyncNotifier<List<SkiResort>> {
   FutureOr<List<SkiResort>> build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<AsyncValue<List<SkiResort>>, List<SkiResort>>;
     final element =
         ref.element
@@ -49,6 +49,6 @@ abstract class _$SkiResorts extends $AsyncNotifier<List<SkiResort>> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:snow_weather_info/data/repositories/station_piemont_data.dart';
 import 'package:snow_weather_info/model/data_station.dart';
 
 part 'station_piemont_data.g.dart';
@@ -7,28 +8,22 @@ part 'station_piemont_data.g.dart';
 class StationPiemontData extends _$StationPiemontData {
   @override
   FutureOr<Map<String, List<DataStation>>> build() async {
-    // Data source not implemented yet for Piemonte — return empty map for now
-    return <String, List<DataStation>>{};
-  }
+    final repo = ref.watch(stationPiemontDataRepositoryProvider);
+    final datas = await repo.getDataStation();
 
-  List<DataStation> getDataOfStation(String id) {
-    return state.asData?.value[id] ?? [];
-  }
+    // group by station id string (keep original code as 0-padded when possible)
+    final map = <String, List<DataStation>>{};
+    for (final d in datas) {
+      // try to use id from DataStation if not empty, else use ''
+      final key = d.id.isNotEmpty ? d.id : '';
+      map.putIfAbsent(key, () => []).add(d);
+    }
 
-  bool hasData(String id) {
-    return state.asData?.value[id]?.isNotEmpty ?? false;
-  }
+    // sort each list by date desc
+    for (final k in map.keys) {
+      map[k]!.sort((a, b) => b.date.compareTo(a.date));
+    }
 
-  double lastSnowHeight(String id) {
-    final data = state.asData?.value[id];
-    if (data == null || data.isEmpty) return 0.0;
-
-    return data
-            .firstWhere(
-              (d) => d.snowHeight != null,
-              orElse: () => data.first,
-            )
-            .snowHeight ??
-        0.0;
+    return map;
   }
 }

@@ -38,14 +38,14 @@ final class StationPiemontDataProvider
 }
 
 String _$stationPiemontDataHash() =>
-    r'533aee1e57422326b881759856b6072a342e4404';
+    r'5f6fd9b813b88f13e8b11dbc9591009be11375c5';
 
 abstract class _$StationPiemontData
     extends $AsyncNotifier<Map<String, List<DataStation>>> {
   FutureOr<Map<String, List<DataStation>>> build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref =
         this.ref
             as $Ref<
@@ -63,6 +63,6 @@ abstract class _$StationPiemontData
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }

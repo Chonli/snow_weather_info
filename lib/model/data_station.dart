@@ -11,7 +11,7 @@ const kelvin = -273.15;
 class DataStation with DataStationMappable {
   const new({
     required this.date,
-    this.id = 0,
+    this.id = '',
     this.temperature,
     this.temperatureMin24,
     this.temperatureMax24,
@@ -24,10 +24,10 @@ class DataStation with DataStationMappable {
 
   /// Parse une ligne du csv de l'api tabular data.gouv (colonnes nommées).
   factory fromCsvRow(Map<String, String?> row) {
-    final id = int.tryParse(row['geo_id_wmo'] ?? '');
+    final id = row['geo_id_wmo'] ?? '';
     final dateString = row['validity_time'] ?? row['insert_time'];
     final date = dateString == null ? null : DateTime.tryParse(dateString);
-    if (id == null || date == null) {
+    if (id.isEmpty || date == null) {
       throw FormatException('Données manquantes', row.toString());
     }
 
@@ -46,7 +46,7 @@ class DataStation with DataStationMappable {
   }
 
   final DateTime date;
-  final int id;
+  final String id;
   final double? temperature;
   final double? temperatureMin24;
   final double? temperatureMax24;

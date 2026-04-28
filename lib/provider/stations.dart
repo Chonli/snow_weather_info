@@ -9,27 +9,6 @@ class Stations extends _$Stations {
   @override
   FutureOr<List<Station>> build() {
     final stationRepo = ref.watch(stationRepositoryProvider);
-    return stationRepo.getStation();
+    return stationRepo.getStations();
   }
-
-  // Future<List<Station>> _getStations({bool forceUpdate = false}) async {
-  //   final stationUpdateDate = ref.read(lastStationSettingsProvider);
-  //   List<Station> stations =
-  //        ref.watch(databaseHelperProvider).getAllStation();
-  //   if (forceUpdate ||
-  //       stations.isEmpty ||
-  //       stationUpdateDate.difference(DateTime.now()) >
-  //           const Duration(days: 15)) {
-  //     stations = ref.watch(apiStationProvider).asData?.value ?? [];
-
-  //     await Future.forEach(
-  //       stations,
-  //       (s) => ref.watch(databaseHelperProvider).insertStation(s),
-  //     );
-
-  //     ref.read(lastStationSettingsProvider.notifier).updateDate(DateTime.now());
-  //   }
-
-  //   return stations;
-  // }
 }

@@ -46,7 +46,7 @@ abstract class _$Search extends $Notifier<String> {
   String build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<String, String>;
     final element =
         ref.element
@@ -56,7 +56,7 @@ abstract class _$Search extends $Notifier<String> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }
 
@@ -98,14 +98,14 @@ final class _FilteredStationsProvider
   }
 }
 
-String _$_filteredStationsHash() => r'b6c826f6dc90932468a0be3898be98751073f08d';
+String _$_filteredStationsHash() => r'7ca298d6e560cdd97828a7d75f255ac681d6e257';
 
 abstract class _$FilteredStations
     extends $Notifier<Map<String, List<AbstractStation>>> {
   Map<String, List<AbstractStation>> build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref =
         this.ref
             as $Ref<
@@ -123,6 +123,6 @@ abstract class _$FilteredStations
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }

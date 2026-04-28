@@ -84,7 +84,7 @@ abstract class _$PdfController extends $AsyncNotifier<PdfController?> {
   FutureOr<PdfController?> build(AvalancheBulletinPdf avalancheBulletinPdf);
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<AsyncValue<PdfController?>, PdfController?>;
     final element =
         ref.element
@@ -94,6 +94,6 @@ abstract class _$PdfController extends $AsyncNotifier<PdfController?> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, () => build(_$args));
+    return element.handleCreate(ref, () => build(_$args));
   }
 }

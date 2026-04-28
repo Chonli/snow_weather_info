@@ -18,7 +18,7 @@ void main() {
 
     final apiStation = StationPiemontApi(client);
 
-    final datas = await apiStation.getStation();
+    final datas = await apiStation.getStations();
 
     expect(datas.length, 77);
   });

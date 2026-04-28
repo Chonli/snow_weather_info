@@ -47,7 +47,7 @@ abstract class _$FavoriteBulletin extends $Notifier<List<AbstractBulletin>> {
   List<AbstractBulletin> build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref =
         this.ref as $Ref<List<AbstractBulletin>, List<AbstractBulletin>>;
     final element =
@@ -58,6 +58,6 @@ abstract class _$FavoriteBulletin extends $Notifier<List<AbstractBulletin>> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }
