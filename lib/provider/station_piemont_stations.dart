@@ -5,10 +5,10 @@ import 'package:snow_weather_info/model/station.dart';
 part 'station_piemont_stations.g.dart';
 
 @Riverpod(keepAlive: true)
-class StationPiemontStations extends _$StationPiemontStations {
+class PiemontStations extends _$PiemontStations {
   @override
-  Future<List<StationPiemont>> build() async {
-    final repo = ref.watch(stationDataRepositoryProvider);
-    return await repo.getStation();
+  FutureOr<List<StationPiemont>> build() async {
+    final repo = ref.watch(stationPiemontRepositoryProvider);
+    return repo.getStations();
   }
 }

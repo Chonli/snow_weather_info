@@ -33,13 +33,13 @@ final class StationsProvider
   Stations create() => Stations();
 }
 
-String _$stationsHash() => r'8d71c98a5ae220120b8b1d48a87c14bfb6a55459';
+String _$stationsHash() => r'27c1e595b1a06b8b37adb36201bcfa57cf26442d';
 
 abstract class _$Stations extends $AsyncNotifier<List<Station>> {
   FutureOr<List<Station>> build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<AsyncValue<List<Station>>, List<Station>>;
     final element =
         ref.element
@@ -49,6 +49,6 @@ abstract class _$Stations extends $AsyncNotifier<List<Station>> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }

@@ -137,7 +137,7 @@ abstract class _$CurrentIndex extends $Notifier<int> {
   int build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<int, int>;
     final element =
         ref.element
@@ -147,7 +147,7 @@ abstract class _$CurrentIndex extends $Notifier<int> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }
 
@@ -193,7 +193,7 @@ abstract class _$CurrentIndexData extends $Notifier<DataStation?> {
   DataStation? build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<DataStation?, DataStation?>;
     final element =
         ref.element
@@ -203,7 +203,7 @@ abstract class _$CurrentIndexData extends $Notifier<DataStation?> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }
 

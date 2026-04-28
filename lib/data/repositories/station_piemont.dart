@@ -8,7 +8,7 @@ import 'package:snow_weather_info/model/station.dart';
 part 'station_piemont.g.dart';
 
 @Riverpod(keepAlive: true)
-StationPiemontRepository stationDataRepository(Ref ref) {
+StationPiemontRepository stationPiemontRepository(Ref ref) {
   final api = ref.watch(stationPiemontApiProvider);
   final localData = ref.watch(stationPiemontLocalDataProvider);
 
@@ -26,7 +26,7 @@ class StationPiemontRepository {
 
   static const maxDaysBeforeUpdate = 15;
 
-  FutureOr<List<StationPiemont>> getStation({DateTime? currentDate}) async {
+  FutureOr<List<StationPiemont>> getStations({DateTime? currentDate}) async {
     final cachedDataStations = localData.allStations.read();
     final lastUpdate = localData.lastUpdate.read();
     final now = currentDate ?? DateTime.now();
@@ -35,8 +35,8 @@ class StationPiemontRepository {
         lastUpdate.isBefore(
           now.subtract(Duration(days: maxDaysBeforeUpdate)),
         )) {
-      log('Update station if cache empty or too old (10 day)');
-      final remoteDataStations = await stationPiemontApi.getStation();
+      log('Update station if cache empty or too old (15 days)');
+      final remoteDataStations = await stationPiemontApi.getStations();
       await localData.allStations.save(remoteDataStations);
       await localData.lastUpdate.save(now);
 

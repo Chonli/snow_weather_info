@@ -23,7 +23,7 @@ class StationPiemontApi {
   static const stationPiemontUrl =
       'https://utility.arpa.piemonte.it/api_realtime/pie_anag';
 
-  Future<List<StationPiemont>> getStation() async {
+  Future<List<StationPiemont>> getStations() async {
     final List<StationPiemont> stations = [];
     final response = await client.get(Uri.parse(stationPiemontUrl));
 
@@ -39,8 +39,6 @@ class StationPiemontApi {
         final type = station['station_type'] as String;
         // Keep only Nivose station
         if (type.contains('N')) {
-          log('type = $type');
-
           stations.add(StationPiemont.fromRemoteJson(station));
         }
       }
