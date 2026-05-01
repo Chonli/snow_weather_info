@@ -33,4 +33,22 @@ class StationDataLocalDataContainer extends LocalDataContainer {
         .toList(),
     defaultValue: [],
   );
+
+  LocalData<DateTime> get lastUpdatePiemont => load(
+    key: 'last_update_piemont',
+    serialize: (date) => date.toLocalData,
+    deserialize: (json) => DateTime.parse(json as String),
+    defaultValue: DateTime(0),
+  );
+
+  LocalData<List<DataStation>> get allDataPiemontStations => load(
+    key: 'all_piemont_station_data',
+    serialize: (stations) => stations.map((e) => e.toJson()).toList(),
+    deserialize: (json) => (json as List<dynamic>)
+        .map(
+          (e) => DataStation.fromJson(e as String),
+        )
+        .toList(),
+    defaultValue: [],
+  );
 }
