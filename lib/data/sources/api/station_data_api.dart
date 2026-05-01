@@ -31,9 +31,7 @@ class StationDataApi {
     int maxDaysFetch = 7,
     DateTime? currentDate,
   }) async {
-    final response = await client.get(
-      Uri.parse(stationDataUrl),
-    );
+    final response = await client.get(Uri.parse(stationDataUrl));
 
     if (response.statusCode == 200) {
       // Unzip .gz to extract csv

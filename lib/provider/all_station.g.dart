@@ -33,7 +33,7 @@ final class AllStationsProvider
   AllStations create() => AllStations();
 }
 
-String _$allStationsHash() => r'e49bd7fd10e614f907451c49d802a4495b1db51a';
+String _$allStationsHash() => r'497d72382bd8f0d8eddac5d9c24fde005a7a89f5';
 
 abstract class _$AllStations extends $AsyncNotifier<List<AbstractStation>> {
   FutureOr<List<AbstractStation>> build();

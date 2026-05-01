@@ -12,7 +12,7 @@ const kelvin = -273.15;
 class DataStation with DataStationMappable {
   const DataStation({
     required this.date,
-    this.id = 0,
+    this.id = '',
     this.temperature,
     this.temperatureMin24,
     this.temperatureMax24,
@@ -24,7 +24,7 @@ class DataStation with DataStationMappable {
   });
 
   factory DataStation.fromList(List<dynamic> data) => DataStation(
-    id: int.parse(data[2] as String),
+    id: data[2].toString(),
     date: DateTime.parse(data[8] as String),
     temperature: (data[11] as String?).parseDouble(addValue: kelvin),
     temperatureMin24: (data[25] as String?).parseDouble(addValue: kelvin),
@@ -37,7 +37,7 @@ class DataStation with DataStationMappable {
   );
 
   final DateTime date;
-  final int id;
+  final String id;
   final double? temperature;
   final double? temperatureMin24;
   final double? temperatureMax24;

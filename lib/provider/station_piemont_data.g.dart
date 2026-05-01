@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'station_data.dart';
+part of 'station_piemont_data.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,34 +9,38 @@ part of 'station_data.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(StationData)
-final stationDataProvider = StationDataProvider._();
+@ProviderFor(StationPiemontData)
+final stationPiemontDataProvider = StationPiemontDataProvider._();
 
-final class StationDataProvider
+final class StationPiemontDataProvider
     extends
-        $AsyncNotifierProvider<StationData, Map<String, List<DataStation>>> {
-  StationDataProvider._()
+        $AsyncNotifierProvider<
+          StationPiemontData,
+          Map<String, List<DataStation>>
+        > {
+  StationPiemontDataProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'stationDataProvider',
+        name: r'stationPiemontDataProvider',
         isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$stationDataHash();
+  String debugGetCreateSourceHash() => _$stationPiemontDataHash();
 
   @$internal
   @override
-  StationData create() => StationData();
+  StationPiemontData create() => StationPiemontData();
 }
 
-String _$stationDataHash() => r'efe09d61fcf2bdf897be8ea2d3ff1ab62bdfa8b7';
+String _$stationPiemontDataHash() =>
+    r'5f6fd9b813b88f13e8b11dbc9591009be11375c5';
 
-abstract class _$StationData
+abstract class _$StationPiemontData
     extends $AsyncNotifier<Map<String, List<DataStation>>> {
   FutureOr<Map<String, List<DataStation>>> build();
   @$mustCallSuper

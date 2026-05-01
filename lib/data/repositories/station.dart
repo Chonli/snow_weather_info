@@ -18,7 +18,7 @@ class StationRepository {
 
   final StationApi stationApi;
 
-  FutureOr<List<Station>> getStation({bool forceUpdate = false}) {
+  FutureOr<List<Station>> getStations({bool forceUpdate = false}) {
     return stationApi.getStations();
   }
 }

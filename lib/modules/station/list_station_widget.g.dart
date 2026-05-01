@@ -98,7 +98,7 @@ final class _FilteredStationsProvider
   }
 }
 
-String _$_filteredStationsHash() => r'62f91c5ff8cda5ddf9a4919213706e4e3e4c2cb4';
+String _$_filteredStationsHash() => r'7ca298d6e560cdd97828a7d75f255ac681d6e257';
 
 abstract class _$FilteredStations
     extends $Notifier<Map<String, List<AbstractStation>>> {

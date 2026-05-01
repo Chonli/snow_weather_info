@@ -12,11 +12,14 @@ import 'package:snow_weather_info/core/notifier/location.dart';
 import 'package:snow_weather_info/data/constant_data_list.dart';
 import 'package:snow_weather_info/data/sources/api/avalanche_api.dart';
 import 'package:snow_weather_info/data/sources/data/preferences.dart';
+import 'package:snow_weather_info/extensions/stations_data.dart';
 import 'package:snow_weather_info/model/coordinate.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/modules/map/map_licence_widget.dart';
 import 'package:snow_weather_info/modules/map/map_maker.dart';
 import 'package:snow_weather_info/provider/station_data.dart';
+import 'package:snow_weather_info/provider/station_piemont_data.dart';
+import 'package:snow_weather_info/provider/station_piemont_stations.dart';
 import 'package:snow_weather_info/provider/stations.dart';
 import 'package:snow_weather_info/router/router.dart';
 
@@ -26,6 +29,7 @@ final Color _nivoseColor = Colors.blue.shade900;
 const Color _stationColor = Colors.black;
 const MaterialColor _stationNoDataColor = Colors.grey;
 const MaterialColor _avalancheColor = Colors.orange;
+final Color _piemontColor = Colors.blue.shade600;
 
 @riverpod
 class CurrentMapLoc extends _$CurrentMapLoc {
@@ -46,10 +50,13 @@ class MapWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final stations = ref.watch(stationsProvider).asData?.value ?? [];
+    final piemontStations =
+        ref.watch(piemontStationsProvider).asData?.value ?? [];
     final feeds = ref.watch(apiAvalancheProvider).asData?.value;
 
     return _InnerView(
       stations: stations,
+      piemontStations: piemontStations,
       feeds: feeds,
     );
   }
@@ -58,10 +65,12 @@ class MapWidget extends ConsumerWidget {
 class _InnerView extends ConsumerStatefulWidget {
   const _InnerView({
     required this.stations,
+    required this.piemontStations,
     this.feeds,
   });
 
   final List<Station> stations;
+  final List<StationPiemont> piemontStations;
   final AtomFeed? feeds;
 
   @override
@@ -74,6 +83,8 @@ class __InnerViewState extends ConsumerState<_InnerView> {
   final _listNivoseMarker = <Marker>[];
   final _listAvalancheMarker = <Marker>[];
   final _listStationNoDataMarker = <Marker>[];
+  final _listPiemontMarker = <Marker>[];
+  final _listPiemontNoDataMarker = <Marker>[];
 
   @override
   void initState() {
@@ -130,12 +141,13 @@ class __InnerViewState extends ConsumerState<_InnerView> {
       );
     }
 
+    // Stations (Météo-France)
     _listStationMarker.clear();
     _listStationNoDataMarker.clear();
-    final dataProvider = ref.read(stationDataProvider.notifier);
+    final dataStation = ref.read(stationDataProvider).value ?? {};
     for (final station in widget.stations) {
-      final hasData = dataProvider.hasData(
-        station.id,
+      final hasData = dataStation.hasData(
+        station.id.toString(),
       );
 
       if (hasData) {
@@ -147,8 +159,8 @@ class __InnerViewState extends ConsumerState<_InnerView> {
             child: MapMaker(
               icon: const Icon(Icons.place),
               color: _stationColor,
-              lastSnowHeight: dataProvider.lastSnowHeight(
-                station.id,
+              lastSnowHeight: dataStation.lastSnowHeight(
+                station.id.toString(),
               ),
               onPressed: () {
                 ref
@@ -169,6 +181,51 @@ class __InnerViewState extends ConsumerState<_InnerView> {
             width: 50,
             height: 50,
             point: station.position.toLatLng(),
+            child: const MapMaker(
+              icon: Icon(Icons.place),
+              color: _stationNoDataColor,
+            ),
+          ),
+        );
+      }
+    }
+
+    // Piemonte stations
+    _listPiemontMarker.clear();
+    _listPiemontNoDataMarker.clear();
+    final dataPiemonte = ref.read(stationPiemontDataProvider).value ?? {};
+
+    for (final p in widget.piemontStations) {
+      final hasData = dataPiemonte.hasData(p.id);
+
+      if (hasData) {
+        _listPiemontMarker.add(
+          Marker(
+            width: 50,
+            height: 50,
+            point: p.position.toLatLng(),
+            child: MapMaker(
+              icon: const Icon(Icons.place),
+              color: _piemontColor,
+              lastSnowHeight: dataPiemonte.lastSnowHeight(p.id),
+              onPressed: () {
+                ref
+                    .read(currentMapLocProvider.notifier)
+                    .setLocation(p.position);
+                context.goNamed(
+                  AppRoute.detailMapSt.name,
+                  extra: p,
+                );
+              },
+            ),
+          ),
+        );
+      } else {
+        _listPiemontNoDataMarker.add(
+          Marker(
+            width: 50,
+            height: 50,
+            point: p.position.toLatLng(),
             child: const MapMaker(
               icon: Icon(Icons.place),
               color: _stationNoDataColor,
@@ -265,6 +322,18 @@ class __InnerViewState extends ConsumerState<_InnerView> {
             if (_listStationNoDataMarker.isNotEmpty && showNoDataStations)
               _MakerLayer(
                 markers: _listStationNoDataMarker,
+                color: _stationNoDataColor,
+                showClusterLayer: showClusterLayer,
+              ),
+            if (_listPiemontMarker.isNotEmpty)
+              _MakerLayer(
+                markers: _listPiemontMarker,
+                color: _piemontColor,
+                showClusterLayer: showClusterLayer,
+              ),
+            if (_listPiemontNoDataMarker.isNotEmpty && showNoDataStations)
+              _MakerLayer(
+                markers: _listPiemontNoDataMarker,
                 color: _stationNoDataColor,
                 showClusterLayer: showClusterLayer,
               ),

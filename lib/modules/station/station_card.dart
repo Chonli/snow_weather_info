@@ -1,10 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:snow_weather_info/extensions/stations_data.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/modules/map/map_widget.dart';
 import 'package:snow_weather_info/provider/station_data.dart';
+import 'package:snow_weather_info/provider/station_piemont_data.dart';
 import 'package:snow_weather_info/router/router.dart';
+
+extension _ThemeExt on BuildContext {
+  Color? textColor(bool hasData) => hasData
+      ? Theme.of(this).textTheme.bodyMedium?.color
+      : Theme.of(this).disabledColor;
+
+  FontStyle textFont(bool hasData) =>
+      hasData ? FontStyle.normal : FontStyle.italic;
+
+  TextStyle stationTextStyle(bool hasData) => TextStyle(
+    color: textColor(hasData),
+    fontStyle: textFont(hasData),
+  );
+}
 
 class StationCard extends ConsumerWidget {
   const StationCard({
@@ -20,19 +36,24 @@ class StationCard extends ConsumerWidget {
     late final String snowHeigth;
 
     if (station case final Station st) {
-      final hasData = ref.watch(stationDataProvider.notifier).hasData(st.id);
-      final lastSnowHeight = ref
-          .watch(stationDataProvider.notifier)
-          .lastSnowHeight(st.id);
+      final dataStation = ref.watch(stationDataProvider).value ?? {};
+      final hasData = dataStation.hasData(st.id.toString());
+      final lastSnowHeight = dataStation.lastSnowHeight(st.id.toString());
 
       snowHeigth = hasData
           ? ' ${(lastSnowHeight * 100).toStringAsFixed(0)}cm'
           : '';
-      final color = hasData
-          ? Theme.of(context).textTheme.bodyMedium?.color
-          : Theme.of(context).disabledColor;
-      final font = hasData ? FontStyle.normal : FontStyle.italic;
-      textStyle = TextStyle(color: color, fontStyle: font);
+      textStyle = context.stationTextStyle(hasData);
+    } else if (station case final StationPiemont st) {
+      final dataPiemonte = ref.watch(stationPiemontDataProvider).value ?? {};
+      final hasData = dataPiemonte.hasData(st.id);
+      final lastSnowHeight = dataPiemonte.lastSnowHeight(st.id);
+
+      snowHeigth = hasData
+          ? ' ${(lastSnowHeight * 100).toStringAsFixed(0)}cm'
+          : '';
+
+      textStyle = context.stationTextStyle(hasData);
     } else {
       snowHeigth = '';
       textStyle = TextStyle(

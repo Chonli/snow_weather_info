@@ -43,6 +43,16 @@ class Station extends AbstractStation with StationMappable {
     json['Altitude'] as int,
   );
 
+  factory Station.fromPiemontApiJson(Map<String, dynamic> json) => Station(
+    int.parse(json['station_code'] as String),
+    (json['name'] as String).capitalizeAllWords,
+    Coordinate(
+      latitude: json['lat'] as double,
+      longitude: json['lng'] as double,
+    ),
+    json['quote'] as int,
+  );
+
   final int id;
 
   @override
@@ -52,6 +62,39 @@ class Station extends AbstractStation with StationMappable {
 
   static const fromMap = StationMapper.fromMap;
   static const fromJson = StationMapper.fromJson;
+}
+
+@MappableClass()
+class StationPiemont extends AbstractStation with StationPiemontMappable {
+  //"Latitude": "46.341167", "Longitude": "6.708167", "ID": "07454",
+  //"Altitude": "1535", "Nom": "Bernex"
+  const StationPiemont(
+    this.id,
+    super.name,
+    super.position,
+    super.altitude,
+  );
+
+  factory StationPiemont.fromRemoteJson(Map<String, dynamic> json) =>
+      StationPiemont(
+        json['station_code'] as String,
+        (json['name'] as String).capitalizeAllWords,
+        Coordinate(
+          latitude: double.tryParse(json['lat']?.toString() ?? '') ?? 0.0,
+          longitude: double.tryParse(json['lng']?.toString() ?? '') ?? 0.0,
+        ),
+        double.tryParse(json['quote']?.toString() ?? '')?.toInt() ?? 0,
+      );
+
+  final String id;
+
+  @override
+  String toString() {
+    return '$id - $name : $altitude m, $position';
+  }
+
+  static const fromMap = StationPiemontMapper.fromMap;
+  static const fromJson = StationPiemontMapper.fromJson;
 }
 
 @MappableClass()
