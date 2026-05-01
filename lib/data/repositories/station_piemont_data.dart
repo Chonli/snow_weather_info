@@ -39,31 +39,62 @@ class StationPiemontDataRepository {
     );
     final stationCodes = stations.map((s) => s.id).toList();
 
-    final results = <DataStation>[];
+    // Compute days to fetch based on lastUpdatePiemont in local data.
+    final last = localData.lastUpdatePiemont.read();
+    final daysSinceLast =
+        last.isBefore(now.subtract(Duration(days: maxDaysFetch)))
+        ? maxDaysFetch
+        : now.difference(last).inDays;
 
-    // Iterate sequentially to avoid overloading remote api. Could be parallelized in batches.
-    for (final code in stationCodes) {
-      final datas = await stationPiemontDataApi.getStationDatas(
-        currentDate: currentDate,
-        stationCodes: [code],
-        maxDaysFetch: maxDaysFetch,
-      );
-      results.addAll(datas);
-    }
+    final effectiveFetchDays = daysSinceLast <= 0
+        ? 1
+        : (daysSinceLast > maxDaysFetch ? maxDaysFetch : daysSinceLast);
 
-    if (results.isNotEmpty) {
-      // save to local cache and update last update time
-      await localData.allDataStations.save(results);
-      await localData.lastUpdate.save(now);
+    final results = await stationPiemontDataApi.getStationDatas(
+      currentDate: currentDate,
+      stationCodes: stationCodes,
+      maxDaysFetch: effectiveFetchDays,
+    );
 
+    // Merge results with cached local data (dedupe by id+date)
+    final cachedDataStations = localData.allDataPiemontStations.read();
+    if (cachedDataStations.isEmpty) {
+      // no cache, save results directly
+      await localData.allDataPiemontStations.save(results);
+      await localData.lastUpdatePiemont.save(now);
       return results;
     }
 
-    // fallback to cache
-    final cachedDataStations = localData.allDataStations.read();
+    if (results.isNotEmpty) {
+      final Map<String, DataStation> mergedMap = {};
+
+      String keyOf(DataStation d) => '${d.id}::${d.date.toIso8601String()}';
+
+      for (final c in cachedDataStations) {
+        mergedMap[keyOf(c)] = c;
+      }
+      for (final r in results) {
+        // prefer fetched value (overwrite cached)
+        mergedMap[keyOf(r)] = r;
+      }
+
+      final merged = mergedMap.values.toList()
+        ..sort((a, b) => b.date.compareTo(a.date));
+
+      // prune very old entries beyond the global maxDaysFetch window to avoid unbounded growth
+      final minDate = now.subtract(Duration(days: maxDaysFetch));
+      merged.removeWhere((d) => d.date.isBefore(minDate));
+
+      await localData.allDataPiemontStations.save(merged);
+      await localData.lastUpdatePiemont.save(now);
+
+      return merged;
+    }
+
+    // fallback to cache (if no fresh results)
     final minDate = now.subtract(Duration(days: maxDaysFetch));
     cachedDataStations.removeWhere((data) => data.date.isBefore(minDate));
-    await localData.allDataStations.save(cachedDataStations);
+    await localData.allDataPiemontStations.save(cachedDataStations);
 
     return cachedDataStations;
   }
