@@ -4,6 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/data/repositories/station_piemont.dart';
 import 'package:snow_weather_info/data/sources/api/station_piemont_data_api.dart';
 import 'package:snow_weather_info/data/sources/data/station_data_local_data.dart';
+import 'package:snow_weather_info/extensions/stations_data.dart';
 import 'package:snow_weather_info/model/data_station.dart';
 
 part 'station_piemont_data.g.dart';
@@ -29,14 +30,16 @@ class StationPiemontDataRepository {
 
   static const maxDaysFetch = 10;
 
+  /// Piemonte data is published hourly; we only keep one measurement every
+  /// [dataIntervalHours] hours to reduce stored/displayed data.
+  static const dataIntervalHours = 6;
+
   FutureOr<List<DataStation>> getDataStation({DateTime? currentDate}) async {
     log('Fetching Piemonte data (repository)');
     final now = currentDate ?? DateTime.now();
 
     // Try fetch per station using the station repository list
-    final stations = await stationPiemontRepo.getStations(
-      currentDate: currentDate,
-    );
+    final stations = await stationPiemontRepo.getStations(currentDate: now);
     final stationCodes = stations.map((s) => s.id).toList();
 
     // Compute days to fetch based on lastUpdatePiemont in local data.
@@ -50,11 +53,14 @@ class StationPiemontDataRepository {
         ? 1
         : (daysSinceLast > maxDaysFetch ? maxDaysFetch : daysSinceLast);
 
-    final results = await stationPiemontDataApi.getStationDatas(
-      currentDate: currentDate,
+    final fetched = await stationPiemontDataApi.getStationDatas(
+      currentDate: now,
       stationCodes: stationCodes,
       maxDaysFetch: effectiveFetchDays,
     );
+
+    // Keep only one measurement per station every [dataIntervalHours] hours.
+    final results = fetched.onePerSlot(intervalHours: dataIntervalHours);
 
     // Merge results with cached local data (dedupe by id+date)
     final cachedDataStations = localData.allDataPiemontStations.read();
@@ -78,8 +84,9 @@ class StationPiemontDataRepository {
         mergedMap[keyOf(r)] = r;
       }
 
-      final merged = mergedMap.values.toList()
-        ..sort((a, b) => b.date.compareTo(a.date));
+      final merged = mergedMap.values.toList().onePerSlot(
+        intervalHours: dataIntervalHours,
+      );
 
       // prune very old entries beyond the global maxDaysFetch window to avoid unbounded growth
       final minDate = now.subtract(const Duration(days: maxDaysFetch));
@@ -93,9 +100,12 @@ class StationPiemontDataRepository {
 
     // fallback to cache (if no fresh results)
     final minDate = now.subtract(const Duration(days: maxDaysFetch));
-    cachedDataStations.removeWhere((data) => data.date.isBefore(minDate));
-    await localData.allDataPiemontStations.save(cachedDataStations);
+    final cached = cachedDataStations
+        .onePerSlot(intervalHours: dataIntervalHours)
+        .where((data) => !data.date.isBefore(minDate))
+        .toList();
+    await localData.allDataPiemontStations.save(cached);
 
-    return cachedDataStations;
+    return cached;
   }
 }
