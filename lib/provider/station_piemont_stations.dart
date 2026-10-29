@@ -9,6 +9,6 @@ class PiemontStations extends _$PiemontStations {
   @override
   FutureOr<List<StationPiemont>> build() async {
     final repo = ref.watch(stationPiemontRepositoryProvider);
-    return repo.getStations();
+    return await repo.getStations();
   }
 }

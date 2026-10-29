@@ -34,7 +34,7 @@ class Station extends AbstractStation with StationMappable {
     json['Altitude'] as int,
   );
 
-  factory Station.fromPiemontApiJson(Map<String, dynamic> json) => Station(
+  factory fromPiemontApiJson(Map<String, dynamic> json) => Station(
     int.parse(json['station_code'] as String),
     (json['name'] as String).capitalizeAllWords,
     Coordinate(
@@ -59,14 +59,14 @@ class Station extends AbstractStation with StationMappable {
 class StationPiemont extends AbstractStation with StationPiemontMappable {
   //"Latitude": "46.341167", "Longitude": "6.708167", "ID": "07454",
   //"Altitude": "1535", "Nom": "Bernex"
-  const StationPiemont(
+  const new(
     this.id,
     super.name,
     super.position,
     super.altitude,
   );
 
-  factory StationPiemont.fromRemoteJson(Map<String, dynamic> json) =>
+  factory fromRemoteJson(Map<String, dynamic> json) =>
       StationPiemont(
         json['station_code'] as String,
         (json['name'] as String).capitalizeAllWords,

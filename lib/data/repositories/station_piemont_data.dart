@@ -17,7 +17,7 @@ StationPiemontDataRepository stationPiemontDataRepository(Ref ref) {
 }
 
 class StationPiemontDataRepository {
-  const StationPiemontDataRepository(
+  const new(
     this.stationPiemontDataApi,
     this.stationPiemontRepo,
     this.localData,
@@ -42,7 +42,7 @@ class StationPiemontDataRepository {
     // Compute days to fetch based on lastUpdatePiemont in local data.
     final last = localData.lastUpdatePiemont.read();
     final daysSinceLast =
-        last.isBefore(now.subtract(Duration(days: maxDaysFetch)))
+        last.isBefore(now.subtract(const Duration(days: maxDaysFetch)))
         ? maxDaysFetch
         : now.difference(last).inDays;
 
@@ -82,7 +82,7 @@ class StationPiemontDataRepository {
         ..sort((a, b) => b.date.compareTo(a.date));
 
       // prune very old entries beyond the global maxDaysFetch window to avoid unbounded growth
-      final minDate = now.subtract(Duration(days: maxDaysFetch));
+      final minDate = now.subtract(const Duration(days: maxDaysFetch));
       merged.removeWhere((d) => d.date.isBefore(minDate));
 
       await localData.allDataPiemontStations.save(merged);
@@ -92,7 +92,7 @@ class StationPiemontDataRepository {
     }
 
     // fallback to cache (if no fresh results)
-    final minDate = now.subtract(Duration(days: maxDaysFetch));
+    final minDate = now.subtract(const Duration(days: maxDaysFetch));
     cachedDataStations.removeWhere((data) => data.date.isBefore(minDate));
     await localData.allDataPiemontStations.save(cachedDataStations);
 

@@ -25,7 +25,7 @@ class FavoriteStation extends _$FavoriteStation {
     }
 
     for (final s in piemontStations) {
-      if (favorites.contains(s.id.toString())) {
+      if (favorites.contains(s.id)) {
         tmpDatas.add(s);
       }
     }
