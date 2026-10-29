@@ -36,9 +36,7 @@ class _BeraTokenHeader extends _$BeraTokenHeader {
         shouldInterceptRequest: (controller, request) async {
           final header = request.headers ?? <String, String>{};
           if (state.isEmpty &&
-              request.url.rawValue.contains(
-                'https://rwg.meteofrance.com',
-              ) &&
+              request.url.rawValue.contains('https://rwg.meteofrance.com') &&
               header['Authorization'] != null) {
             state = header;
           }
@@ -96,10 +94,7 @@ class _PdfController extends _$PdfController {
 }
 
 class BERADetailPage extends ConsumerWidget {
-  const BERADetailPage({
-    required this.avalancheBulletin,
-    super.key,
-  });
+  const new({required this.avalancheBulletin, super.key});
 
   final AvalancheBulletinFr avalancheBulletin;
 

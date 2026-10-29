@@ -31,32 +31,31 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace 'com.chonli.snow_weather_info'
-    compileSdkVersion 36
+    compileSdk 36
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_21
         targetCompatibility JavaVersion.VERSION_21
     }
 
-    kotlin {
-        jvmToolchain(21)
-    }
-
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
-    lintOptions {
-        disable 'InvalidPackage'
+    lint {
+        disable.add 'InvalidPackage'
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_21.toString()
     }
 
     defaultConfig {
         applicationId "com.chonli.snow_weather_info"
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 24
         targetSdkVersion 36
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     signingConfigs {
@@ -73,13 +72,13 @@ android {
             signingConfig signingConfigs.release
             zipAlignEnabled true
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug{
             applicationIdSuffix '.debug'
         }
     }
-    
+
 }
 
 flutter {

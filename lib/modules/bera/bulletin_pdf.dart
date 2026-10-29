@@ -6,7 +6,7 @@ import 'package:snow_weather_info/model/avalanche_bulletin.dart';
 import 'package:snow_weather_info/provider/favorite_bulletin.dart';
 
 class BulletinPdf extends ConsumerWidget {
-  const BulletinPdf({
+  const new({
     required this.pdfController,
     required this.avalancheBulletin,
     super.key,
@@ -26,29 +26,21 @@ class BulletinPdf extends ConsumerWidget {
         title: Text(avalancheBulletin.massifName),
         actions: [
           IconButton(
-            icon: Icon(
-              isFavorite ? Icons.favorite : Icons.favorite_border,
-            ),
+            icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
             onPressed: () => ref
                 .read(favoriteBulletinProvider.notifier)
-                .addOrRemoveFavoriteBERA(
-                  avalancheBulletin,
-                ),
+                .addOrRemoveFavoriteBERA(avalancheBulletin),
           ),
         ],
       ),
       body: switch (pdfController) {
-        AsyncData(:final PdfController value) => AppPdfView(
-          value,
-        ),
+        AsyncData(:final PdfController value) => AppPdfView(value),
         AsyncError() ||
         AsyncLoading() when pdfController.hasError => const Center(
           child: Text("Erreur: pas de Bulletin d'avalanche trouvé!"),
         ),
         // cas loading sans erreur et pdf controlleur null
-        _ => const Center(
-          child: CircularProgressIndicator(),
-        ),
+        _ => const Center(child: CircularProgressIndicator()),
       },
     );
   }

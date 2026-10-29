@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppStickyHeaderView extends StatelessWidget {
-  const AppStickyHeaderView({
-    required this.text,
-    super.key,
-  });
+  const new({required this.text, super.key});
 
   final String text;
 

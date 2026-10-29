@@ -13,9 +13,7 @@ extension StringNullExtension on String? {
 
   bool safeSearch(String search) {
     return switch (this) {
-      final String value => value.toLowerCase().contains(
-        search.toLowerCase(),
-      ),
+      final String value => value.toLowerCase().contains(search.toLowerCase()),
       _ => false,
     };
   }
@@ -23,7 +21,7 @@ extension StringNullExtension on String? {
 
 extension StringExtension on String {
   String get capitalizeAllWords {
-    final cleanString = this.replaceAll('_', ' ');
+    final cleanString = replaceAll('_', ' ');
 
     return cleanString
         .split(' ')

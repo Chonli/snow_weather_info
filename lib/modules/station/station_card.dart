@@ -7,10 +7,7 @@ import 'package:snow_weather_info/provider/station_data.dart';
 import 'package:snow_weather_info/router/router.dart';
 
 class StationCard extends ConsumerWidget {
-  const StationCard({
-    required this.station,
-    super.key,
-  });
+  const new({required this.station, super.key});
 
   final AbstractStation station;
 
@@ -43,23 +40,15 @@ class StationCard extends ConsumerWidget {
 
     return Card(
       margin: const EdgeInsets.all(8),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       elevation: 5,
       child: ListTile(
-        title: Text(
-          station.name,
-          style: textStyle,
-        ),
+        title: Text(station.name, style: textStyle),
         isThreeLine: true,
         trailing: snowHeigth.isNotEmpty
             ? Row(
                 mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Icon(Icons.ac_unit),
-                  Text(snowHeigth),
-                ],
+                children: [const Icon(Icons.ac_unit), Text(snowHeigth)],
               )
             : null,
         subtitle: Text(
@@ -71,10 +60,7 @@ class StationCard extends ConsumerWidget {
               .read(currentMapLocProvider.notifier)
               .setLocation(station.position);
 
-          context.goNamed(
-            AppRoute.detailSt.name,
-            extra: station,
-          );
+          context.goNamed(AppRoute.detailSt.name, extra: station);
         },
       ),
     );

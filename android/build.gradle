@@ -5,9 +5,16 @@ allprojects {
     }
 }
 
-rootProject.buildDir = '../build'
+// Le tool Flutter (`flutter build apk`) cherche l'APK dans
+// <projet>/build/app/outputs/flutter-apk : il faut rediriger les dossiers de
+// build Gradle la, comme dans le template officiel (via layout.buildDirectory,
+// le setter `buildDir =` n'etant plus supporte en Gradle 9 / AGP 9).
+def newBuildDir = rootProject.layout.buildDirectory.dir('../../build').get()
+rootProject.layout.buildDirectory.value(newBuildDir)
+
 subprojects {
-    project.buildDir = "${rootProject.buildDir}/${project.name}"
+    def newSubprojectBuildDir = newBuildDir.dir(project.name)
+    project.layout.buildDirectory.value(newSubprojectBuildDir)
     project.evaluationDependsOn(':app')
 }
 

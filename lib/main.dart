@@ -17,18 +17,13 @@ Future<void> main() async {
   final dir = await getApplicationSupportDirectory();
   // build the database path
   final dbPath = join(dir.path, 'my_database.db');
-  final dataBase = await databaseFactoryIo.openDatabase(
-    dbPath,
-    version: 1,
-  );
+  final dataBase = await databaseFactoryIo.openDatabase(dbPath, version: 1);
 
   runApp(
     ProviderScope(
       overrides: [
         sharedPreferencesProvider.overrideWithValue(prefs),
-        dataBaseProvider.overrideWith(
-          (_) => dataBase,
-        ),
+        dataBaseProvider.overrideWith((_) => dataBase),
       ],
       child: const MyApp(),
     ),
@@ -36,17 +31,13 @@ Future<void> main() async {
 }
 
 class MyApp extends ConsumerWidget {
-  const MyApp({
-    super.key,
-  });
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
       title: AppConst.title,
-      theme: ThemeData(
-        colorSchemeSeed: Colors.blueAccent,
-      ),
+      theme: ThemeData(colorSchemeSeed: Colors.blueAccent),
       darkTheme: ThemeData(
         colorSchemeSeed: Colors.blue.shade800,
         brightness: Brightness.dark,

@@ -6,11 +6,7 @@ part 'station.mapper.dart';
 
 @MappableClass()
 sealed class AbstractStation with AbstractStationMappable {
-  const AbstractStation(
-    this.name,
-    this.position,
-    this.altitude,
-  );
+  const new(this.name, this.position, this.altitude);
 
   final String name;
   final Coordinate position;
@@ -26,14 +22,9 @@ sealed class AbstractStation with AbstractStationMappable {
 class Station extends AbstractStation with StationMappable {
   //"Latitude": "46.341167", "Longitude": "6.708167", "ID": "07454",
   //"Altitude": "1535", "Nom": "Bernex"
-  const Station(
-    this.id,
-    super.name,
-    super.position,
-    super.altitude,
-  );
+  const new(this.id, super.name, super.position, super.altitude);
 
-  factory Station.fromRemoteJson(Map<String, dynamic> json) => Station(
+  factory fromRemoteJson(Map<String, dynamic> json) => Station(
     int.parse(json['ID'] as String),
     (json['Nom'] as String).capitalizeAllWords,
     Coordinate(
@@ -56,12 +47,7 @@ class Station extends AbstractStation with StationMappable {
 
 @MappableClass()
 class Nivose extends AbstractStation with NivoseMappable {
-  const Nivose(
-    super.name,
-    super.position,
-    super.altitude,
-    this.codeMF,
-  );
+  const new(super.name, super.position, super.altitude, this.codeMF);
 
   final String codeMF;
 

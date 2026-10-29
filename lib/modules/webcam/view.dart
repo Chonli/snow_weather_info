@@ -52,7 +52,7 @@ class _Search extends _$Search {
 }
 
 class WebcamListView extends ConsumerWidget {
-  const WebcamListView({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -109,7 +109,7 @@ class WebcamListView extends ConsumerWidget {
 }
 
 class _ListFavoriteView extends ConsumerWidget {
-  const _ListFavoriteView();
+  const new();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -134,7 +134,7 @@ class _ListFavoriteView extends ConsumerWidget {
 }
 
 class _ListByMassifView extends ConsumerWidget {
-  const _ListByMassifView({required this.mountain, required this.skiResorts});
+  const new({required this.mountain, required this.skiResorts});
 
   final Mountain mountain;
   final List<SkiResort> skiResorts;
@@ -176,7 +176,7 @@ class _ListByMassifView extends ConsumerWidget {
 }
 
 class _CardSkiResort extends StatelessWidget {
-  const _CardSkiResort(this.resort);
+  const new(this.resort);
 
   final SkiResort resort;
 
@@ -198,7 +198,7 @@ class _CardSkiResort extends StatelessWidget {
 }
 
 class _MassifFilterView extends ConsumerWidget {
-  const _MassifFilterView();
+  const new();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -240,7 +240,7 @@ class _MassifFilterView extends ConsumerWidget {
 }
 
 class _SearchBarView extends ConsumerWidget {
-  const _SearchBarView();
+  const new();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -252,7 +252,7 @@ class _SearchBarView extends ConsumerWidget {
             ref.read(_searchProvider.notifier).search(value);
           },
           hintText: 'Recherche',
-          leading: Icon(Icons.search),
+          leading: const Icon(Icons.search),
         ),
       ),
     );

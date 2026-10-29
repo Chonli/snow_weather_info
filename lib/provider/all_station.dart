@@ -15,10 +15,7 @@ class AllStations extends _$AllStations {
       final stationRepo = ref.watch(stationRepositoryProvider);
       final stations = await stationRepo.getStation();
 
-      return [
-        ...stations,
-        ...ConstantDatalist.listNivose,
-      ];
+      return [...stations, ...ConstantDatalist.listNivose];
     } on Exception catch (e) {
       log('Error fetching all stations: $e');
       return [...ConstantDatalist.listNivose];

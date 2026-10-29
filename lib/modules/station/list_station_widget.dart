@@ -47,9 +47,7 @@ class _FilteredStations extends _$FilteredStations {
             .where(
               (station) =>
                   search.isEmpty ||
-                  station.name.toLowerCase().contains(
-                    search.toLowerCase(),
-                  ),
+                  station.name.toLowerCase().contains(search.toLowerCase()),
             )
             .toList()
           ..sort(
@@ -73,9 +71,7 @@ class _FilteredStations extends _$FilteredStations {
 }
 
 class ListStationWidget extends ConsumerWidget {
-  const ListStationWidget({
-    super.key,
-  });
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -94,9 +90,7 @@ class ListStationWidget extends ConsumerWidget {
                 hintText: 'Recherche',
                 prefixIcon: Icon(Icons.search),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
                 ),
               ),
             ),
@@ -110,7 +104,7 @@ class ListStationWidget extends ConsumerWidget {
 }
 
 class _FavoriteStationsWidget extends ConsumerWidget {
-  const _FavoriteStationsWidget();
+  const new();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -128,9 +122,7 @@ class _FavoriteStationsWidget extends ConsumerWidget {
           ),
           sliver: SliverList(
             delegate: SliverChildBuilderDelegate(
-              (context, index) => StationCard(
-                station: data[index],
-              ),
+              (context, index) => StationCard(station: data[index]),
               childCount: data.length,
             ),
           ),
@@ -143,7 +135,7 @@ class _FavoriteStationsWidget extends ConsumerWidget {
 }
 
 class _FilteredStationsWidget extends ConsumerWidget {
-  const _FilteredStationsWidget();
+  const new();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

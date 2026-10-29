@@ -17,7 +17,7 @@ SkiResortApi skiResortApi(Ref ref) {
 }
 
 class SkiResortApi {
-  const SkiResortApi(this.client);
+  const new(this.client);
 
   final Client client;
 

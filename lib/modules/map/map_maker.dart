@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:snow_weather_info/extensions/double.dart';
 
 class MapMaker extends StatelessWidget {
-  const MapMaker({
+  const new({
     required this.icon,
     required this.color,
     super.key,

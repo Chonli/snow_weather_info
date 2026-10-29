@@ -5,18 +5,15 @@ import 'package:snow_weather_info/provider/station_data.dart';
 import 'package:snow_weather_info/router/router.dart';
 
 class SplashSreenPage extends ConsumerWidget {
-  const SplashSreenPage({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen(
-      stationDataProvider,
-      (previous, next) {
-        if (next is! AsyncLoading) {
-          context.goNamed(AppRoute.stations.name);
-        }
-      },
-    );
+    ref.listen(stationDataProvider, (previous, next) {
+      if (next is! AsyncLoading) {
+        context.goNamed(AppRoute.stations.name);
+      }
+    });
 
     return Scaffold(
       backgroundColor: Colors.white,

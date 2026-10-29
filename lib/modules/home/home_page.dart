@@ -7,10 +7,7 @@ import 'package:snow_weather_info/router/router.dart';
 import 'package:url_launcher/url_launcher.dart' as url;
 
 class HomePage extends ConsumerWidget {
-  const HomePage({
-    required this.navigationShell,
-    super.key,
-  });
+  const new({required this.navigationShell, super.key});
 
   final StatefulNavigationShell navigationShell;
 
@@ -33,39 +30,24 @@ class HomePage extends ConsumerWidget {
         currentIndex: navigationShell.currentIndex,
         onTap: _goBranch,
         items: const [
-          BottomNavigationBarItem(
-            label: 'Stations',
-            icon: Icon(Icons.list),
-          ),
-          BottomNavigationBarItem(
-            label: 'Carte',
-            icon: Icon(Icons.map),
-          ),
+          BottomNavigationBarItem(label: 'Stations', icon: Icon(Icons.list)),
+          BottomNavigationBarItem(label: 'Carte', icon: Icon(Icons.map)),
           BottomNavigationBarItem(
             label: 'Avalanches',
             icon: Icon(Icons.rss_feed),
           ),
-          BottomNavigationBarItem(
-            label: 'BERA',
-            icon: Icon(Icons.ac_unit),
-          ),
-          BottomNavigationBarItem(
-            label: 'Webcam',
-            icon: Icon(Icons.camera),
-          ),
+          BottomNavigationBarItem(label: 'BERA', icon: Icon(Icons.ac_unit)),
+          BottomNavigationBarItem(label: 'Webcam', icon: Icon(Icons.camera)),
         ],
       ),
     );
   }
 }
 
-enum _MenuItem {
-  setting,
-  about,
-}
+enum _MenuItem { setting, about }
 
 class _TitleBar extends StatelessWidget implements PreferredSizeWidget {
-  const _TitleBar();
+  const new();
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +56,7 @@ class _TitleBar extends StatelessWidget implements PreferredSizeWidget {
       actions: <Widget>[
         PopupMenuButton<_MenuItem>(
           offset: const Offset(0, 40),
-          onSelected: (_MenuItem value) async {
+          onSelected: (value) async {
             return switch (value) {
               _MenuItem.setting => context.pushNamed(AppRoute.setting.name),
               _MenuItem.about => await _openAboutDialog(context),
@@ -107,7 +89,7 @@ class _TitleBar extends StatelessWidget implements PreferredSizeWidget {
     if (context.mounted) {
       await showDialog<AboutDialog>(
         context: context,
-        builder: (BuildContext context) {
+        builder: (context) {
           return AboutDialog(
             applicationName: 'Info Neige',
             applicationVersion:

@@ -41,25 +41,19 @@ class CurrentMapLoc extends _$CurrentMapLoc {
 }
 
 class MapWidget extends ConsumerWidget {
-  const MapWidget({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final stations = ref.watch(stationsProvider).asData?.value ?? [];
     final feeds = ref.watch(apiAvalancheProvider).asData?.value;
 
-    return _InnerView(
-      stations: stations,
-      feeds: feeds,
-    );
+    return _InnerView(stations: stations, feeds: feeds);
   }
 }
 
 class _InnerView extends ConsumerStatefulWidget {
-  const _InnerView({
-    required this.stations,
-    this.feeds,
-  });
+  const new({required this.stations, this.feeds});
 
   final List<Station> stations;
   final AtomFeed? feeds;
@@ -79,9 +73,9 @@ class __InnerViewState extends ConsumerState<_InnerView> {
   void initState() {
     super.initState();
     _updateMakerList();
-    ServicesBinding.instance.addPostFrameCallback((_) {
+    ServicesBinding.instance.addPostFrameCallback((_) async {
       if (mounted) {
-        _updateUserLocation();
+        await _updateUserLocation();
       }
     });
   }
@@ -120,10 +114,7 @@ class __InnerViewState extends ConsumerState<_InnerView> {
                   .read(currentMapLocProvider.notifier)
                   .setLocation(nivose.position);
 
-              context.goNamed(
-                AppRoute.detailMapSt.name,
-                extra: nivose,
-              );
+              context.goNamed(AppRoute.detailMapSt.name, extra: nivose);
             },
           ),
         ),
@@ -134,9 +125,7 @@ class __InnerViewState extends ConsumerState<_InnerView> {
     _listStationNoDataMarker.clear();
     final dataProvider = ref.read(stationDataProvider.notifier);
     for (final station in widget.stations) {
-      final hasData = dataProvider.hasData(
-        station.id,
-      );
+      final hasData = dataProvider.hasData(station.id);
 
       if (hasData) {
         _listStationMarker.add(
@@ -147,18 +136,13 @@ class __InnerViewState extends ConsumerState<_InnerView> {
             child: MapMaker(
               icon: const Icon(Icons.place),
               color: _stationColor,
-              lastSnowHeight: dataProvider.lastSnowHeight(
-                station.id,
-              ),
+              lastSnowHeight: dataProvider.lastSnowHeight(station.id),
               onPressed: () {
                 ref
                     .read(currentMapLocProvider.notifier)
                     .setLocation(station.position);
 
-                context.goNamed(
-                  AppRoute.detailMapSt.name,
-                  extra: station,
-                );
+                context.goNamed(AppRoute.detailMapSt.name, extra: station);
               },
             ),
           ),
@@ -179,47 +163,35 @@ class __InnerViewState extends ConsumerState<_InnerView> {
     }
 
     _listAvalancheMarker.clear();
-    widget.feeds?.items.forEach(
-      (AtomItem item) {
-        final lat = item.geo?.lat;
-        final long = item.geo?.long;
-        if (lat != null && long != null) {
-          _listAvalancheMarker.add(
-            Marker(
-              width: 50,
-              height: 50,
-              point: LatLng(lat, long),
-              child: MapMaker(
-                icon: const Icon(Icons.ac_unit),
-                color: _avalancheColor,
-                onPressed: () {
-                  ref
-                      .read(currentMapLocProvider.notifier)
-                      .setLocation(
-                        Coordinate(
-                          latitude: lat,
-                          longitude: long,
-                        ),
-                      );
+    widget.feeds?.items.forEach((item) {
+      final lat = item.geo?.lat;
+      final long = item.geo?.long;
+      if (lat != null && long != null) {
+        _listAvalancheMarker.add(
+          Marker(
+            width: 50,
+            height: 50,
+            point: LatLng(lat, long),
+            child: MapMaker(
+              icon: const Icon(Icons.ac_unit),
+              color: _avalancheColor,
+              onPressed: () {
+                ref
+                    .read(currentMapLocProvider.notifier)
+                    .setLocation(Coordinate(latitude: lat, longitude: long));
 
-                  context.goNamed(
-                    AppRoute.detailMapAv.name,
-                    extra: item,
-                  );
-                },
-              ),
+                context.goNamed(AppRoute.detailMapAv.name, extra: item);
+              },
             ),
-          );
-        }
-      },
-    );
+          ),
+        );
+      }
+    });
   }
 
   Future<void> _updateUserLocation() async {
     final userLocation = await ref
-        .read(
-          userLocationProvider.notifier,
-        )
+        .read(userLocationProvider.notifier)
         .updateLocation();
 
     if (userLocation != null) {
@@ -230,7 +202,7 @@ class __InnerViewState extends ConsumerState<_InnerView> {
   Future<void> _showMapSettings() {
     return showDialog(
       context: context,
-      builder: (BuildContext context) => const _MapSettingDialog(),
+      builder: (context) => const _MapSettingDialog(),
     );
   }
 
@@ -300,10 +272,7 @@ class __InnerViewState extends ConsumerState<_InnerView> {
           right: 20,
           child: FloatingActionButton(
             onPressed: _updateUserLocation,
-            child: const Icon(
-              Icons.gps_fixed_rounded,
-              size: 28,
-            ),
+            child: const Icon(Icons.gps_fixed_rounded, size: 28),
           ),
         ),
         Positioned(
@@ -311,10 +280,7 @@ class __InnerViewState extends ConsumerState<_InnerView> {
           right: 20,
           child: FloatingActionButton(
             onPressed: _showMapSettings,
-            child: const Icon(
-              Icons.settings_outlined,
-              size: 28,
-            ),
+            child: const Icon(Icons.settings_outlined, size: 28),
           ),
         ),
       ],
@@ -323,7 +289,7 @@ class __InnerViewState extends ConsumerState<_InnerView> {
 }
 
 class _MakerLayer extends StatelessWidget {
-  const _MakerLayer({
+  const new({
     required this.markers,
     required this.color,
     required this.showClusterLayer,
@@ -366,7 +332,7 @@ class _MakerLayer extends StatelessWidget {
 }
 
 class _MapSettingDialog extends ConsumerWidget {
-  const _MapSettingDialog();
+  const new();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

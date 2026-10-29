@@ -3,24 +3,18 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snow_weather_info/data/sources/data/preferences.dart';
 
 class PreferencePage extends ConsumerWidget {
-  const PreferencePage({
-    super.key,
-  });
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Préférences'),
-      ),
+      appBar: AppBar(title: const Text('Préférences')),
       body: Center(
         child: ListView(
           children: [
             const Padding(
               padding: EdgeInsets.all(15),
-              child: Text(
-                "Thème de l'application",
-              ),
+              child: Text("Thème de l'application"),
             ),
             Padding(
               padding: const EdgeInsets.all(15),

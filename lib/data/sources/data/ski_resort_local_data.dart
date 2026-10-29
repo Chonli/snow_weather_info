@@ -11,7 +11,7 @@ SkiResortLocalDataContainer skiResortLocalData(Ref ref) {
 }
 
 class SkiResortLocalDataContainer extends LocalDataContainer {
-  const SkiResortLocalDataContainer(super.dataBase);
+  const new(super.dataBase);
 
   @override
   String get name => 'ski_resort_box';

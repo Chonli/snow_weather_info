@@ -19,9 +19,7 @@ class StationData extends _$StationData {
 
     for (final s in stations) {
       final listOfData = stationDatas
-          .where(
-            (data) => data.id == s.id,
-          )
+          .where((data) => data.id == s.id)
           .sorted((a, b) => b.date.compareTo(a.date))
           .toList();
       mapDataStation[s.id] = listOfData;
@@ -42,14 +40,10 @@ class StationData extends _$StationData {
     final data = state.asData?.value[id];
 
     if (data == null || data.isEmpty) {
-      return 0.0;
+      return 0;
     }
 
-    return data
-            .firstWhereOrNull(
-              (d) => d.snowHeight != null,
-            )
-            ?.snowHeight ??
+    return data.firstWhereOrNull((d) => d.snowHeight != null)?.snowHeight ??
         0.0;
   }
 }

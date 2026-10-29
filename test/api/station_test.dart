@@ -5,7 +5,7 @@ import 'package:snow_weather_info/data/sources/api/station_api.dart';
 void main() {
   test('Test la récuperation des station', () async {
     WidgetsFlutterBinding.ensureInitialized();
-    final apiStation = StationApi();
+    const apiStation = StationApi();
 
     final stations = await apiStation.getStations();
 

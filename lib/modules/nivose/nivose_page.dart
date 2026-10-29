@@ -14,16 +14,11 @@ part 'nivose_page.g.dart';
 bool _isFavorite(Ref ref, String codeMF) {
   final favorites = ref.watch(favoritesStationSettingsProvider);
 
-  return favorites.any(
-    (id) => id == codeMF,
-  );
+  return favorites.any((id) => id == codeMF);
 }
 
 class NivosePage extends ConsumerStatefulWidget {
-  const NivosePage({
-    required this.nivose,
-    super.key,
-  });
+  const new({required this.nivose, super.key});
   final Nivose nivose;
 
   @override
@@ -38,18 +33,14 @@ class _NivosePageState extends ConsumerState<NivosePage> {
       if (mounted) {
         ref
             .read(currentMapLocProvider.notifier)
-            .setLocation(
-              widget.nivose.position,
-            );
+            .setLocation(widget.nivose.position);
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final isFavorite = ref.watch(
-      _isFavoriteProvider(widget.nivose.codeMF),
-    );
+    final isFavorite = ref.watch(_isFavoriteProvider(widget.nivose.codeMF));
 
     return Scaffold(
       appBar: AppBar(
@@ -80,14 +71,10 @@ class _NivosePageState extends ConsumerState<NivosePage> {
           child: ListView(
             children: [
               if (widget.nivose.urlWeek.isNotEmpty)
-                _NetworkImage(
-                  url: widget.nivose.urlWeek,
-                ),
+                _NetworkImage(url: widget.nivose.urlWeek),
               const SizedBox(height: 5),
               if (widget.nivose.urlSeason.isNotEmpty)
-                _NetworkImage(
-                  url: widget.nivose.urlSeason,
-                ),
+                _NetworkImage(url: widget.nivose.urlSeason),
             ],
           ),
         ),
@@ -97,9 +84,7 @@ class _NivosePageState extends ConsumerState<NivosePage> {
 }
 
 class _NetworkImage extends StatelessWidget {
-  const _NetworkImage({
-    required this.url,
-  });
+  const new({required this.url});
 
   final String url;
 
@@ -107,20 +92,13 @@ class _NetworkImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Image.network(
       url,
-      loadingBuilder:
-          (
-            BuildContext context,
-            Widget child,
-            ImageChunkEvent? loadingProgress,
-          ) {
-            if (loadingProgress == null) {
-              return child;
-            }
+      loadingBuilder: (context, child, loadingProgress) {
+        if (loadingProgress == null) {
+          return child;
+        }
 
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          },
+        return const Center(child: CircularProgressIndicator());
+      },
     );
   }
 }

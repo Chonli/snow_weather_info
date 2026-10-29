@@ -43,3 +43,6 @@ macos/Flutter/ephemeral/
 ephemeral
 
 coverage/lcov.info
+pubspec.yaml
+android/build/
+android/app/build/

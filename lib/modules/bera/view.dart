@@ -39,13 +39,11 @@ class _MassifFilter extends _$MassifFilter {
 }
 
 class BERAMassifListView extends StatelessWidget {
-  const BERAMassifListView({
-    super.key,
-  });
+  const new({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
+    return const CustomScrollView(
       slivers: [
         _MassifFilterView(),
         _ListFavoriteView(),
@@ -62,7 +60,7 @@ class BERAMassifListView extends StatelessWidget {
 }
 
 class _MassifFilterView extends ConsumerWidget {
-  const _MassifFilterView();
+  const new();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -102,16 +100,14 @@ class _MassifFilterView extends ConsumerWidget {
 }
 
 class _ListFavoriteView extends ConsumerWidget {
-  const _ListFavoriteView();
+  const new();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final favorites = ref.watch(favoriteBulletinProvider);
 
     if (favorites.isEmpty) {
-      return const SliverToBoxAdapter(
-        child: SizedBox.shrink(),
-      );
+      return const SliverToBoxAdapter(child: SizedBox.shrink());
     }
 
     return SliverStickyHeader(
@@ -129,9 +125,7 @@ class _ListFavoriteView extends ConsumerWidget {
 }
 
 class _ListByMassifView extends ConsumerWidget {
-  const _ListByMassifView({
-    required this.mountain,
-  });
+  const new({required this.mountain});
 
   final Mountain mountain;
 
@@ -145,16 +139,12 @@ class _ListByMassifView extends ConsumerWidget {
 
     final list =
         ConstantDatalist.listAvalancheBulletin
-            .where(
-              (b) => b.mountain == mountain,
-            )
+            .where((b) => b.mountain == mountain)
             .toList()
           ..sort((a, b) => a.massifName.compareTo(b.massifName));
 
     return SliverStickyHeader(
-      header: AppStickyHeaderView(
-        text: mountain.displayName,
-      ),
+      header: AppStickyHeaderView(text: mountain.displayName),
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
           (context, index) => _CardMassif(list[index]),
@@ -166,7 +156,7 @@ class _ListByMassifView extends ConsumerWidget {
 }
 
 class _CardMassif extends StatelessWidget {
-  const _CardMassif(this.avalancheBulletin);
+  const new(this.avalancheBulletin);
 
   final AbstractBulletin avalancheBulletin;
 
@@ -174,16 +164,12 @@ class _CardMassif extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.all(8),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       elevation: 5,
       child: ListTile(
         title: Text(avalancheBulletin.massifName),
-        onTap: () => context.goNamed(
-          AppRoute.detailBera.name,
-          extra: avalancheBulletin,
-        ),
+        onTap: () =>
+            context.goNamed(AppRoute.detailBera.name, extra: avalancheBulletin),
       ),
     );
   }

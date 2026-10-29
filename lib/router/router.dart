@@ -191,9 +191,7 @@ GoRouter router(Ref ref) {
                     builder: (context, state) {
                       final resort = state.extra! as SkiResort;
 
-                      return WebcamsForResortView(
-                        resort: resort,
-                      );
+                      return WebcamsForResortView(resort: resort);
                     },
                   ),
                 ],
@@ -223,10 +221,9 @@ enum AppRoute {
   detailAv._('detail_avalanche', 'detail_avalanche'),
   detailMapAv._('detail_avalanche', 'detail_map_avalanche'),
   detailResort._('detail_resort', 'detail_resort'),
-  detailBera._('detail_bera', 'detail_bera')
-  ;
+  detailBera._('detail_bera', 'detail_bera');
 
-  const AppRoute._(this.path, this.name);
+  new _(this.path, this.name);
   final String path;
   final String name;
 

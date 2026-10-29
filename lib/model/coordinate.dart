@@ -5,7 +5,7 @@ part 'coordinate.mapper.dart';
 
 @MappableClass()
 class Coordinate with CoordinateMappable {
-  const Coordinate({required this.latitude, required this.longitude});
+  const new({required this.latitude, required this.longitude});
 
   final double latitude;
   final double longitude;

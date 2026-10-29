@@ -48,17 +48,15 @@ class FavoriteStation extends _$FavoriteStation {
     ref
         .read(favoritesStationSettingsProvider.notifier)
         .update(
-          value.map<String>(
-            (s) {
-              if (s is Station) {
-                return s.id.toString();
-              } else if (s is Nivose) {
-                return s.codeMF;
-              }
+          value.map<String>((s) {
+            if (s is Station) {
+              return s.id.toString();
+            } else if (s is Nivose) {
+              return s.codeMF;
+            }
 
-              return '';
-            },
-          ).toList(),
+            return '';
+          }).toList(),
         );
   }
 }

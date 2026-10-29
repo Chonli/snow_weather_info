@@ -12,14 +12,13 @@ void main() {
     final responseBody = getTestFile('nivo_2026.csv.gz');
 
     // Définir le comportement du mock
-    when(
-      () => client.get(Uri.parse(StationDataApi.stationDataUrl)),
-    ).thenAnswer((_) async => Response.bytes(responseBody, 200));
+    when(() => client.get(Uri.parse(StationDataApi.stationDataUrl)))
+        .thenAnswer((_) async => Response.bytes(responseBody, 200));
 
     final apiStation = StationDataApi(client);
 
     final datas = await apiStation.getStationDatas(
-      currentDate: DateTime(2026, 2, 1),
+      currentDate: DateTime(2026, 2),
       maxDaysFetch: 10,
     );
 

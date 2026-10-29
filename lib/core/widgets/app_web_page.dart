@@ -4,7 +4,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart' as web;
 
 class AppWebPage extends StatelessWidget {
-  const AppWebPage({
+  const new({
     required this.title,
     required this.url,
     this.canIsOpen = false,
@@ -27,9 +27,7 @@ class AppWebPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          title,
-        ),
+        title: Text(title),
         actions: [
           if (canIsOpen)
             IconButton(
@@ -47,24 +45,16 @@ class AppWebPage extends StatelessWidget {
           if (canShare)
             IconButton(
               icon: const Icon(Icons.share),
-              onPressed: () => SharePlus.instance.share(
-                ShareParams(text: url),
-              ),
+              onPressed: () => SharePlus.instance.share(ShareParams(text: url)),
             ),
           if (safeOnFavorite != null)
             IconButton(
-              icon: Icon(
-                isFavorite ? Icons.favorite : Icons.favorite_border,
-              ),
+              icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
               onPressed: safeOnFavorite,
             ),
         ],
       ),
-      body: InAppWebView(
-        initialUrlRequest: URLRequest(
-          url: WebUri(url),
-        ),
-      ),
+      body: InAppWebView(initialUrlRequest: URLRequest(url: WebUri(url))),
     );
   }
 }

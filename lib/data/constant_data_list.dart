@@ -4,7 +4,7 @@ import 'package:snow_weather_info/model/mountain.dart';
 import 'package:snow_weather_info/model/station.dart';
 
 abstract class ConstantDatalist {
-  ConstantDatalist._();
+  new _();
 
   static final listNivose = <Nivose>[
     //alpes nord
@@ -483,32 +483,27 @@ abstract class ConstantDatalist {
     ),
     const AvalancheBulletinPdf(
       massifName: 'Pirineo Catalán',
-      pdfPath:
-          'https://www.aemet.es/documentos/es/eltiempo/prediccion/montana/boletin_peligro_aludes/BPA_Pirineo_Cat.pdf',
+      pdfPath: 'https://www.aemet.es/documentos/es/eltiempo/prediccion/montana/boletin_peligro_aludes/BPA_Pirineo_Cat.pdf',
       mountain: Mountain.pyrenees,
     ),
     const AvalancheBulletinPdf(
       massifName: 'Pirineo Navarro y Aragonés',
-      pdfPath:
-          'https://www.aemet.es/documentos/es/eltiempo/prediccion/montana/boletin_peligro_aludes/BPA_Pirineo_Nav_Ara.pdf',
+      pdfPath: 'https://www.aemet.es/documentos/es/eltiempo/prediccion/montana/boletin_peligro_aludes/BPA_Pirineo_Nav_Ara.pdf',
       mountain: Mountain.pyrenees,
     ),
     const AvalancheBulletinPdf(
       massifName: 'Sierras del Cordel y Peña Labra',
-      pdfPath:
-          'https://www.aemet.es/documentos/es/eltiempo/prediccion/montana/boletin_peligro_aludes/BPA_sierra_Cordel_PLabra.pdf',
+      pdfPath: 'https://www.aemet.es/documentos/es/eltiempo/prediccion/montana/boletin_peligro_aludes/BPA_sierra_Cordel_PLabra.pdf',
       mountain: Mountain.espagne,
     ),
     const AvalancheBulletinPdf(
       massifName: 'Picos de Europa',
-      pdfPath:
-          'https://www.aemet.es/documentos/es/eltiempo/prediccion/montana/boletin_peligro_aludes/BPA_PN_Picos_Europa.pdf',
+      pdfPath: 'https://www.aemet.es/documentos/es/eltiempo/prediccion/montana/boletin_peligro_aludes/BPA_PN_Picos_Europa.pdf',
       mountain: Mountain.espagne,
     ),
     const AvalancheBulletinPdf(
       massifName: 'Guadarrama',
-      pdfPath:
-          'https://www.aemet.es/documentos/es/eltiempo/prediccion/montana/boletin_peligro_aludes/BPA_PN_Guadarrama.pdf',
+      pdfPath: 'https://www.aemet.es/documentos/es/eltiempo/prediccion/montana/boletin_peligro_aludes/BPA_PN_Guadarrama.pdf',
       mountain: Mountain.espagne,
     ),
     const AvalancheBulletinPdf(
@@ -518,50 +513,42 @@ abstract class ConstantDatalist {
     ),
     const AvalancheBulletinPdf(
       massifName: 'Piemont',
-      pdfPath:
-          'https://bollettini.aineva.it/albina_files/<date>/<date>_IT-21_it.pdf',
+      pdfPath: 'https://bollettini.aineva.it/albina_files/<date>/<date>_IT-21_it.pdf',
       mountain: Mountain.italie,
     ),
     const AvalancheBulletinPdf(
       massifName: 'Lombardie',
-      pdfPath:
-          'https://bollettini.aineva.it/albina_files/<date>/<date>_IT-25_it.pdf',
+      pdfPath: 'https://bollettini.aineva.it/albina_files/<date>/<date>_IT-25_it.pdf',
       mountain: Mountain.italie,
     ),
     const AvalancheBulletinPdf(
       massifName: 'Aoste',
-      pdfPath:
-          'https://bollettini.aineva.it/albina_files/<date>/<date>_IT-23_it.pdf',
+      pdfPath: 'https://bollettini.aineva.it/albina_files/<date>/<date>_IT-23_it.pdf',
       mountain: Mountain.italie,
     ),
     const AvalancheBulletinPdf(
       massifName: 'Venetie',
-      pdfPath:
-          'https://bollettini.aineva.it/albina_files/<date>/<date>_IT-34_it.pdf',
+      pdfPath: 'https://bollettini.aineva.it/albina_files/<date>/<date>_IT-34_it.pdf',
       mountain: Mountain.italie,
     ),
     const AvalancheBulletinPdf(
       massifName: 'Frioul',
-      pdfPath:
-          'https://bollettini.aineva.it/albina_files/<date>/<date>_IT-36_it.pdf',
+      pdfPath: 'https://bollettini.aineva.it/albina_files/<date>/<date>_IT-36_it.pdf',
       mountain: Mountain.italie,
     ),
     const AvalancheBulletinPdf(
       massifName: 'Haut Adige',
-      pdfPath:
-          'https://bollettini.aineva.it/albina_files/<date>/<date>_IT-32-BZ_it.pdf',
+      pdfPath: 'https://bollettini.aineva.it/albina_files/<date>/<date>_IT-32-BZ_it.pdf',
       mountain: Mountain.italie,
     ),
     const AvalancheBulletinPdf(
       massifName: 'Trentin',
-      pdfPath:
-          'https://bollettini.aineva.it/albina_files/<date>/<date>_IT-32-TN_it.pdf',
+      pdfPath: 'https://bollettini.aineva.it/albina_files/<date>/<date>_IT-32-TN_it.pdf',
       mountain: Mountain.italie,
     ),
     const AvalancheBulletinPdf(
       massifName: 'Marche',
-      pdfPath:
-          'https://bollettini.aineva.it/albina_files/<date>/<date>_IT-57_it.pdf',
+      pdfPath: 'https://bollettini.aineva.it/albina_files/<date>/<date>_IT-57_it.pdf',
       mountain: Mountain.italie,
     ),
   ];

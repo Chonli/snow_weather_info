@@ -20,7 +20,7 @@ StationDataApi stationDataApi(Ref ref) {
 // new link data https://www.data.gouv.fr/api/1/datasets/r/2fc62fab-7379-4bb1-afca-7c52c35d6636
 
 class StationDataApi {
-  const StationDataApi(this.client);
+  const new(this.client);
 
   final Client client;
 
@@ -31,13 +31,11 @@ class StationDataApi {
     int maxDaysFetch = 7,
     DateTime? currentDate,
   }) async {
-    final response = await client.get(
-      Uri.parse(stationDataUrl),
-    );
+    final response = await client.get(Uri.parse(stationDataUrl));
 
     if (response.statusCode == 200) {
       // Unzip .gz to extract csv
-      final decompressed = GZipDecoder().decodeBytes(response.bodyBytes);
+      final decompressed = const GZipDecoder().decodeBytes(response.bodyBytes);
       final csvStr = utf8.decode(decompressed);
       final datas = await csvStr.decodeStationData();
       // limit row at maxDaysFetch
@@ -57,7 +55,7 @@ extension _DataStationStringExtension on String {
   Future<List<DataStation>> decodeStationData() async {
     late final List<List<dynamic>> cvsResult;
     try {
-      final myCodec = CsvCodec(
+      final myCodec = Csv(
         fieldDelimiter: ';',
         lineDelimiter: '\n',
         quoteMode: QuoteMode.strings,

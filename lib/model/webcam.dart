@@ -4,10 +4,7 @@ part 'webcam.mapper.dart';
 
 @MappableClass()
 class WebCam with WebCamMappable {
-  const WebCam({
-    required this.name,
-    required this.url,
-  });
+  const new({required this.name, required this.url});
 
   final String name;
   final String url;

@@ -6,7 +6,7 @@ import 'package:snow_weather_info/model/webcam.dart';
 import 'package:snow_weather_info/modules/webcam/favorite_notifier.dart';
 
 class WebcamsForResortView extends ConsumerWidget {
-  const WebcamsForResortView({required this.resort, super.key});
+  const new({required this.resort, super.key});
 
   final SkiResort resort;
 
@@ -40,7 +40,7 @@ class WebcamsForResortView extends ConsumerWidget {
 }
 
 class WebcamCard extends StatelessWidget {
-  const WebcamCard({required this.webcam, super.key});
+  const new({required this.webcam, super.key});
 
   final WebCam webcam;
 
@@ -52,7 +52,7 @@ class WebcamCard extends StatelessWidget {
         onTap: () => Navigator.push(
           context,
           MaterialPageRoute<void>(
-            builder: (BuildContext context) =>
+            builder: (context) =>
                 _WebcamDialog(url: webcam.url, name: webcam.name),
             fullscreenDialog: true,
           ),
@@ -73,7 +73,7 @@ class WebcamCard extends StatelessWidget {
 }
 
 class _WebcamDialog extends StatelessWidget {
-  const _WebcamDialog({required this.url, required this.name});
+  const new({required this.url, required this.name});
 
   final String url;
   final String name;
@@ -88,7 +88,7 @@ class _WebcamDialog extends StatelessWidget {
 }
 
 class _WebMedia extends StatelessWidget {
-  const _WebMedia({required this.url});
+  const new({required this.url});
 
   final String url;
 

@@ -8,7 +8,7 @@ import 'package:snow_weather_info/router/router.dart';
 import 'package:url_launcher/url_launcher.dart' as url;
 
 class AvalancheListWidget extends ConsumerWidget {
-  const AvalancheListWidget({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -44,10 +44,8 @@ class AvalancheListWidget extends ConsumerWidget {
                       trailing: item.url.isNotEmpty
                           ? const Icon(Icons.navigate_next)
                           : const SizedBox.shrink(),
-                      onTap: () => context.goNamed(
-                        AppRoute.detailAv.name,
-                        extra: item,
-                      ),
+                      onTap: () =>
+                          context.goNamed(AppRoute.detailAv.name, extra: item),
                     ),
                   );
                 },
@@ -71,7 +69,7 @@ class AvalancheListWidget extends ConsumerWidget {
 }
 
 class _AttributionWidget extends StatelessWidget {
-  const _AttributionWidget();
+  const new();
 
   @override
   Widget build(BuildContext context) {

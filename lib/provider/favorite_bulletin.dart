@@ -36,12 +36,6 @@ class FavoriteBulletin extends _$FavoriteBulletin {
   void _persitFavoriteBERA(List<AbstractBulletin> value) {
     ref
         .read(favoritesBERASettingsProvider.notifier)
-        .update(
-          value
-              .map<String>(
-                (bera) => bera.massifName,
-              )
-              .toList(),
-        );
+        .update(value.map<String>((bera) => bera.massifName).toList());
   }
 }

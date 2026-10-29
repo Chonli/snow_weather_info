@@ -16,10 +16,7 @@ StationDataRepository stationDataRepository(Ref ref) {
 }
 
 class StationDataRepository {
-  const StationDataRepository(
-    this.stationDataApi,
-    this.localData,
-  );
+  const new(this.stationDataApi, this.localData);
 
   final StationDataApi stationDataApi;
   final StationDataLocalDataContainer localData;
@@ -41,7 +38,7 @@ class StationDataRepository {
 
     // use cache data
     final cachedDataStations = localData.allDataStations.read();
-    final minDate = DateTime.now().subtract(Duration(days: maxDaysFetch));
+    final minDate = DateTime.now().subtract(const Duration(days: maxDaysFetch));
     cachedDataStations.removeWhere((data) => data.date.isBefore(minDate));
     await localData.allDataStations.save(cachedDataStations);
 

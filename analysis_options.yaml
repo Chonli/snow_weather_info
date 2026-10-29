@@ -20,6 +20,12 @@ analyzer:
     - 'coverage/**'
     - 'third_parties/**'
     - 'submodules/**'
+    - build/**
+    - android/**
+    - ios/**
+    - web/**
+    - macos/**
+    - linux/**
 
 linter:
   rules:

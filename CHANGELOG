@@ -1,5 +1,17 @@
 # Change Log
 All notable changes to this project will be documented in this file.
+## 2.6.0
+### Added
+- Update to last Android SDK
+
+## 2.5.2
+### Fixed
+- Url BERA meteo france
+
+## 2.5.1
+### Fixed
+- Url nivose
+
 ## 2.5.0
 ### Added
 - Add new webcams

@@ -1,17 +1,14 @@
 import 'package:snow_weather_info/model/mountain.dart';
 
 sealed class AbstractBulletin {
-  const AbstractBulletin({
-    required this.massifName,
-    required this.mountain,
-  });
+  const new({required this.massifName, required this.mountain});
 
   final String massifName;
   final Mountain mountain;
 }
 
 class AvalancheBulletinFr extends AbstractBulletin {
-  const AvalancheBulletinFr({
+  const new({
     required super.massifName,
     required this.beraNumber,
     required super.mountain,
@@ -21,7 +18,7 @@ class AvalancheBulletinFr extends AbstractBulletin {
 }
 
 class AvalancheBulletinPdf extends AbstractBulletin {
-  const AvalancheBulletinPdf({
+  const new({
     required super.massifName,
     required this.pdfPath,
     required super.mountain,
@@ -31,7 +28,7 @@ class AvalancheBulletinPdf extends AbstractBulletin {
 }
 
 class AvalancheBulletinAndorre extends AbstractBulletin {
-  const AvalancheBulletinAndorre({
+  const new({
     required super.massifName,
     required this.url,
     required super.mountain,

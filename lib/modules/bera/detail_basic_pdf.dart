@@ -59,18 +59,13 @@ class _PdfController extends _$PdfController {
 }
 
 class DetailBasicPdf extends ConsumerWidget {
-  const DetailBasicPdf({
-    required this.avalancheBulletin,
-    super.key,
-  });
+  const new({required this.avalancheBulletin, super.key});
 
   final AvalancheBulletinPdf avalancheBulletin;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final pdfController = ref.watch(
-      _pdfControllerProvider(avalancheBulletin),
-    );
+    final pdfController = ref.watch(_pdfControllerProvider(avalancheBulletin));
 
     return BulletinPdf(
       pdfController: pdfController,

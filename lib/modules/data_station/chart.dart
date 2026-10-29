@@ -15,9 +15,7 @@ const _tempColor = Colors.red;
 
 @Dependencies([currentDataStation])
 class DataStationChart extends ConsumerWidget {
-  const DataStationChart({
-    super.key,
-  });
+  const new({super.key});
   static final _xOffset = const Duration(hours: 12).inMilliseconds;
 
   LineChartData _getTempData(List<DataStation> datas) {
@@ -38,19 +36,13 @@ class DataStationChart extends ConsumerWidget {
       final minTemp = data.temperatureMin24;
       if (minTemp != null) {
         minTempData.add(
-          FlSpot(
-            data.date.millisecondsSinceEpoch.toDouble(),
-            minTemp,
-          ),
+          FlSpot(data.date.millisecondsSinceEpoch.toDouble(), minTemp),
         );
       }
       final maxTemp = data.temperatureMax24;
       if (maxTemp != null) {
         maxTempData.add(
-          FlSpot(
-            data.date.millisecondsSinceEpoch.toDouble(),
-            maxTemp,
-          ),
+          FlSpot(data.date.millisecondsSinceEpoch.toDouble(), maxTemp),
         );
       }
     }
@@ -101,9 +93,7 @@ class DataStationChart extends ConsumerWidget {
     );
   }
 
-  LineChartData _getSnowData(
-    List<DataStation> datas,
-  ) {
+  LineChartData _getSnowData(List<DataStation> datas) {
     final tempData = <FlSpot>[];
     final List<List<FlSpot>> tempHeightData = [];
     final maxDate =
@@ -116,25 +106,11 @@ class DataStationChart extends ConsumerWidget {
       final height = data.snowHeight?.toCm;
 
       if (height != null) {
-        tempData.add(
-          FlSpot(
-            x,
-            height,
-          ),
-        );
+        tempData.add(FlSpot(x, height));
 
         final dataHeight = data.snowNewHeight?.toCm ?? 0;
         if (dataHeight > 0) {
-          tempHeightData.add([
-            FlSpot(
-              x,
-              dataHeight,
-            ),
-            FlSpot(
-              x,
-              0,
-            ),
-          ]);
+          tempHeightData.add([FlSpot(x, dataHeight), FlSpot(x, 0)]);
         }
       }
     }
@@ -159,10 +135,7 @@ class DataStationChart extends ConsumerWidget {
     final maxY = max(maxHeight, snowLineData.mostTopSpot.y) + 10;
 
     return LineChartData(
-      lineBarsData: [
-        snowLineData,
-        ...snowHeightLineData,
-      ],
+      lineBarsData: [snowLineData, ...snowHeightLineData],
       minX: minDate - _xOffset,
       maxX: maxDate + _xOffset,
       minY: 0,
@@ -173,10 +146,7 @@ class DataStationChart extends ConsumerWidget {
         rightTitles: _noTitlesWidget(),
       ),
       borderData: FlBorderData(
-        border: const Border(
-          left: BorderSide(),
-          bottom: BorderSide(),
-        ),
+        border: const Border(left: BorderSide(), bottom: BorderSide()),
       ),
     );
   }
@@ -216,45 +186,25 @@ class DataStationChart extends ConsumerWidget {
           padding: graphPadding,
           child: LineChart(snowDatas),
         ),
-        const SizedBox(
-          height: 10,
-        ),
-        _LegendChart(
-          color: _snowColor,
-          label: 'Neige',
-        ),
-        _LegendChart(
-          color: _snowHeightColor,
-          label: 'Neige fraîche',
-        ),
-        const SizedBox(
-          height: 10,
-        ),
+        const SizedBox(height: 10),
+        _LegendChart(color: _snowColor, label: 'Neige'),
+        _LegendChart(color: _snowHeightColor, label: 'Neige fraîche'),
+        const SizedBox(height: 10),
         Container(
           height: 300,
           padding: graphPadding,
           child: LineChart(_getTempData(datas)),
         ),
-        const SizedBox(
-          height: 10,
-        ),
-        const _LegendChart(
-          color: _tempColor,
-          label: 'Température',
-        ),
-        const SizedBox(
-          height: 10,
-        ),
+        const SizedBox(height: 10),
+        const _LegendChart(color: _tempColor, label: 'Température'),
+        const SizedBox(height: 10),
       ],
     );
   }
 }
 
 class _LegendChart extends StatelessWidget {
-  const _LegendChart({
-    required this.color,
-    required this.label,
-  });
+  const new({required this.color, required this.label});
 
   final String label;
   final Color color;
@@ -265,14 +215,8 @@ class _LegendChart extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Row(
         children: [
-          SizedBox(
-            width: 12,
-            height: 12,
-            child: ColoredBox(color: color),
-          ),
-          const SizedBox(
-            width: 8,
-          ),
+          SizedBox(width: 12, height: 12, child: ColoredBox(color: color)),
+          const SizedBox(width: 8),
           Text(label),
         ],
       ),

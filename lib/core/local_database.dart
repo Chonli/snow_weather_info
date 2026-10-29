@@ -16,7 +16,7 @@ Database dataBase(Ref ref) {
 }
 
 abstract class LocalDataContainer {
-  const LocalDataContainer(this.dataBase);
+  const new(this.dataBase);
 
   @protected
   final Database dataBase;
@@ -42,7 +42,7 @@ abstract class LocalDataContainer {
 }
 
 class LocalData<T> {
-  LocalData(
+  new(
     this._db,
     this._record,
     Serializer<T>? serialize,

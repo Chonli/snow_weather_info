@@ -9,11 +9,11 @@ part 'station_api.g.dart';
 
 @Riverpod(keepAlive: true)
 StationApi stationApi(Ref ref) {
-  return StationApi();
+  return const StationApi();
 }
 
 class StationApi {
-  const StationApi();
+  const new();
 
   Future<List<Station>> getStations() async {
     final List<Station> stations = [];

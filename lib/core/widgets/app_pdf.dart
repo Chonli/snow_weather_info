@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pdfx/pdfx.dart';
 
 class AppPdfView extends StatelessWidget {
-  const AppPdfView(this.controller);
+  const new(this.controller, {super.key});
 
   final PdfController controller;
 
@@ -10,16 +10,14 @@ class AppPdfView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Expanded(
-          child: PdfView(controller: controller),
-        ),
+        Expanded(child: PdfView(controller: controller)),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             IconButton(
               icon: const Icon(Icons.navigate_before),
-              onPressed: () {
-                controller.previousPage(
+              onPressed: () async {
+                await controller.previousPage(
                   curve: Curves.ease,
                   duration: const Duration(milliseconds: 100),
                 );
@@ -34,8 +32,8 @@ class AppPdfView extends StatelessWidget {
             ),
             IconButton(
               icon: const Icon(Icons.navigate_next),
-              onPressed: () {
-                controller.nextPage(
+              onPressed: () async {
+                await controller.nextPage(
                   curve: Curves.ease,
                   duration: const Duration(milliseconds: 100),
                 );

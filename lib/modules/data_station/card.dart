@@ -4,10 +4,7 @@ import 'package:snow_weather_info/extensions/double.dart';
 import 'package:snow_weather_info/model/data_station.dart';
 
 class CardDataStation extends StatelessWidget {
-  const CardDataStation({
-    required this.data,
-    super.key,
-  });
+  const new({required this.data, super.key});
 
   final DataStation data;
 
@@ -52,15 +49,9 @@ class CardDataStation extends StatelessWidget {
               ' ${data.snowNewHeight!.toStringSnowHeigth}',
             ),
           if (data.directionWind != null)
-            _LineCard(
-              'Direction vent moyen :',
-              ' ${data.directionWind}°',
-            ),
+            _LineCard('Direction vent moyen :', ' ${data.directionWind}°'),
           if (data.speedWind != null)
-            _LineCard(
-              'Vent moyen :',
-              ' ${data.speedWind}m/s',
-            ),
+            _LineCard('Vent moyen :', ' ${data.speedWind}m/s'),
         ],
       ),
     );
@@ -68,7 +59,7 @@ class CardDataStation extends StatelessWidget {
 }
 
 class _LineCard extends StatelessWidget {
-  const _LineCard(this.text1, this.text2);
+  const new(this.text1, this.text2);
 
   final String text1;
   final String text2;
@@ -79,10 +70,7 @@ class _LineCard extends StatelessWidget {
       padding: const EdgeInsets.all(2),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Text(text1),
-          Text(text2),
-        ],
+        children: <Widget>[Text(text1), Text(text2)],
       ),
     );
   }

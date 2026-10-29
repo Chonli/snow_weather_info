@@ -1,5 +1,4 @@
 // Specific parse file
-// ignore_for_file: avoid_dynamic_calls
 
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:snow_weather_info/extensions/string.dart';
@@ -10,7 +9,7 @@ const kelvin = -273.15;
 
 @MappableClass()
 class DataStation with DataStationMappable {
-  const DataStation({
+  const new({
     required this.date,
     this.id = 0,
     this.temperature,
@@ -23,7 +22,7 @@ class DataStation with DataStationMappable {
     this.snowNewHeight,
   });
 
-  factory DataStation.fromList(List<dynamic> data) => DataStation(
+  factory fromList(List<dynamic> data) => DataStation(
     id: int.parse(data[2] as String),
     date: DateTime.parse(data[8] as String),
     temperature: (data[11] as String?).parseDouble(addValue: kelvin),

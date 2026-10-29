@@ -57,16 +57,11 @@ class _CurrentIndexData extends _$CurrentIndexData {
 bool _isFavorite(Ref ref, int id) {
   final favorites = ref.watch(favoritesStationSettingsProvider);
 
-  return favorites.any(
-    (fav) => fav == id.toString(),
-  );
+  return favorites.any((fav) => fav == id.toString());
 }
 
 class DataStationView extends ConsumerWidget {
-  const DataStationView({
-    required this.station,
-    super.key,
-  });
+  const new({required this.station, super.key});
   final Station station;
 
   @override
@@ -87,7 +82,7 @@ class DataStationView extends ConsumerWidget {
 
 @Dependencies([currentDataStation, _CurrentIndexData])
 class _InnerView extends ConsumerWidget {
-  const _InnerView();
+  const new();
 
   String _formatDataToString(WidgetRef ref) {
     final displayData = ref.read(_currentIndexDataProvider);
@@ -125,40 +120,27 @@ class _InnerView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final displayData = ref.watch(_currentIndexDataProvider);
     final station = ref.watch(currentStationProvider);
-    final isFavorite = ref.watch(
-      _isFavoriteProvider(station.id),
-    );
+    final isFavorite = ref.watch(_isFavoriteProvider(station.id));
 
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                station.name,
-              ),
-              Text(
-                ' (${station.altitude}m)',
-              ),
-            ],
+            children: [Text(station.name), Text(' (${station.altitude}m)')],
           ),
           actions: <Widget>[
             IconButton(
               icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
               onPressed: () => ref
                   .read(favoriteStationProvider.notifier)
-                  .addOrRemoveFavoriteStation(
-                    station,
-                  ),
+                  .addOrRemoveFavoriteStation(station),
             ),
             if (displayData != null)
               IconButton(
                 icon: const Icon(Icons.share),
                 onPressed: () => SharePlus.instance.share(
-                  ShareParams(
-                    text: _formatDataToString(ref),
-                  ),
+                  ShareParams(text: _formatDataToString(ref)),
                 ),
               ),
           ],
@@ -175,7 +157,7 @@ class _InnerView extends ConsumerWidget {
 
 @Dependencies([currentDataStation])
 class _Body extends StatelessWidget {
-  const _Body();
+  const new();
 
   @override
   Widget build(BuildContext context) {
@@ -186,11 +168,7 @@ class _Body extends StatelessWidget {
           Expanded(
             child: SingleChildScrollView(
               child: Column(
-                children: [
-                  _DataView(),
-                  _DotRow(),
-                  DataStationChart(),
-                ],
+                children: [_DataView(), _DotRow(), DataStationChart()],
               ),
             ),
           ),
@@ -198,9 +176,7 @@ class _Body extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Text(
               'Informations créées à partir de données de Météo-France',
-              style: TextStyle(
-                fontSize: 14,
-              ),
+              style: TextStyle(fontSize: 14),
             ),
           ),
         ],
@@ -211,7 +187,7 @@ class _Body extends StatelessWidget {
 
 @Dependencies([currentDataStation])
 class _DataView extends ConsumerStatefulWidget {
-  const _DataView();
+  const new();
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => __DataViewState();
@@ -250,9 +226,8 @@ class __DataViewState extends ConsumerState<_DataView> {
             height: 220,
             child: PageView.builder(
               itemCount: data.length,
-              itemBuilder: (context, index) => CardDataStation(
-                data: data[index],
-              ),
+              itemBuilder: (context, index) =>
+                  CardDataStation(data: data[index]),
               controller: carouselController,
               onPageChanged: (index) =>
                   ref.read(_currentIndexProvider.notifier).setIndex(index),
@@ -278,7 +253,7 @@ class __DataViewState extends ConsumerState<_DataView> {
 
 @Dependencies([currentDataStation])
 class _DotRow extends ConsumerWidget {
-  const _DotRow();
+  const new();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -292,10 +267,7 @@ class _DotRow extends ConsumerWidget {
         (i) => Container(
           width: 8,
           height: 8,
-          margin: const EdgeInsets.symmetric(
-            vertical: 10,
-            horizontal: 2,
-          ),
+          margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 2),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: currentIndex == i

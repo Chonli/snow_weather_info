@@ -12,9 +12,7 @@ StationRepository stationRepository(Ref ref) {
 }
 
 class StationRepository {
-  const StationRepository(
-    this.stationApi,
-  );
+  const new(this.stationApi);
 
   final StationApi stationApi;
 

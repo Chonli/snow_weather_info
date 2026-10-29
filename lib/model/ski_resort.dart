@@ -7,7 +7,7 @@ part 'ski_resort.mapper.dart';
 
 @MappableClass()
 class SkiResort with SkiResortMappable {
-  const SkiResort({
+  const new({
     required this.id,
     required this.name,
     required this.mountain,

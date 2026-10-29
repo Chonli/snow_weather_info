@@ -16,14 +16,12 @@ SkiResortsRepository skiResortsRepository(Ref ref) {
 }
 
 class SkiResortsRepository {
-  const SkiResortsRepository(this.skiResortApi, this.localData);
+  const new(this.skiResortApi, this.localData);
 
   final SkiResortApi skiResortApi;
   final SkiResortLocalDataContainer localData;
 
-  FutureOr<List<SkiResort>> getSkiResorts({
-    DateTime? currentDate,
-  }) async {
+  FutureOr<List<SkiResort>> getSkiResorts({DateTime? currentDate}) async {
     final lastUpdate = localData.lastUpdate.read();
     final now = currentDate ?? DateTime.now();
 
@@ -46,6 +44,6 @@ class SkiResortsRepository {
     }
 
     // use asset in fallback
-    return skiResortApi.getSkiResortsFromAsset();
+    return await skiResortApi.getSkiResortsFromAsset();
   }
 }

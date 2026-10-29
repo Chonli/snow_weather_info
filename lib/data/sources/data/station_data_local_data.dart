@@ -11,7 +11,7 @@ StationDataLocalDataContainer stationDataLocalData(Ref ref) {
 }
 
 class StationDataLocalDataContainer extends LocalDataContainer {
-  const StationDataLocalDataContainer(super.dataBase);
+  const new(super.dataBase);
 
   @override
   String get name => 'station_data_box';
@@ -27,9 +27,7 @@ class StationDataLocalDataContainer extends LocalDataContainer {
     key: 'all_station_data',
     serialize: (stations) => stations.map((e) => e.toJson()).toList(),
     deserialize: (json) => (json as List<dynamic>)
-        .map(
-          (e) => DataStation.fromJson(e as String),
-        )
+        .map((e) => DataStation.fromJson(e as String))
         .toList(),
     defaultValue: [],
   );
