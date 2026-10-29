@@ -28,7 +28,6 @@ void main() {
 
       final datas = await api.getStationDatas(
         currentDate: DateTime(2026, 4, 20),
-        maxDaysFetch: 10,
         stationCodes: ['158'],
       );
 

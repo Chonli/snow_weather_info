@@ -11,7 +11,7 @@ StationPiemontLocalDataContainer stationPiemontLocalData(Ref ref) {
 }
 
 class StationPiemontLocalDataContainer extends LocalDataContainer {
-  const StationPiemontLocalDataContainer(super.dataBase);
+  const new(super.dataBase);
 
   @override
   String get name => 'station_piemont_box';
@@ -27,9 +27,7 @@ class StationPiemontLocalDataContainer extends LocalDataContainer {
     key: 'all_station_piemont',
     serialize: (stations) => stations.map((e) => e.toJson()).toList(),
     deserialize: (json) => (json as List<dynamic>)
-        .map(
-          (e) => StationPiemont.fromJson(e as String),
-        )
+        .map((e) => StationPiemont.fromJson(e as String))
         .toList(),
     defaultValue: [],
   );

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_int_literals
+
 import 'dart:convert';
 import 'dart:developer' show log;
 import 'dart:math' show max;
@@ -30,8 +32,8 @@ List<DataStation> _parseJsonListIsolate(List<dynamic>? decoded) {
 
   for (final st in decoded ?? []) {
     if (st is Map<String, dynamic>) {
-      final stationCode = (st['station_code'])?.toString() ?? '';
-      final dateStr = (st['date'])?.toString() ?? '';
+      final stationCode = st['station_code']?.toString() ?? '';
+      final dateStr = st['date']?.toString() ?? '';
 
       if (dateStr.isEmpty || stationCode.isEmpty) continue;
 
@@ -61,7 +63,7 @@ List<DataStation> _parseJsonListIsolate(List<dynamic>? decoded) {
 }
 
 class StationPiemontDataApi {
-  const StationPiemontDataApi(this.client);
+  const new(this.client);
 
   final Client client;
 
@@ -107,14 +109,13 @@ class StationPiemontDataApi {
         'station_code': stationCode,
       };
 
-      final uri = Uri.parse(
-        stationPiemontDataUrl,
-      ).replace(queryParameters: params);
+      final uri = Uri.parse(stationPiemontDataUrl)
+          .replace(queryParameters: params);
       final response = await client.get(uri);
 
       if (response.statusCode != 200) {
         log(
-          'Erreur download piemont data (code ${response.statusCode}) for station ${stationCode} page $page',
+          'Erreur download piemont data (code ${response.statusCode}) for station $stationCode page $page',
         );
         break;
       }
@@ -152,7 +153,7 @@ class StationPiemontDataApi {
             break;
           }
         }
-      } catch (_) {
+      } on Exception catch (_) {
         break;
       }
     }

@@ -16,7 +16,7 @@ StationPiemontApi stationPiemontApi(Ref ref) {
 }
 
 class StationPiemontApi {
-  const StationPiemontApi(this.client);
+  const new(this.client);
 
   final Client client;
 

@@ -72,7 +72,7 @@ GoRouter router(Ref ref) {
                       return station is Nivose
                           ? NivosePage(nivose: station)
                           : DataStationView(
-                              station: station as AbstractStation,
+                              station: station! as AbstractStation,
                             );
                     },
                   ),
@@ -98,7 +98,7 @@ GoRouter router(Ref ref) {
                       return station is Nivose
                           ? NivosePage(nivose: station)
                           : DataStationView(
-                              station: station as AbstractStation,
+                              station: station! as AbstractStation,
                             );
                     },
                   ),

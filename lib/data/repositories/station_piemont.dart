@@ -16,10 +16,7 @@ StationPiemontRepository stationPiemontRepository(Ref ref) {
 }
 
 class StationPiemontRepository {
-  const StationPiemontRepository(
-    this.stationPiemontApi,
-    this.localData,
-  );
+  const new(this.stationPiemontApi, this.localData);
 
   final StationPiemontApi stationPiemontApi;
   final StationPiemontLocalDataContainer localData;
@@ -33,7 +30,7 @@ class StationPiemontRepository {
 
     if (cachedDataStations.isEmpty ||
         lastUpdate.isBefore(
-          now.subtract(Duration(days: maxDaysBeforeUpdate)),
+          now.subtract(const Duration(days: maxDaysBeforeUpdate)),
         )) {
       log('Update station if cache empty or too old (15 days)');
       final remoteDataStations = await stationPiemontApi.getStations();

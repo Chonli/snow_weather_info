@@ -7,7 +7,7 @@ extension StationDataMapExtension on Map<String, List<DataStation>> {
 
   double lastSnowHeight(String stationId) {
     final data = this[stationId];
-    if (data == null || data.isEmpty) return 0.0;
+    if (data == null || data.isEmpty) return 0;
 
     return data
             .firstWhere(

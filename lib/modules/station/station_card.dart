@@ -9,16 +9,16 @@ import 'package:snow_weather_info/provider/station_piemont_data.dart';
 import 'package:snow_weather_info/router/router.dart';
 
 extension _ThemeExt on BuildContext {
-  Color? textColor(bool hasData) => hasData
+  Color? textColor({required bool hasData}) => hasData
       ? Theme.of(this).textTheme.bodyMedium?.color
       : Theme.of(this).disabledColor;
 
-  FontStyle textFont(bool hasData) =>
+  FontStyle textFont({required bool hasData}) =>
       hasData ? FontStyle.normal : FontStyle.italic;
 
-  TextStyle stationTextStyle(bool hasData) => TextStyle(
-    color: textColor(hasData),
-    fontStyle: textFont(hasData),
+  TextStyle stationTextStyle({required bool hasData}) => TextStyle(
+    color: textColor(hasData: hasData),
+    fontStyle: textFont(hasData: hasData),
   );
 }
 
@@ -40,7 +40,7 @@ class StationCard extends ConsumerWidget {
       snowHeigth = hasData
           ? ' ${(lastSnowHeight * 100).toStringAsFixed(0)}cm'
           : '';
-      textStyle = context.stationTextStyle(hasData);
+      textStyle = context.stationTextStyle(hasData: hasData);
     } else if (station case final StationPiemont st) {
       final dataPiemonte = ref.watch(stationPiemontDataProvider).value ?? {};
       final hasData = dataPiemonte.hasData(st.id);
@@ -50,7 +50,7 @@ class StationCard extends ConsumerWidget {
           ? ' ${(lastSnowHeight * 100).toStringAsFixed(0)}cm'
           : '';
 
-      textStyle = context.stationTextStyle(hasData);
+      textStyle = context.stationTextStyle(hasData: hasData);
     } else {
       snowHeigth = '';
       textStyle = TextStyle(
