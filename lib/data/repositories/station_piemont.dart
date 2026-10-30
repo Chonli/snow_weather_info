@@ -23,7 +23,7 @@ class StationPiemontRepository {
 
   static const maxDaysBeforeUpdate = 15;
 
-  FutureOr<List<StationPiemont>> getStations({DateTime? currentDate}) async {
+  Future<List<StationPiemont>> getStations({DateTime? currentDate}) async {
     final cachedDataStations = localData.allStations.read();
     final lastUpdate = localData.lastUpdate.read();
     final now = currentDate ?? DateTime.now();

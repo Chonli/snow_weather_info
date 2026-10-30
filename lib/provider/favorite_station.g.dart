@@ -33,7 +33,7 @@ final class FavoriteStationProvider
   FavoriteStation create() => FavoriteStation();
 }
 
-String _$favoriteStationHash() => r'00b7ce52613bb3600354611fdfb429285f126c68';
+String _$favoriteStationHash() => r'72fa9fcdf80d371af5f43d9ef8d05d460ec64918';
 
 abstract class _$FavoriteStation extends $AsyncNotifier<List<AbstractStation>> {
   FutureOr<List<AbstractStation>> build();
