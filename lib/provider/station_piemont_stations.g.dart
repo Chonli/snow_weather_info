@@ -33,7 +33,7 @@ final class PiemontStationsProvider
   PiemontStations create() => PiemontStations();
 }
 
-String _$piemontStationsHash() => r'a8b80b9b8627e37d7132be63a2e04621b4390030';
+String _$piemontStationsHash() => r'b76c03356dd986df921e189a0eac1238ebd0c91d';
 
 abstract class _$PiemontStations extends $AsyncNotifier<List<StationPiemont>> {
   FutureOr<List<StationPiemont>> build();
