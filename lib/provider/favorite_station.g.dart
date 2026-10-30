@@ -33,13 +33,13 @@ final class FavoriteStationProvider
   FavoriteStation create() => FavoriteStation();
 }
 
-String _$favoriteStationHash() => r'5e0800ede47b280c5084451f00b1c39d1454e4b5';
+String _$favoriteStationHash() => r'72fa9fcdf80d371af5f43d9ef8d05d460ec64918';
 
 abstract class _$FavoriteStation extends $AsyncNotifier<List<AbstractStation>> {
   FutureOr<List<AbstractStation>> build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref =
         this.ref
             as $Ref<AsyncValue<List<AbstractStation>>, List<AbstractStation>>;
@@ -54,6 +54,6 @@ abstract class _$FavoriteStation extends $AsyncNotifier<List<AbstractStation>> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }

@@ -5,11 +5,13 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 import 'package:snow_weather_info/core/widgets/app_sticky_header_view.dart';
 import 'package:snow_weather_info/data/sources/data/preferences.dart';
+import 'package:snow_weather_info/extensions/stations_data.dart';
 import 'package:snow_weather_info/model/station.dart';
 import 'package:snow_weather_info/modules/station/station_card.dart';
 import 'package:snow_weather_info/provider/all_station.dart';
 import 'package:snow_weather_info/provider/favorite_station.dart';
 import 'package:snow_weather_info/provider/station_data.dart';
+import 'package:snow_weather_info/provider/station_piemont_data.dart';
 
 part 'list_station_widget.g.dart';
 
@@ -32,6 +34,8 @@ class _FilteredStations extends _$FilteredStations {
     final search = ref.watch(_searchProvider);
     final showNoDataStation = ref.watch(showNoDataStationSettingsProvider);
     final allStations = ref.watch(allStationsProvider).value ?? [];
+    final dataPiemonte = ref.watch(stationPiemontDataProvider).value ?? {};
+    final dataStation = ref.watch(stationDataProvider).value ?? {};
 
     final stations =
         allStations
@@ -40,9 +44,9 @@ class _FilteredStations extends _$FilteredStations {
                   showNoDataStation ||
                   station is Nivose ||
                   (station is Station &&
-                      ref
-                          .watch(stationDataProvider.notifier)
-                          .hasData(station.id)),
+                      dataStation.hasData(station.id.toString())) ||
+                  (station is StationPiemont &&
+                      dataPiemonte.hasData(station.id)),
             )
             .where(
               (station) =>

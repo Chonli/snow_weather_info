@@ -61,8 +61,9 @@ String _$currentDataStationHash() =>
 final currentStationProvider = CurrentStationProvider._();
 
 final class CurrentStationProvider
-    extends $FunctionalProvider<Station, Station, Station>
-    with $Provider<Station> {
+    extends
+        $FunctionalProvider<AbstractStation, AbstractStation, AbstractStation>
+    with $Provider<AbstractStation> {
   CurrentStationProvider._()
     : super(
         from: null,
@@ -79,24 +80,24 @@ final class CurrentStationProvider
 
   @$internal
   @override
-  $ProviderElement<Station> $createElement($ProviderPointer pointer) =>
+  $ProviderElement<AbstractStation> $createElement($ProviderPointer pointer) =>
       $ProviderElement(pointer);
 
   @override
-  Station create(Ref ref) {
+  AbstractStation create(Ref ref) {
     return currentStation(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(Station value) {
+  Override overrideWithValue(AbstractStation value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<Station>(value),
+      providerOverride: $SyncValueProvider<AbstractStation>(value),
     );
   }
 }
 
-String _$currentStationHash() => r'd60a58973507c5e6eecabb2310e673c38166b922';
+String _$currentStationHash() => r'cd7a891305935212586e4647e629ff20751641a8';
 
 @ProviderFor(_CurrentIndex)
 final _currentIndexProvider = _CurrentIndexProvider._();
@@ -136,7 +137,7 @@ abstract class _$CurrentIndex extends $Notifier<int> {
   int build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<int, int>;
     final element =
         ref.element
@@ -146,7 +147,7 @@ abstract class _$CurrentIndex extends $Notifier<int> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }
 
@@ -192,7 +193,7 @@ abstract class _$CurrentIndexData extends $Notifier<DataStation?> {
   DataStation? build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<DataStation?, DataStation?>;
     final element =
         ref.element
@@ -202,7 +203,7 @@ abstract class _$CurrentIndexData extends $Notifier<DataStation?> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }
 

@@ -1,6 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/data/constant_data_list.dart';
 import 'package:snow_weather_info/data/repositories/station.dart';
+import 'package:snow_weather_info/data/repositories/station_piemont.dart';
 import 'package:snow_weather_info/data/sources/data/preferences.dart';
 import 'package:snow_weather_info/model/station.dart';
 
@@ -12,11 +13,23 @@ class FavoriteStation extends _$FavoriteStation {
   Future<List<AbstractStation>> build() async {
     final favorites = ref.watch(favoritesStationSettingsProvider);
     final stationRepo = ref.watch(stationRepositoryProvider);
-    final stations = await stationRepo.getStation();
+    final stationPiemontRepo = ref.watch(stationPiemontRepositoryProvider);
+
+    final (stations, piemontStations) = await (
+      stationRepo.getStations(),
+      stationPiemontRepo.getStations(),
+    ).wait;
+
     final tmpDatas = <AbstractStation>[];
 
     for (final s in stations) {
       if (favorites.contains(s.id.toString())) {
+        tmpDatas.add(s);
+      }
+    }
+
+    for (final s in piemontStations) {
+      if (favorites.contains(s.id)) {
         tmpDatas.add(s);
       }
     }
