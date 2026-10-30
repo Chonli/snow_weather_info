@@ -22,18 +22,28 @@ class DataStation with DataStationMappable {
     this.snowNewHeight,
   });
 
-  factory fromList(List<dynamic> data) => DataStation(
-    id: int.parse(data[2] as String),
-    date: DateTime.parse(data[8] as String),
-    temperature: (data[11] as String?).parseDouble(addValue: kelvin),
-    temperatureMin24: (data[25] as String?).parseDouble(addValue: kelvin),
-    temperatureMax24: (data[27] as String?).parseDouble(addValue: kelvin),
-    temperatureSnow: (data[34] as String?).parseDouble(addValue: kelvin),
-    speedWind: (data[10] as String?).parseDouble(),
-    directionWind: (data[9] as String?).parseDouble(),
-    snowHeight: (data[28] as String?).parseDouble(),
-    snowNewHeight: (data[29] as String?).parseDouble(),
-  );
+  /// Parse une ligne du csv de l'api tabular data.gouv (colonnes nommées).
+  factory fromCsvRow(Map<String, String?> row) {
+    final id = int.tryParse(row['geo_id_wmo'] ?? '');
+    final dateString = row['validity_time'] ?? row['insert_time'];
+    final date = dateString == null ? null : DateTime.tryParse(dateString);
+    if (id == null || date == null) {
+      throw FormatException('Données manquantes', row.toString());
+    }
+
+    return DataStation(
+      id: id,
+      date: date,
+      temperature: row['t'].parseDouble(addValue: kelvin),
+      temperatureMin24: row['tn24'].parseDouble(addValue: kelvin),
+      temperatureMax24: row['tx24'].parseDouble(addValue: kelvin),
+      temperatureSnow: row['t_neige'].parseDouble(addValue: kelvin),
+      speedWind: row['ff'].parseDouble(),
+      directionWind: row['dd'].parseDouble(),
+      snowHeight: row['ht_neige'].parseDouble(),
+      snowNewHeight: row['ssfrai'].parseDouble(),
+    );
+  }
 
   final DateTime date;
   final int id;

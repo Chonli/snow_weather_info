@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer' show log;
 
-import 'package:archive/archive.dart';
 import 'package:csv/csv.dart';
 import 'package:http/http.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -17,15 +16,13 @@ StationDataApi stationDataApi(Ref ref) {
   return StationDataApi(client);
 }
 
-// new link data https://www.data.gouv.fr/api/1/datasets/r/2fc62fab-7379-4bb1-afca-7c52c35d6636
-
 class StationDataApi {
   const new(this.client);
 
   final Client client;
 
   static const stationDataUrl =
-      'https://www.data.gouv.fr/api/1/datasets/r/2fc62fab-7379-4bb1-afca-7c52c35d6636';
+      'https://tabular-api.data.gouv.fr/api/resources/1e4c56ff-dce5-4db7-b013-29ecbce16e2c/data/csv/';
 
   Future<List<DataStation>> getStationDatas({
     int maxDaysFetch = 7,
@@ -34,13 +31,11 @@ class StationDataApi {
     final response = await client.get(Uri.parse(stationDataUrl));
 
     if (response.statusCode == 200) {
-      // Unzip .gz to extract csv
-      final decompressed = const GZipDecoder().decodeBytes(response.bodyBytes);
-      final csvStr = utf8.decode(decompressed);
+      final csvStr = utf8.decode(response.bodyBytes);
       final datas = await csvStr.decodeStationData();
       // limit row at maxDaysFetch
       final now = currentDate ?? DateTime.now();
-      final minDate = now.subtract(Duration(days: maxDaysFetch));
+      final minDate = now.subtract(const Duration(days: 30));
       datas.removeWhere((data) => data.date.isBefore(minDate));
 
       return datas;
@@ -52,14 +47,12 @@ class StationDataApi {
 }
 
 extension _DataStationStringExtension on String {
+  static const _requiredColumns = ['geo_id_wmo', 'validity_time'];
+
   Future<List<DataStation>> decodeStationData() async {
     late final List<List<dynamic>> cvsResult;
     try {
-      final myCodec = Csv(
-        fieldDelimiter: ';',
-        lineDelimiter: '\n',
-        quoteMode: QuoteMode.strings,
-      );
+      final myCodec = Csv(lineDelimiter: '\n', quoteMode: QuoteMode.strings);
 
       cvsResult = myCodec.decode(this);
     } on Exception catch (e) {
@@ -69,13 +62,26 @@ extension _DataStationStringExtension on String {
     }
 
     if (cvsResult.length > 1) {
-      if (cvsResult[0].length >= 34) {
-        // delete header line
-        cvsResult.removeAt(0);
+      // map column names to indexes, the api can reorder columns
+      final header = cvsResult
+          .removeAt(0)
+          .map((column) => column?.toString() ?? '')
+          .toList();
+      if (_requiredColumns.every(header.contains)) {
+        final indexes = {
+          for (var i = 0; i < header.length; i++)
+            if (header[i].isNotEmpty) header[i]: i,
+        };
         final listData = <DataStation>[];
         for (final line in cvsResult) {
           try {
-            listData.add(DataStation.fromList(line));
+            final row = indexes.map(
+              (name, index) => MapEntry(
+                name,
+                index < line.length ? line[index]?.toString() : null,
+              ),
+            );
+            listData.add(DataStation.fromCsvRow(row));
           } on Exception catch (e) {
             log('Parse csv line error: $e');
           }
