@@ -55,7 +55,7 @@ class _BeraTokenHeader extends _$BeraTokenHeader {
 class _PdfController extends _$PdfController {
   @override
   Future<PdfController?> build(int beraNumber) async {
-    final client = ref.watch(apiClientProvider);
+    final client = ref.watch(apiClientProvider).client;
     final headers = ref.watch(_beraTokenHeaderProvider);
     if (headers.isEmpty) {
       await ref.read(_beraTokenHeaderProvider.notifier).updateHeader();

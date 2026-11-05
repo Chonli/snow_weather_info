@@ -1,9 +1,8 @@
-import 'dart:developer' show log;
-
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:snow_weather_info/data/repositories/data_station_cache.dart';
 import 'package:snow_weather_info/data/repositories/station_piemont.dart';
 import 'package:snow_weather_info/data/sources/api/station_piemont_data_api.dart';
-import 'package:snow_weather_info/data/sources/data/station_data_local_data.dart';
+import 'package:snow_weather_info/data/sources/data/data_station_cache.dart';
 import 'package:snow_weather_info/extensions/stations_data.dart';
 import 'package:snow_weather_info/model/data_station.dart';
 
@@ -13,99 +12,79 @@ part 'station_piemont_data.g.dart';
 StationPiemontDataRepository stationPiemontDataRepository(Ref ref) {
   final api = ref.watch(stationPiemontDataApiProvider);
   final stationRepo = ref.watch(stationPiemontRepositoryProvider);
-  final localData = ref.watch(stationDataLocalDataProvider);
-  return StationPiemontDataRepository(api, stationRepo, localData);
+  final cache = ref.watch(piemontDataStationCacheProvider);
+
+  return StationPiemontDataRepository(api, stationRepo, cache);
 }
 
 class StationPiemontDataRepository {
-  const new(
-    this.stationPiemontDataApi,
-    this.stationPiemontRepo,
-    this.localData,
-  );
+  const new(this.stationPiemontDataApi, this.stationPiemontRepo, this.cache);
 
   final StationPiemontDataApi stationPiemontDataApi;
   final StationPiemontRepository stationPiemontRepo;
-  final StationDataLocalDataContainer localData;
+  final DataStationCache cache;
 
   static const maxDaysFetch = 10;
 
-  /// Piemonte data is published hourly; we only keep one measurement every
-  /// [dataIntervalHours] hours to reduce stored/displayed data.
+  /// Les données Piemonte sont publiées chaque heure ; on ne garde qu'une
+  /// mesure toutes les [dataIntervalHours] heures pour limiter les données
+  /// stockées/affichées.
   static const dataIntervalHours = 6;
 
-  FutureOr<List<DataStation>> getDataStation({DateTime? currentDate}) async {
-    log('Fetching Piemonte data (repository)');
-    final now = currentDate ?? DateTime.now();
+  /// Fenêtre de remontée maximale en cas de trou de synchronisation.
+  static const _resyncAfter = Duration(hours: 5);
 
-    // Try fetch per station using the station repository list
+  Future<List<DataStation>> getDataStation({DateTime? currentDate}) async {
+    final now = currentDate ?? DateTime.now();
+    final windowStart = now.subtract(const Duration(days: maxDaysFetch));
+
     final stations = await stationPiemontRepo.getStations(currentDate: now);
     final stationCodes = stations.map((s) => s.id).toList();
 
-    // Compute days to fetch based on lastUpdatePiemont in local data.
-    final last = localData.lastUpdatePiemont.read();
-    final daysSinceLast =
-        last.isBefore(now.subtract(const Duration(days: maxDaysFetch)))
-        ? maxDaysFetch
-        : now.difference(last).inDays;
-
-    final effectiveFetchDays = daysSinceLast <= 0
-        ? 1
-        : (daysSinceLast > maxDaysFetch ? maxDaysFetch : daysSinceLast);
-
-    final fetched = await stationPiemontDataApi.getStationDatas(
-      currentDate: now,
-      stationCodes: stationCodes,
-      maxDaysFetch: effectiveFetchDays,
-    );
-
-    // Keep only one measurement per station every [dataIntervalHours] hours.
-    final results = fetched.onePerSlot(intervalHours: dataIntervalHours);
-
-    // Merge results with cached local data (dedupe by id+date)
-    final cachedDataStations = localData.allDataPiemontStations.read();
-    if (cachedDataStations.isEmpty) {
-      // no cache, save results directly
-      await localData.allDataPiemontStations.save(results);
-      await localData.lastUpdatePiemont.save(now);
-      return results;
+    // Delta : pour chaque station, reprendre à sa dernière mesure connue
+    // (moins une marge de sécurité), dans la limite de la fenêtre.
+    final lastDates = await cache.lastDatePerStation();
+    final dateFromPerStation = <String, DateTime>{};
+    final staleIds = <String>[];
+    for (final code in stationCodes) {
+      final last = lastDates[code];
+      if (last == null || now.difference(last) >= _resyncAfter) {
+        staleIds.add(code);
+        continue;
+      }
+      dateFromPerStation[code] = last.subtract(const Duration(hours: 1));
     }
 
-    if (results.isNotEmpty) {
-      final Map<String, DataStation> mergedMap = {};
-
-      String keyOf(DataStation d) => '${d.id}::${d.date.toIso8601String()}';
-
-      for (final c in cachedDataStations) {
-        mergedMap[keyOf(c)] = c;
-      }
-      for (final r in results) {
-        // prefer fetched value (overwrite cached)
-        mergedMap[keyOf(r)] = r;
-      }
-
-      final merged = mergedMap.values.toList().onePerSlot(
-        intervalHours: dataIntervalHours,
+    // Stations sans cache ou en retard : fenêtre complète, rafraîchies en
+    // priorité ; stations à jour : delta uniquement.
+    final fetched = <DataStation>[];
+    if (staleIds.isNotEmpty) {
+      fetched.addAll(
+        await stationPiemontDataApi.getStationDatas(
+          currentDate: now,
+          stationCodes: staleIds,
+        ),
       );
-
-      // prune very old entries beyond the global maxDaysFetch window to avoid unbounded growth
-      final minDate = now.subtract(const Duration(days: maxDaysFetch));
-      merged.removeWhere((d) => d.date.isBefore(minDate));
-
-      await localData.allDataPiemontStations.save(merged);
-      await localData.lastUpdatePiemont.save(now);
-
-      return merged;
+    }
+    if (dateFromPerStation.isNotEmpty) {
+      fetched.addAll(
+        await stationPiemontDataApi.getStationDatas(
+          currentDate: now,
+          stationCodes: dateFromPerStation.keys.toList(),
+          dateFromPerStation: dateFromPerStation,
+        ),
+      );
     }
 
-    // fallback to cache (if no fresh results)
-    final minDate = now.subtract(const Duration(days: maxDaysFetch));
-    final cached = cachedDataStations
-        .onePerSlot(intervalHours: dataIntervalHours)
-        .where((data) => !data.date.isBefore(minDate))
-        .toList();
-    await localData.allDataPiemontStations.save(cached);
+    if (fetched.isNotEmpty) {
+      await cache.merge(
+        fetched.onePerSlot(intervalHours: dataIntervalHours),
+        pruneBefore: windowStart,
+      );
+      await cache.saveMetadata(cache.metadata.copyWith(lastSync: now));
+    }
 
-    return cached;
+    final cached = await cache.read(from: windowStart);
+    return cached.onePerSlot(intervalHours: dataIntervalHours);
   }
 }

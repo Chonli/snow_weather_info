@@ -23,7 +23,7 @@ Future<void> main() async {
     ProviderScope(
       overrides: [
         sharedPreferencesProvider.overrideWithValue(prefs),
-        dataBaseProvider.overrideWith((_) => dataBase),
+        databaseProvider.overrideWith((_) => dataBase),
       ],
       child: const MyApp(),
     ),

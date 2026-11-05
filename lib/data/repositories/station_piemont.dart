@@ -1,6 +1,5 @@
-import 'dart:developer' show log;
-
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:snow_weather_info/core/cached_list.dart';
 import 'package:snow_weather_info/data/sources/api/station_piemont_api.dart';
 import 'package:snow_weather_info/data/sources/data/station_piemont_local_data.dart';
 import 'package:snow_weather_info/model/station.dart';
@@ -16,30 +15,20 @@ StationPiemontRepository stationPiemontRepository(Ref ref) {
 }
 
 class StationPiemontRepository {
-  const new(this.stationPiemontApi, this.localData);
+  new(this.stationPiemontApi, this.localData)
+    : _cache = CachedList<StationPiemont>(
+        localData: localData.allStations,
+        maxAge: const Duration(days: 15),
+      );
 
   final StationPiemontApi stationPiemontApi;
   final StationPiemontLocalDataContainer localData;
+  final CachedList<StationPiemont> _cache;
 
-  static const maxDaysBeforeUpdate = 15;
-
-  Future<List<StationPiemont>> getStations({DateTime? currentDate}) async {
-    final cachedDataStations = localData.allStations.read();
-    final lastUpdate = localData.lastUpdate.read();
-    final now = currentDate ?? DateTime.now();
-
-    if (cachedDataStations.isEmpty ||
-        lastUpdate.isBefore(
-          now.subtract(const Duration(days: maxDaysBeforeUpdate)),
-        )) {
-      log('Update station if cache empty or too old (15 days)');
-      final remoteDataStations = await stationPiemontApi.getStations();
-      await localData.allStations.save(remoteDataStations);
-      await localData.lastUpdate.save(now);
-
-      return remoteDataStations;
-    }
-
-    return cachedDataStations;
+  Future<List<StationPiemont>> getStations({DateTime? currentDate}) {
+    return _cache.refresh(
+      fetch: (etag) => stationPiemontApi.getStations(etag: etag),
+      now: currentDate,
+    );
   }
 }

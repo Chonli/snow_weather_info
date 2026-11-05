@@ -36,7 +36,7 @@ class _PdfController extends _$PdfController {
       url = avalancheBulletinPdf.pdfPath;
     }
 
-    final client = ref.watch(apiClientProvider);
+    final client = ref.watch(apiClientProvider).client;
     Response response = await client.get(Uri.parse(url));
 
     if (urlFallback != null && response.statusCode >= 300) {

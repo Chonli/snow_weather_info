@@ -1,6 +1,6 @@
 import 'package:snow_weather_info/model/data_station.dart';
 
-extension StationDataListExtension on List<DataStation> {
+extension StationDataListExtension on Iterable<DataStation> {
   /// Keeps only one measurement per station and per [intervalHours]-hour slot,
   /// preferring the measurement closest to the slot start (so with full hourly
   /// data this yields measurements at 00:00, 04:00, 08:00, …).
@@ -40,10 +40,7 @@ extension StationDataMapExtension on Map<String, List<DataStation>> {
     if (data == null || data.isEmpty) return 0;
 
     return data
-            .firstWhere(
-              (d) => d.snowHeight != null,
-              orElse: () => data.first,
-            )
+            .firstWhere((d) => d.snowHeight != null, orElse: () => data.first)
             .snowHeight ??
         0.0;
   }

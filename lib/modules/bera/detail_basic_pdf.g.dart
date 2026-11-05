@@ -50,7 +50,7 @@ final class _PdfControllerProvider
   }
 }
 
-String _$_pdfControllerHash() => r'cf8ad892f1362b8e811d8b3054cd189bded086ac';
+String _$_pdfControllerHash() => r'b89647d2fae34381eee11908a766713153ae1757';
 
 final class _PdfControllerFamily extends $Family
     with

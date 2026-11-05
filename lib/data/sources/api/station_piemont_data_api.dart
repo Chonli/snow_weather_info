@@ -1,11 +1,11 @@
 // ignore_for_file: prefer_int_literals
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer' show log;
 import 'dart:math' show max;
 
 import 'package:flutter/foundation.dart' show compute;
-import 'package:http/http.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/data/sources/api/api_client.dart';
 import 'package:snow_weather_info/extensions/date_time.dart';
@@ -63,95 +63,118 @@ List<DataStation> _parseJsonListIsolate(List<dynamic>? decoded) {
 }
 
 class StationPiemontDataApi {
-  const new(this.client);
+  const new(this.apiClient);
 
-  final Client client;
+  final ApiClient apiClient;
 
   // Piemonte data endpoint
   static const stationPiemontDataUrl =
       'https://utility.arpa.piemonte.it/api_realtime/data_pie';
 
-  /// Fetch station data for the last [maxDaysFetch] days.
-  /// If [stationCodes] is provided, fetches data per station (uses station_code param).
-  /// Handles pagination (page, page_size) until no more pages.
+  static const _maxConcurrentRequests = 6;
+
+  /// Récupère les mesures des stations [stationCodes] depuis la date la plus
+  /// ancienne nécessaire. [dateFromPerStation] permet de n'exiger qu'un delta
+  /// par station (dernière mesure connue en cache) : les stations partageant
+  /// la même date de début sont regroupées dans une seule requête paginée.
   Future<List<DataStation>> getStationDatas({
     DateTime? currentDate,
     List<String> stationCodes = const [],
+    Map<String, DateTime> dateFromPerStation = const {},
     int maxDaysFetch = 10,
   }) async {
-    final results = <DataStation>[];
+    if (stationCodes.isEmpty) return [];
 
     final now = currentDate ?? DateTime.now();
-    final dateFrom = now
-        .subtract(Duration(days: maxDaysFetch))
-        .toApiDateParam();
+    final globalMinDate = now.subtract(Duration(days: maxDaysFetch));
 
+    // Regrouper les stations par date_from arrondi à l'heure (clés identiques
+    // -> une seule requête multi-stations).
+    final batches = <DateTime, List<String>>{};
     for (final code in stationCodes) {
-      results.addAll(await _fetchForStation(code, dateFrom));
+      final last = dateFromPerStation[code];
+      var from = last == null || last.isBefore(globalMinDate)
+          ? globalMinDate
+          : last;
+      if (from.isAfter(now)) from = now;
+      final key = DateTime(from.year, from.month, from.day, from.hour);
+      batches.putIfAbsent(key, () => []).add(code);
     }
+
+    final results = <DataStation>[];
+    final semaphore = _Semaphore(_maxConcurrentRequests);
+    await Future.wait(
+      batches.entries.map((batch) async {
+        await semaphore.acquire();
+        try {
+          results.addAll(
+            await _fetchBatch(
+              stationCodes: batch.value,
+              dateFrom: batch.key.toApiDateParam(),
+            ),
+          );
+        } finally {
+          semaphore.release();
+        }
+      }),
+    );
 
     return results;
   }
 
-  Future<List<DataStation>> _fetchForStation(
-    String stationCode,
-    String dateFrom,
-  ) async {
+  /// L'API accepte `station_code` séparé par des virgules ; le résultat est
+  /// filtré côté client sur les codes demandés.
+  Future<List<DataStation>> _fetchBatch({
+    required List<String> stationCodes,
+    required String dateFrom,
+  }) async {
+    final results = <DataStation>[];
+    final wanted = stationCodes.toSet();
     int page = 1;
     const pageSize = 1000;
-    final results = <DataStation>[];
 
     while (true) {
       final params = <String, String>{
         'date_from': dateFrom,
         'page': page.toString(),
         'page_size': pageSize.toString(),
-        'station_code': stationCode,
+        'station_code': stationCodes.join(','),
       };
 
       final uri = Uri.parse(stationPiemontDataUrl)
           .replace(queryParameters: params);
-      final response = await client.get(uri);
+      final response = await apiClient.client.get(uri);
 
       if (response.statusCode != 200) {
         log(
-          'Erreur download piemont data (code ${response.statusCode}) for station $stationCode page $page',
+          'Erreur download piemont data (code ${response.statusCode}) '
+          'for stations ${stationCodes.join(',')} page $page',
         );
         break;
       }
 
       try {
         final decodedBody = json.decode(utf8.decode(response.bodyBytes));
-        List<dynamic>? dataList;
-        if (decodedBody is Map<String, dynamic> &&
-            decodedBody['data'] is List) {
-          dataList = decodedBody['data'] as List<dynamic>;
-        } else {
+        if (decodedBody is! Map<String, dynamic> ||
+            decodedBody['data'] is! List) {
           break;
         }
+        final dataList = decodedBody['data'] as List<dynamic>;
+        if (dataList.isEmpty) break;
 
-        if (dataList.isNotEmpty) {
-          final parsed = await compute<List<dynamic>?, List<DataStation>>(
-            _parseJsonListIsolate,
-            dataList,
-          );
-          if (parsed.isEmpty) {
-            break;
-          }
+        final parsed = await compute<List<dynamic>?, List<DataStation>>(
+          _parseJsonListIsolate,
+          dataList,
+        );
+        results.addAll(parsed.where((d) => wanted.contains(d.id)));
 
-          results.addAll(parsed);
+        if (parsed.length < pageSize) break;
+        page++;
 
-          // Manage pagination
-          if (parsed.length < pageSize) {
-            break;
-          }
-          page++;
-
-          if (page >
-              (int.tryParse(decodedBody['total_pages']?.toString() ?? '0') ??
-                  0)) {
-            break;
-          }
+        if (page >
+            (int.tryParse(decodedBody['total_pages']?.toString() ?? '0') ??
+                0)) {
+          break;
         }
       } on Exception catch (_) {
         break;
@@ -159,5 +182,32 @@ class StationPiemontDataApi {
     }
 
     return results;
+  }
+}
+
+/// Limiteur de requêtes HTTP simultanées.
+class _Semaphore {
+  new(this._max);
+
+  final int _max;
+  int _active = 0;
+  final _waiters = <Completer<void>>[];
+
+  Future<void> acquire() async {
+    if (_active < _max) {
+      _active++;
+      return;
+    }
+    final completer = Completer<void>();
+    _waiters.add(completer);
+    await completer.future;
+  }
+
+  void release() {
+    if (_waiters.isNotEmpty) {
+      _waiters.removeAt(0).complete();
+    } else {
+      _active--;
+    }
   }
 }

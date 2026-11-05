@@ -11,15 +11,15 @@ Object _defaultSerialize<T>(T value) => value as Object;
 T _defaultDeserialize<T>(Object value) => value as T;
 
 @Riverpod(keepAlive: true)
-Database dataBase(Ref ref) {
+Database database(Ref ref) {
   throw Exception('Not initialize database!');
 }
 
 abstract class LocalDataContainer {
-  const new(this.dataBase);
+  const new(this.database);
 
   @protected
-  final Database dataBase;
+  final Database database;
 
   @protected
   String get name;
@@ -32,11 +32,12 @@ abstract class LocalDataContainer {
     AsyncCallback? onSaved,
   }) {
     return LocalData<T>(
-      dataBase,
+      database,
       StoreRef.main().record('$name$key'),
       serialize,
       deserialize,
       defaultValue,
+      storeKey: '$name$key',
     );
   }
 }
@@ -47,15 +48,23 @@ class LocalData<T> {
     this._record,
     Serializer<T>? serialize,
     Deserializer<T>? deserialize,
-    this.defaultValue,
-  ) : _serialize = serialize ?? _defaultSerialize,
-      _deserialize = deserialize ?? _defaultDeserialize;
+    this.defaultValue, {
+    String storeKey = '',
+  }) : _serialize = serialize ?? _defaultSerialize,
+       _deserialize = deserialize ?? _defaultDeserialize,
+       storeKey = storeKey.isNotEmpty ? storeKey : _record.toString();
 
   final Database _db;
   final RecordRef _record;
   final Serializer<T> _serialize;
   final Deserializer<T> _deserialize;
   final T defaultValue;
+
+  /// Base de données sous-jacente (accès pour les caches avancés).
+  Database get dataBase => _db;
+
+  /// Clé sembast complète de l'enregistrement (cache de nom + clé).
+  final String storeKey;
 
   T read() {
     final data = _record.getSync(_db);

@@ -55,4 +55,4 @@ final class StationDataRepositoryProvider
 }
 
 String _$stationDataRepositoryHash() =>
-    r'9dc8fc3835023534d3a5c88351ff5fa4ec41f832';
+    r'68825fc4c0731d7ddcebf7a70aa240330a7903fc';

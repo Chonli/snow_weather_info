@@ -9,25 +9,25 @@ part of 'local_database.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(dataBase)
-final dataBaseProvider = DataBaseProvider._();
+@ProviderFor(database)
+final databaseProvider = DatabaseProvider._();
 
-final class DataBaseProvider
+final class DatabaseProvider
     extends $FunctionalProvider<Database, Database, Database>
     with $Provider<Database> {
-  DataBaseProvider._()
+  DatabaseProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'dataBaseProvider',
+        name: r'databaseProvider',
         isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$dataBaseHash();
+  String debugGetCreateSourceHash() => _$databaseHash();
 
   @$internal
   @override
@@ -36,7 +36,7 @@ final class DataBaseProvider
 
   @override
   Database create(Ref ref) {
-    return dataBase(ref);
+    return database(ref);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -48,4 +48,4 @@ final class DataBaseProvider
   }
 }
 
-String _$dataBaseHash() => r'68a9b2cc146d8ad0dfd705d69709df0e82d9fa7b';
+String _$databaseHash() => r'7dd2e55b06c57e3742582356d6c2974b6c4dc182';

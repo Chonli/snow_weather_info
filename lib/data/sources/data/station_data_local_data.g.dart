@@ -57,4 +57,4 @@ final class StationDataLocalDataProvider
 }
 
 String _$stationDataLocalDataHash() =>
-    r'95731e0f518c389a54ccc1d8356b2bb1c876e188';
+    r'ab0ef710c431c0561f707858e8ed2d802177f17a';

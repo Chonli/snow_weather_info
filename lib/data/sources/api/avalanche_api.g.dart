@@ -45,4 +45,4 @@ final class ApiAvalancheProvider
   }
 }
 
-String _$apiAvalancheHash() => r'f73a00238dc1c31bbf067d674ac1e551a62debf1';
+String _$apiAvalancheHash() => r'7766f245521128162c5a8a1cf5f608f078e6a5da';

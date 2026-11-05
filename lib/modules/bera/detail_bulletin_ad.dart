@@ -14,7 +14,7 @@ class _PdfController extends _$PdfController {
   Future<PdfController?> build(
     AvalancheBulletinAndorre avalancheBulletin,
   ) async {
-    final client = ref.watch(apiClientProvider);
+    final client = ref.watch(apiClientProvider).client;
     final responsehttp = await client.get(Uri.parse(avalancheBulletin.url));
 
     if (responsehttp.statusCode >= 300) {

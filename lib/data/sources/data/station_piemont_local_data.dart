@@ -7,11 +7,11 @@ part 'station_piemont_local_data.g.dart';
 
 @Riverpod(keepAlive: true)
 StationPiemontLocalDataContainer stationPiemontLocalData(Ref ref) {
-  return StationPiemontLocalDataContainer(ref.watch(dataBaseProvider));
+  return StationPiemontLocalDataContainer(ref.watch(databaseProvider));
 }
 
 class StationPiemontLocalDataContainer extends LocalDataContainer {
-  const new(super.dataBase);
+  const new(super.database);
 
   @override
   String get name => 'station_piemont_box';

@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:snow_weather_info/data/sources/api/api_client.dart';
 import 'package:snow_weather_info/data/sources/api/station_piemont_data_api.dart';
 import 'package:snow_weather_info/extensions/double.dart';
 
@@ -20,11 +21,10 @@ void main() {
       final responseBody = getTestFile('response_1776859310379.json');
 
       // Mock any GET request to return the test JSON
-      when(
-        () => client.get(any()),
-      ).thenAnswer((_) async => Response.bytes(responseBody, 200));
+      when(() => client.get(any()))
+          .thenAnswer((_) async => Response.bytes(responseBody, 200));
 
-      final api = StationPiemontDataApi(client);
+      final api = StationPiemontDataApi(ApiClient(client));
 
       final datas = await api.getStationDatas(
         currentDate: DateTime(2026, 4, 20),

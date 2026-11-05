@@ -56,4 +56,4 @@ final class StationPiemontDataRepositoryProvider
 }
 
 String _$stationPiemontDataRepositoryHash() =>
-    r'10d3dd3d944cf302c477bcd6b2249fce2f37092e';
+    r'5f53203128aa49ca3a143da3995a64b7740af885';
