@@ -76,7 +76,8 @@ class StationPiemontDataApi {
   /// Récupère les mesures des stations [stationCodes] depuis la date la plus
   /// ancienne nécessaire. [dateFromPerStation] permet de n'exiger qu'un delta
   /// par station (dernière mesure connue en cache) : les stations partageant
-  /// la même date de début sont regroupées dans une seule requête paginée.
+  /// la même date de début sont regroupées en un même lot, paginé station
+  /// par station.
   Future<List<DataStation>> getStationDatas({
     DateTime? currentDate,
     List<String> stationCodes = const [],
@@ -122,62 +123,74 @@ class StationPiemontDataApi {
     return results;
   }
 
-  /// L'API accepte `station_code` séparé par des virgules ; le résultat est
-  /// filtré côté client sur les codes demandés.
+  /// L'API ne renvoie des données que pour un `station_code` unique par
+  /// requête : les listes (séparées par des virgules ou en paramètres
+  /// répétés) sont ignorées ou limitées à la dernière valeur. Une requête
+  /// paginée est donc émise par station.
   Future<List<DataStation>> _fetchBatch({
     required List<String> stationCodes,
     required String dateFrom,
   }) async {
     final results = <DataStation>[];
-    final wanted = stationCodes.toSet();
-    int page = 1;
     const pageSize = 1000;
 
-    while (true) {
-      final params = <String, String>{
-        'date_from': dateFrom,
-        'page': page.toString(),
-        'page_size': pageSize.toString(),
-        'station_code': stationCodes.join(','),
-      };
+    for (final stationCode in stationCodes) {
+      int page = 1;
 
-      final uri = Uri.parse(stationPiemontDataUrl)
-          .replace(queryParameters: params);
-      final response = await apiClient.client.get(uri);
+      while (true) {
+        final params = <String, String>{
+          'date_from': dateFrom,
+          'page': page.toString(),
+          'page_size': pageSize.toString(),
+          'station_code': stationCode,
+        };
 
-      if (response.statusCode != 200) {
-        log(
-          'Erreur download piemont data (code ${response.statusCode}) '
-          'for stations ${stationCodes.join(',')} page $page',
-        );
-        break;
-      }
+        final uri = Uri.parse(stationPiemontDataUrl)
+            .replace(queryParameters: params);
+        final response = await apiClient.client.get(uri);
 
-      try {
-        final decodedBody = json.decode(utf8.decode(response.bodyBytes));
-        if (decodedBody is! Map<String, dynamic> ||
-            decodedBody['data'] is! List) {
+        if (response.statusCode != 200) {
+          log(
+            'Erreur download piemont data (code ${response.statusCode}) '
+            'for station $stationCode page $page',
+          );
           break;
         }
-        final dataList = decodedBody['data'] as List<dynamic>;
-        if (dataList.isEmpty) break;
 
-        final parsed = await compute<List<dynamic>?, List<DataStation>>(
-          _parseJsonListIsolate,
-          dataList,
-        );
-        results.addAll(parsed.where((d) => wanted.contains(d.id)));
+        try {
+          final decodedBody = json.decode(utf8.decode(response.bodyBytes));
+          if (decodedBody is! Map<String, dynamic> ||
+              decodedBody['data'] is! List) {
+            log(
+              'Erreur download piemont data (data absente) '
+              'for station $stationCode page $page',
+            );
+            break;
+          }
+          final dataList = decodedBody['data'] as List<dynamic>;
+          if (dataList.isEmpty) break;
 
-        if (parsed.length < pageSize) break;
-        page++;
+          final parsed = await compute<List<dynamic>?, List<DataStation>>(
+            _parseJsonListIsolate,
+            dataList,
+          );
+          results.addAll(parsed);
 
-        if (page >
-            (int.tryParse(decodedBody['total_pages']?.toString() ?? '0') ??
-                0)) {
+          if (parsed.length < pageSize) break;
+          page++;
+
+          if (page >
+              (int.tryParse(decodedBody['total_pages']?.toString() ?? '0') ??
+                  0)) {
+            break;
+          }
+        } on Exception catch (error) {
+          log(
+            'Erreur download piemont data (exception $error) '
+            'for station $stationCode page $page',
+          );
           break;
         }
-      } on Exception catch (_) {
-        break;
       }
     }
 
