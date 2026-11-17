@@ -3,7 +3,6 @@ import 'dart:developer' show log;
 
 import 'package:flutter/services.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:snow_weather_info/core/cached_list.dart';
 import 'package:snow_weather_info/data/sources/api/api_client.dart';
 import 'package:snow_weather_info/model/ski_resort.dart';
 
@@ -30,11 +29,10 @@ class SkiResortApi {
     return _decodeJson(jsonString);
   }
 
-  Future<RemoteResult<List<SkiResort>>?> getSkiResorts({String? etag}) async {
+  Future<List<SkiResort>?> getSkiResorts() async {
     try {
-      return await apiClient.getConditional<List<SkiResort>>(
+      return await apiClient.get<List<SkiResort>>(
         Uri.parse(_url),
-        etag: etag,
         decode: (response) => _decodeJson(response.body),
       );
     } on Exception catch (error) {

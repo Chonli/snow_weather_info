@@ -3,7 +3,6 @@ import 'dart:developer' show log;
 
 import 'package:csv/csv.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:snow_weather_info/core/cached_list.dart';
 import 'package:snow_weather_info/data/sources/api/api_client.dart';
 import 'package:snow_weather_info/model/data_station.dart';
 
@@ -27,15 +26,13 @@ class StationDataApi {
   /// Le CSV complet (~30 jours, tous postes) n'est pas filtrable côté serveur :
   /// le delta est obtenu côté cache (écritures par mesure) et par la fraîcheur
   /// du cache dans le repository.
-  Future<RemoteResult<List<DataStation>>?> getStationDatas({
+  Future<List<DataStation>?> getStationDatas({
     int maxDaysFetch = 7,
     DateTime? currentDate,
-    String? etag,
   }) async {
     try {
-      return await apiClient.getConditional<List<DataStation>>(
+      return await apiClient.get<List<DataStation>>(
         Uri.parse(stationDataUrl),
-        etag: etag,
         decode: (response) {
           final csvStr = utf8.decode(response.bodyBytes);
           final datas = csvStr.decodeStationData();

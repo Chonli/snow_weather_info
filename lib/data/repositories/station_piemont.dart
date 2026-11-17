@@ -27,7 +27,7 @@ class StationPiemontRepository {
 
   Future<List<StationPiemont>> getStations({DateTime? currentDate}) {
     return _cache.refresh(
-      fetch: (etag) => stationPiemontApi.getStations(etag: etag),
+      fetch: stationPiemontApi.getStations,
       now: currentDate,
     );
   }

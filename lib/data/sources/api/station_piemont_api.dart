@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:developer' show log;
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:snow_weather_info/core/cached_list.dart';
 import 'package:snow_weather_info/data/sources/api/api_client.dart';
 import 'package:snow_weather_info/model/station.dart';
 
@@ -23,13 +22,10 @@ class StationPiemontApi {
   static const stationPiemontUrl =
       'https://utility.arpa.piemonte.it/api_realtime/pie_anag';
 
-  Future<RemoteResult<List<StationPiemont>>?> getStations({
-    String? etag,
-  }) async {
+  Future<List<StationPiemont>?> getStations() async {
     try {
-      return await apiClient.getConditional<List<StationPiemont>>(
+      return await apiClient.get<List<StationPiemont>>(
         Uri.parse(stationPiemontUrl),
-        etag: etag,
         decode: (response) {
           final stations = <StationPiemont>[];
           final jsonData = json.decode(response.body) as List<dynamic>;

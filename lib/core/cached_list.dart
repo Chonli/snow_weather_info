@@ -20,10 +20,9 @@ enum RefreshMode {
 }
 
 /// Liste d'entités mise en cache dans un [LocalData] (blob sembast) avec
-/// métadonnées de fraîcheur : cache si récent, ETag pour les requêtes HTTP
-/// conditionnelles, fallback en cas d'échec réseau, déduplication des appels
-/// concurrents et version incrémentée à chaque changement (pour revalider les
-/// providers dépendants).
+/// métadonnées de fraîcheur : cache si récent, fallback en cas d'échec
+/// réseau, déduplication des appels concurrents et version incrémentée à
+/// chaque changement (pour revalider les providers dépendants).
 ///
 /// Utilisé par les collections remplaçables d'un coup (stations, stations de
 /// ski) ; les mesures horaires par station utilisent [DataStationCache], une
@@ -54,12 +53,11 @@ class CachedList<T> {
   bool isStale({DateTime? now}) =>
       metadata.isStale(maxAge: _maxAge, now: now ?? DateTime.now());
 
-  /// Sert le cache ou rafraîchit depuis la source distante via [fetch], qui
-  /// reçoit l'ETag du cache pour une éventuelle requête conditionnelle.
+  /// Sert le cache ou rafraîchit depuis la source distante via [fetch].
   /// Un résultat null (échec réseau) conserve le cache ; si le cache est vide,
   /// [onError] sert de dernier recours.
   Future<List<T>> refresh({
-    required Future<RemoteResult<List<T>>?> Function(String? etag) fetch,
+    required Future<List<T>?> Function() fetch,
     RefreshMode mode = RefreshMode.ifStale,
     DateTime? now,
   }) async {
@@ -95,67 +93,35 @@ class CachedList<T> {
     }
   }
 
-  Future<List<T>> _fetch(
-    Future<RemoteResult<List<T>>?> Function(String? etag) fetch,
-  ) async {
-    RemoteResult<List<T>>? result;
+  Future<List<T>> _fetch(Future<List<T>?> Function() fetch) async {
+    List<T>? items;
     try {
-      result = await fetch(metadata.etag);
+      items = await fetch();
     } on Exception catch (e) {
       log('CachedList fetch error: $e');
     }
 
-    final now = DateTime.now();
-    switch (result) {
-      case final RemoteResult<List<T>> remote when remote.notModified:
-        await _meta.save(metadata.copyWith(lastSync: now));
-        return _items ?? cached;
-      case final RemoteResult<List<T>> remote:
-        final items = remote.items;
-        if (items != null) {
-          if (!listEquals(cached, items)) {
-            await _localData.save(items);
-            _items = items;
-            _version++;
-          }
-          await _meta.save(metadata.copyWith(lastSync: now, etag: remote.etag));
+    if (items != null) {
+      if (!listEquals(cached, items)) {
+        await _localData.save(items);
+        _items = items;
+        _version++;
+      }
+      await _meta.save(metadata.copyWith(lastSync: DateTime.now()));
 
-          return items;
-        }
-        final current = cached;
-        if (current.isNotEmpty) return current;
-        final fallback = await onError?.call();
-        if (fallback != null && fallback.isNotEmpty) {
-          await _localData.save(fallback);
-          _items = fallback;
-          _version++;
-        }
-
-        return _items ?? const [];
-      case null:
-        // erreur réseau : on garde le cache, sinon le fallback
-        final current = cached;
-        if (current.isNotEmpty) return current;
-        final fallback = await onError?.call();
-        if (fallback != null && fallback.isNotEmpty) {
-          await _localData.save(fallback);
-          _items = fallback;
-          _version++;
-        }
-
-        return _items ?? const [];
+      return items;
     }
+
+    // échec réseau : on garde le cache, sinon le fallback
+    final current = cached;
+    if (current.isNotEmpty) return current;
+    final fallback = await onError?.call();
+    if (fallback != null && fallback.isNotEmpty) {
+      await _localData.save(fallback);
+      _items = fallback;
+      _version++;
+    }
+
+    return _items ?? const [];
   }
-}
-
-/// Résultat d'un appel distant : soit de nouvelles données, soit une réponse
-/// « non modifié » (HTTP 304) vis-à-vis de l'ETag envoyé.
-class RemoteResult<T> {
-  const new(this.items, {this.etag}) : notModified = false;
-
-  const new notModified() : items = null, etag = null, notModified = true;
-
-  final T? items;
-  final String? etag;
-  final bool notModified;
 }

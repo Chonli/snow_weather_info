@@ -32,23 +32,20 @@ void main() {
   });
 
   test('cache vide : télécharge et persiste', () async {
-    final items = await cache.refresh(
-      fetch: (etag) async => const RemoteResult(['a', 'b'], etag: 'v1'),
-    );
+    final items = await cache.refresh(fetch: () async => ['a', 'b']);
 
     expect(items, ['a', 'b']);
     expect(cache.metadata.lastSync, isNotNull);
-    expect(cache.metadata.etag, 'v1');
     // persisté dans le blob
     expect(_TestContainer(db).items.read(), ['a', 'b']);
   });
 
   test('cache frais : pas de téléchargement', () async {
     var calls = 0;
-    Future<RemoteResult<List<String>>?> f(String? etag) async {
+    Future<List<String>?> f() async {
       calls++;
 
-      return const RemoteResult(['x']);
+      return ['x'];
     }
 
     await cache.refresh(fetch: f);
@@ -60,10 +57,10 @@ void main() {
 
   test('cache périmé : re-téléchargement', () async {
     var calls = 0;
-    Future<RemoteResult<List<String>>?> f(String? etag) async {
+    Future<List<String>?> f() async {
       calls++;
 
-      return RemoteResult(['x$calls']);
+      return ['x$calls'];
     }
 
     await cache.refresh(fetch: f);
@@ -76,11 +73,11 @@ void main() {
 
   test('appels concurrents : une seule fetch', () async {
     var calls = 0;
-    Future<RemoteResult<List<String>>?> f(String? etag) async {
+    Future<List<String>?> f() async {
       calls++;
       await Future<void>.delayed(const Duration(milliseconds: 20));
 
-      return const RemoteResult(['a']);
+      return ['a'];
     }
 
     final results = await Future.wait([
@@ -92,28 +89,29 @@ void main() {
     expect(results.first, results.last);
   });
 
-  test('304 : le cache est conservé et lastSync rafraîchi', () async {
+  test('données inchangées : version non incrémentée', () async {
+    await cache.refresh(fetch: () async => ['a']);
+    final version = cache.version;
+
     await cache.refresh(
-      fetch: (etag) async => const RemoteResult(['a'], etag: 'v1'),
-    );
-    final firstSync = cache.metadata.lastSync;
-
-    final items = await cache.refresh(
-      fetch: (etag) async {
-        expect(etag, 'v1');
-
-        return const RemoteResult.notModified();
-      },
+      fetch: () async => ['a'],
       now: DateTime.now().add(const Duration(days: 2)),
     );
 
-    expect(items, ['a']);
-    expect(cache.metadata.etag, 'v1');
-    expect(
-      cache.metadata.lastSync!.isAfter(firstSync!) ||
-          cache.metadata.lastSync == firstSync,
-      isTrue,
+    expect(cache.version, version);
+  });
+
+  test('données modifiées : version incrémentée', () async {
+    await cache.refresh(fetch: () async => ['a']);
+    final version = cache.version;
+
+    final items = await cache.refresh(
+      fetch: () async => ['b'],
+      now: DateTime.now().add(const Duration(days: 2)),
     );
+
+    expect(items, ['b']);
+    expect(cache.version, version + 1);
   });
 
   test('échec réseau sans cache : fallback onError', () async {
@@ -123,16 +121,16 @@ void main() {
       onError: () async => ['fallback'],
     );
 
-    final items = await cacheWithError.refresh(fetch: (etag) async => null);
+    final items = await cacheWithError.refresh(fetch: () async => null);
 
     expect(items, ['fallback']);
   });
 
-  test('échec réseau avec cache : le cache est servi', () async {
-    await cache.refresh(fetch: (etag) async => const RemoteResult(['a']));
+  test('échec réseau avec cache : le cache est conservé', () async {
+    await cache.refresh(fetch: () async => ['a']);
 
     final items = await cache.refresh(
-      fetch: (etag) async => null,
+      fetch: () async => null,
       now: DateTime.now().add(const Duration(days: 2)),
     );
 

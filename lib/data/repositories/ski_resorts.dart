@@ -28,13 +28,12 @@ class SkiResortsRepository {
 
   Future<List<SkiResort>> getSkiResorts({DateTime? currentDate}) {
     return _cache.refresh(
-      fetch: (etag) async {
-        final result = await skiResortApi.getSkiResorts(etag: etag);
-        if (result == null) return null;
+      fetch: () async {
+        final resorts = await skiResortApi.getSkiResorts();
         // un payload vide n'est jamais accepté : il écraserait le cache
-        if (!result.notModified && (result.items?.isEmpty ?? true)) return null;
+        if (resorts == null || resorts.isEmpty) return null;
 
-        return result;
+        return resorts;
       },
       now: currentDate,
     );

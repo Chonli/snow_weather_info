@@ -24,6 +24,6 @@ void main() {
     );
 
     // fenêtre fixe (30 jours avant 2026-02-01) sur un fixture fixe
-    expect(result?.items?.length, 2620);
+    expect(result?.length, 2620);
   });
 }

@@ -2,7 +2,7 @@ import 'package:sembast/sembast.dart';
 import 'package:snow_weather_info/core/local_data_metadata.dart';
 import 'package:snow_weather_info/core/local_database.dart';
 
-/// Métadonnées de synchronisation (date de dernière synchro, ETag) associées à
+/// Métadonnées de synchronisation (date de dernière synchro) associées à
 /// un [LocalData], stockées dans un enregistrement sembast séparé.
 class MetaStore {
   const new(this._db, this._key);
