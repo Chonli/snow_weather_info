@@ -1,5 +1,7 @@
 # Enable all rules by default
 include: package:very_good_analysis/analysis_options.yaml
+plugins:
+  riverpod_lint: ^3.2.0
 analyzer:
   errors:
     invalid_annotation_target: ignore

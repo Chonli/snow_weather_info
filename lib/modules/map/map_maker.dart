@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:snow_weather_info/extensions/double.dart';
 
 class MapMaker extends StatelessWidget {
