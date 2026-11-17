@@ -71,8 +71,8 @@ final class CurrentStationProvider
         retry: null,
         name: r'currentStationProvider',
         isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
+        dependencies: <ProviderOrFamily>[],
+        $allTransitiveDependencies: <ProviderOrFamily>[],
       );
 
   @override
@@ -97,7 +97,7 @@ final class CurrentStationProvider
   }
 }
 
-String _$currentStationHash() => r'cd7a891305935212586e4647e629ff20751641a8';
+String _$currentStationHash() => r'6722237b207608afe9965d8f0ff733a08f71403d';
 
 @ProviderFor(_CurrentIndex)
 final _currentIndexProvider = _CurrentIndexProvider._();

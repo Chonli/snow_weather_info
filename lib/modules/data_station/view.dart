@@ -24,7 +24,7 @@ List<DataStation> currentDataStation(Ref ref) {
   throw UnimplementedError();
 }
 
-@riverpod
+@Riverpod(dependencies: [])
 AbstractStation currentStation(Ref ref) {
   throw UnimplementedError();
 }
@@ -89,7 +89,7 @@ class DataStationView extends ConsumerWidget {
   }
 }
 
-@Dependencies([currentDataStation, _CurrentIndexData])
+@Dependencies([currentDataStation, _CurrentIndexData, currentStation])
 class _InnerView extends ConsumerWidget {
   const new();
 
@@ -168,7 +168,7 @@ class _InnerView extends ConsumerWidget {
   }
 }
 
-@Dependencies([currentDataStation])
+@Dependencies([currentDataStation, currentStation])
 class _Body extends StatelessWidget {
   const new();
 
@@ -192,6 +192,7 @@ class _Body extends StatelessWidget {
   }
 }
 
+@Dependencies([currentStation])
 class _Footer extends ConsumerWidget {
   const new();
 
