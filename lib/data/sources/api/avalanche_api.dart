@@ -12,7 +12,7 @@ Future<AtomFeed?> apiAvalanche(Ref ref) async {
   AtomFeed? feed;
 
   try {
-    final client = ref.watch(apiClientProvider);
+    final client = ref.watch(apiClientProvider).client;
     final response = await client.get(
       Uri.parse('http://www.data-avalanche.org/feed'),
     );

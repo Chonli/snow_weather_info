@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:pdfx/pdfx.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/data/sources/api/api_client.dart';
@@ -55,7 +55,7 @@ class _BeraTokenHeader extends _$BeraTokenHeader {
 class _PdfController extends _$PdfController {
   @override
   Future<PdfController?> build(int beraNumber) async {
-    final client = ref.watch(apiClientProvider);
+    final client = ref.watch(apiClientProvider).client;
     final headers = ref.watch(_beraTokenHeaderProvider);
     if (headers.isEmpty) {
       await ref.read(_beraTokenHeaderProvider.notifier).updateHeader();

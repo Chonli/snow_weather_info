@@ -1,8 +1,7 @@
-import 'dart:developer' show log;
-
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:snow_weather_info/data/repositories/data_station_cache.dart';
 import 'package:snow_weather_info/data/sources/api/station_data_api.dart';
-import 'package:snow_weather_info/data/sources/data/station_data_local_data.dart';
+import 'package:snow_weather_info/data/sources/data/data_station_cache.dart';
 import 'package:snow_weather_info/model/data_station.dart';
 
 part 'station_data.g.dart';
@@ -10,38 +9,46 @@ part 'station_data.g.dart';
 @Riverpod(keepAlive: true)
 StationDataRepository stationDataRepository(Ref ref) {
   final api = ref.watch(stationDataApiProvider);
-  final localData = ref.watch(stationDataLocalDataProvider);
+  final cache = ref.watch(franceDataStationCacheProvider);
 
-  return StationDataRepository(api, localData);
+  return StationDataRepository(api, cache);
 }
 
 class StationDataRepository {
-  const new(this.stationDataApi, this.localData);
+  const new(this.stationDataApi, this.cache);
 
   final StationDataApi stationDataApi;
-  final StationDataLocalDataContainer localData;
+  final DataStationCache cache;
 
   static const maxDaysFetch = 10;
 
-  FutureOr<List<DataStation>> getDataStation() async {
-    log('Fetching new data from API for last 10 days');
-    final remoteDataStations = await stationDataApi.getStationDatas(
-      maxDaysFetch: maxDaysFetch,
-    );
+  /// Le CSV source n'est pas filtrable : le cache est considéré frais pendant
+  /// [refreshInterval], puis le fichier complet est re-téléchargé (le serveur
+  /// ne supporte aucune revalidation conditionnelle). Seules les mesures
+  /// nouvelles ou modifiées sont écrites en base.
+  static const refreshInterval = Duration(hours: 3);
 
-    if (remoteDataStations.isNotEmpty) {
-      await localData.allDataStations.save(remoteDataStations);
-      await localData.lastUpdate.save(DateTime.now());
+  Future<List<DataStation>> getDataStation({DateTime? currentDate}) async {
+    final now = currentDate ?? DateTime.now();
+    final metadata = cache.metadata;
 
-      return remoteDataStations;
+    if (metadata.isStale(maxAge: refreshInterval, now: now)) {
+      final result = await stationDataApi.getStationDatas(
+        maxDaysFetch: maxDaysFetch,
+        currentDate: now,
+      );
+      if (result != null) {
+        await cache.merge(
+          result,
+          pruneBefore: now.subtract(const Duration(days: maxDaysFetch)),
+        );
+        await cache.saveMetadata(metadata.copyWith(lastSync: now));
+      }
+      // échec réseau : on garde le cache tel quel
     }
 
-    // use cache data
-    final cachedDataStations = localData.allDataStations.read();
-    final minDate = DateTime.now().subtract(const Duration(days: maxDaysFetch));
-    cachedDataStations.removeWhere((data) => data.date.isBefore(minDate));
-    await localData.allDataStations.save(cachedDataStations);
-
-    return cachedDataStations;
+    return await cache.read(
+      from: now.subtract(const Duration(days: maxDaysFetch)),
+    );
   }
 }

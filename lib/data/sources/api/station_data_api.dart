@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:developer' show log;
 
 import 'package:csv/csv.dart';
-import 'package:http/http.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/data/sources/api/api_client.dart';
 import 'package:snow_weather_info/model/data_station.dart';
@@ -17,39 +16,44 @@ StationDataApi stationDataApi(Ref ref) {
 }
 
 class StationDataApi {
-  const new(this.client);
+  const new(this.apiClient);
 
-  final Client client;
+  final ApiClient apiClient;
 
   static const stationDataUrl =
       'https://tabular-api.data.gouv.fr/api/resources/1e4c56ff-dce5-4db7-b013-29ecbce16e2c/data/csv/';
 
-  Future<List<DataStation>> getStationDatas({
+  /// Le CSV complet (~30 jours, tous postes) n'est pas filtrable côté serveur :
+  /// le delta est obtenu côté cache (écritures par mesure) et par la fraîcheur
+  /// du cache dans le repository.
+  Future<List<DataStation>?> getStationDatas({
     int maxDaysFetch = 7,
     DateTime? currentDate,
   }) async {
-    final response = await client.get(Uri.parse(stationDataUrl));
+    try {
+      return await apiClient.get<List<DataStation>>(
+        Uri.parse(stationDataUrl),
+        decode: (response) {
+          final csvStr = utf8.decode(response.bodyBytes);
+          final datas = csvStr.decodeStationData();
+          final now = currentDate ?? DateTime.now();
+          final minDate = now.subtract(const Duration(days: 30));
+          datas.removeWhere((data) => data.date.isBefore(minDate));
 
-    if (response.statusCode == 200) {
-      final csvStr = utf8.decode(response.bodyBytes);
-      final datas = await csvStr.decodeStationData();
-      // limit row at maxDaysFetch
-      final now = currentDate ?? DateTime.now();
-      final minDate = now.subtract(const Duration(days: 30));
-      datas.removeWhere((data) => data.date.isBefore(minDate));
-
-      return datas;
+          return datas;
+        },
+      );
+    } on Exception catch (e) {
+      log('Erreur download data station: $e');
+      return null;
     }
-
-    log('Erreur download data station');
-    return [];
   }
 }
 
 extension _DataStationStringExtension on String {
   static const _requiredColumns = ['geo_id_wmo', 'validity_time'];
 
-  Future<List<DataStation>> decodeStationData() async {
+  List<DataStation> decodeStationData() {
     late final List<List<dynamic>> cvsResult;
     try {
       final myCodec = Csv(lineDelimiter: '\n', quoteMode: QuoteMode.strings);

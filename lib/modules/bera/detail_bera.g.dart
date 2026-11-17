@@ -47,7 +47,7 @@ abstract class _$BeraTokenHeader extends $Notifier<Map<String, String>> {
   Map<String, String> build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<Map<String, String>, Map<String, String>>;
     final element =
         ref.element
@@ -57,7 +57,7 @@ abstract class _$BeraTokenHeader extends $Notifier<Map<String, String>> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }
 
@@ -102,7 +102,7 @@ final class _PdfControllerProvider
   }
 }
 
-String _$_pdfControllerHash() => r'2b6b0a16b60da6f7c9fd3818d5462e173a8f76db';
+String _$_pdfControllerHash() => r'a7aa65ceccc47cc3daa071005d5d5c329681efd4';
 
 final class _PdfControllerFamily extends $Family
     with
@@ -136,7 +136,7 @@ abstract class _$PdfController extends $AsyncNotifier<PdfController?> {
   FutureOr<PdfController?> build(int beraNumber);
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<AsyncValue<PdfController?>, PdfController?>;
     final element =
         ref.element
@@ -146,6 +146,6 @@ abstract class _$PdfController extends $AsyncNotifier<PdfController?> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, () => build(_$args));
+    return element.handleCreate(ref, () => build(_$args));
   }
 }

@@ -1,6 +1,5 @@
-import 'dart:developer' show log;
-
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:snow_weather_info/core/cached_list.dart';
 import 'package:snow_weather_info/data/sources/api/ski_resort.dart';
 import 'package:snow_weather_info/data/sources/data/ski_resort_local_data.dart';
 import 'package:snow_weather_info/model/ski_resort.dart';
@@ -16,34 +15,27 @@ SkiResortsRepository skiResortsRepository(Ref ref) {
 }
 
 class SkiResortsRepository {
-  const new(this.skiResortApi, this.localData);
+  new(this.skiResortApi, this.localData)
+    : _cache = CachedList<SkiResort>(
+        localData: localData.skiResorts,
+        maxAge: const Duration(days: 1),
+        onError: skiResortApi.getSkiResortsFromAsset,
+      );
 
   final SkiResortApi skiResortApi;
   final SkiResortLocalDataContainer localData;
+  final CachedList<SkiResort> _cache;
 
-  FutureOr<List<SkiResort>> getSkiResorts({DateTime? currentDate}) async {
-    final lastUpdate = localData.lastUpdate.read();
-    final now = currentDate ?? DateTime.now();
+  Future<List<SkiResort>> getSkiResorts({DateTime? currentDate}) {
+    return _cache.refresh(
+      fetch: () async {
+        final resorts = await skiResortApi.getSkiResorts();
+        // un payload vide n'est jamais accepté : il écraserait le cache
+        if (resorts == null || resorts.isEmpty) return null;
 
-    // if last update more 1 day ago
-    if (now.difference(lastUpdate) >= const Duration(days: 1)) {
-      final onlineSkiResorts = await skiResortApi.getSkiResorts();
-
-      if (onlineSkiResorts.isNotEmpty) {
-        log('donwload webcam from gist');
-        await localData.skiResorts.save(onlineSkiResorts);
-        await localData.lastUpdate.save(now);
-        return onlineSkiResorts;
-      }
-    }
-
-    // try to use cache
-    final cacheSkiResorts = localData.skiResorts.read();
-    if (cacheSkiResorts.isNotEmpty) {
-      return cacheSkiResorts;
-    }
-
-    // use asset in fallback
-    return await skiResortApi.getSkiResortsFromAsset();
+        return resorts;
+      },
+      now: currentDate,
+    );
   }
 }

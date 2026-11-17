@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:riverpod_annotation/experimental/scope.dart';
 import 'package:snow_weather_info/extensions/chart.dart';
 import 'package:snow_weather_info/extensions/double.dart';
@@ -52,38 +52,50 @@ class DataStationChart extends ConsumerWidget {
       isCurved: true,
       color: _tempColor,
     );
-    final temperatureMaxLineData = LineChartBarData(
-      spots: minTempData,
-      isCurved: true,
-      show: false,
-      dotData: const FlDotData(show: false),
-    );
-    final temperatureMinLineData = LineChartBarData(
-      spots: maxTempData,
-      isCurved: true,
-      show: false,
-      dotData: const FlDotData(show: false),
-    );
+
+    LineChartBarData? temperatureMinLineData;
+    LineChartBarData? temperatureMaxLineData;
+
+    if (minTempData.isNotEmpty) {
+      temperatureMinLineData = LineChartBarData(
+        spots: minTempData,
+        isCurved: true,
+        show: false,
+        dotData: const FlDotData(show: false),
+      );
+    }
+
+    if (maxTempData.isNotEmpty) {
+      temperatureMaxLineData = LineChartBarData(
+        spots: maxTempData,
+        isCurved: true,
+        show: false,
+        dotData: const FlDotData(show: false),
+      );
+    }
 
     return LineChartData(
       lineBarsData: [
         temperatureLineData,
-        temperatureMaxLineData,
-        temperatureMinLineData,
+        ?temperatureMaxLineData,
+        ?temperatureMinLineData,
       ],
       minX: min - _xOffset,
       maxX: max + _xOffset,
       betweenBarsData: [
-        BetweenBarsData(
-          fromIndex: 0,
-          toIndex: 1,
-          color: _tempColor.withValues(alpha: 0.5),
-        ),
-        BetweenBarsData(
-          fromIndex: 0,
-          toIndex: 2,
-          color: _tempColor.withValues(alpha: 0.5),
-        ),
+        if (temperatureMaxLineData != null &&
+            temperatureMinLineData != null) ...[
+          BetweenBarsData(
+            fromIndex: 0,
+            toIndex: 1,
+            color: _tempColor.withValues(alpha: 0.5),
+          ),
+          BetweenBarsData(
+            fromIndex: 0,
+            toIndex: 2,
+            color: _tempColor.withValues(alpha: 0.5),
+          ),
+        ],
       ],
       titlesData: FlTitlesData(
         bottomTitles: _bottomTitles(temperatureLineData),

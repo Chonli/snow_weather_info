@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class AppStickyHeaderView extends StatelessWidget {
   const new({required this.text, super.key});

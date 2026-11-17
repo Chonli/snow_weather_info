@@ -55,4 +55,4 @@ final class SkiResortLocalDataProvider
 }
 
 String _$skiResortLocalDataHash() =>
-    r'7c2b11d815cd2c828b67e15814d08ef888e7f6be';
+    r'7779fa2124fb8bb8a9c43ab42732dd473fb367d2';

@@ -24,12 +24,12 @@ class DataStationMapper extends ClassMapperBase<DataStation> {
 
   static DateTime _$date(DataStation v) => v.date;
   static const Field<DataStation, DateTime> _f$date = Field('date', _$date);
-  static int _$id(DataStation v) => v.id;
-  static const Field<DataStation, int> _f$id = Field(
+  static String _$id(DataStation v) => v.id;
+  static const Field<DataStation, String> _f$id = Field(
     'id',
     _$id,
     opt: true,
-    def: 0,
+    def: '',
   );
   static double? _$temperature(DataStation v) => v.temperature;
   static const Field<DataStation, double> _f$temperature = Field(
@@ -171,7 +171,7 @@ abstract class DataStationCopyWith<$R, $In extends DataStation, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   $R call({
     DateTime? date,
-    int? id,
+    String? id,
     double? temperature,
     double? temperatureMin24,
     double? temperatureMax24,
@@ -195,7 +195,7 @@ class _DataStationCopyWithImpl<$R, $Out>
   @override
   $R call({
     DateTime? date,
-    int? id,
+    String? id,
     Object? temperature = $none,
     Object? temperatureMin24 = $none,
     Object? temperatureMax24 = $none,

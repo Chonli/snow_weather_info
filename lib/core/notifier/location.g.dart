@@ -39,7 +39,7 @@ abstract class _$UserLocation extends $AsyncNotifier<LatLng?> {
   FutureOr<LatLng?> build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<AsyncValue<LatLng?>, LatLng?>;
     final element =
         ref.element
@@ -49,6 +49,6 @@ abstract class _$UserLocation extends $AsyncNotifier<LatLng?> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }

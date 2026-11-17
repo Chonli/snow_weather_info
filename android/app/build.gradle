@@ -1,6 +1,5 @@
 plugins {
     id "com.android.application"
-    id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
 }
 
@@ -46,10 +45,6 @@ android {
         disable.add 'InvalidPackage'
     }
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_21.toString()
-    }
-
     defaultConfig {
         applicationId "com.chonli.snow_weather_info"
         minSdkVersion 24
@@ -78,9 +73,14 @@ android {
             applicationIdSuffix '.debug'
         }
     }
-
 }
 
 flutter {
     source '../..'
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
+    }
 }

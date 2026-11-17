@@ -50,7 +50,7 @@ final class _PdfControllerProvider
   }
 }
 
-String _$_pdfControllerHash() => r'9914e6b7405e631d8faa271540cfafa0e7fe7853';
+String _$_pdfControllerHash() => r'228a1313e652b167119694f71ad052eb8d3c1c30';
 
 final class _PdfControllerFamily extends $Family
     with
@@ -84,7 +84,7 @@ abstract class _$PdfController extends $AsyncNotifier<PdfController?> {
   FutureOr<PdfController?> build(AvalancheBulletinAndorre avalancheBulletin);
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<AsyncValue<PdfController?>, PdfController?>;
     final element =
         ref.element
@@ -94,6 +94,6 @@ abstract class _$PdfController extends $AsyncNotifier<PdfController?> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, () => build(_$args));
+    return element.handleCreate(ref, () => build(_$args));
   }
 }

@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:pdfx/pdfx.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/data/sources/api/api_client.dart';
@@ -36,7 +36,7 @@ class _PdfController extends _$PdfController {
       url = avalancheBulletinPdf.pdfPath;
     }
 
-    final client = ref.watch(apiClientProvider);
+    final client = ref.watch(apiClientProvider).client;
     Response response = await client.get(Uri.parse(url));
 
     if (urlFallback != null && response.statusCode >= 300) {

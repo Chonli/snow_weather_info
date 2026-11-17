@@ -7,11 +7,11 @@ part 'station_data_local_data.g.dart';
 
 @Riverpod(keepAlive: true)
 StationDataLocalDataContainer stationDataLocalData(Ref ref) {
-  return StationDataLocalDataContainer(ref.watch(dataBaseProvider));
+  return StationDataLocalDataContainer(ref.watch(databaseProvider));
 }
 
 class StationDataLocalDataContainer extends LocalDataContainer {
-  const new(super.dataBase);
+  const new(super.database);
 
   @override
   String get name => 'station_data_box';
@@ -25,6 +25,22 @@ class StationDataLocalDataContainer extends LocalDataContainer {
 
   LocalData<List<DataStation>> get allDataStations => load(
     key: 'all_station_data',
+    serialize: (stations) => stations.map((e) => e.toJson()).toList(),
+    deserialize: (json) => (json as List<dynamic>)
+        .map((e) => DataStation.fromJson(e as String))
+        .toList(),
+    defaultValue: [],
+  );
+
+  LocalData<DateTime> get lastUpdatePiemont => load(
+    key: 'last_update_piemont',
+    serialize: (date) => date.toLocalData,
+    deserialize: (json) => DateTime.parse(json as String),
+    defaultValue: DateTime(0),
+  );
+
+  LocalData<List<DataStation>> get allDataPiemontStations => load(
+    key: 'all_piemont_station_data',
     serialize: (stations) => stations.map((e) => e.toJson()).toList(),
     deserialize: (json) => (json as List<dynamic>)
         .map((e) => DataStation.fromJson(e as String))

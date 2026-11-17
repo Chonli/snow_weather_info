@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:developer' show log;
 
 import 'package:flutter/services.dart';
-import 'package:http/http.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:snow_weather_info/data/sources/api/api_client.dart';
 import 'package:snow_weather_info/model/ski_resort.dart';
@@ -17,9 +16,12 @@ SkiResortApi skiResortApi(Ref ref) {
 }
 
 class SkiResortApi {
-  const new(this.client);
+  const new(this.apiClient);
 
-  final Client client;
+  final ApiClient apiClient;
+
+  static const _url =
+      'https://gist.githubusercontent.com/Chonli/2997953a7b222cb0b6bf30e2a06652cb/raw/webcams.json';
 
   Future<List<SkiResort>> getSkiResortsFromAsset() async {
     final jsonString = await rootBundle.loadString('assets/webcams.json');
@@ -27,23 +29,15 @@ class SkiResortApi {
     return _decodeJson(jsonString);
   }
 
-  Future<List<SkiResort>> getSkiResorts() async {
+  Future<List<SkiResort>?> getSkiResorts() async {
     try {
-      final response = await client.get(
-        Uri.parse(
-          'https://gist.githubusercontent.com/Chonli/2997953a7b222cb0b6bf30e2a06652cb/raw/webcams.json',
-        ),
+      return await apiClient.get<List<SkiResort>>(
+        Uri.parse(_url),
+        decode: (response) => _decodeJson(response.body),
       );
-
-      if (response.statusCode == 200) {
-        return _decodeJson(response.body);
-      } else {
-        log('error: donwload webcam failed ${response.statusCode}');
-        return [];
-      }
     } on Exception catch (error) {
       log('error: donwload webcam failed $error');
-      return [];
+      return null;
     }
   }
 

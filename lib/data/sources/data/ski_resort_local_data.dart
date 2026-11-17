@@ -7,11 +7,11 @@ part 'ski_resort_local_data.g.dart';
 
 @Riverpod(keepAlive: true)
 SkiResortLocalDataContainer skiResortLocalData(Ref ref) {
-  return SkiResortLocalDataContainer(ref.watch(dataBaseProvider));
+  return SkiResortLocalDataContainer(ref.watch(databaseProvider));
 }
 
 class SkiResortLocalDataContainer extends LocalDataContainer {
-  const new(super.dataBase);
+  const new(super.database);
 
   @override
   String get name => 'ski_resort_box';
